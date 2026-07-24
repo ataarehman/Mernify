@@ -1,5 +1,7 @@
 # Mernify
 
+Software Development and Digital Technology Services.
+
 Premium product-development website for Mernify.
 
 ## Stack
@@ -17,7 +19,7 @@ npm run preview
 
 ## Documentation
 
-See [`docs/README.md`](./docs/README.md). Planning is approved. Phase 1 = foundation only (no Hero until approved).
+See [`docs/README.md`](./docs/README.md).
 
 ## Brand
 
