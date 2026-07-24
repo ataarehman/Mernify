@@ -1,0 +1,103 @@
+:root {
+  /* Color — Brand Guidelines */
+  --mf-color-indigo: #4f46e5;
+  --mf-color-indigo-hover: #4338ca;
+  --mf-color-cyan: #06b6d4;
+  --mf-color-navy: #0f172a;
+  --mf-color-slate-black: #1e293b;
+  --mf-color-slate-gray: #64748b;
+  --mf-color-cloud: #f8fafc;
+  --mf-color-white: #ffffff;
+  --mf-color-success: #10b981;
+  --mf-color-warning: #f59e0b;
+  --mf-color-error: #ef4444;
+
+  /* Semantic */
+  --mf-bg-page: var(--mf-color-cloud);
+  --mf-bg-inverse: var(--mf-color-navy);
+  --mf-bg-elevated: var(--mf-color-white);
+  --mf-bg-inverse-elevated: var(--mf-color-slate-black);
+  --mf-text-primary: var(--mf-color-slate-black);
+  --mf-text-secondary: var(--mf-color-slate-gray);
+  --mf-text-on-dark: var(--mf-color-cloud);
+  --mf-text-on-dark-muted: rgba(248, 250, 252, 0.78);
+  --mf-action-primary: var(--mf-color-indigo);
+  --mf-border-default: rgba(15, 23, 42, 0.1);
+  --mf-border-on-dark: rgba(248, 250, 252, 0.12);
+  --mf-focus-ring: rgba(79, 70, 229, 0.35);
+
+  /* Gradients — use sparingly */
+  --mf-gradient-brand: linear-gradient(135deg, #4f46e5, #06b6d4);
+  --mf-gradient-dark: linear-gradient(180deg, #0f172a, #1e293b);
+
+  /* Typography */
+  --mf-font-display: 'Space Grotesk', Arial, Helvetica, sans-serif;
+  --mf-font-body: 'Inter', Arial, Helvetica, sans-serif;
+  --mf-font-size-display: clamp(2.5rem, 7vw, 4.5rem);
+  --mf-font-size-h2: clamp(1.75rem, 3.2vw, 2.5rem);
+  --mf-font-size-h3: clamp(1.25rem, 2vw, 1.75rem);
+  --mf-font-size-title: 1.25rem;
+  --mf-font-size-body: 1.0625rem;
+  --mf-font-size-body-sm: 0.9375rem;
+  --mf-font-size-label: 0.75rem;
+  --mf-weight-regular: 400;
+  --mf-weight-medium: 500;
+  --mf-weight-semibold: 600;
+  --mf-weight-bold: 700;
+
+  /* Layout */
+  --mf-container-max: 1240px;
+  --mf-container-narrow: 720px;
+  --mf-gutter: clamp(1rem, 2vw, 1.5rem);
+  --mf-page-margin: clamp(1.25rem, 4vw, 5rem);
+  --mf-header-height: 72px;
+  --mf-header-height-mobile: 64px;
+  --mf-header-offset: calc(var(--mf-header-height) + 12px);
+
+  /* Spacing scale */
+  --mf-space-1: 0.25rem;
+  --mf-space-2: 0.5rem;
+  --mf-space-3: 0.75rem;
+  --mf-space-4: 1rem;
+  --mf-space-5: 1.5rem;
+  --mf-space-6: 2rem;
+  --mf-space-7: 3rem;
+  --mf-space-8: 4rem;
+  --mf-space-9: 6rem;
+  --mf-space-10: 8rem;
+  --mf-space-11: 10rem;
+  --mf-space-12: 12.5rem;
+
+  --mf-section-pad-y: clamp(4.5rem, 10vw, 10rem);
+
+  /* Radius */
+  --mf-radius-sm: 8px;
+  --mf-radius-md: 12px;
+  --mf-radius-lg: 16px;
+  --mf-radius-xl: 20px;
+
+  /* Shadow */
+  --mf-shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --mf-shadow-sm: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --mf-shadow-md: 0 12px 32px rgba(15, 23, 42, 0.12);
+
+  /* Motion */
+  --mf-ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --mf-ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --mf-dur-xs: 120ms;
+  --mf-dur-sm: 200ms;
+  --mf-dur-md: 450ms;
+  --mf-dur-lg: 800ms;
+
+  /* Z-index */
+  --mf-z-header: 100;
+  --mf-z-nav-mobile: 200;
+  --mf-z-skip: 300;
+}
+
+@media (max-width: 767px) {
+  :root {
+    --mf-header-height: var(--mf-header-height-mobile);
+    --mf-header-offset: calc(var(--mf-header-height-mobile) + 12px);
+  }
+}

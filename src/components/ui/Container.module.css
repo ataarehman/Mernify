@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--mf-page-margin);
+}
+
+.default {
+  max-width: calc(var(--mf-container-max) + var(--mf-page-margin) * 2);
+}
+
+.narrow {
+  max-width: calc(var(--mf-container-narrow) + var(--mf-page-margin) * 2);
+}
+
+.wide {
+  max-width: calc(1440px + var(--mf-page-margin) * 2);
+}
+
+.bleed {
+  max-width: none;
+  padding-inline: 0;
+}

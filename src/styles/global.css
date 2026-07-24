@@ -1,0 +1,19 @@
+@import './tokens/tokens.css';
+@import './base/fonts.css';
+@import './base/reset.css';
+
+#root {
+  min-height: 100vh;
+}
+
+.mf-main {
+  min-height: 60vh;
+}
+
+.mf-main-inner {
+  padding-top: var(--mf-header-height);
+}
+
+.mf-main-home {
+  padding-top: 0;
+}

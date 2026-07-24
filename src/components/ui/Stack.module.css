@@ -1,0 +1,13 @@
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.gap1 { gap: var(--mf-space-1); }
+.gap2 { gap: var(--mf-space-2); }
+.gap3 { gap: var(--mf-space-3); }
+.gap4 { gap: var(--mf-space-4); }
+.gap5 { gap: var(--mf-space-5); }
+.gap6 { gap: var(--mf-space-6); }
+.gap7 { gap: var(--mf-space-7); }
+.gap8 { gap: var(--mf-space-8); }

@@ -1,0 +1,9 @@
+.eyebrow {
+  margin: 0;
+  font-family: var(--mf-font-body);
+  font-size: var(--mf-font-size-label);
+  font-weight: var(--mf-weight-medium);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mf-text-secondary);
+}

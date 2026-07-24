@@ -1,0 +1,25 @@
+.text {
+  font-family: var(--mf-font-body);
+  line-height: 1.65;
+}
+
+.lg {
+  font-size: 1.125rem;
+}
+
+.md {
+  font-size: var(--mf-font-size-body);
+}
+
+.sm {
+  font-size: var(--mf-font-size-body-sm);
+}
+
+.muted {
+  color: var(--mf-text-secondary);
+}
+
+:global([data-header-theme='dark']) .muted,
+:global(.dark) .muted {
+  color: var(--mf-text-on-dark-muted);
+}

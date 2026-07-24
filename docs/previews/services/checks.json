@@ -1,0 +1,31 @@
+{
+  "checks": {
+    "exists": true,
+    "title": "What we build for growing products",
+    "serviceCount": 5,
+    "buttons": [
+      {
+        "text": "Web & SaaS Development",
+        "pressed": "false"
+      },
+      {
+        "text": "Mobile App Development",
+        "pressed": "true"
+      },
+      {
+        "text": "AI & Automation",
+        "pressed": "false"
+      },
+      {
+        "text": "Product Design & Strategy",
+        "pressed": "false"
+      },
+      {
+        "text": "Support & Maintenance",
+        "pressed": "false"
+      }
+    ],
+    "hasImage": true
+  },
+  "errors": []
+}

@@ -1,0 +1,14 @@
+.section {
+  position: relative;
+  padding-block: var(--mf-section-pad-y);
+}
+
+.light {
+  background: var(--mf-bg-page);
+  color: var(--mf-text-primary);
+}
+
+.dark {
+  background: var(--mf-bg-inverse);
+  color: var(--mf-text-on-dark);
+}

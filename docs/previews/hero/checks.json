@@ -1,0 +1,16 @@
+{
+  "checks": {
+    "navLinks": [
+      "Services",
+      "Work",
+      "About",
+      "Contact"
+    ],
+    "navDisplay": "flex",
+    "h1": "Build Modern Digital Products That Scale",
+    "hasCanvas": true,
+    "headerBg": "rgba(0, 0, 0, 0)",
+    "brand": null
+  },
+  "errors": []
+}

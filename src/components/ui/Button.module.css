@@ -1,0 +1,125 @@
+.button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--mf-space-2);
+  border: 1px solid transparent;
+  border-radius: var(--mf-radius-sm);
+  font-family: var(--mf-font-body);
+  font-weight: var(--mf-weight-medium);
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    background-color var(--mf-dur-sm) var(--mf-ease-out),
+    border-color var(--mf-dur-sm) var(--mf-ease-out),
+    color var(--mf-dur-sm) var(--mf-ease-out),
+    transform var(--mf-dur-xs) var(--mf-ease-out),
+    box-shadow var(--mf-dur-sm) var(--mf-ease-out);
+}
+
+.button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.18) 45%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.7s var(--mf-ease-out);
+  pointer-events: none;
+}
+
+.button:hover::before {
+  transform: translateX(120%);
+}
+
+.button:active {
+  transform: scale(0.985);
+}
+
+.label {
+  position: relative;
+  z-index: 1;
+}
+
+.sm {
+  min-height: 2.5rem;
+  padding: 0.5rem 0.95rem;
+  font-size: 0.875rem;
+}
+
+.md {
+  min-height: 3rem;
+  padding: 0.7rem 1.25rem;
+  font-size: 0.9375rem;
+}
+
+.lg {
+  min-height: 3.35rem;
+  padding: 0.9rem 1.55rem;
+  font-size: 1rem;
+}
+
+.primary {
+  background: var(--mf-color-indigo);
+  color: var(--mf-color-white);
+  box-shadow:
+    0 8px 24px rgba(79, 70, 229, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.primary:hover {
+  background: var(--mf-color-indigo-hover);
+  box-shadow:
+    0 12px 28px rgba(79, 70, 229, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.secondary {
+  background: transparent;
+  border-color: rgba(79, 70, 229, 0.55);
+  color: var(--mf-color-indigo);
+}
+
+.secondary:hover {
+  background: rgba(79, 70, 229, 0.08);
+  border-color: var(--mf-color-indigo);
+}
+
+.ghost {
+  background: rgba(248, 250, 252, 0.04);
+  border-color: rgba(248, 250, 252, 0.22);
+  color: var(--mf-text-on-dark);
+  backdrop-filter: blur(8px);
+}
+
+.ghost:hover {
+  border-color: rgba(6, 182, 212, 0.55);
+  color: var(--mf-color-white);
+  background: rgba(248, 250, 252, 0.08);
+}
+
+.inverse {
+  background: var(--mf-color-white);
+  color: var(--mf-color-navy);
+}
+
+.inverse:hover {
+  background: var(--mf-color-cloud);
+}
+
+.magnetic {
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .button::before {
+    display: none;
+  }
+}

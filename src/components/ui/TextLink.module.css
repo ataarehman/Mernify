@@ -1,0 +1,11 @@
+.link {
+  color: var(--mf-color-indigo);
+  text-decoration: none;
+  font-weight: var(--mf-weight-medium);
+  transition: color var(--mf-dur-sm) var(--mf-ease-out);
+}
+
+.link:hover {
+  color: var(--mf-color-indigo-hover);
+  text-decoration: underline;
+}
