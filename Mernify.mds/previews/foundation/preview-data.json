@@ -1,0 +1,94 @@
+{
+  "url": "http://localhost:5173",
+  "timestamp": "2026-07-24T13:36:04.694Z",
+  "consoleErrors": [],
+  "consoleWarnings": [],
+  "pageErrors": [],
+  "checks": {
+    "typography": {
+      "spaceGroteskOnH1": true,
+      "interOnBody": true,
+      "fonts": {
+        "h1Font": "\"Space Grotesk\", Arial, Helvetica, sans-serif",
+        "bodyFont": "Inter, Arial, Helvetica, sans-serif"
+      }
+    },
+    "tokens": {
+      "indigoOk": true,
+      "cyanOk": true,
+      "navyOk": true,
+      "cloudOk": true,
+      "tokens": {
+        "indigo": "#4f46e5",
+        "cyan": "#06b6d4",
+        "navy": "#0f172a",
+        "cloud": "#f8fafc"
+      }
+    },
+    "header": true,
+    "footer": true,
+    "logo": true,
+    "skipLink": true,
+    "lenis": true,
+    "gsap": true,
+    "threeInfrastructureIdle": {
+      "canvasCount": 0,
+      "noHeroCanvas": true
+    },
+    "desktopNavVisible": true,
+    "routeServices": true,
+    "routeWork": true,
+    "routeHome": true,
+    "mobileMenuToggleVisible": true,
+    "mobileMenuOpens": true,
+    "mobilePanelOpenClass": true,
+    "mobileMenuCloses": true
+  },
+  "screenshots": [
+    {
+      "name": "01-desktop-home",
+      "file": "F:\\Mernify\\docs\\previews\\foundation\\01-desktop-home.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "name": "02-desktop-contact",
+      "file": "F:\\Mernify\\docs\\previews\\foundation\\02-desktop-contact.png",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      }
+    },
+    {
+      "name": "03-tablet-home",
+      "file": "F:\\Mernify\\docs\\previews\\foundation\\03-tablet-home.png",
+      "viewport": {
+        "width": 768,
+        "height": 1024
+      }
+    },
+    {
+      "name": "04-mobile-menu-open",
+      "file": "F:\\Mernify\\docs\\previews\\foundation\\04-mobile-menu-open.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    },
+    {
+      "name": "05-mobile-home",
+      "file": "F:\\Mernify\\docs\\previews\\foundation\\05-mobile-home.png",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      }
+    }
+  ],
+  "performance": {
+    "domContentLoaded": 91,
+    "loadEvent": 92,
+    "fcp": 144
+  }
+}

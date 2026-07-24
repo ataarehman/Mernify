@@ -1,0 +1,18 @@
+{
+  "checks": {
+    "exists": true,
+    "title": "Modern platforms. Production-grade foundations.",
+    "markCount": 8,
+    "marks": [
+      "React",
+      "Next.js",
+      "Node.js",
+      "TypeScript",
+      "MongoDB",
+      "PostgreSQL",
+      "Docker",
+      "Flutter"
+    ]
+  },
+  "errors": []
+}

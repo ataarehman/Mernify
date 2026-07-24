@@ -1,0 +1,372 @@
+{
+  "console": [
+    {
+      "viewport": "1440x1000",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0F00E01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "1440x1000",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0C00E01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "1440x1000",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0200F01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "1440x1000",
+      "type": "warning",
+      "text": "[.WebGL-0x554403ee4700]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "viewport": "1440x1000",
+      "type": "warning",
+      "text": "[.WebGL-0x554403ee4700]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "viewport": "1440x1000",
+      "type": "warning",
+      "text": "[.WebGL-0x554403ee4700]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels"
+    },
+    {
+      "viewport": "1440x1000",
+      "type": "warning",
+      "text": "[.WebGL-0x554403ee4700]GL Driver Message (OpenGL, Performance, GL_CLOSE_PATH_NV, High): GPU stall due to ReadPixels (this message will no longer repeat)"
+    },
+    {
+      "viewport": "1024x768",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0C00E01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "1024x768",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0200F01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "1024x768",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0500F01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "768x1024",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0500F01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "768x1024",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0200F01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "768x1024",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0C00E01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "390x844",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0C00E01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "390x844",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0F00E01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    },
+    {
+      "viewport": "390x844",
+      "type": "warning",
+      "text": "[GroupMarkerNotSet(crbug.com/242999)!:A0200F01341C0000]Automatic fallback to software WebGL has been deprecated. Please use the --enable-unsafe-swiftshader (about:flags#enable-unsafe-swiftshader) flag to opt in to lower security guarantees for trusted content."
+    }
+  ],
+  "networkFails": [],
+  "linkChecks": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "Mernify — Build Modern Digital Products That Scale",
+      "h1": "Build Modern DigitalProducts That Scale",
+      "mainSnippet": "PRODUCT DEVELOPMENT PARTNER\n\nBuild Modern Digital\nProducts That Scale"
+    },
+    {
+      "route": "/services",
+      "status": 200,
+      "title": "Mernify — Build Modern Digital Products That Scale",
+      "h1": "Services",
+      "mainSnippet": "Services\n\nService architecture is defined. Full page builds after the homepage section gates.\n\nDiscuss Your Project"
+    },
+    {
+      "route": "/work",
+      "status": 200,
+      "title": "Mernify — Build Modern Digital Products That Scale",
+      "h1": "Work",
+      "mainSnippet": "Work\n\nCase-study system is specified. Content and layouts ship after homepage foundations.\n\nDiscuss Your Project"
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "title": "Mernify — Build Modern Digital Products That Scale",
+      "h1": "About",
+      "mainSnippet": "About\n\nCompany narrative follows Brand Guidelines once homepage sections are complete.\n\nDiscuss Your Project"
+    },
+    {
+      "route": "/process",
+      "status": 200,
+      "title": "Mernify — Build Modern Digital Products That Scale",
+      "h1": "Process",
+      "mainSnippet": "Process\n\nDiscover → Plan → Design → Develop → Test → Launch → Improve.\n\nDiscuss Your Project"
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "title": "Mernify — Build Modern Digital Products That Scale",
+      "h1": "Contact",
+      "mainSnippet": "Contact\n\nDiscuss Your Project — full contact experience ships after homepage conversion sections.\n\nDiscuss Your Project"
+    },
+    {
+      "route": "/privacy",
+      "status": 200,
+      "title": "Mernify — Build Modern Digital Products That Scale",
+      "h1": "Page not found",
+      "mainSnippet": "Page not found\n\nThe page you’re looking for doesn’t exist or has moved.\n\nDiscuss Your Project"
+    },
+    {
+      "route": "/terms",
+      "status": 200,
+      "title": "Mernify — Build Modern Digital Products That Scale",
+      "h1": "Page not found",
+      "mainSnippet": "Page not found\n\nThe page you’re looking for doesn’t exist or has moved.\n\nDiscuss Your Project"
+    },
+    {
+      "route": "/does-not-exist",
+      "status": 200,
+      "title": "Mernify — Build Modern Digital Products That Scale",
+      "h1": "Page not found",
+      "mainSnippet": "Page not found\n\nThe page you’re looking for doesn’t exist or has moved.\n\nDiscuss Your Project"
+    }
+  ],
+  "pages": [
+    {
+      "viewport": "1440x1000",
+      "route": "/",
+      "overflow": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "bodyOverflow": false
+      }
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/",
+      "overflow": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "bodyOverflow": false
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/",
+      "overflow": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "bodyOverflow": false
+      }
+    },
+    {
+      "viewport": "390x844",
+      "route": "/",
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "bodyOverflow": false
+      }
+    }
+  ],
+  "a11yNotes": {
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "Build Modern DigitalProducts That Scale"
+      },
+      {
+        "tag": "H2",
+        "text": "Modern platforms. Production-grade foundations."
+      },
+      {
+        "tag": "H2",
+        "text": "What we build for growing products"
+      },
+      {
+        "tag": "H3",
+        "text": "Web & SaaS Development"
+      }
+    ],
+    "images": [
+      {
+        "alt": "Analytics dashboard on a laptop screen",
+        "hasSrc": true
+      }
+    ],
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "#main-content"
+      },
+      {
+        "text": "Mernify",
+        "href": "/"
+      },
+      {
+        "text": "Services",
+        "href": "/services"
+      },
+      {
+        "text": "Work",
+        "href": "/work"
+      },
+      {
+        "text": "About",
+        "href": "/about"
+      },
+      {
+        "text": "Contact",
+        "href": "/contact"
+      },
+      {
+        "text": "Discuss Your Project",
+        "href": "/contact"
+      },
+      {
+        "text": "01Services",
+        "href": "/services"
+      },
+      {
+        "text": "02Work",
+        "href": "/work"
+      },
+      {
+        "text": "03About",
+        "href": "/about"
+      },
+      {
+        "text": "04Contact",
+        "href": "/contact"
+      },
+      {
+        "text": "Discuss Your Project",
+        "href": "/contact"
+      },
+      {
+        "text": "View Our Work",
+        "href": "/work"
+      },
+      {
+        "text": "Discuss Your Project",
+        "href": "/contact"
+      },
+      {
+        "text": "View Our Work",
+        "href": "/work"
+      },
+      {
+        "text": "View all services",
+        "href": "/services"
+      },
+      {
+        "text": "Explore Web & SaaS",
+        "href": "/services/web-saas"
+      },
+      {
+        "text": "Mernify",
+        "href": "/"
+      },
+      {
+        "text": "Services",
+        "href": "/services"
+      },
+      {
+        "text": "Work",
+        "href": "/work"
+      },
+      {
+        "text": "About",
+        "href": "/about"
+      },
+      {
+        "text": "Contact",
+        "href": "/contact"
+      },
+      {
+        "text": "Process",
+        "href": "/process"
+      },
+      {
+        "text": "Web & SaaS",
+        "href": "/services"
+      },
+      {
+        "text": "Mobile Apps",
+        "href": "/services"
+      },
+      {
+        "text": "AI & Automation",
+        "href": "/services"
+      },
+      {
+        "text": "Product Design",
+        "href": "/services"
+      },
+      {
+        "text": "Support",
+        "href": "/services"
+      }
+    ],
+    "buttons": [
+      {
+        "text": "",
+        "ariaExpanded": "false",
+        "ariaLabel": "Open menu"
+      },
+      {
+        "text": "01Web & SaaS DevelopmentScalable platforms, portals, and multi-tenant products b",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      },
+      {
+        "text": "02Mobile App DevelopmentNative-quality iOS and Android experiences with shared p",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      },
+      {
+        "text": "03AI & AutomationPractical intelligence that removes friction from real workflow",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      },
+      {
+        "text": "04Product Design & StrategyClarity before code — discovery, UX, and architecture",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      },
+      {
+        "text": "05Support & MaintenanceOngoing ownership after launch — stability, speed, and co",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      }
+    ],
+    "skip": true,
+    "main": true,
+    "metaDesc": "Mernify designs and develops scalable web platforms, mobile applications, SaaS products, and custom software for startups, businesses, and agencies.",
+    "og": false,
+    "canonical": null,
+    "sectionCount": 4
+  },
+  "perf": {
+    "domContentLoaded": 78,
+    "loadEvent": 79,
+    "transferSize": 1234,
+    "encodedBodySize": 934
+  }
+}
