@@ -1,15 +1,29 @@
 export const homeHero = {
-  eyebrow: 'Product development partner',
-  titleLines: ['Build Modern Digital', 'Products That Scale'],
+  eyebrow: 'Product engineering company',
+  titleLines: ['We Design, Engineer ', '& Scale Digital Products'],
   support:
-    'Mernify designs and develops scalable web platforms, mobile applications, SaaS products, and custom software for startups, businesses, and agencies.',
+    'Mernify helps startups, growing businesses, and enterprises build reliable web, mobile, SaaS, and AI-powered products that drive growth and create measurable business value.',
   primaryCta: {
-    label: 'Discuss Your Project',
+    label: "Let's Build Your Product",
     to: '/contact',
   },
   secondaryCta: {
-    label: 'View Our Work',
-    to: '/work',
+    label: 'Explore Our Work',
+    to: '/case-studies',
   },
-  meta: ['Web & SaaS', 'Mobile', 'AI & Automation'],
+  meta: ['Web & SaaS', 'Mobile', 'AI & Automation', 'Cloud'],
+}
+
+export const homeFinalCta = {
+  title: 'Ready to Build Your Next Digital Product?',
+  support:
+    'Turn your idea, workflow, or existing application into a scalable digital product with a focused engineering partner.',
+  primaryCta: {
+    label: 'Schedule a Discovery Call',
+    to: '/contact?intent=discovery',
+  },
+  secondaryCta: {
+    label: 'Discuss Your Project',
+    to: '/contact',
+  },
 }

@@ -1,0 +1,21 @@
+.section {
+  min-height: 50vh;
+  display: flex;
+  align-items: center;
+}
+
+.code {
+  margin: 0;
+  font-family: var(--mf-font-display);
+  font-size: clamp(3rem, 12vw, 5rem);
+  font-weight: var(--mf-weight-bold);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: rgba(79, 70, 229, 0.25);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--mf-space-3);
+}

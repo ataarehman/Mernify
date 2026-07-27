@@ -1,0 +1,16 @@
+.section {
+  padding-bottom: var(--mf-section-pad-y);
+}
+
+.content {
+  max-width: var(--mf-container-narrow);
+  display: grid;
+  gap: var(--mf-space-7);
+}
+
+.block h2 {
+  margin: 0 0 var(--mf-space-3);
+  font-family: var(--mf-font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}

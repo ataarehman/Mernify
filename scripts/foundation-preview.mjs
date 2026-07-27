@@ -1,9 +1,9 @@
-import { chromium } from 'playwright'
+﻿import { chromium } from 'playwright'
 import fs from 'node:fs'
 import path from 'node:path'
 
 const BASE = process.env.PREVIEW_URL || 'http://localhost:5173'
-const OUT = path.resolve('docs/previews/foundation')
+const OUT = path.resolve('Mernify.md/previews/foundation')
 fs.mkdirSync(OUT, { recursive: true })
 
 const report = {

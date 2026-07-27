@@ -1,8 +1,10 @@
+import { useId } from 'react'
 import { Link } from 'react-router-dom'
 import styles from './LogoMark.module.css'
 
 export function LogoMark({ inverted = false, compact = false, className = '' }) {
-  const gradientId = inverted ? 'mfLogoGradientDark' : 'mfLogoGradient'
+  const uid = useId().replace(/:/g, '')
+  const gradientId = `mfLogoGradient-${inverted ? 'inv' : 'std'}-${uid}`
 
   return (
     <Link
@@ -13,7 +15,14 @@ export function LogoMark({ inverted = false, compact = false, className = '' }) 
       <span className={styles.mark} aria-hidden="true">
         <svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
-            <linearGradient id={gradientId} x1="9" y1="10" x2="29" y2="30" gradientUnits="userSpaceOnUse">
+            <linearGradient
+              id={gradientId}
+              x1="9"
+              y1="10"
+              x2="29"
+              y2="30"
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stopColor="#4F46E5" />
               <stop offset="1" stopColor="#06B6D4" />
             </linearGradient>

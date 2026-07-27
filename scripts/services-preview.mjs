@@ -1,9 +1,9 @@
-import { chromium } from 'playwright'
+﻿import { chromium } from 'playwright'
 import fs from 'node:fs'
 import path from 'node:path'
 
 const BASE = 'http://localhost:5173'
-const OUT = path.resolve('docs/previews/services')
+const OUT = path.resolve('Mernify.md/previews/services')
 fs.mkdirSync(OUT, { recursive: true })
 
 const browser = await chromium.launch({ headless: true })

@@ -39,6 +39,7 @@ body {
   background-color: var(--mf-bg-page);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
 }
 
 img,
@@ -76,6 +77,17 @@ button {
 
 :focus-visible {
   outline: 3px solid var(--mf-focus-ring);
+  outline-offset: 3px;
+}
+
+a:focus-visible,
+button:focus-visible,
+[role='button']:focus-visible,
+summary:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--mf-color-indigo);
   outline-offset: 3px;
 }
 

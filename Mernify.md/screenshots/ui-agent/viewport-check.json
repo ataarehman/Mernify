@@ -1,0 +1,30 @@
+[
+  {
+    "label": "375",
+    "scrollWidth": 375,
+    "clientWidth": 375,
+    "overflowX": false,
+    "file": "C:\\Users\\MT\\Projects\\mernify\\Mernify.md\\screenshots\\ui-agent\\home-375.png"
+  },
+  {
+    "label": "768",
+    "scrollWidth": 768,
+    "clientWidth": 768,
+    "overflowX": false,
+    "file": "C:\\Users\\MT\\Projects\\mernify\\Mernify.md\\screenshots\\ui-agent\\home-768.png"
+  },
+  {
+    "label": "1280",
+    "scrollWidth": 1280,
+    "clientWidth": 1280,
+    "overflowX": false,
+    "file": "C:\\Users\\MT\\Projects\\mernify\\Mernify.md\\screenshots\\ui-agent\\home-1280.png"
+  },
+  {
+    "label": "1920",
+    "scrollWidth": 1920,
+    "clientWidth": 1920,
+    "overflowX": false,
+    "file": "C:\\Users\\MT\\Projects\\mernify\\Mernify.md\\screenshots\\ui-agent\\home-1920.png"
+  }
+]

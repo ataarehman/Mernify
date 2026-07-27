@@ -1,0 +1,57 @@
+{
+  "narsun": {
+    "name": "Narsun Studios",
+    "url": "https://narsunstudios.com/en",
+    "shots": {
+      "390": {
+        "above": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\narsun-390-above.png",
+        "full": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\narsun-390-full.png"
+      },
+      "1440": {
+        "above": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\narsun-1440-above.png",
+        "full": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\narsun-1440-full.png"
+      }
+    }
+  },
+  "elytra": {
+    "name": "Elytra Studios",
+    "url": "https://elytrastudios.com/",
+    "shots": {
+      "390": {
+        "above": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\elytra-390-above.png",
+        "full": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\elytra-390-full.png"
+      },
+      "1440": {
+        "above": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\elytra-1440-above.png",
+        "full": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\elytra-1440-full.png"
+      }
+    }
+  },
+  "tkxel": {
+    "name": "Tkxel",
+    "url": "https://tkxel.com/",
+    "shots": {
+      "390": {
+        "above": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\tkxel-390-above.png",
+        "full": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\tkxel-390-full.png"
+      },
+      "1440": {
+        "error": "page.screenshot: Protocol error (Page.captureScreenshot): Unable to capture screenshot\nCall log:\n  - taking page screenshot\n  - waiting for fonts to load...\n  - fonts loaded\n"
+      }
+    }
+  },
+  "ssi": {
+    "name": "SSI Decisions",
+    "url": "https://www.ssidecisions.com/",
+    "shots": {
+      "390": {
+        "above": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\ssi-390-above.png",
+        "full": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\ssi-390-full.png"
+      },
+      "1440": {
+        "above": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\ssi-1440-above.png",
+        "full": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\competitor-audit\\ssi-1440-full.png"
+      }
+    }
+  }
+}

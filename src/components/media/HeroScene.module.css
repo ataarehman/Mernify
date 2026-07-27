@@ -1,0 +1,11 @@
+.scene {
+  width: 100%;
+  min-height: 480px;
+  display: block;
+}
+
+@media (max-width: 767px) {
+  .scene {
+    min-height: 320px;
+  }
+}

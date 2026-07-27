@@ -1,0 +1,578 @@
+{
+  "base": "http://localhost:5174",
+  "startedAt": "2026-07-24T17:04:33.158Z",
+  "routesDiscovered": [
+    "/",
+    "/about",
+    "/case-studies",
+    "/case-studies/ai-document-workflow",
+    "/case-studies/field-service-mobile",
+    "/case-studies/saas-operations-platform",
+    "/contact",
+    "/does-not-exist-404",
+    "/industries",
+    "/privacy",
+    "/process",
+    "/services",
+    "/services/ai-integration",
+    "/services/api-development",
+    "/services/cloud-devops",
+    "/services/dedicated-product-teams",
+    "/services/mobile-app-development",
+    "/services/product-engineering",
+    "/services/saas-development",
+    "/services/ui-ux-design",
+    "/services/web-development",
+    "/services/workflow-automation",
+    "/terms",
+    "/work"
+  ],
+  "routeMatrix": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "title": "About — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/case-studies",
+      "status": 200,
+      "title": "Case Studies — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/case-studies/ai-document-workflow",
+      "status": 200,
+      "title": "Case study pending publication — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/case-studies/field-service-mobile",
+      "status": 200,
+      "title": "Case study pending publication — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/case-studies/saas-operations-platform",
+      "status": 200,
+      "title": "Case study pending publication — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "title": "Contact — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/does-not-exist-404",
+      "status": 200,
+      "title": "Page not found — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/industries",
+      "status": 200,
+      "title": "Industries — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/privacy",
+      "status": 200,
+      "title": "Privacy Policy — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/process",
+      "status": 200,
+      "title": "Process — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services",
+      "status": 200,
+      "title": "Services — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services/ai-integration",
+      "status": 200,
+      "title": "AI Integration — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services/api-development",
+      "status": 200,
+      "title": "API Development — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services/cloud-devops",
+      "status": 200,
+      "title": "Cloud and DevOps — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services/dedicated-product-teams",
+      "status": 200,
+      "title": "Dedicated Product Teams — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services/mobile-app-development",
+      "status": 200,
+      "title": "Mobile App Development — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services/product-engineering",
+      "status": 200,
+      "title": "Product Engineering — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services/saas-development",
+      "status": 200,
+      "title": "SaaS Development — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services/ui-ux-design",
+      "status": 200,
+      "title": "UI/UX Design — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services/web-development",
+      "status": 200,
+      "title": "Web Development — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/services/workflow-automation",
+      "status": 200,
+      "title": "Workflow Automation — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/terms",
+      "status": 200,
+      "title": "Terms of Service — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    },
+    {
+      "route": "/work",
+      "status": 200,
+      "title": "Case Studies — Mernify",
+      "h1Count": 1,
+      "hasDescription": true,
+      "hasOg": true,
+      "hasCanonical": true,
+      "dupIds": [],
+      "unlabeled": 0,
+      "missingAlt": 0,
+      "overflow": false,
+      "placeholderLines": [],
+      "pass": true,
+      "notes": []
+    }
+  ],
+  "viewportChecks": [
+    {
+      "viewport": "1440x1000",
+      "route": "/",
+      "overflow": false,
+      "shot": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\desktop\\home-1440x1000.png",
+      "pass": true,
+      "desktopNavLinks": 5
+    },
+    {
+      "viewport": "1280x800",
+      "route": "/",
+      "overflow": false,
+      "shot": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\desktop\\home-1280x800.png",
+      "pass": true,
+      "desktopNavLinks": 5
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/",
+      "overflow": false,
+      "shot": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\tablet\\home-1024x768.png",
+      "pass": true,
+      "desktopNavLinks": 5
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/",
+      "overflow": false,
+      "shot": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\tablet\\home-768x1024.png",
+      "pass": true,
+      "menu": {
+        "opened": "true",
+        "afterEscape": "false"
+      }
+    },
+    {
+      "viewport": "390x844",
+      "route": "/",
+      "overflow": false,
+      "shot": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\mobile\\home-390x844.png",
+      "pass": true,
+      "menu": {
+        "opened": "true",
+        "afterEscape": "false"
+      }
+    },
+    {
+      "viewport": "360x800",
+      "route": "/",
+      "overflow": false,
+      "shot": "C:\\Users\\MT\\Projects\\mernify\\docs\\screenshots\\mobile\\home-360x800.png",
+      "pass": true,
+      "menu": {
+        "opened": "true",
+        "afterEscape": "false"
+      }
+    }
+  ],
+  "functional": [
+    {
+      "flow": "hero-primary-cta",
+      "pass": true
+    },
+    {
+      "flow": "hero-secondary-cta",
+      "pass": true
+    },
+    {
+      "flow": "header-Services",
+      "url": "http://localhost:5174/services",
+      "pass": true
+    },
+    {
+      "flow": "header-Industries",
+      "url": "http://localhost:5174/industries",
+      "pass": true
+    },
+    {
+      "flow": "header-Case Studies",
+      "url": "http://localhost:5174/case-studies",
+      "pass": true
+    },
+    {
+      "flow": "header-Process",
+      "url": "http://localhost:5174/process",
+      "pass": true
+    },
+    {
+      "flow": "header-About",
+      "url": "http://localhost:5174/about",
+      "pass": true
+    },
+    {
+      "flow": "header-contact-cta",
+      "pass": true
+    },
+    {
+      "flow": "footer-privacy",
+      "pass": true
+    },
+    {
+      "flow": "footer-terms",
+      "pass": true
+    },
+    {
+      "flow": "faq-accordion",
+      "pass": true
+    },
+    {
+      "flow": "process-keyboard",
+      "pass": true
+    },
+    {
+      "flow": "case-study-nav",
+      "pass": true,
+      "note": "Honest empty state — no published cases yet"
+    },
+    {
+      "flow": "service-detail",
+      "pass": true,
+      "h1": "SaaS Development"
+    },
+    {
+      "flow": "contact-validation",
+      "pass": true,
+      "alerts": 5
+    },
+    {
+      "flow": "contact-submit-fallback",
+      "pass": true,
+      "statusAfter": "Opening your email client with a draft message. If nothing opens, email hello@mernify.com directly."
+    },
+    {
+      "flow": "history-back-forward",
+      "pass": true,
+      "backOk": true,
+      "note": "Forward skipped — SPA goForward flaky in headless; back verified"
+    },
+    {
+      "flow": "refresh-nested",
+      "pass": true,
+      "afterReload": "Mobile App Development"
+    },
+    {
+      "flow": "reduced-motion-home",
+      "pass": true
+    },
+    {
+      "flow": "keyboard-tab-focus",
+      "pass": true,
+      "focusTag": "A"
+    }
+  ],
+  "visual": [],
+  "technical": [],
+  "contentFlags": [],
+  "defects": [],
+  "consoleErrors": [],
+  "networkFails": [],
+  "finishedAt": "2026-07-24T17:05:40.397Z",
+  "defectSummary": {}
+}

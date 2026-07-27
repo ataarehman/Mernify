@@ -3,7 +3,6 @@ import { useEffect } from 'react'
 import { SkipLink } from '@/components/ui'
 import { SiteHeader } from '@/components/navigation/SiteHeader'
 import { SiteFooter } from '@/components/navigation/SiteFooter'
-import { SoftCursor } from '@/components/feedback/SoftCursor'
 import { useMotion } from '@/app/providers/useMotion'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -25,7 +24,6 @@ export function RootLayout() {
   return (
     <>
       <SkipLink />
-      <SoftCursor />
       <SiteHeader />
       <main
         id="main-content"

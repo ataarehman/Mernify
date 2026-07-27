@@ -1,4 +1,4 @@
-import { chromium } from 'playwright'
+﻿import { chromium } from 'playwright'
 
 const browser = await chromium.launch({ headless: true })
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } })
@@ -22,7 +22,7 @@ const desktop = await page.evaluate(() => {
 })
 
 await page.screenshot({
-  path: 'docs/previews/foundation/06-desktop-header-crop.png',
+  path: 'Mernify.md/previews/foundation/06-desktop-header-crop.png',
   clip: { x: 0, y: 0, width: 1440, height: 90 },
 })
 
@@ -45,7 +45,7 @@ const tablet = await page.evaluate(() => {
 })
 
 await page.screenshot({
-  path: 'docs/previews/foundation/07-tablet-header-crop.png',
+  path: 'Mernify.md/previews/foundation/07-tablet-header-crop.png',
   clip: { x: 0, y: 0, width: 768, height: 80 },
 })
 

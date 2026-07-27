@@ -8,6 +8,14 @@ import { useReducedMotion } from '@/app/providers/useReducedMotion'
 import { useMotion } from '@/app/providers/useMotion'
 import styles from './SiteHeader.module.css'
 
+function setNavVisible(header, visible) {
+  if (!header) return
+  gsap.set(header.querySelectorAll('[data-nav-enter]'), {
+    y: 0,
+    autoAlpha: visible ? 1 : 0,
+  })
+}
+
 export function SiteHeader() {
   const { pathname } = useLocation()
   const { prefersReducedMotion } = useReducedMotion()
@@ -66,10 +74,32 @@ export function SiteHeader() {
 
   useEffect(() => {
     if (!menuOpen) return undefined
+
+    const panel = panelRef.current
+    const focusables = panel
+      ? Array.from(
+          panel.querySelectorAll(
+            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+          ),
+        )
+      : []
+    const first = focusables[0]
+    const last = focusables[focusables.length - 1]
+    first?.focus()
+
     const onKey = (event) => {
       if (event.key === 'Escape') {
         setMenuOpen(false)
         toggleRef.current?.focus()
+        return
+      }
+      if (event.key !== 'Tab' || focusables.length === 0) return
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault()
+        last?.focus()
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault()
+        first?.focus()
       }
     }
     window.addEventListener('keydown', onKey)
@@ -82,7 +112,12 @@ export function SiteHeader() {
 
   useEffect(() => {
     const header = headerRef.current
-    if (!header || prefersReducedMotion) return undefined
+    if (!header) return undefined
+
+    if (prefersReducedMotion) {
+      setNavVisible(header, true)
+      return undefined
+    }
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
@@ -104,12 +139,18 @@ export function SiteHeader() {
 
   useEffect(() => {
     const panel = panelRef.current
-    if (!panel || prefersReducedMotion) return undefined
+    if (!panel) return undefined
     if (!menuOpen) return undefined
+
+    const targets = panel.querySelectorAll('[data-mobile-enter]')
+    if (prefersReducedMotion) {
+      gsap.set(targets, { y: 0, autoAlpha: 1 })
+      return undefined
+    }
 
     const ctx = gsap.context(() => {
       gsap.fromTo(
-        panel.querySelectorAll('[data-mobile-enter]'),
+        targets,
         { y: 24, autoAlpha: 0 },
         {
           y: 0,

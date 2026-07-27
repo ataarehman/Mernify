@@ -1,0 +1,90 @@
+{
+  "routes": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1": "We Design, Engineer & Scale Digital Products"
+    },
+    {
+      "route": "/services",
+      "status": 200,
+      "title": "Services — Mernify",
+      "h1": "Product engineering buyers actually purchase"
+    },
+    {
+      "route": "/services/saas-development",
+      "status": 200,
+      "title": "SaaS Development — Mernify",
+      "h1": "SaaS Development"
+    },
+    {
+      "route": "/industries",
+      "status": 200,
+      "title": "Industries — Mernify",
+      "h1": "Domain-aware product thinking"
+    },
+    {
+      "route": "/case-studies",
+      "status": 200,
+      "title": "Case Studies — Mernify",
+      "h1": "Selected product work"
+    },
+    {
+      "route": "/case-studies/saas-operations-platform",
+      "status": 200,
+      "title": "Multi-tenant operations platform — Mernify",
+      "h1": "Multi-tenant operations platform"
+    },
+    {
+      "route": "/process",
+      "status": 200,
+      "title": "Process — Mernify",
+      "h1": "A clear path from discovery to continuous improvement"
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "title": "About — Mernify",
+      "h1": "A modern software development partner for products that need to last"
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "title": "Contact — Mernify",
+      "h1": "Tell us about the product you want to build"
+    },
+    {
+      "route": "/privacy",
+      "status": 200,
+      "title": "Privacy Policy — Mernify",
+      "h1": "Privacy Policy"
+    },
+    {
+      "route": "/terms",
+      "status": 200,
+      "title": "Terms of Service — Mernify",
+      "h1": "Terms of Service"
+    }
+  ],
+  "console": [],
+  "overflow": [
+    {
+      "viewport": "1440x1000",
+      "overflow": false
+    },
+    {
+      "viewport": "1024x768",
+      "overflow": false
+    },
+    {
+      "viewport": "768x1024",
+      "overflow": false
+    },
+    {
+      "viewport": "390x844",
+      "overflow": false
+    }
+  ],
+  "formValidationAlerts": 5
+}

@@ -1,0 +1,700 @@
+{
+  "console": [],
+  "networkFails": [],
+  "linkChecks": [
+    {
+      "route": "/",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1": "We Design, Engineer & Scale Digital Products",
+      "mainSnippet": "PRODUCT ENGINEERING COMPANY\n\nWe Design, Engineer\n& Scale Digital Products\n\nTECHNOLOGY WE BUILD WITH\n\nBuilt with modern technologies\n\nCapability marks—not fabricated client endorsements.\n\nREACT\nNEXT.JS\nTYPESCRIPT\nNODE.JS\n"
+    },
+    {
+      "route": "/services",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1": "Product engineering buyers actually purchase",
+      "mainSnippet": "SERVICES\n\nProduct engineering buyers actually purchase\n\nEvery service is framed around the problem you need solved and the outcome you should expect—not a laundry list of frameworks.\n\nProduct Engineering\n\nIdeas stall bet"
+    },
+    {
+      "route": "/work",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1": "Selected product work",
+      "mainSnippet": "CASE STUDIES\n\nSelected product work\n\nWe publish outcome-led case studies when clients approve public detail. Until then, explore services or start a discovery conversation.\n\nCase studies are preparing for publication\n\nDe"
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1": "A modern software development partner for products that need to last",
+      "mainSnippet": "ABOUT MERNIFY\n\nA modern software development partner for products that need to last\n\nMernify helps businesses transform ideas, workflows, and operational challenges into reliable digital products—combining modern enginee"
+    },
+    {
+      "route": "/process",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1": "A clear path from discovery to continuous improvement",
+      "mainSnippet": "HOW WE WORK\n\nA clear path from discovery to continuous improvement\n\nEvery stage produces tangible artifacts—so stakeholders always know what was decided, built, and verified.\n\nSchedule a discovery call\n01\nDiscover\n\nUnder"
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1": "Tell us about the product you want to build",
+      "mainSnippet": "CONTACT\n\nTell us about the product you want to build\n\nShare enough context for a useful first conversation. We respond with clarifying questions, a suggested next step, and whether a discovery call makes sense.\n\nEMAIL\n\nh"
+    },
+    {
+      "route": "/privacy",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1": "Privacy Policy",
+      "mainSnippet": "Privacy Policy\n\nLast updated 2026-07-24\n\nOverview\n\nThis Privacy Policy explains how Mernify (“we”, “us”) handles information when you use mernify.com or contact us. We collect only what we need to respond to inquiries an"
+    },
+    {
+      "route": "/terms",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1": "Terms of Service",
+      "mainSnippet": "Terms of Service\n\nLast updated 2026-07-24\n\nAgreement\n\nBy using this website, you agree to these Terms. If you do not agree, do not use the site. Project work is governed by a separate statement of work or contract.\n\nWebs"
+    },
+    {
+      "route": "/does-not-exist",
+      "status": 200,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "h1": "Page not found",
+      "mainSnippet": "404\n\nPage not found\n\nThe page you are looking for does not exist or has moved. Try the homepage, services catalogue, or contact form.\n\nBack to home\nView services\nContact us"
+    }
+  ],
+  "pages": [
+    {
+      "viewport": "1440x1000",
+      "route": "/",
+      "overflow": {
+        "scrollWidth": 1440,
+        "clientWidth": 1440,
+        "bodyOverflow": false
+      }
+    },
+    {
+      "viewport": "1024x768",
+      "route": "/",
+      "overflow": {
+        "scrollWidth": 1024,
+        "clientWidth": 1024,
+        "bodyOverflow": false
+      }
+    },
+    {
+      "viewport": "768x1024",
+      "route": "/",
+      "overflow": {
+        "scrollWidth": 768,
+        "clientWidth": 768,
+        "bodyOverflow": false
+      }
+    },
+    {
+      "viewport": "390x844",
+      "route": "/",
+      "overflow": {
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "bodyOverflow": false
+      }
+    }
+  ],
+  "a11yNotes": {
+    "headings": [
+      {
+        "tag": "H1",
+        "text": "We Design, Engineer & Scale Digital Products"
+      },
+      {
+        "tag": "H2",
+        "text": "Built with modern technologies"
+      },
+      {
+        "tag": "H2",
+        "text": "Product engineering that buyers actually purchase"
+      },
+      {
+        "tag": "H3",
+        "text": "Product Engineering"
+      },
+      {
+        "tag": "H3",
+        "text": "SaaS Development"
+      },
+      {
+        "tag": "H3",
+        "text": "Mobile App Development"
+      },
+      {
+        "tag": "H3",
+        "text": "Dedicated Product Teams"
+      },
+      {
+        "tag": "H3",
+        "text": "Web Development"
+      },
+      {
+        "tag": "H3",
+        "text": "AI Integration"
+      },
+      {
+        "tag": "H3",
+        "text": "Workflow Automation"
+      },
+      {
+        "tag": "H3",
+        "text": "UI/UX Design"
+      },
+      {
+        "tag": "H3",
+        "text": "Cloud and DevOps"
+      },
+      {
+        "tag": "H3",
+        "text": "API Development"
+      },
+      {
+        "tag": "H2",
+        "text": "A focused product partner—not a body shop"
+      },
+      {
+        "tag": "H3",
+        "text": "Product-first thinking"
+      },
+      {
+        "tag": "H3",
+        "text": "Senior engineering involvement"
+      },
+      {
+        "tag": "H3",
+        "text": "Clear communication"
+      },
+      {
+        "tag": "H3",
+        "text": "Flexible engagement"
+      },
+      {
+        "tag": "H3",
+        "text": "Scalable architecture"
+      },
+      {
+        "tag": "H3",
+        "text": "Quality assurance"
+      },
+      {
+        "tag": "H3",
+        "text": "Long-term support"
+      },
+      {
+        "tag": "H2",
+        "text": "Domain-aware product thinking"
+      },
+      {
+        "tag": "H3",
+        "text": "Healthcare"
+      },
+      {
+        "tag": "H3",
+        "text": "Financial Services"
+      },
+      {
+        "tag": "H3",
+        "text": "Logistics"
+      },
+      {
+        "tag": "H3",
+        "text": "Construction"
+      },
+      {
+        "tag": "H3",
+        "text": "Real Estate"
+      },
+      {
+        "tag": "H3",
+        "text": "Education"
+      },
+      {
+        "tag": "H3",
+        "text": "Retail"
+      },
+      {
+        "tag": "H3",
+        "text": "Manufacturing"
+      },
+      {
+        "tag": "H3",
+        "text": "Field Service"
+      },
+      {
+        "tag": "H3",
+        "text": "Travel"
+      },
+      {
+        "tag": "H2",
+        "text": "Selected product work"
+      },
+      {
+        "tag": "H3",
+        "text": "Case studies are preparing for publication"
+      },
+      {
+        "tag": "H2",
+        "text": "A clear path from discovery to continuous improvement"
+      },
+      {
+        "tag": "H2",
+        "text": "Practical intelligence inside real products"
+      },
+      {
+        "tag": "H3",
+        "text": "AI assistants"
+      },
+      {
+        "tag": "H3",
+        "text": "RAG & intelligent search"
+      },
+      {
+        "tag": "H3",
+        "text": "Workflow automation"
+      },
+      {
+        "tag": "H3",
+        "text": "AI agents"
+      },
+      {
+        "tag": "H3",
+        "text": "Document intelligence"
+      },
+      {
+        "tag": "H3",
+        "text": "AI integrations"
+      },
+      {
+        "tag": "H2",
+        "text": "Full-stack capability without logo theater"
+      },
+      {
+        "tag": "H3",
+        "text": "Frontend"
+      },
+      {
+        "tag": "H3",
+        "text": "Backend"
+      },
+      {
+        "tag": "H3",
+        "text": "Mobile"
+      },
+      {
+        "tag": "H3",
+        "text": "Data"
+      },
+      {
+        "tag": "H3",
+        "text": "AI"
+      },
+      {
+        "tag": "H3",
+        "text": "Cloud"
+      },
+      {
+        "tag": "H3",
+        "text": "DevOps"
+      },
+      {
+        "tag": "H3",
+        "text": "Quality"
+      },
+      {
+        "tag": "H2",
+        "text": "Models that match where you are"
+      },
+      {
+        "tag": "H3",
+        "text": "Engagement models"
+      },
+      {
+        "tag": "H4",
+        "text": "Product Discovery Sprint"
+      },
+      {
+        "tag": "H4",
+        "text": "MVP Launch Program"
+      },
+      {
+        "tag": "H4",
+        "text": "Dedicated Product Pod"
+      },
+      {
+        "tag": "H4",
+        "text": "Product Rescue & Modernization"
+      },
+      {
+        "tag": "H3",
+        "text": "Delivery principles"
+      },
+      {
+        "tag": "H4",
+        "text": "Transparency over theater"
+      },
+      {
+        "tag": "H4",
+        "text": "Evidence over slogans"
+      },
+      {
+        "tag": "H4",
+        "text": "Maintainable by default"
+      },
+      {
+        "tag": "H4",
+        "text": "Security & IP respect"
+      },
+      {
+        "tag": "H2",
+        "text": "Straight answers before you start"
+      },
+      {
+        "tag": "H2",
+        "text": "Ready to Build Your Next Digital Product?"
+      }
+    ],
+    "images": [],
+    "links": [
+      {
+        "text": "Skip to content",
+        "href": "#main-content"
+      },
+      {
+        "text": "Mernify",
+        "href": "/"
+      },
+      {
+        "text": "Services",
+        "href": "/services"
+      },
+      {
+        "text": "Industries",
+        "href": "/industries"
+      },
+      {
+        "text": "Case Studies",
+        "href": "/case-studies"
+      },
+      {
+        "text": "Process",
+        "href": "/process"
+      },
+      {
+        "text": "About",
+        "href": "/about"
+      },
+      {
+        "text": "Contact Us",
+        "href": "/contact"
+      },
+      {
+        "text": "01Services",
+        "href": "/services"
+      },
+      {
+        "text": "02Industries",
+        "href": "/industries"
+      },
+      {
+        "text": "03Case Studies",
+        "href": "/case-studies"
+      },
+      {
+        "text": "04Process",
+        "href": "/process"
+      },
+      {
+        "text": "05About",
+        "href": "/about"
+      },
+      {
+        "text": "Contact Us",
+        "href": "/contact"
+      },
+      {
+        "text": "Explore Our Work",
+        "href": "/case-studies"
+      },
+      {
+        "text": "Let's Build Your Product",
+        "href": "/contact"
+      },
+      {
+        "text": "Explore Our Work",
+        "href": "/case-studies"
+      },
+      {
+        "text": "View all services",
+        "href": "/services"
+      },
+      {
+        "text": "Product EngineeringIdeas stall between discovery, architecture, and production d",
+        "href": "/services/product-engineering"
+      },
+      {
+        "text": "SaaS DevelopmentMulti-tenant products need secure tenancy, billing-ready foundat",
+        "href": "/services/saas-development"
+      },
+      {
+        "text": "Mobile App DevelopmentMobile products need native-quality UX without sacrificing",
+        "href": "/services/mobile-app-development"
+      },
+      {
+        "text": "Dedicated Product TeamsHiring a full product team is slow; freelancers lack cont",
+        "href": "/services/dedicated-product-teams"
+      },
+      {
+        "text": "Web DevelopmentFast, accessible web applications that operators and customers ac",
+        "href": "/services/web-development"
+      },
+      {
+        "text": "AI IntegrationPractical AI features embedded in products your teams already run.",
+        "href": "/services/ai-integration"
+      },
+      {
+        "text": "Workflow AutomationAutomated workflows that reduce cycle time and free specialis",
+        "href": "/services/workflow-automation"
+      },
+      {
+        "text": "UI/UX DesignValidated flows and interfaces that de-risk build investment.Learn m",
+        "href": "/services/ui-ux-design"
+      },
+      {
+        "text": "Cloud and DevOpsPredictable delivery pipelines and cloud foundations that suppor",
+        "href": "/services/cloud-devops"
+      },
+      {
+        "text": "API DevelopmentWell-documented APIs that unlock ecosystems and internal reuse.Le",
+        "href": "/services/api-development"
+      },
+      {
+        "text": "Explore industries",
+        "href": "/industries"
+      },
+      {
+        "text": "HealthcareCare coordination, portals, and operational tools that respect clinica",
+        "href": "/industries#healthcare"
+      },
+      {
+        "text": "Financial ServicesProduct experiences for onboarding, operations, and customer s",
+        "href": "/industries#financial-services"
+      },
+      {
+        "text": "LogisticsVisibility and control across shipments, partners, and exceptions.Explo",
+        "href": "/industries#logistics"
+      },
+      {
+        "text": "ConstructionField-to-office software that keeps projects, crews, and documents a",
+        "href": "/industries#construction"
+      },
+      {
+        "text": "Real EstateListing, leasing, and operations products for teams managing complex ",
+        "href": "/industries#real-estate"
+      },
+      {
+        "text": "EducationLearning and administration platforms built for clarity and accessibili",
+        "href": "/industries#education"
+      },
+      {
+        "text": "RetailCommerce-adjacent products, ops tools, and customer experiences that scale",
+        "href": "/industries#retail"
+      },
+      {
+        "text": "ManufacturingOperational software connecting plants, partners, and quality signa",
+        "href": "/industries#manufacturing"
+      },
+      {
+        "text": "Field ServiceDispatch, technician mobile apps, and customer updates in one produ",
+        "href": "/industries#field-service"
+      },
+      {
+        "text": "TravelBooking, itinerary, and operations experiences for travelers and operators",
+        "href": "/industries#travel"
+      },
+      {
+        "text": "Discuss a similar product",
+        "href": "/contact"
+      },
+      {
+        "text": "Explore services",
+        "href": "/services"
+      },
+      {
+        "text": "Schedule a Discovery Call",
+        "href": "/contact?intent=discovery"
+      },
+      {
+        "text": "Discuss Your Project",
+        "href": "/contact"
+      },
+      {
+        "text": "Mernify",
+        "href": "/"
+      },
+      {
+        "text": "Product Engineering",
+        "href": "/services/product-engineering"
+      },
+      {
+        "text": "SaaS",
+        "href": "/services/saas-development"
+      },
+      {
+        "text": "Web",
+        "href": "/services/web-development"
+      },
+      {
+        "text": "Mobile",
+        "href": "/services/mobile-app-development"
+      },
+      {
+        "text": "AI Integration",
+        "href": "/services/ai-integration"
+      },
+      {
+        "text": "Automation",
+        "href": "/services/workflow-automation"
+      },
+      {
+        "text": "UI/UX",
+        "href": "/services/ui-ux-design"
+      },
+      {
+        "text": "Cloud & DevOps",
+        "href": "/services/cloud-devops"
+      },
+      {
+        "text": "APIs",
+        "href": "/services/api-development"
+      },
+      {
+        "text": "Product Teams",
+        "href": "/services/dedicated-product-teams"
+      },
+      {
+        "text": "Healthcare",
+        "href": "/industries#healthcare"
+      },
+      {
+        "text": "Financial Services",
+        "href": "/industries#financial-services"
+      },
+      {
+        "text": "Logistics",
+        "href": "/industries#logistics"
+      },
+      {
+        "text": "Construction",
+        "href": "/industries#construction"
+      },
+      {
+        "text": "Real Estate",
+        "href": "/industries#real-estate"
+      },
+      {
+        "text": "Education",
+        "href": "/industries#education"
+      },
+      {
+        "text": "All industries",
+        "href": "/industries"
+      },
+      {
+        "text": "About",
+        "href": "/about"
+      },
+      {
+        "text": "Process",
+        "href": "/process"
+      },
+      {
+        "text": "Case Studies",
+        "href": "/case-studies"
+      },
+      {
+        "text": "Contact",
+        "href": "/contact"
+      },
+      {
+        "text": "hello@mernify.com",
+        "href": "mailto:hello@mernify.com"
+      },
+      {
+        "text": "Contact form",
+        "href": "/contact"
+      },
+      {
+        "text": "Privacy Policy",
+        "href": "/privacy"
+      },
+      {
+        "text": "Terms of Service",
+        "href": "/terms"
+      }
+    ],
+    "buttons": [
+      {
+        "text": "",
+        "ariaExpanded": "false",
+        "ariaLabel": "Open menu"
+      },
+      {
+        "text": "01Discover",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      },
+      {
+        "text": "02Plan",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      },
+      {
+        "text": "03Design",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      },
+      {
+        "text": "04Develop",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      },
+      {
+        "text": "05Test",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      },
+      {
+        "text": "06Launch",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      },
+      {
+        "text": "07Improve",
+        "ariaExpanded": null,
+        "ariaLabel": null
+      }
+    ],
+    "skip": true,
+    "main": true,
+    "metaDesc": "Mernify helps startups, growing businesses, and enterprises build reliable web, mobile, SaaS, and AI-powered products that drive growth and create measurable business value.",
+    "og": true,
+    "canonical": "https://mernify.com/",
+    "sectionCount": 13
+  },
+  "perf": {
+    "domContentLoaded": 90,
+    "loadEvent": 91,
+    "transferSize": 300,
+    "encodedBodySize": 983
+  }
+}

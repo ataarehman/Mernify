@@ -1,0 +1,48 @@
+.hero {
+  padding: calc(var(--mf-header-height) + clamp(2rem, 5vw, 3.5rem)) 0 clamp(2.5rem, 6vw, 4rem);
+}
+
+.light {
+  background: var(--mf-bg-page);
+  color: var(--mf-text-primary);
+}
+
+.dark {
+  background: var(--mf-color-navy);
+  color: var(--mf-text-on-dark);
+}
+
+.inner {
+  max-width: var(--mf-container-narrow);
+}
+
+.eyebrow {
+  margin-bottom: var(--mf-space-3);
+}
+
+.dark .eyebrow {
+  color: var(--mf-color-cyan);
+}
+
+.title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  letter-spacing: -0.03em;
+}
+
+.support {
+  margin-top: var(--mf-space-5);
+  font-size: clamp(1rem, 1.5vw, 1.125rem);
+  line-height: 1.65;
+  max-width: 38rem;
+}
+
+.dark .support {
+  color: var(--mf-text-on-dark-muted);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--mf-space-3);
+  margin-top: var(--mf-space-6);
+}

@@ -1,0 +1,78 @@
+.grid {
+  display: grid;
+  gap: var(--mf-space-4);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.section {
+  padding-bottom: var(--mf-section-pad-y);
+}
+
+.card {
+  display: grid;
+  gap: var(--mf-space-3);
+  height: 100%;
+  padding: clamp(1.35rem, 2.5vw, 1.75rem);
+  border: 1px solid var(--mf-border-default);
+  border-radius: var(--mf-radius-xl);
+  background: var(--mf-color-white);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--mf-shadow-sm);
+  transition:
+    transform var(--mf-dur-sm) var(--mf-ease-out),
+    border-color var(--mf-dur-sm) var(--mf-ease-out);
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(79, 70, 229, 0.35);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--mf-radius-sm);
+  background: rgba(79, 70, 229, 0.08);
+  color: var(--mf-color-indigo);
+}
+
+.card h2 {
+  margin: 0;
+  font-family: var(--mf-font-display);
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+}
+
+.problem {
+  font-size: var(--mf-font-size-body-sm);
+}
+
+.outcome {
+  margin: 0;
+  font-size: var(--mf-font-size-body-sm);
+  line-height: 1.55;
+  color: var(--mf-text-secondary);
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: auto;
+  font-size: var(--mf-font-size-body-sm);
+  font-weight: var(--mf-weight-semibold);
+  color: var(--mf-color-indigo);
+}
