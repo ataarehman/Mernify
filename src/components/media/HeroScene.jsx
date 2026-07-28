@@ -38,7 +38,7 @@ export function HeroScene({ reduced = false }) {
     const key = new THREE.DirectionalLight(0x4f46e5, 2.5)
     key.position.set(3, 5, 4)
     scene.add(key)
-    const fill = new THREE.DirectionalLight(0x06b6d4, 2)
+    const fill = new THREE.DirectionalLight(0x15c6e2, 2)
     fill.position.set(-4, -3, 3)
     scene.add(fill)
     const rim = new THREE.DirectionalLight(0xffffff, 0.6)
@@ -95,7 +95,7 @@ export function HeroScene({ reduced = false }) {
       opacity: 0,
     })
     const matR = new THREE.MeshStandardMaterial({
-      color: 0x06b6d4,
+      color: 0x15c6e2,
       metalness: 0.25,
       roughness: 0.45,
       transparent: true,
@@ -178,7 +178,7 @@ export function HeroScene({ reduced = false }) {
       // indigo accent bar at top
       ctx2.fillStyle = '#4f46e5'
       ctx2.fillRect(0, 0, 256, 3)
-      ctx2.fillStyle = '#06b6d4'
+      ctx2.fillStyle = '#15c6e2'
       ctx2.font = '700 12px Inter, sans-serif'
       ctx2.fillText(idx, 14, 24)
       ctx2.fillStyle = '#f8fafc'

@@ -251,7 +251,7 @@ function MiniCanvas({ zones }) {
 }
 
 function ConnectorLines({ stageId }) {
-  const colors = { define: '#4f46e5', design: '#6366f1', engineer: '#0891b2', scale: '#06b6d4' }
+  const colors = { define: '#4f46e5', design: '#6366f1', engineer: '#0891b2', scale: '#15c6e2' }
   const c = colors[stageId] || '#4f46e5'
   return (
     <svg className={styles.connectors} viewBox="0 0 480 300" aria-hidden="true">

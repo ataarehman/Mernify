@@ -5,10 +5,14 @@
 
 #root {
   min-height: 100vh;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .mf-main {
   min-height: 60vh;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .mf-main-inner {

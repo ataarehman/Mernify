@@ -1,17 +1,168 @@
 export const homeHero = {
-  eyebrow: 'Product engineering company',
-  titleLines: ['We Design, Engineer ', '& Scale Digital Products'],
+  title: 'WE DESIGN, ENGINEER & SCALE DIGITAL PRODUCTS FOR STARTUPS AND GROWING BUSINESSES.',
+}
+
+export const homeAbout = {
+  lead:
+    'Mernify is a focused product-engineering partner — helping businesses transform ideas, workflows, and operational challenges into reliable digital products.',
+  body:
+    'We combine modern engineering, product thinking, and structured delivery so teams can launch faster, operate efficiently, and grow confidently.',
+  cta: { label: 'Discuss Your Project', to: '/contact' },
+}
+
+export const homePortfolio = {
+  eyebrow: 'SELECTED',
+  title: 'CASE STUDIES',
   support:
-    'Mernify helps startups, growing businesses, and enterprises build reliable web, mobile, SaaS, and AI-powered products that drive growth and create measurable business value.',
-  primaryCta: {
-    label: "Let's Build Your Product",
-    to: '/contact',
-  },
-  secondaryCta: {
-    label: 'Explore Our Work',
-    to: '/case-studies',
-  },
-  meta: ['Web & SaaS', 'Mobile', 'AI & Automation', 'Cloud'],
+    'We publish outcome-led case studies when clients approve public detail. Until then, explore services or start a discovery conversation — we do not invent customer names or metrics.',
+  status: 'Coming soon',
+  cta: { label: 'Discuss Your Project', to: '/contact' },
+  projects: [
+    {
+      id: '01',
+      title: 'SaaS Operations Platform',
+      tags: ['PRODUCT', 'ENGINEERING'],
+      year: '2021',
+      image: '/assets/images/thumbs/portfolio-thumb1.jpg',
+      to: '/case-studies',
+      size: 'large',
+    },
+    {
+      id: '02',
+      title: 'Field Service Mobile',
+      tags: ['PRODUCT', 'ENGINEERING'],
+      year: '2022',
+      image: '/assets/images/thumbs/portfolio-thumb2.jpg',
+      to: '/case-studies',
+      size: 'small',
+    },
+    {
+      id: '03',
+      title: 'AI Document Workflow',
+      tags: ['PRODUCT', 'ENGINEERING'],
+      year: '2023',
+      image: '/assets/images/thumbs/portfolio-thumb3.jpg',
+      to: '/case-studies',
+      size: 'small',
+    },
+    {
+      id: '04',
+      title: 'Field Service Mobile',
+      tags: ['PRODUCT', 'ENGINEERING'],
+      year: '2024',
+      image: '/assets/images/thumbs/portfolio-thumb4.jpg',
+      to: '/case-studies',
+      size: 'small',
+    },
+    {
+      id: '05',
+      title: 'AI Document Workflow',
+      tags: ['PRODUCT', 'ENGINEERING'],
+      year: '2025',
+      image: '/assets/images/thumbs/portfolio-thumb5.jpg',
+      to: '/case-studies',
+      size: 'small',
+    },
+    {
+      id: '06',
+      title: 'SaaS Operations Platform',
+      tags: ['PRODUCT', 'ENGINEERING'],
+      year: '2026',
+      image: '/assets/images/thumbs/portfolio-thumb6.jpg',
+      to: '/case-studies',
+      size: 'large',
+    },
+  ],
+}
+
+export const homeServicesCarousel = {
+  viewAll: { label: 'View All Services', to: '/services' },
+  tags: [
+    'Discovery & Architecture',
+    'Full-Stack Delivery',
+    'Product Strategy',
+    'UI/UX Systems',
+  ],
+  blurb:
+    'Outcome-led product engineering organized by commercial needs—not programming languages.',
+  slides: [
+    {
+      slug: 'product-engineering',
+      title: 'Product Engineering',
+      image: '/assets/images/thumbs/portfolio-thumb1.jpg',
+    },
+    {
+      slug: 'saas-development',
+      title: 'SaaS Development',
+      image: '/assets/images/thumbs/portfolio-thumb2.jpg',
+    },
+    {
+      slug: 'mobile-app-development',
+      title: 'Mobile App Development',
+      image: '/assets/images/thumbs/portfolio-thumb3.jpg',
+    },
+    {
+      slug: 'ai-integration',
+      title: 'AI Integration',
+      image: '/assets/images/thumbs/portfolio-thumb4.jpg',
+    },
+    {
+      slug: 'web-development',
+      title: 'Web Development',
+      image: '/assets/images/thumbs/portfolio-thumb5.jpg',
+    },
+  ],
+}
+
+export const homeHuman = {
+  badge: 'Senior-led delivery',
+  titleBefore: 'Complex technology. Clear partnership — how we work with product teams to deliver ',
+  titleAccent: 'reliably.',
+  cta: { label: 'About Mernify', to: '/about' },
+  avatars: [
+    '/assets/images/thumbs/team-img1.png',
+    '/assets/images/thumbs/team-img2.png',
+    '/assets/images/thumbs/team-img3.png',
+    '/assets/images/thumbs/team-img4.png',
+  ],
+  principles: [
+    {
+      title: 'Direct Communication',
+      subtitle: 'Delivery principle',
+      image: '/assets/images/thumbs/team-thumb1.jpg',
+      to: '/about',
+      social: [
+        { label: 'Facebook', href: 'https://facebook.com' },
+        { label: 'LinkedIn', href: 'https://linkedin.com' },
+        { label: 'Instagram', href: 'https://instagram.com' },
+        { label: 'Dribbble', href: 'https://dribbble.com' },
+      ],
+    },
+    {
+      title: 'Transparent Delivery',
+      subtitle: 'Delivery principle',
+      image: '/assets/images/thumbs/team-thumb2.jpg',
+      to: '/about',
+      social: [
+        { label: 'Facebook', href: 'https://facebook.com' },
+        { label: 'LinkedIn', href: 'https://linkedin.com' },
+        { label: 'Instagram', href: 'https://instagram.com' },
+        { label: 'Dribbble', href: 'https://dribbble.com' },
+      ],
+    },
+    {
+      title: 'Product Ownership',
+      subtitle: 'Delivery principle',
+      image: '/assets/images/thumbs/team-thumb3.jpg',
+      to: '/about',
+      social: [
+        { label: 'Facebook', href: 'https://facebook.com' },
+        { label: 'LinkedIn', href: 'https://linkedin.com' },
+        { label: 'Instagram', href: 'https://instagram.com' },
+        { label: 'Dribbble', href: 'https://dribbble.com' },
+      ],
+    },
+  ],
 }
 
 export const homeFinalCta = {

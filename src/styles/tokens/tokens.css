@@ -1,14 +1,16 @@
 :root {
   /* Color — Brand Guidelines */
+  /* Brand — matches mernify-web template (Unifex rebrand) */
   --mf-color-indigo: #4f46e5;
   --mf-color-indigo-hover: #4338ca;
-  --mf-color-cyan: #06b6d4;
+  --mf-color-cyan: #15c6e2;
   --mf-color-navy: #0f172a;
-  --mf-color-navy-deep: #07111f;
+  --mf-color-navy-deep: #02090f;
   --mf-color-surface-dark: #101b2e;
-  --mf-color-slate-black: #1e293b;
-  --mf-color-slate-gray: #64748b;
+  --mf-color-slate-black: #0f172a;
+  --mf-color-slate-gray: #475569;
   --mf-color-cloud: #f8fafc;
+  --mf-color-cream: #f4f2ee;
   --mf-color-white: #ffffff;
   --mf-color-success: #10b981;
   --mf-color-warning: #f59e0b;
@@ -29,12 +31,12 @@
   --mf-focus-ring: rgba(79, 70, 229, 0.35);
 
   /* Gradients — use sparingly */
-  --mf-gradient-brand: linear-gradient(135deg, #4f46e5, #06b6d4);
+  --mf-gradient-brand: linear-gradient(135deg, #4f46e5, #15c6e2);
   --mf-gradient-dark: linear-gradient(180deg, #0f172a, #1e293b);
 
-  /* Typography */
-  --mf-font-display: 'Space Grotesk', Arial, Helvetica, sans-serif;
-  --mf-font-body: 'Inter', Arial, Helvetica, sans-serif;
+  /* Typography — Phudu (headings) + Instrument Sans (body) from template */
+  --mf-font-display: 'Phudu', Arial, Helvetica, sans-serif;
+  --mf-font-body: 'Instrument Sans', Arial, Helvetica, sans-serif;
   --mf-font-size-display: clamp(2.5rem, 7vw, 4.5rem);
   --mf-font-size-h2: clamp(1.75rem, 3.2vw, 2.5rem);
   --mf-font-size-h3: clamp(1.25rem, 2vw, 1.75rem);
@@ -99,7 +101,7 @@
   /* Grid / decorative */
   --mf-grid-line: rgba(248, 250, 252, 0.04);
   --mf-gradient-radial-indigo: radial-gradient(ellipse 60% 50% at 70% 40%, rgba(79,70,229,0.25), transparent 65%);
-  --mf-gradient-radial-cyan: radial-gradient(ellipse 45% 40% at 20% 75%, rgba(6,182,212,0.15), transparent 60%);
+  --mf-gradient-radial-cyan: radial-gradient(ellipse 45% 40% at 20% 75%, rgba(21, 198, 226,0.15), transparent 60%);
 
   /* Hairlines */
   --mf-hairline: 1px solid rgba(15, 23, 42, 0.1);

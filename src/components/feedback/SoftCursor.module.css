@@ -1,37 +1,44 @@
 .root {
   position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 400;
-  display: none;
-}
-
-.dot,
-.ring {
-  position: fixed;
   top: 0;
   left: 0;
-  border-radius: 50%;
+  z-index: 400;
+  pointer-events: none;
+  display: none;
   transform: translate(-50%, -50%);
   will-change: transform;
 }
 
-.dot {
-  width: 6px;
-  height: 6px;
-  background: var(--mf-color-cyan);
-  mix-blend-mode: difference;
-}
-
 .ring {
-  width: 34px;
-  height: 34px;
-  border: 1px solid rgba(79, 70, 229, 0.55);
+  display: grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  color: #02090f;
   transition:
     width 0.35s var(--mf-ease-out),
     height 0.35s var(--mf-ease-out),
-    border-color 0.35s var(--mf-ease-out),
     background-color 0.35s var(--mf-ease-out);
+}
+
+.label {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.15rem;
+  font-family: var(--mf-font-body);
+  font-size: 0.8rem;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: capitalize;
+}
+
+.arrow {
+  font-size: 0.95rem;
+  line-height: 1;
 }
 
 :global(html.mf-soft-cursor) .root {
@@ -48,8 +55,16 @@
 :global(html.mf-cursor-active) .ring {
   width: 52px;
   height: 52px;
-  border-color: rgba(6, 182, 212, 0.7);
-  background: rgba(79, 70, 229, 0.08);
+}
+
+:global(html.mf-cursor-view) .ring {
+  width: 96px;
+  height: 96px;
+  background: #ffffff;
+}
+
+:global(html.mf-cursor-view) .label {
+  display: flex;
 }
 
 @media (max-width: 1023px) {

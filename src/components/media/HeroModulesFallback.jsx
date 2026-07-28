@@ -29,11 +29,11 @@ export function HeroModulesFallback() {
             </linearGradient>
             <linearGradient id="mf-grad-c" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#4f46e5" />
-              <stop offset="100%" stopColor="#06b6d4" />
+              <stop offset="100%" stopColor="#15c6e2" />
             </linearGradient>
             <linearGradient id="mf-grad-r" x1="0%" y1="0%" x2="100%" y2="100%">
               <stop offset="0%" stopColor="#0891b2" />
-              <stop offset="100%" stopColor="#06b6d4" />
+              <stop offset="100%" stopColor="#15c6e2" />
             </linearGradient>
             <filter id="mf-glow" x="-30%" y="-30%" width="160%" height="160%">
               <feGaussianBlur stdDeviation="3" result="blur" />
@@ -98,7 +98,7 @@ export function HeroModulesFallback() {
           <line x1="280" y1="240" x2="82" y2="380" />
           <line x1="280" y1="240" x2="478" y2="380" />
         </g>
-        <g fill="#06b6d4" opacity="0.5">
+        <g fill="#15c6e2" opacity="0.5">
           <circle cx="82"  cy="100" r="2.5" />
           <circle cx="478" cy="100" r="2.5" />
           <circle cx="82"  cy="380" r="2.5" />

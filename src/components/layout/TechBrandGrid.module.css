@@ -1,0 +1,149 @@
+.section {
+  padding: var(--mf-section-pad-y) 0;
+  background: var(--mf-bg-page);
+}
+
+.inner {
+  width: 100%;
+  max-width: calc(1440px + var(--mf-page-margin) * 2);
+  margin-inline: auto;
+  padding-inline: var(--mf-page-margin);
+}
+
+.title {
+  margin: 0 0 clamp(2rem, 4vw, 3.5rem);
+  text-align: center;
+  font-family: var(--mf-font-display);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: var(--mf-weight-medium);
+  letter-spacing: -0.02em;
+  color: var(--mf-text-primary);
+}
+
+.grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width: 700px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .item:nth-child(3),
+  .item:nth-child(7) {
+    grid-column: 3;
+  }
+
+  .item:nth-child(4),
+  .item:nth-child(8) {
+    grid-column: 4;
+  }
+
+  .item:nth-child(1) {
+    grid-column: 1;
+  }
+
+  .item:nth-child(2) {
+    grid-column: 2;
+  }
+
+  .item:nth-child(5) {
+    grid-column: 2;
+  }
+
+  .item:nth-child(6) {
+    grid-column: 3;
+  }
+}
+
+.item {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 110px;
+  padding: 1.25rem;
+  border: 1px solid var(--mf-border-default);
+  border-radius: var(--mf-radius-md);
+  background: #ffffff;
+  overflow: hidden;
+  cursor: pointer;
+  transition:
+    transform 0.35s var(--mf-ease-out),
+    box-shadow 0.35s var(--mf-ease-out);
+}
+
+.item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.08);
+}
+
+.idle,
+.hover {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.idle {
+  opacity: 1;
+  transition: all 0.7s ease-in-out;
+  transform: translateY(0);
+}
+
+.hover {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.7s ease-in-out;
+  transform: translateY(30%);
+}
+
+.item:hover .idle {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease-in-out;
+  transform: translateY(-100%);
+}
+
+.item:hover .hover {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.hover img {
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item:hover {
+    transform: none;
+  }
+
+  .item:hover .idle,
+  .item:hover .hover {
+    transform: none;
+  }
+}
+
+.idle img,
+.hover img {
+  display: block;
+  max-width: 7.5rem;
+  max-height: 2.75rem;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+}

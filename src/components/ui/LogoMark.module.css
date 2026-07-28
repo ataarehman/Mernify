@@ -1,37 +1,33 @@
 .logo {
   display: inline-flex;
   align-items: center;
-  gap: 0.7rem;
+  line-height: 0;
   text-decoration: none;
-  color: var(--mf-text-primary);
 }
 
 .mark {
-  width: 2rem;
-  height: 2rem;
-  flex: 0 0 auto;
+  height: 52px;
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
 }
 
-.mark svg {
-  width: 100%;
-  height: 100%;
+.compact .mark {
+  height: 36px;
+  max-width: 150px;
 }
 
-.markBg {
-  fill: var(--mf-color-navy);
+@media (max-width: 1199px) {
+  .mark {
+    height: 44px;
+    max-width: 190px;
+  }
 }
 
-.wordmark {
-  font-family: var(--mf-font-display);
-  font-size: 1.15rem;
-  font-weight: var(--mf-weight-semibold);
-  letter-spacing: -0.03em;
-}
-
-.inverted {
-  color: var(--mf-text-on-dark);
-}
-
-.inverted .markBg {
-  fill: rgba(248, 250, 252, 0.08);
+@media (max-width: 575px) {
+  .mark {
+    height: 36px;
+    max-width: 150px;
+  }
 }

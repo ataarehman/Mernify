@@ -1,13 +1,20 @@
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight } from 'lucide-react'
 import { PageHero } from '@/components/layout/PageHero'
+import { PageCta } from '@/components/layout/PageCta'
+import { MediaStrip } from '@/components/layout/MediaStrip'
+import { TechBrandGrid } from '@/components/layout/TechBrandGrid'
 import { PageMeta } from '@/components/seo/PageMeta'
-import { Container, Section, Text } from '@/components/ui'
-import { SERVICE_ICONS } from '@/lib/serviceIcons'
+import { Container } from '@/components/ui'
 import { services } from '@/content/services'
+import { getServiceImage } from '@/lib/templateMedia'
+import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
 import styles from './ServicesPage.module.css'
 
 export function ServicesPage() {
+  const listRef = useRef(null)
+  useRevealOnScroll(listRef, { selector: '[data-fade-up]', start: 'top 90%' })
+
   return (
     <>
       <PageMeta
@@ -16,38 +23,63 @@ export function ServicesPage() {
         canonicalPath="/services"
       />
       <PageHero
-        eyebrow="Services"
-        title="Product engineering buyers actually purchase"
-        support="Every service is framed around the problem you need solved and the outcome you should expect—not a laundry list of frameworks."
+        title="Services"
+        support={
+          <>
+            We are <span className={styles.accent}>“Mernify”</span> — a modern software development
+            partner for products that need to last
+          </>
+        }
       />
-      <Section tone="light" className={styles.section}>
-        <Container>
-          <ul className={styles.grid} role="list">
-            {services.map((item) => {
-              const Icon = SERVICE_ICONS[item.icon] || SERVICE_ICONS.boxes
-              return (
-                <li key={item.slug}>
-                  <Link to={`/services/${item.slug}`} className={styles.card}>
-                    <span className={styles.icon}>
-                      <Icon size={20} aria-hidden="true" />
+
+      <section className={styles.section} data-header-theme="dark" ref={listRef}>
+        <Container width="wide">
+          <ul className={styles.list} role="list">
+            {services.map((item, index) => (
+              <li
+                key={item.slug}
+                className={[styles.single, index % 2 === 1 ? styles.singleAlt : ''].join(' ')}
+                data-fade-up
+                data-delay={String((index % 4) * 80)}
+              >
+                <Link to={`/services/${item.slug}`} className={styles.item}>
+                  <div className={styles.content}>
+                    <span className={styles.number}>
+                      {String(index + 1).padStart(2, '0')}
+                      <img
+                        src="/assets/images/icons/service-three-arrow.svg"
+                        alt=""
+                        aria-hidden="true"
+                      />
                     </span>
-                    <h2>{item.title}</h2>
-                    <Text muted className={styles.problem}>
-                      {item.problem}
-                    </Text>
-                    <p className={styles.outcome}>
-                      <strong>Outcome:</strong> {item.outcome}
-                    </p>
-                    <span className={styles.cta}>
-                      Explore service <ArrowUpRight size={14} aria-hidden="true" />
-                    </span>
-                  </Link>
-                </li>
-              )
-            })}
+                    <div className={styles.copy}>
+                      <h2 className={styles.title}>{item.title}</h2>
+                      <ul className={styles.tags} role="list">
+                        {item.capabilities.slice(0, 3).map((cap) => (
+                          <li key={cap}>
+                            <span>{cap}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  <div className={styles.thumb}>
+                    <img src={getServiceImage(item.slug)} alt="" />
+                  </div>
+                </Link>
+              </li>
+            ))}
           </ul>
         </Container>
-      </Section>
+      </section>
+
+      <MediaStrip src="/assets/images/thumbs/thumbnail-ab-bg.jpg" height="tall" />
+      <TechBrandGrid animated />
+      <PageCta
+        title="Ready to build your next digital product? Drop us a message, and let’s start engineering something reliable and scalable."
+        accentWords={['message', 'scalable']}
+        animated
+      />
     </>
   )
 }

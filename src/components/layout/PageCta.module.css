@@ -1,0 +1,96 @@
+.cta {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(5rem, 12vw, 9.5rem) 0;
+  color: #ffffff;
+  text-align: center;
+}
+
+.bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(2, 9, 15, 0.72), rgba(2, 9, 15, 0.82)),
+    url('/assets/images/thumbs/cta-two-bg.jpg') center / cover no-repeat;
+}
+
+.shapeOne,
+.shapeTwo {
+  position: absolute;
+  z-index: 1;
+  width: clamp(80px, 14vw, 180px);
+  height: auto;
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.shapeOne {
+  top: 1.5rem;
+  left: 1.5rem;
+}
+
+.shapeTwo {
+  bottom: 1.5rem;
+  right: 1.5rem;
+}
+
+.inner {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  gap: 1.25rem;
+  justify-items: center;
+  max-width: 52rem;
+}
+
+.title {
+  margin: 0;
+  font-family: var(--mf-font-display);
+  font-size: clamp(2rem, 5vw, 3.75rem);
+  font-weight: var(--mf-weight-semibold);
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+
+.accent {
+  color: var(--mf-color-indigo);
+}
+
+.support {
+  margin: 0;
+  max-width: 36rem;
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.7;
+  color: rgba(248, 250, 252, 0.82);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.5rem;
+  margin-top: 0.75rem;
+  padding: 0.9rem 1.75rem;
+  border-radius: var(--mf-radius-md);
+  background: var(--mf-color-indigo);
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: var(--mf-weight-bold);
+  transition:
+    background-color var(--mf-dur-sm) var(--mf-ease-out),
+    transform var(--mf-dur-sm) var(--mf-ease-out);
+}
+
+.button:hover {
+  background: var(--mf-color-indigo-hover);
+  transform: translateY(-1px);
+}
+
+@media (max-width: 767px) {
+  .shapeOne,
+  .shapeTwo {
+    width: 64px;
+    opacity: 0.55;
+  }
+}

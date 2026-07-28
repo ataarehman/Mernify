@@ -1,4 +1,4 @@
-import { Container, Eyebrow, Heading, Text } from '@/components/ui'
+import { Container } from '@/components/ui'
 import styles from './PageHero.module.css'
 
 export function PageHero({
@@ -23,16 +23,12 @@ export function PageHero({
       data-header-theme={tone === 'dark' ? 'dark' : 'light'}
       aria-labelledby="page-hero-title"
     >
-      <Container className={styles.inner}>
-        {eyebrow ? <Eyebrow className={styles.eyebrow}>{eyebrow}</Eyebrow> : null}
-        <Heading id="page-hero-title" level={1} className={styles.title}>
+      <Container width="wide" className={styles.inner}>
+        {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+        <h1 id="page-hero-title" className={styles.title}>
           {title}
-        </Heading>
-        {support ? (
-          <Text className={styles.support} muted={tone === 'light'}>
-            {support}
-          </Text>
-        ) : null}
+        </h1>
+        {support ? <p className={styles.support}>{support}</p> : null}
         {actions ? <div className={styles.actions}>{actions}</div> : null}
       </Container>
     </section>

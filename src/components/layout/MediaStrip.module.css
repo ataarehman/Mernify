@@ -1,0 +1,19 @@
+.strip {
+  position: relative;
+  height: clamp(280px, 55vw, 720px);
+  overflow: hidden;
+  background: var(--mf-color-navy-deep);
+}
+
+.tall {
+  height: clamp(320px, 58vw, 780px);
+}
+
+.image {
+  position: absolute;
+  inset: -18% 0;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  will-change: transform;
+}

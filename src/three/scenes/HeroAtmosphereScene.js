@@ -14,7 +14,7 @@ export function createHeroAtmosphere({ THREE, scene, camera }) {
   const ambient = new THREE.AmbientLight(0x0b1220, 1.1)
   const key = new THREE.PointLight(0x4f46e5, 22, 14, 2)
   key.position.set(-2.4, 1.6, 2.4)
-  const fill = new THREE.PointLight(0x06b6d4, 14, 12, 2)
+  const fill = new THREE.PointLight(0x15c6e2, 14, 12, 2)
   fill.position.set(2.6, -1.0, 1.8)
   const rim = new THREE.DirectionalLight(0x93c5fd, 0.55)
   rim.position.set(0, 2.5, -3)
@@ -40,7 +40,7 @@ export function createHeroAtmosphere({ THREE, scene, camera }) {
       transparent: true,
       opacity: panel.opacity,
       side: THREE.DoubleSide,
-      emissive: index % 2 === 0 ? 0x4f46e5 : 0x06b6d4,
+      emissive: index % 2 === 0 ? 0x4f46e5 : 0x15c6e2,
       emissiveIntensity: 0.045,
     })
     const mesh = new THREE.Mesh(geo, mat)
@@ -52,8 +52,8 @@ export function createHeroAtmosphere({ THREE, scene, camera }) {
 
   const nodeGeo = new THREE.SphereGeometry(0.028, 16, 16)
   const nodeMat = new THREE.MeshStandardMaterial({
-    color: 0x06b6d4,
-    emissive: 0x06b6d4,
+    color: 0x15c6e2,
+    emissive: 0x15c6e2,
     emissiveIntensity: 0.85,
     metalness: 0.2,
     roughness: 0.25,

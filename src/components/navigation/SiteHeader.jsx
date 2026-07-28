@@ -1,9 +1,12 @@
 import { useEffect, useId, useRef, useState } from 'react'
-import { NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation } from 'react-router-dom'
+import { ArrowUpRight, ChevronDown, MapPin, Mail, Phone, Send, X } from 'lucide-react'
 import gsap from 'gsap'
-import { Button, Container, LogoMark } from '@/components/ui'
-import { Magnetic } from '@/components/ui/Magnetic'
-import { navigation, primaryCta, secondaryCta } from '@/content/navigation'
+import { Container, LogoMark } from '@/components/ui'
+import { ServicesMegaMenu } from '@/components/navigation/ServicesMegaMenu'
+import { footerSocial, megaServiceSlugs, navigation, primaryCta } from '@/content/navigation'
+import { getServiceBySlug } from '@/content/services'
+import { SITE } from '@/constants/site'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
 import { useMotion } from '@/app/providers/useMotion'
 import styles from './SiteHeader.module.css'
@@ -16,6 +19,38 @@ function setNavVisible(header, visible) {
   })
 }
 
+function FacebookIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14C17.174 2.097 15.943 2 14.643 2 11.928 2 10 3.657 10 6.7V9.5H7.5v4H10V22h4z" />
+    </svg>
+  )
+}
+
+function InstagramIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" strokeWidth="2" />
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+      <circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" />
+    </svg>
+  )
+}
+
+function LinkedinIcon() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M6.94 8.5H3.75V21h3.19V8.5zM5.34 3C4.22 3 3.3 3.93 3.3 5.06c0 1.12.9 2.05 2.06 2.05h.02c1.14 0 2.05-.93 2.05-2.05C7.41 3.93 6.5 3 5.34 3zM20.25 21h-3.18v-6.52c0-1.55-.03-3.54-2.16-3.54-2.16 0-2.49 1.69-2.49 3.43V21H9.24V8.5h3.05v1.71h.04c.42-.8 1.46-1.65 3-1.65 3.21 0 3.8 2.11 3.8 4.86V21z" />
+    </svg>
+  )
+}
+
+const SOCIAL_ICONS = {
+  facebook: FacebookIcon,
+  instagram: InstagramIcon,
+  linkedin: LinkedinIcon,
+}
+
 export function SiteHeader() {
   const { pathname } = useLocation()
   const { prefersReducedMotion } = useReducedMotion()
@@ -23,10 +58,14 @@ export function SiteHeader() {
   const [theme, setTheme] = useState('dark')
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const [servicesOpen, setServicesOpen] = useState(false)
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false)
   const menuId = useId()
   const headerRef = useRef(null)
   const toggleRef = useRef(null)
   const panelRef = useRef(null)
+
+  const megaServices = megaServiceSlugs.map((slug) => getServiceBySlug(slug)).filter(Boolean)
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll('[data-header-theme]'))
@@ -55,11 +94,19 @@ export function SiteHeader() {
   }, [pathname])
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16)
+    const readY = () => lenis?.current?.scroll ?? window.scrollY ?? 0
+    const onScroll = () => setScrolled(readY() > 16)
     onScroll()
+
+    const instance = lenis?.current
+    if (instance) {
+      instance.on('scroll', onScroll)
+      return () => instance.off('scroll', onScroll)
+    }
+
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
-  }, [])
+  }, [lenis])
 
   useEffect(() => {
     document.documentElement.classList.toggle('mf-nav-open', menuOpen)
@@ -79,7 +126,7 @@ export function SiteHeader() {
     const focusables = panel
       ? Array.from(
           panel.querySelectorAll(
-            'a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])',
+            'a[href], button:not([disabled]), input, [tabindex]:not([tabindex="-1"])',
           ),
         )
       : []
@@ -90,6 +137,7 @@ export function SiteHeader() {
     const onKey = (event) => {
       if (event.key === 'Escape') {
         setMenuOpen(false)
+        setMobileServicesOpen(false)
         toggleRef.current?.focus()
         return
       }
@@ -108,6 +156,8 @@ export function SiteHeader() {
 
   useEffect(() => {
     setMenuOpen(false)
+    setServicesOpen(false)
+    setMobileServicesOpen(false)
   }, [pathname])
 
   useEffect(() => {
@@ -137,35 +187,13 @@ export function SiteHeader() {
     return () => ctx.revert()
   }, [prefersReducedMotion, pathname])
 
-  useEffect(() => {
-    const panel = panelRef.current
-    if (!panel) return undefined
-    if (!menuOpen) return undefined
+  const closeMenu = () => {
+    setMenuOpen(false)
+    setMobileServicesOpen(false)
+  }
 
-    const targets = panel.querySelectorAll('[data-mobile-enter]')
-    if (prefersReducedMotion) {
-      gsap.set(targets, { y: 0, autoAlpha: 1 })
-      return undefined
-    }
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        targets,
-        { y: 24, autoAlpha: 0 },
-        {
-          y: 0,
-          autoAlpha: 1,
-          duration: 0.55,
-          stagger: 0.07,
-          ease: 'power3.out',
-        },
-      )
-    }, panel)
-
-    return () => ctx.revert()
-  }, [menuOpen, prefersReducedMotion])
-
-  const inverted = theme === 'dark' || menuOpen
+  const isHome = pathname === '/'
+  const inverted = !menuOpen && !scrolled && isHome && theme === 'dark'
 
   return (
     <header
@@ -175,47 +203,59 @@ export function SiteHeader() {
         inverted ? styles.dark : styles.light,
         scrolled ? styles.scrolled : '',
         menuOpen ? styles.menuOpen : '',
+        !isHome ? styles.innerPage : '',
       ]
         .filter(Boolean)
         .join(' ')}
     >
-      <Container className={styles.inner}>
+      <Container width="wide" className={styles.inner}>
         <div data-nav-enter className={styles.brand}>
           <LogoMark inverted={inverted} />
         </div>
 
         <nav className={styles.desktopNav} aria-label="Primary">
-          {navigation.map((item) => (
-            <Magnetic key={item.to} as="span" className={styles.navMagnetic} strength={0.4} radius={70}>
+          {navigation.map((item) =>
+            item.mega === 'services' ? (
+              <div
+                key={item.to}
+                className={styles.navItem}
+                data-nav-enter
+                onMouseEnter={() => setServicesOpen(true)}
+                onMouseLeave={() => setServicesOpen(false)}
+              >
+                <NavLink
+                  to={item.to}
+                  data-cursor="interactive"
+                  className={({ isActive }) =>
+                    [styles.navLink, isActive || servicesOpen ? styles.active : '']
+                      .filter(Boolean)
+                      .join(' ')
+                  }
+                  aria-haspopup="true"
+                  aria-expanded={servicesOpen}
+                >
+                  <span className={styles.navLabel}>{item.label}</span>
+                </NavLink>
+                <ServicesMegaMenu open={servicesOpen} onClose={() => setServicesOpen(false)} />
+              </div>
+            ) : (
               <NavLink
+                key={item.to}
                 to={item.to}
                 data-nav-enter
                 data-cursor="interactive"
+                end={item.to === '/'}
                 className={({ isActive }) =>
                   [styles.navLink, isActive ? styles.active : ''].filter(Boolean).join(' ')
                 }
               >
                 <span className={styles.navLabel}>{item.label}</span>
-                <span className={styles.navLine} aria-hidden="true" />
               </NavLink>
-            </Magnetic>
-          ))}
+            ),
+          )}
         </nav>
 
         <div className={styles.actions}>
-          <div data-nav-enter className={styles.ctaWrap}>
-            <Button
-              as={NavLink}
-              to={primaryCta.to}
-              size="sm"
-              magnetic
-              arrow
-              className={styles.cta}
-            >
-              {primaryCta.label}
-            </Button>
-          </div>
-
           <button
             ref={toggleRef}
             type="button"
@@ -227,63 +267,178 @@ export function SiteHeader() {
             data-cursor="interactive"
             onClick={() => setMenuOpen((open) => !open)}
           >
-            <span className={styles.menuToggleBars} aria-hidden="true">
-              <span />
-              <span />
-            </span>
+            <svg
+              className={styles.menuToggleIcon}
+              width="22"
+              height="16"
+              viewBox="0 0 22 16"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M11 15H21M1 8H21M1 1H21"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </button>
+
+          <div data-nav-enter className={styles.ctaWrap}>
+            <NavLink to={primaryCta.to} className={styles.cta}>
+              {primaryCta.label}
+            </NavLink>
+          </div>
         </div>
       </Container>
 
-      <div
+      <button
+        type="button"
+        className={[styles.overlay, menuOpen ? styles.overlayOpen : ''].join(' ')}
+        aria-label="Close menu"
+        tabIndex={menuOpen ? 0 : -1}
+        onClick={closeMenu}
+      />
+
+      <aside
         ref={panelRef}
         id={menuId}
-        className={[styles.mobilePanel, menuOpen ? styles.mobilePanelOpen : ''].join(' ')}
-        hidden={!menuOpen}
+        className={[styles.offcanvas, menuOpen ? styles.offcanvasOpen : ''].join(' ')}
+        aria-hidden={!menuOpen}
       >
-        <div className={styles.mobileGlow} aria-hidden="true" />
-        <div className={styles.mobileIntro} data-mobile-enter>
-          <p className={styles.mobileEyebrow}>Navigate</p>
-          <p className={styles.mobileLead}>Explore how we design, engineer, and scale digital products.</p>
+        <div className={styles.offcanvasTop}>
+          <button
+            type="button"
+            className={styles.offcanvasClose}
+            aria-label="Close menu"
+            onClick={closeMenu}
+          >
+            <X size={18} strokeWidth={2.5} aria-hidden="true" />
+          </button>
+
+          <div className={styles.offcanvasLogo}>
+            <LogoMark />
+          </div>
+
+          <p className={styles.offcanvasTitle}>{SITE.positioning}</p>
+
+          <nav className={styles.offcanvasNav} aria-label="Mobile">
+            {navigation.map((item) =>
+              item.mega === 'services' ? (
+                <div key={item.to} className={styles.offcanvasItem}>
+                  <button
+                    type="button"
+                    className={styles.offcanvasLink}
+                    aria-expanded={mobileServicesOpen}
+                    onClick={() => setMobileServicesOpen((open) => !open)}
+                  >
+                    <span>{item.label}</span>
+                    <ChevronDown
+                      size={16}
+                      className={[
+                        styles.offcanvasChevron,
+                        mobileServicesOpen ? styles.offcanvasChevronOpen : '',
+                      ]
+                        .filter(Boolean)
+                        .join(' ')}
+                      aria-hidden="true"
+                    />
+                  </button>
+                  <ul
+                    className={[
+                      styles.offcanvasSub,
+                      mobileServicesOpen ? styles.offcanvasSubOpen : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
+                    <li>
+                      <NavLink to="/services" onClick={closeMenu}>
+                        All services
+                      </NavLink>
+                    </li>
+                    {megaServices.map((service) => (
+                      <li key={service.slug}>
+                        <NavLink to={`/services/${service.slug}`} onClick={closeMenu}>
+                          {service.title}
+                        </NavLink>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : (
+                <div key={item.to} className={styles.offcanvasItem}>
+                  <NavLink
+                    to={item.to}
+                    end={item.to === '/'}
+                    className={styles.offcanvasLink}
+                    onClick={closeMenu}
+                  >
+                    <span>{item.label}</span>
+                    <ArrowUpRight size={14} aria-hidden="true" />
+                  </NavLink>
+                </div>
+              ),
+            )}
+          </nav>
         </div>
-        <nav className={styles.mobileNav} aria-label="Mobile">
-          {navigation.map((item, index) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={styles.mobileLink}
-              data-mobile-enter
-              onClick={() => setMenuOpen(false)}
+
+        <div className={styles.offcanvasBottom}>
+          <div className={styles.offcanvasContact}>
+            <h5>Contact us</h5>
+            <ul>
+              <li>
+                <MapPin size={16} aria-hidden="true" />
+                <span>Remote-first · Global collaboration</span>
+              </li>
+              <li>
+                <Mail size={16} aria-hidden="true" />
+                <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+              </li>
+              <li>
+                <Phone size={16} aria-hidden="true" />
+                <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+              </li>
+            </ul>
+          </div>
+
+          <div className={styles.offcanvasInput}>
+            <h4>Get Updates</h4>
+            <form
+              onSubmit={(event) => {
+                event.preventDefault()
+              }}
             >
-              <span className={styles.mobileIndex}>0{index + 1}</span>
-              <span className={styles.mobileLabel}>{item.label}</span>
-              <span className={styles.mobileChevron} aria-hidden="true">
-                →
-              </span>
-            </NavLink>
-          ))}
-        </nav>
-        <div className={styles.mobileFooter} data-mobile-enter>
-          <Button
-            as={NavLink}
-            to={primaryCta.to}
-            size="lg"
-            magnetic
-            arrow
-            className={styles.mobileCta}
-            onClick={() => setMenuOpen(false)}
-          >
+              <input type="email" name="email" placeholder="Enter mail" aria-label="Email" />
+              <button type="submit" aria-label="Subscribe">
+                <Send size={16} aria-hidden="true" />
+              </button>
+            </form>
+          </div>
+
+          <div className={styles.offcanvasSocial}>
+            {footerSocial.map((item) => {
+              const Icon = SOCIAL_ICONS[item.id]
+              return (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={item.label}
+                >
+                  {Icon ? <Icon /> : null}
+                </a>
+              )
+            })}
+          </div>
+
+          <Link to={primaryCta.to} className={styles.offcanvasCta} onClick={closeMenu}>
             {primaryCta.label}
-          </Button>
-          <NavLink
-            to={secondaryCta.to}
-            className={styles.mobileSecondary}
-            onClick={() => setMenuOpen(false)}
-          >
-            {secondaryCta.label}
-          </NavLink>
+          </Link>
         </div>
-      </div>
+      </aside>
     </header>
   )
 }
