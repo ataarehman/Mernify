@@ -12,3 +12,11 @@
   background: var(--mf-bg-inverse);
   color: var(--mf-text-on-dark);
 }
+
+.compact {
+  padding-block: var(--mf-section-pad-y-sm);
+}
+
+.spacious {
+  padding-block: var(--mf-section-pad-y-lg);
+}

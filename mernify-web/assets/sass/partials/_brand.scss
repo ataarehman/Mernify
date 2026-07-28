@@ -1,0 +1,60 @@
+.brand {
+    &-area {
+        background: #f4f2ee;
+    }
+    &-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: hsl(var(--white));
+        border-radius: 10px;
+        padding: 70px 0;
+        cursor: pointer;
+        height: 188px;
+        &:hover {
+            & .brand-active-media {
+                opacity: 0;
+                visibility: hidden;
+                transition: all 0.3s ease-in-out;
+                transform: translateY(-100%);
+            }
+            &  .brand-hover-media {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+            }
+        }
+    }
+    &-active-media {
+        transition: all 0.7s ease-in-out;
+        transform: translateY(0%);
+    }
+    &-hover-media {
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.7s ease-in-out;
+        transform: translateY(30%);
+        border-radius: 50%;
+        position: absolute;
+    }
+}
+
+
+.brand-three {
+    &-title {
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), -4px -4px 0 0 rgba(255, 255, 255, 0.25);
+        background: #f5f5f5;
+        border-radius: 90px;
+        display: inline-block;
+        padding: 7px 30px;
+        @include xsm-screen {
+            padding: 7px 23px;
+        }
+    }
+    &-item {
+        background: #f5f5f5;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), -4px -4px 0 0 rgba(255, 255, 255, 0.25);
+        border-radius: 10px;
+    }
+}
+/* brand css end */

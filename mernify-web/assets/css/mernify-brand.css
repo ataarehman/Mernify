@@ -1,0 +1,466 @@
+/**
+ * Mernify brand — logos + palette from logo assets.
+ * Sticky header: white bar + dark nav + black logo.
+ * Top transparent header unchanged.
+ * Indigo #4F46E5 | Cyan #15C6E2 | Slate #0F172A
+ */
+
+:root {
+  --main-two-h: 243;
+  --main-two-s: 75%;
+  --main-two-l: 59%;
+
+  --main-h: 188;
+  --main-s: 83%;
+  --main-l: 48%;
+
+  --black: 222 47% 11%;
+  --body: 215 25% 27%;
+
+  --mernify-surface: #f8fafc;
+  --mernify-indigo: #4f46e5;
+  --mernify-cyan: #15c6e2;
+  --mernify-slate: #0f172a;
+  --mernify-logo-h: 52px;
+  --mernify-logo-h-md: 44px;
+  --mernify-logo-h-sm: 36px;
+  --mernify-logo-footer-h: 56px;
+}
+
+body {
+  background-color: var(--mernify-surface);
+}
+
+/* -------- Logos -------- */
+.mernify-logo {
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+  position: relative;
+}
+
+.mernify-logo img,
+.mernify-logo__dark,
+.mernify-logo__light {
+  height: var(--mernify-logo-h);
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  display: block;
+}
+
+@media (max-width: 1199px) {
+  .mernify-logo img {
+    height: var(--mernify-logo-h-md);
+    max-width: 190px;
+  }
+}
+
+@media (max-width: 575px) {
+  .mernify-logo img {
+    height: var(--mernify-logo-h-sm);
+    max-width: 150px;
+  }
+}
+
+.mernify-logo .mernify-logo__dark {
+  display: block;
+}
+.mernify-logo .mernify-logo__light {
+  display: none;
+}
+
+/* Homepage over dark hero: white logo */
+body:has(.banner-area) .header:not(.fixed-header) .mernify-logo .mernify-logo__dark {
+  display: none;
+}
+body:has(.banner-area) .header:not(.fixed-header) .mernify-logo .mernify-logo__light {
+  display: block;
+}
+
+/* Sticky / scrolled header: black logo on white bar */
+.header.fixed-header:not(.header-two) .mernify-logo .mernify-logo__dark {
+  display: block !important;
+}
+.header.fixed-header:not(.header-two) .mernify-logo .mernify-logo__light {
+  display: none !important;
+}
+
+/* Inner light headers: black logo */
+.header-two .mernify-logo .mernify-logo__dark {
+  display: block !important;
+}
+.header-two .mernify-logo .mernify-logo__light {
+  display: none !important;
+}
+
+/* Dark homepage footer: white logo only */
+footer.footer .mernify-logo .mernify-logo__dark {
+  display: none !important;
+}
+footer.footer .mernify-logo .mernify-logo__light,
+.mernify-logo--footer-dark img {
+  display: block !important;
+  height: var(--mernify-logo-footer-h) !important;
+  max-width: 240px;
+}
+
+.footer-two-area .mernify-logo .mernify-logo__dark {
+  display: block !important;
+}
+.footer-two-area .mernify-logo .mernify-logo__light {
+  display: none !important;
+}
+.footer-two-area .mernify-logo img {
+  height: var(--mernify-logo-footer-h) !important;
+  max-width: 240px;
+}
+
+.twoffcanvas__logo .mernify-logo .mernify-logo__dark {
+  display: block;
+}
+.twoffcanvas__logo .mernify-logo .mernify-logo__light {
+  display: none;
+}
+
+/* -------- Sticky / scrolled header only (homepage .header) -------- */
+/* Top-of-page transparent header is unchanged (white links + white logo). */
+
+.header.fixed-header:not(.header-two) {
+  background: #ffffff !important;
+}
+
+.header.fixed-header:not(.header-two)::before {
+  border-bottom-color: rgba(15, 23, 42, 0.12);
+}
+
+/* Dark nav links for contrast on white sticky bar */
+.header.fixed-header:not(.header-two) .main-menu > nav > ul > li > a {
+  color: #0f172a !important;
+}
+
+.header.fixed-header:not(.header-two) .main-menu > nav > ul > li > a::before,
+.header.fixed-header:not(.header-two) .main-menu > nav > ul > li.has-dropdown > a::before {
+  color: #0f172a !important;
+}
+
+.header.fixed-header:not(.header-two) .main-menu > nav > ul > li > a.color-active,
+.header.fixed-header:not(.header-two) .main-menu > nav > ul > li > a.color-active::before,
+.header.fixed-header:not(.header-two) .main-menu > nav > ul > li:hover > a,
+.header.fixed-header:not(.header-two) .main-menu > nav > ul > li:hover > a::before,
+.header.fixed-header:not(.header-two) .main-menu > nav > ul > li.has-dropdown:hover > a::before {
+  color: #4f46e5 !important;
+}
+
+/* Hamburger icon is white SVG — darken it on the white sticky bar */
+.header.fixed-header:not(.header-two) .tw-menu-bar span img {
+  filter: brightness(0) invert(0);
+}
+
+/* -------- Inner pages (header-two): light header nav -------- */
+
+.header-two .main-menu > nav > ul > li > a,
+.header-two-menu .main-menu > nav > ul > li > a {
+  color: var(--mernify-slate) !important;
+}
+.header-two .main-menu > nav > ul > li > a::before,
+.header-two-menu .main-menu > nav > ul > li > a::before {
+  color: var(--mernify-slate) !important;
+}
+.header-two .main-menu > nav > ul > li > a.color-active,
+.header-two .main-menu > nav > ul > li:hover > a,
+.header-two .main-menu > nav > ul > li:hover > a::before,
+.header-two-menu .main-menu > nav > ul > li > a.color-active,
+.header-two-menu .main-menu > nav > ul > li:hover > a {
+  color: var(--mernify-indigo) !important;
+}
+
+.header-two.fixed-header {
+  background: #ffffff !important;
+}
+
+.main-menu > nav > ul > li > a.color-active {
+  color: var(--mernify-indigo);
+}
+
+.header .tw-hover-btn.bg-main-two-600 {
+  background-color: var(--mernify-indigo) !important;
+  color: #ffffff !important;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--mernify-indigo);
+  outline-offset: 2px;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--mernify-indigo) 28%, white);
+  color: var(--mernify-slate);
+}
+
+.banner-area .big-text {
+  color: #ffffff;
+}
+
+/* -------- Services mega menu (two-column) -------- */
+.main-menu ul li .tw-submenu.submenu.has-servicemenu {
+  width: min(920px, calc(100vw - 48px));
+  left: 50%;
+  right: auto;
+  transform: translateX(-50%) scaleY(0);
+  transform-origin: top center;
+  padding: 0;
+  border-top: 4px solid var(--mernify-indigo);
+  background: #ffffff;
+  box-shadow: 0 18px 48px rgba(15, 23, 42, 0.12);
+  overflow: hidden;
+}
+
+.main-menu > nav > ul > li:hover > .tw-submenu.submenu.has-servicemenu,
+.main-menu > nav > ul > li:focus-within > .tw-submenu.submenu.has-servicemenu {
+  transform: translateX(-50%) scaleY(1);
+}
+
+.mernify-svc-mega {
+  display: grid;
+  grid-template-columns: minmax(240px, 0.42fr) minmax(0, 0.58fr);
+  min-height: 340px;
+}
+
+.mernify-svc-mega__nav {
+  list-style: none;
+  margin: 0;
+  padding: 20px 12px;
+  background: #f8fafc;
+  border-right: 1px solid rgba(15, 23, 42, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.mernify-svc-mega__cat {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 10px;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.35;
+  color: var(--mernify-slate) !important;
+  text-decoration: none !important;
+  transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+  margin: 0 !important;
+}
+
+.mernify-svc-mega__cat::before,
+.mernify-svc-mega a::before {
+  display: none !important;
+  content: none !important;
+}
+
+.mernify-svc-mega__cat-arrow {
+  flex-shrink: 0;
+  font-size: 12px;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+  color: var(--mernify-indigo);
+}
+
+.mernify-svc-mega__cat:hover,
+.mernify-svc-mega__cat.is-active,
+.mernify-svc-mega__cat:focus-visible {
+  background: #ffffff;
+  color: var(--mernify-indigo) !important;
+  box-shadow: 0 1px 0 rgba(15, 23, 42, 0.04);
+}
+
+.mernify-svc-mega__cat:hover .mernify-svc-mega__cat-arrow,
+.mernify-svc-mega__cat.is-active .mernify-svc-mega__cat-arrow,
+.mernify-svc-mega__cat:focus-visible .mernify-svc-mega__cat-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.mernify-svc-mega__panels {
+  position: relative;
+  padding: 28px 32px 28px 28px;
+  background: #ffffff;
+}
+
+.mernify-svc-mega__panel {
+  display: none;
+  animation: mernifySvcPanelIn 0.28s ease;
+}
+
+.mernify-svc-mega__panel.is-active {
+  display: block;
+}
+
+@keyframes mernifySvcPanelIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.mernify-svc-mega__eyebrow {
+  display: inline-block;
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--mernify-indigo);
+}
+
+.mernify-svc-mega__title {
+  margin: 0 0 10px;
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--mernify-slate);
+}
+
+.mernify-svc-mega__desc {
+  margin: 0 0 18px;
+  font-size: 15px;
+  line-height: 1.6;
+  color: hsl(var(--body));
+  max-width: 36em;
+}
+
+.mernify-svc-mega__caps {
+  list-style: none;
+  margin: 0 0 22px;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.mernify-svc-mega__caps li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.45;
+  color: var(--mernify-slate);
+}
+
+.mernify-svc-mega__caps li::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  margin-top: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  background: var(--mernify-cyan);
+}
+
+.mernify-svc-mega__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--mernify-indigo) !important;
+  text-decoration: none !important;
+  margin: 0 !important;
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+
+.mernify-svc-mega__cta:hover {
+  gap: 12px;
+  color: var(--mernify-slate) !important;
+}
+
+/* Mobile / tablet offcanvas clone */
+.tw-main-menu-mobile .tw-submenu.submenu.has-servicemenu {
+  width: 100% !important;
+  left: 0 !important;
+  transform: none !important;
+  position: static !important;
+  box-shadow: none;
+  border-top: 0;
+  padding: 0;
+  background: transparent;
+  visibility: visible;
+  opacity: 1;
+}
+
+.tw-main-menu-mobile .mernify-svc-mega {
+  display: block;
+  min-height: 0;
+}
+
+.tw-main-menu-mobile .mernify-svc-mega__nav {
+  border-right: 0;
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  padding: 8px 0;
+  background: transparent;
+}
+
+.tw-main-menu-mobile .mernify-svc-mega__cat {
+  padding: 10px 12px;
+  font-size: 14px;
+  border-radius: 8px;
+}
+
+.tw-main-menu-mobile .mernify-svc-mega__panels {
+  padding: 16px 4px 8px;
+}
+
+.tw-main-menu-mobile .mernify-svc-mega__title {
+  font-size: 18px;
+}
+
+@media (max-width: 991px) {
+  .main-menu ul li .tw-submenu.submenu.has-servicemenu {
+    width: min(100%, calc(100vw - 24px));
+  }
+
+  .mernify-svc-mega {
+    grid-template-columns: 1fr;
+    min-height: 0;
+  }
+
+  .mernify-svc-mega__nav {
+    border-right: 0;
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 14px;
+  }
+
+  .mernify-svc-mega__cat {
+    flex: 1 1 calc(50% - 4px);
+    font-size: 13px;
+    padding: 10px 12px;
+  }
+
+  .mernify-svc-mega__panels {
+    padding: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mernify-svc-mega__panel,
+  .mernify-svc-mega__cat,
+  .mernify-svc-mega__cat-arrow,
+  .mernify-svc-mega__cta {
+    animation: none !important;
+    transition: none !important;
+  }
+}

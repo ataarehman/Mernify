@@ -1,6 +1,7 @@
 @import './tokens/tokens.css';
 @import './base/fonts.css';
 @import './base/reset.css';
+@import './patterns/patterns.css';
 
 #root {
   min-height: 100vh;

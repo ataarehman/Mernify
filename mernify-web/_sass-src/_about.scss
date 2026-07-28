@@ -1,0 +1,200 @@
+﻿.about {
+    &-area {
+        background: #f4f2ee;
+        & .section-wrapper-one {
+            @include lg-screen {
+                padding-block-end: var(--size-10);
+            }
+        }
+        & > .container {
+            & > .row {
+                @include lg-screen {
+                    flex-direction: column-reverse;
+                }
+            }
+        }
+    }
+    &-thumb-one {
+        max-width: 500px;
+        width: 100%;
+        @include lg-screen {
+            margin-block-end: 30px;
+            max-width: 100%;
+        }
+        & img {
+            @include lg-screen {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    }
+    &-thumb-two {
+        max-width: 500px;
+        width: 100%;
+        @include lg-screen {
+            margin-block-end: 30px;
+            max-width: 100%;
+        }
+        & img {
+            @include lg-screen {
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+    }
+    &-paragraph {
+        @include lg-screen {
+            margin-block-end: 30px;
+        }
+    }
+}
+
+
+
+
+
+
+.about-three {
+    &-shape {
+        inset-block-start: -100px;
+        @include lg-screen {
+            inset-block-start: -94px;
+        }
+        @include md-screen {
+            inset-block-start: -73px;
+        }
+        @include sm-screen {
+            inset-block-start: -50px;
+        }
+        @include msm-screen {
+            inset-block-start: -38px;
+        }
+        @include xsm-screen {
+            inset-block-start: -33px;
+        }
+    }
+    &-title {
+        @include msm-screen {
+            font-size: 2rem;
+        }
+    }
+    &-thumb {
+        max-width: 725px;
+        width: 100%;
+        @include lg-screen {
+            max-width: 100%;
+            margin-block-end: 30px;
+        }
+
+    }
+    &-counter {
+        & .tw-btn-circle {
+            width: 412px;
+            height: 412px;
+            fill: #f5f5f5;
+            box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), -4px -4px 0 0 rgba(255, 255, 255, 0.25);
+            @include lg-screen {
+                width: 350px;
+                height: 350px;
+            }
+        }
+        & .tw-btn-circle-icon {
+            font-size: 200px;
+        }
+        & .tw-btn-circle-dot {
+            width: 63px;
+            height: 63px;
+        }
+        &:hover{
+            & .tw-btn-circle {
+                &-dot {
+                    width: 820px;
+                    height: 820px;
+                }
+            }
+        }
+    }
+    &-wrap-shape {
+        position: absolute;
+        inset-block-start: -172px;
+        width: 100%;
+        inset-inline-start: 0;
+        @include md-screen {
+            position: static;
+            margin-block-start: 40px;
+        }
+        @include msm-screen {
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+    }
+    &-counter {
+        @include lg-screen {
+            position: static !important;
+            margin-block-start: 30px;
+        }
+    }
+}
+
+
+
+
+.about-ip {
+    &-circle {
+        position: relative;
+        width: 252px;
+        height: 252px;
+        line-height: 1;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid #02090f;
+        border-radius: 50%;
+        z-index: 1;
+        margin-bottom: 40px;
+        &-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 136px;
+            height: 136px;
+            line-height: 1;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid #02090f;
+            & span {
+                font-size: 55px;
+            }
+        }
+    }
+    &-thumb {
+        @include lg-screen {
+            margin-block-end: 40px;
+        }
+    }
+    &-rotate {
+        &-content {
+             animation: rotate 10s infinite linear;
+        }
+        &-text {
+             position: relative;
+             z-index: 1;
+        }
+    }
+    &-item {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        padding-block-end: 28px;
+        margin-block-end: 30px;
+        @include msm-screen {
+            flex-wrap: wrap;
+        }
+    }
+    &-paragraph {
+        max-width: 629px;
+        width: 100%;
+    }
+}
+

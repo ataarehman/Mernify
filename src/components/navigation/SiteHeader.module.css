@@ -20,12 +20,18 @@
   height: var(--mf-header-height);
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+
 .dark {
   color: var(--mf-text-on-dark);
   background: linear-gradient(
     180deg,
-    rgba(15, 23, 42, 0.88) 0%,
-    rgba(15, 23, 42, 0.42) 65%,
+    rgba(15, 23, 42, 0.9) 0%,
+    rgba(15, 23, 42, 0.45) 70%,
     transparent 100%
   );
   border-bottom: 1px solid transparent;
@@ -68,7 +74,7 @@
   display: none;
   justify-content: center;
   align-items: center;
-  gap: clamp(1.25rem, 2.2vw, 2.25rem);
+  gap: clamp(1.1rem, 2vw, 2rem);
 }
 
 .navMagnetic {
@@ -81,13 +87,13 @@
   flex-direction: column;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.45rem 0.1rem;
+  padding: 0.45rem 0.15rem;
   text-decoration: none;
   color: inherit;
-  opacity: 0.72;
-  font-size: 0.9375rem;
+  opacity: 0.68;
+  font-size: 0.9rem;
   font-weight: var(--mf-weight-medium);
-  letter-spacing: -0.015em;
+  letter-spacing: -0.01em;
   transition: opacity var(--mf-dur-sm) var(--mf-ease-out);
   border-radius: var(--mf-radius-sm);
 }
@@ -110,7 +116,7 @@
 .navLine {
   display: block;
   width: 0;
-  height: 1.5px;
+  height: 2px;
   border-radius: 999px;
   background: var(--mf-gradient-brand);
   transition: width 0.5s var(--mf-ease-out);
@@ -118,7 +124,7 @@
 
 .navLink:hover .navLine,
 .active .navLine {
-  width: 100%;
+  width: 70%;
 }
 
 .actions {
@@ -132,32 +138,43 @@
   display: none;
 }
 
+.cta {
+  white-space: nowrap;
+}
+
 .menuToggle {
-  width: 2.75rem;
-  height: 2.75rem;
+  width: 3rem;
+  height: 3rem;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid transparent;
+  border: 1px solid rgba(248, 250, 252, 0.22);
   border-radius: 999px;
-  background: rgba(248, 250, 252, 0.06);
+  background: rgba(248, 250, 252, 0.04);
   color: inherit;
   transition:
     background-color var(--mf-dur-sm) var(--mf-ease-out),
-    border-color var(--mf-dur-sm) var(--mf-ease-out);
+    border-color var(--mf-dur-sm) var(--mf-ease-out),
+    transform var(--mf-dur-xs) var(--mf-ease-out);
 }
 
 .light .menuToggle {
-  background: rgba(15, 23, 42, 0.04);
+  background: rgba(15, 23, 42, 0.03);
+  border-color: rgba(15, 23, 42, 0.14);
 }
 
 .menuToggle:hover {
-  border-color: rgba(79, 70, 229, 0.35);
+  border-color: rgba(79, 70, 229, 0.45);
+  background: rgba(79, 70, 229, 0.1);
+}
+
+.menuToggle:active {
+  transform: scale(0.96);
 }
 
 .menuToggleBars {
-  width: 1.15rem;
-  height: 0.75rem;
+  width: 1.05rem;
+  height: 0.7rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -174,11 +191,11 @@
 }
 
 .menuOpen .menuToggleBars span:first-child {
-  transform: translateY(5px) rotate(45deg);
+  transform: translateY(4.5px) rotate(45deg);
 }
 
 .menuOpen .menuToggleBars span:last-child {
-  transform: translateY(-5px) rotate(-45deg);
+  transform: translateY(-4.5px) rotate(-45deg);
 }
 
 .mobilePanel {
@@ -191,6 +208,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  gap: var(--mf-space-6);
   padding:
     calc(var(--mf-header-height) + var(--mf-space-6))
     var(--mf-page-margin)
@@ -217,35 +235,55 @@
 
 .mobileGlow {
   position: absolute;
-  inset: auto auto 10% -20%;
+  inset: auto auto 8% -18%;
   width: 70vw;
   height: 70vw;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(79, 70, 229, 0.28), transparent 65%);
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.3), transparent 65%);
   filter: blur(10px);
   pointer-events: none;
+}
+
+.mobileIntro {
+  position: relative;
+  display: grid;
+  gap: var(--mf-space-3);
+  max-width: 22rem;
+}
+
+.mobileEyebrow {
+  margin: 0;
+  font-size: var(--mf-font-size-label);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--mf-color-cyan);
+}
+
+.mobileLead {
+  margin: 0;
+  color: var(--mf-text-on-dark-muted);
+  font-size: var(--mf-font-size-body-sm);
+  line-height: 1.55;
 }
 
 .mobileNav {
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 0.25rem;
+  gap: 0;
+  flex: 1;
 }
 
 .mobileLink {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: baseline;
   gap: 1rem;
   min-height: 3.5rem;
-  padding-block: 0.85rem;
+  padding-block: 0.95rem;
   border-bottom: 1px solid rgba(248, 250, 252, 0.1);
   text-decoration: none;
   color: var(--mf-text-on-dark);
-  font-family: var(--mf-font-display);
-  font-size: clamp(2rem, 8vw, 2.75rem);
-  font-weight: var(--mf-weight-medium);
-  letter-spacing: -0.03em;
 }
 
 .mobileIndex {
@@ -253,6 +291,26 @@
   font-size: 0.75rem;
   letter-spacing: 0.08em;
   color: var(--mf-color-cyan);
+}
+
+.mobileLabel {
+  font-family: var(--mf-font-display);
+  font-size: clamp(1.85rem, 7vw, 2.6rem);
+  font-weight: var(--mf-weight-medium);
+  letter-spacing: -0.03em;
+}
+
+.mobileChevron {
+  font-size: 1.1rem;
+  color: rgba(248, 250, 252, 0.35);
+  transition:
+    color var(--mf-dur-sm) var(--mf-ease-out),
+    transform var(--mf-dur-sm) var(--mf-ease-out);
+}
+
+.mobileLink:hover .mobileChevron {
+  color: var(--mf-color-cyan);
+  transform: translateX(4px);
 }
 
 .mobileFooter {
@@ -270,19 +328,22 @@
   color: rgba(248, 250, 252, 0.72);
   text-decoration: none;
   font-weight: var(--mf-weight-medium);
+  font-size: 0.9375rem;
 }
 
 .mobileSecondary:hover {
   color: var(--mf-color-cyan);
 }
 
+@media (min-width: 640px) {
+  .ctaWrap {
+    display: block;
+  }
+}
+
 @media (min-width: 1024px) {
   .desktopNav {
     display: flex;
-  }
-
-  .ctaWrap {
-    display: block;
   }
 
   .menuToggle,
@@ -296,6 +357,12 @@
 
   .actions {
     justify-self: end;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileLink:hover .mobileChevron {
+    transform: none;
   }
 }
 

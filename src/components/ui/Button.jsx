@@ -15,6 +15,27 @@ const SIZE_CLASS = {
   lg: styles.lg,
 }
 
+function ArrowIcon() {
+  return (
+    <svg
+      className={styles.arrow}
+      width="16"
+      height="16"
+      viewBox="0 0 16 16"
+      fill="none"
+      aria-hidden="true"
+    >
+      <path
+        d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
 export const Button = forwardRef(function Button(
   {
     as = 'button',
@@ -23,6 +44,7 @@ export const Button = forwardRef(function Button(
     className = '',
     type,
     magnetic = false,
+    arrow = false,
     children,
     ...props
   },
@@ -35,6 +57,7 @@ export const Button = forwardRef(function Button(
     VARIANT_CLASS[variant] || VARIANT_CLASS.primary,
     SIZE_CLASS[size] || SIZE_CLASS.md,
     magnetic ? styles.magnetic : '',
+    arrow ? styles.withArrow : '',
     className,
   ]
     .filter(Boolean)
@@ -45,7 +68,9 @@ export const Button = forwardRef(function Button(
 
   return (
     <Tag ref={ref} className={classes} type={resolvedType} data-cursor="interactive" {...props}>
+      <span className={styles.hoverDot} aria-hidden="true" />
       <span className={styles.label}>{children}</span>
+      {arrow ? <ArrowIcon /> : null}
     </Tag>
   )
 })

@@ -1,0 +1,64 @@
+.tw-line {
+    &-1 {
+        position: absolute;
+        height: 100%;
+        border-right: 1px dashed rgba(255, 255, 255, 0.1);
+        inset-block-start: 0;
+        inset-inline-start: 3.5%;
+        z-index: 9;
+        mix-blend-mode: difference;
+        &::before {
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 100%;
+            inset-block-start: 0;
+            inset-inline-start: -5px;
+            border-left: 1px dashed rgba(255, 255, 255, 0.1);
+            mix-blend-mode: difference;
+        }
+    }
+    &-4 {
+        position: absolute;
+        height: 100%;
+        border-right: 1px dashed rgba(255, 255, 255, 0.1);
+        inset-block-start: 0;
+        inset-inline-end: 3.5%;
+        z-index: 9;
+        mix-blend-mode: difference;
+        &::before {
+            content: "";
+            position: absolute;
+            width: 5px;
+            height: 100%;
+            inset-block-start: 0;
+            inset-inline-end: -10px;
+            border-left: 1px dashed rgba(255, 255, 255, 0.1);
+            mix-blend-mode: difference;
+        }
+    }
+}
+
+
+.tw-two {
+    &-line {
+        &-1 {
+            position: absolute;
+            height: 100%;
+            border-right: 1px dashed rgba(255, 255, 255, 0.1);
+            inset-block-start: 0;
+            inset-inline-start: 3.7%;
+            z-index: 9;
+            mix-blend-mode: difference;
+        }
+        &-4 {
+            position: absolute;
+            height: 100%;
+            border-right: 1px dashed rgba(255, 255, 255, 0.1);
+            inset-block-start: 0;
+            inset-inline-end: 3.7%;
+            z-index: 9;
+            mix-blend-mode: difference;
+        }
+    }
+}

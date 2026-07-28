@@ -5,6 +5,7 @@ export const Section = forwardRef(function Section(
   {
     as = 'section',
     tone = 'light',
+    density = 'default',
     className = '',
     children,
     id,
@@ -14,9 +15,12 @@ export const Section = forwardRef(function Section(
   ref,
 ) {
   const Tag = as
+  const densityClass =
+    density === 'compact' ? styles.compact : density === 'spacious' ? styles.spacious : ''
   const classes = [
     styles.section,
     tone === 'dark' ? styles.dark : styles.light,
+    densityClass,
     className,
   ]
     .filter(Boolean)

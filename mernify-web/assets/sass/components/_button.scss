@@ -1,0 +1,138 @@
+/* ========================== Main Button Css Start =============== */
+.tw-hover-btn {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    &-circle-dot {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translate(0, -50%);
+        width: 0;
+        height: 0;
+        transition: all 0.6s ease-out;
+        line-height: 20px;
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+    }
+    &:hover {
+      & .tw-hover-btn-circle-dot {
+          width: 520px;
+          height: 520px;
+      }
+    }
+}
+
+/* =========================== Main Button Css End =================== */
+
+
+/* =========================== Circle Button Css Start =================== */
+.tw-btn {
+     &-circle{
+            background: transparent;
+            & .tw-btn-circle-icon {
+                    text-align: center;
+                    transition: 0.4s;
+            }
+            & .tw-hover-btn-wrapper {
+                display: inline-block;
+            }
+            & .tw-btn-circle-dot {
+                position: absolute;
+                left: 42px;
+                bottom: -15px;
+                width: 20px;
+                height: 20px;
+                transition: all .6s;
+                border-radius: 50%;
+                transform: translate(-50%, -50%);
+                z-index: -1;
+            }
+            &:hover{
+                & .tw-btn-circle {
+                    &-dot {
+                        width: 420px;
+                        height: 420px;
+                    }
+                    &-icon {
+                        color: hsl(var(--white)) !important;
+                    }
+                }
+                & span {
+                    color: hsl(var(--white)) !important;
+                }
+            }
+      }
+      &-circle-icon img {
+        transition: .4s;
+      }
+}
+/* =========================== Circle Button Css End =================== */
+
+
+
+
+.tw-primary-btn {
+    padding: 7.5px 7.5px 7.5px 7.5px;
+	.btn_inner {
+        padding: 18px 65px 18px 22px;
+		&::before {
+            content: "";
+            position: absolute;
+            z-index: 0;
+            top: 0;
+            right: 0;
+            width: 56px;
+            height: 100%;
+            background-color: var(--main-two-600);
+            border-radius: 0.5rem;
+            transition: all 0.3s ease-in-out 0s;
+		}
+		.btn_icon {
+            min-width: 56px;
+            transform: rotate(-45deg);
+			> span {
+				i {
+					&:first-child,
+					&:last-child {
+						transition: all 0.4s ease-in-out 0s;
+					}
+				}
+				i:last-child {
+					position: absolute;
+					transform: translatex(-150%);
+				}
+			}
+		}
+		.btn_text {
+            text-shadow: 0 23px 0 currentColor;
+			> span {
+				backface-visibility: hidden;
+				transform: translateY(0);
+			}
+		}
+	}
+	&:hover {
+		.btn_inner {
+			&::before {
+				width: 100%;
+				clip-path: polygon(0 0, 100% 0%, 100% 100%, 0% 100%);
+			}
+			.btn_icon {
+				i:first-child {
+					transform: translateX(150%);
+				}
+				i:last-child {
+					transform: translateX(0);
+				}
+			}
+			.btn_text {
+				color: hsl(var(--white)) !important;
+				> span {
+					transform: translateY(-24px);
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,365 @@
+.banner {
+    &-area {
+        background: #02090f;
+        padding: 190px 0 65px;
+    }
+    &-top-wrapper {
+        @include lg-screen {
+            flex-wrap: wrap;
+            row-gap: 30px;
+        }
+    }
+    &-top-content {
+        max-width: 1115px;
+        width: 100%;
+        @include xxxxl-screen {
+            max-width: 960px;
+        }
+        @include xl-screen {
+            max-width: 710px;
+        }
+        @include lg-screen {
+            max-width: 100%;
+        }
+    }
+    &-top-title {
+        @include xxxxl-screen {
+            font-size: 3.2rem;
+        }
+        @include lg-screen {
+            font-size: 3.6rem;
+        }
+        @include md-screen {
+            font-size: 2.7rem;
+            margin-block-end: 30px;
+        }
+        @include xsm-screen {
+            font-size: 2rem;
+        }
+    }
+    &-top-thumb {
+        max-width: 582px;
+        width: 100%;
+        @include lg-screen {
+            max-width: 100%;
+            width: 100%;
+        }
+        & img {
+            @include md-screen {
+                width: 100%;
+            }
+        }
+    }
+    &-title {
+        font-size: 638px;
+        white-space: nowrap;
+        line-height: 1;
+        color: hsl(var(--white));
+        @include xxxxxl-screen {
+            font-size: 609px;
+        }
+        @include xxxxl-screen {
+            font-size: 570px;
+        }
+        @include xxl-screen {
+            font-size: 494px;
+        }
+        @include xl-screen {
+            font-size: 422px;
+        }
+        @include lg-screen {
+            font-size: 350px;
+        }
+        @include md-screen {
+            font-size: 268px;
+        }
+        @include sm-screen {
+            font-size: 196px;
+        }
+        @include msm-screen {
+            font-size: 148px;
+        }
+        @include xsm-screen {
+            font-size: 126px;
+        }
+    }
+}
+
+
+
+
+
+
+
+.banner-two {
+    &-area {
+        padding: 192px 0 80px;
+    }
+    &-tag {
+        & ul {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            justify-content: end;
+            @include lg-screen {
+                justify-content: start;
+            }
+            & li {
+                & a {
+                    border: 1px solid hsl(var(--heading-color));
+                    padding: 3px 20px;
+                    border-radius: 40px;
+                }
+            }
+        }
+    }
+    &-left {
+        @include lg-screen {
+            margin-block-end: 30px;
+        }
+    }
+    &-title {
+        font-size: 288px;
+        line-height: 90%;
+        color: #ff5101;
+        @include xxxxxl-screen {
+            font-size: 272px;
+        }
+        @include xxxxl-screen {
+            font-size: 255px;
+        }
+        @include xxl-screen {
+            font-size: 223px;
+        }
+        @include xl-screen {
+            font-size: 190px;
+        }
+        @include lg-screen {
+            font-size: 156px;
+        }
+        @include md-screen {
+            font-size: 120px;
+        }
+        @include sm-screen {
+            font-size: 90px;
+        }
+        @include msm-screen {
+            font-size: 65px;
+        }
+    }
+    &-thumb {
+        @include lg-screen {
+            margin-block-end: 30px;
+        }
+    }
+}
+
+
+
+
+.banner-three {
+    &-area {
+        background: #f5f5f5;
+        padding-block: 200px 100px;
+        @include lg-screen {
+            padding-block: 300px 100px
+        }
+        @include md-screen {
+            padding-block: 200px 100px;
+        }
+        @include sm-screen {
+            padding-block: 120px 70px;
+        }
+    }
+    &-title {
+        font-size: 397px;
+        line-height: 83%;
+        @include xxxxxl-screen {
+            font-size: 370px;
+        }
+        @include xxxxl-screen {
+            font-size: 350px;
+        }
+        @include xxl-screen {
+            font-size: 307px;
+        }
+        @include xl-screen {
+            font-size: 260px;
+        }
+        @include lg-screen {
+            font-size: 216px;
+        }
+        @include md-screen {
+            font-size: 166px;
+        }
+        @include sm-screen {
+            font-size: 123px;
+        }
+        @include msm-screen {
+            font-size: 88px;
+        }
+        @include xsm-screen {
+            font-size: 78px;
+        }
+    }
+    &-left {
+        max-width: 410px;
+        width: 100%;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), -4px -4px 0 0 rgba(255, 255, 255, 0.25);
+        background: #f5f5f5;
+        padding: 35px 38px 35px 35px;
+        margin-block-end: 160px;
+        @include xxxxl-screen {
+            max-width: 350px;
+        }
+        @include xxl-screen {
+            max-width: 260px;
+            padding: 35px 20px 35px 20px;
+        }
+        @include lg-screen {
+            display: none;
+        }
+    }
+    &-left-title {
+        @include xxxxl-screen {
+            font-size: 1.6rem;
+        }
+    }
+    &-list {
+        max-width: 280px;
+        width: 100%;
+    }
+    &-right {
+        max-width: 410px;
+        width: 100%;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), -4px -4px 0 0 rgba(255, 255, 255, 0.25);
+        background: #f5f5f5;
+        padding: 35px;
+        margin-block-end: 160px;
+        @include xxxxl-screen {
+            max-width: 350px;
+        }
+        @include xxl-screen {
+            max-width: 260px;
+            padding: 20px;
+        }
+        @include lg-screen {
+            display: none;
+        }
+
+    }
+    &-counter-item {
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), -4px -4px 0 0 rgba(255, 255, 255, 0.25);
+        background: #f5f5f5;
+        padding: 20px;
+        max-width: 284px;
+        width: 100%;
+        @include lg-screen {
+            max-width: 245px;
+        }
+        &:nth-child(2) {
+            margin-block-start: -20px;
+        }
+    }
+    &-center {
+        @include lg-screen {
+            margin: auto;
+        }
+        &-title {
+            -webkit-text-stroke-width: 1px;
+            color: hsl(var(--white));
+            -webkit-text-stroke-color: hsl(var(--heading-color));
+            max-width: 575px;
+            width: 100%;
+            margin: auto;
+            margin-block-end: 20px;
+            @include sm-screen {
+                max-width: 620px;
+                font-size: 3rem;
+            }
+            @include msm-screen {
+                font-size: 2rem;
+            }
+            @include xsm-screen {
+                font-size: 1.9rem;
+            }
+
+        }
+    }
+    &-line-shape {
+        inset-block-end: 13%;
+        @include lg-screen {
+            inset-block-end: 30%;
+        }
+        @include sm-screen {
+            display: none;
+        }
+        & img {
+            max-width: inherit;
+        }
+    }
+    &-carcel-shape {
+        width: 50px;
+        height: 50px;
+        line-height: 1;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 50%;
+        position: absolute;
+        z-index: 1;
+        inset-block-start: -24px;
+        inset-inline-start: 50%;
+        transform: translateX(-50%);
+        background: #f5f5f5;
+        & div {
+            width: 36px;
+            height: 36px;
+            background: hsl(var(--white));
+            border-radius: 50%;
+            & span {
+                position: absolute;
+                inset-block-start: 50%;
+                inset-inline-start: 50%;
+                transform: translate(-50%, -50%);
+                width: 12px;
+                height: 12px;
+                background: var(--main-two-600);
+                border-radius: 50%;
+                &::before {
+                    position: absolute;
+                    content: "";
+                    left: 50%;
+                    top: 50%;
+                    width: 70%;
+                    height: 70%;
+                    background-color: rgba(237, 90, 47, 0.471);
+                    animation: borderanimate2 2s linear infinite;
+                    z-index: -1;
+                    border-radius: 50%;
+                }
+                &::after {
+                    position: absolute;
+                    content: "";
+                    left: 50%;
+                    top: 50%;
+                    width: 90%;
+                    height: 90%;
+                    transform: scale(1.5);
+                    border: 1px solid rgba(237, 90, 47, 0.471);
+                    animation: borderanimate2 2s linear infinite;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+    &-man {
+        inset-block-end: 27%;
+        @include msm-screen {
+            inset-block-end: 38%;
+        }
+
+    }
+}
+

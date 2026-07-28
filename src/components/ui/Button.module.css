@@ -3,11 +3,11 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--mf-space-2);
+  gap: 0.55rem;
   border: 1px solid transparent;
-  border-radius: var(--mf-radius-sm);
+  border-radius: var(--mf-radius-pill);
   font-family: var(--mf-font-body);
-  font-weight: var(--mf-weight-medium);
+  font-weight: var(--mf-weight-semibold);
   letter-spacing: 0.01em;
   text-decoration: none;
   overflow: hidden;
@@ -20,23 +20,31 @@
     box-shadow var(--mf-dur-sm) var(--mf-ease-out);
 }
 
-.button::before {
-  content: '';
+.hoverDot {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    120deg,
-    transparent 20%,
-    rgba(255, 255, 255, 0.18) 45%,
-    transparent 70%
-  );
-  transform: translateX(-120%);
-  transition: transform 0.7s var(--mf-ease-out);
+  right: 0.55rem;
+  top: 50%;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0;
+  transform: translateY(-50%) scale(0.4);
+  transition:
+    opacity 0.35s var(--mf-ease-out),
+    transform 0.45s var(--mf-ease-out),
+    width 0.45s var(--mf-ease-out),
+    height 0.45s var(--mf-ease-out);
   pointer-events: none;
+  z-index: 0;
 }
 
-.button:hover::before {
-  transform: translateX(120%);
+.button:hover .hoverDot,
+.button:focus-visible .hoverDot {
+  opacity: 0.14;
+  width: 2.75rem;
+  height: 2.75rem;
+  transform: translateY(-50%) scale(1);
 }
 
 .button:active {
@@ -48,22 +56,45 @@
   z-index: 1;
 }
 
+.arrow {
+  position: relative;
+  z-index: 1;
+  flex-shrink: 0;
+  transition: transform 0.35s var(--mf-ease-out);
+}
+
+.withArrow:hover .arrow {
+  transform: translateX(3px);
+}
+
 .sm {
   min-height: 2.5rem;
-  padding: 0.5rem 0.95rem;
+  padding: 0.5rem 1.15rem;
   font-size: 0.875rem;
 }
 
 .md {
   min-height: 3rem;
-  padding: 0.7rem 1.25rem;
+  padding: 0.7rem 1.45rem;
   font-size: 0.9375rem;
 }
 
 .lg {
-  min-height: 3.35rem;
-  padding: 0.9rem 1.55rem;
+  min-height: 3.4rem;
+  padding: 0.9rem 1.75rem;
   font-size: 1rem;
+}
+
+.withArrow.sm {
+  padding-inline-end: 1rem;
+}
+
+.withArrow.md {
+  padding-inline-end: 1.25rem;
+}
+
+.withArrow.lg {
+  padding-inline-end: 1.5rem;
 }
 
 .primary {
@@ -81,9 +112,13 @@
     inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
+.primary .hoverDot {
+  background: #fff;
+}
+
 .secondary {
   background: transparent;
-  border-color: rgba(79, 70, 229, 0.55);
+  border-color: rgba(79, 70, 229, 0.45);
   color: var(--mf-color-indigo);
 }
 
@@ -134,7 +169,18 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .button::before {
-    display: none;
+  .hoverDot,
+  .arrow {
+    transition: none;
+  }
+
+  .button:hover .hoverDot,
+  .button:focus-visible .hoverDot {
+    opacity: 0;
+    transform: translateY(-50%) scale(0.4);
+  }
+
+  .withArrow:hover .arrow {
+    transform: none;
   }
 }

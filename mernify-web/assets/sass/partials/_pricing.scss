@@ -1,0 +1,10 @@
+.pricing {
+    &-area {
+        background: #f4f2ee;
+    }
+    &-wrapper {
+        @include xl-screen {
+            padding: var(--size-7);
+        }
+    }
+}

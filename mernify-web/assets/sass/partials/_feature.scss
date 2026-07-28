@@ -1,0 +1,102 @@
+.feature {
+    &-area {
+        background: #f4f2ee;
+    }
+    &-widget {
+        & .feature-2-item {
+            position: relative;
+            z-index: 2;
+            margin-bottom: 30px;
+            transition: 0.3s ease-in;
+            padding: 32px 64px;
+            @include md-screen {              
+                padding: 32px 10px;
+            }
+        }
+        & .active-bg {
+            top: 0px;
+            bottom: 0px;
+            left: 0px;
+            right: 0px;
+            position: absolute;
+            z-index: 1;
+            background: hsl(var(--white));
+            transition: all 0.5s ease;
+        }
+    }
+}
+
+
+
+
+.feature-two {
+    &-area {
+        background: #010406;
+    }
+    &-wrapper {
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding-block-end: 160px;
+        @include xxxxl-screen {
+            padding-inline: var(--size-5);
+            padding-block-end: 40px;
+        }
+        &:hover {
+            background: var(--main-600);
+            & .feature-two {
+                &-step {
+                    background: hsl(var(--heading-color)) !important;
+                    color: hsl(var(--white));
+                }
+                &-icon {
+                    & span img {
+                        filter: brightness(0) invert(0);
+                    }
+                }
+                &-title a {
+                    color: hsl(var(--heading-color));
+                }
+                &-paragraph {
+                    color: hsl(var(--heading-color));
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+.feature-three {
+    &-area {
+        background: #010406;
+    }
+    &-left {
+        gap: 227px;
+        @include lg-screen {
+            gap: 140px;
+        }
+        @include md-screen {
+            gap: 30px;
+        }
+        @include sm-screen {
+            gap: 0px;
+        }
+        @include msm-screen {
+            flex-wrap: wrap;
+        }
+    }
+    &-item {
+        @include msm-screen {
+            flex-wrap: wrap;
+        }
+    }
+    &-single {
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-block: 36px;
+        &:last-child {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+    }
+}
+

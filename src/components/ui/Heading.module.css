@@ -1,28 +1,34 @@
 .heading {
   font-family: var(--mf-font-display);
   color: inherit;
+  text-wrap: balance;
 }
 
 .h1 {
   font-size: var(--mf-font-size-display);
   font-weight: var(--mf-weight-bold);
   line-height: 1.02;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.035em;
 }
 
 .h2 {
   font-size: var(--mf-font-size-h2);
   font-weight: var(--mf-weight-semibold);
+  line-height: 1.12;
+  letter-spacing: -0.028em;
 }
 
 .h3 {
   font-size: var(--mf-font-size-h3);
   font-weight: var(--mf-weight-semibold);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .h4 {
   font-size: var(--mf-font-size-title);
   font-weight: var(--mf-weight-semibold);
   font-family: var(--mf-font-body);
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
+  line-height: 1.35;
 }

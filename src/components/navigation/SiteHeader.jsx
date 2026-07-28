@@ -180,7 +180,7 @@ export function SiteHeader() {
         .join(' ')}
     >
       <Container className={styles.inner}>
-        <div data-nav-enter>
+        <div data-nav-enter className={styles.brand}>
           <LogoMark inverted={inverted} />
         </div>
 
@@ -204,7 +204,14 @@ export function SiteHeader() {
 
         <div className={styles.actions}>
           <div data-nav-enter className={styles.ctaWrap}>
-            <Button as={NavLink} to={primaryCta.to} size="sm" magnetic className={styles.cta}>
+            <Button
+              as={NavLink}
+              to={primaryCta.to}
+              size="sm"
+              magnetic
+              arrow
+              className={styles.cta}
+            >
               {primaryCta.label}
             </Button>
           </div>
@@ -235,6 +242,10 @@ export function SiteHeader() {
         hidden={!menuOpen}
       >
         <div className={styles.mobileGlow} aria-hidden="true" />
+        <div className={styles.mobileIntro} data-mobile-enter>
+          <p className={styles.mobileEyebrow}>Navigate</p>
+          <p className={styles.mobileLead}>Explore how we design, engineer, and scale digital products.</p>
+        </div>
         <nav className={styles.mobileNav} aria-label="Mobile">
           {navigation.map((item, index) => (
             <NavLink
@@ -245,7 +256,10 @@ export function SiteHeader() {
               onClick={() => setMenuOpen(false)}
             >
               <span className={styles.mobileIndex}>0{index + 1}</span>
-              <span>{item.label}</span>
+              <span className={styles.mobileLabel}>{item.label}</span>
+              <span className={styles.mobileChevron} aria-hidden="true">
+                →
+              </span>
             </NavLink>
           ))}
         </nav>
@@ -255,6 +269,7 @@ export function SiteHeader() {
             to={primaryCta.to}
             size="lg"
             magnetic
+            arrow
             className={styles.mobileCta}
             onClick={() => setMenuOpen(false)}
           >

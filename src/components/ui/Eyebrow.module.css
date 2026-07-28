@@ -3,7 +3,24 @@
   font-family: var(--mf-font-body);
   font-size: var(--mf-font-size-label);
   font-weight: var(--mf-weight-medium);
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--mf-text-secondary);
+}
+
+.withRule {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--mf-color-cyan);
+}
+
+.withRule::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  border-radius: 999px;
+  background: currentColor;
+  flex-shrink: 0;
 }

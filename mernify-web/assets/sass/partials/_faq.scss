@@ -1,0 +1,38 @@
+.faq-two {
+    &-wrap {
+        background: #f4f2ee;
+        padding: 25px 70px 25px 25px; 
+        max-width: 480px;
+        width: 100%;
+    }
+    &-left {
+        @include lg-screen {
+            margin-block-end: 30px;
+            height: inherit !important;
+        }
+    }
+    &-title {
+        @include lg-screen {
+            margin-block-end: 30px;
+        }
+    }
+    &-social {
+        & ul {
+            & li {
+                & a {
+                    width: 44px;
+                    height: 42px;
+                    line-height: 1;
+                    display: inline-flex;
+                    justify-content: center;
+                    align-items: center;
+                    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), -4px -4px 0 0 rgba(255, 255, 255, 0.25);
+                    background: #f5f5f5;
+                    color: hsl(var(--heading-color));
+                }
+            }
+        }
+    }
+}
+
+

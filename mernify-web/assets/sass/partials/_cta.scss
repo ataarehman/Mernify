@@ -1,0 +1,31 @@
+.cta-two {
+    &-area {
+        padding-block: 170px 150px;
+    }
+    &-title {
+        max-width: 1010px;
+        width: 100%;
+        margin: auto;
+    }
+    &-shape {
+        &-1 {
+            @include xxxxxl-screen {
+                margin-inline-start: var(--size-5);
+                width: 200px;
+            }
+            @include xl-screen {
+                display: none;
+            }
+        }
+        &-2 {
+            @include xxxxxl-screen {
+                margin-inline-end: var(--size-5);
+                width: 200px;
+            }
+            @include xl-screen {
+                display: none;
+            }
+        }
+    }
+}
+

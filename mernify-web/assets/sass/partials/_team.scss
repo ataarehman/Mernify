@@ -1,0 +1,150 @@
+.team {
+    &-area {
+        background: #f4f2ee;
+    }
+    &-top-wrap {
+        @include lg-screen {
+            width: 300px;
+        }
+    }
+    &-wrapper {
+        &:hover {
+            & .team {
+                &-thumb img {
+                    filter: blur(10px);
+                    transform: scale(1.08);
+                }
+                &-subtitle {
+                    transform: translateY(0);
+                }
+                &-title {
+                    transform: translateY(0);
+                }
+                &-social {
+                    transform: translateX(0); 
+                }
+            }
+        }
+    }
+    &-thumb {
+        border-radius: 0.5rem;
+        & img {
+            filter: blur(0);
+            transition: all .23s;
+            @include xl-screen {
+                height: 600px;
+                object-fit: cover;
+            }
+        }
+    }
+    &-subtitle {
+        inset-block-start: 45px;
+        inset-inline-start: 45px;
+        transform: translateY(-72px);
+        transition: .4s ease-in-out;
+        @include xl-screen {
+            inset-inline-start: 20px;
+        }
+    }
+    &-title {
+        inset-block-end: 45px;
+        inset-inline-start: 45px;
+        transform: translateY(100px);
+        transition: .4s ease-in-out;
+        @include xl-screen {
+            inset-inline-start: 20px;
+            transform: translateY(90px);
+            font-size: 2.75rem;
+        }
+    }
+    &-social {
+        position: absolute;
+        inset-block-start: 47%;
+        inset-inline-end: -220px;
+        transform: translateX(85px);
+        transition: .4s ease-in-out;
+        & ul {
+            rotate: -90deg;
+            & li {
+                & a {
+                    border: 1px solid #fff;
+                    border-radius: 90px;
+                    padding: 5px 15px 5px 32px;
+                    color: hsl(var(--white));
+                    margin-inline-end: 10px;
+                    font-weight: 600;
+                    position: relative;
+                    z-index: 1;
+                    @include xxl-screen {
+                        padding: 4px 10px 4px 29px;
+                        font-size: 14px;
+                    }
+                    &::before {
+                        content: "";
+                        position: absolute;
+                        width: 6px;
+                        height: 6px;
+                        inset-block-start: 50%;
+                        inset-inline-start: 16px;
+                        transform: translateY(-50%);
+                        background: hsl(var(--white));
+                        border-radius: 50%;
+                        transition: .4s ease-in-out;
+                    }
+                    &:hover {
+                        background: hsl(var(--white));
+                        color: hsl(var(--heading-color));
+                        border-color: hsl(var(--white));
+                        &::before {
+                            background: hsl(var(--heading-color));
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
+.team-ip {
+    &-single {
+        border-top: 1px dashed #02090f;
+        padding-inline: 30px;
+        transition: .4s;
+        &:hover {
+            background: var(--main-600);
+            border-top: 1px dashed var(--main-600);
+            &:last-child {
+                border-bottom: 1px dashed var(--main-600);
+            }
+        }
+        &:last-child {
+            border-bottom: 1px dashed #02090f;
+        }
+    }
+}
+
+
+
+
+.team-feature {
+    &-left {
+        @include lg-screen {
+            gap: 140px;
+        }
+        @include md-screen {
+            gap: 30px;
+        }
+    }
+    &-title {
+        @include lg-screen {
+            font-size: 2.4rem;
+        }
+    }
+}

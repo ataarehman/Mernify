@@ -7,12 +7,12 @@ export const navigation = [
 ]
 
 export const primaryCta = {
-  label: 'Contact Us',
+  label: 'Discuss Your Project',
   to: '/contact',
 }
 
 export const secondaryCta = {
-  label: 'Explore Our Work',
+  label: 'View Our Work',
   to: '/case-studies',
 }
 

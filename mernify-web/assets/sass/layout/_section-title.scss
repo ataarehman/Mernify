@@ -1,0 +1,68 @@
+.section {
+    &-subtitle {
+        padding-inline-start: 80px;
+        &::before {
+            content: "";
+            position: absolute;
+            width: 64px;
+            height: 1px;
+            inset-block-start: 50%;
+            inset-inline-start: 0;
+            transform: translateY(-50%);
+            background: hsl(var(--heading-color));
+        }
+    }
+    &-title {
+        line-height: .9;
+    }
+}
+
+.section {
+    &-title-one {
+        @include xl-screen {
+            font-size: 2.7rem;
+        }
+        @include lg-screen {
+            margin-inline-end: 0;
+        }
+    }
+}
+
+.section-two {
+    &-subtitle {
+        @include xsm-screen {
+            font-size: 3rem;
+        }
+    }
+    &-title {
+        font-size: 399px;
+        line-height: 0.8;
+        @include xxxxxl-screen {
+            font-size: 377px;
+        }
+        @include xxxxl-screen {
+            font-size: 354px;
+        }
+        @include xxl-screen {
+            font-size: 309px;
+        }
+        @include xl-screen {
+            font-size: 264px;
+        }
+        @include lg-screen {
+            font-size: 217px;
+        }
+        @include md-screen {
+            font-size: 167px;
+        }
+        @include sm-screen {
+            font-size: 124px;
+        }
+        @include msm-screen {
+            font-size: 90px;
+        }
+        @include xsm-screen {
+            font-size: 67px;
+        }
+    }
+}

@@ -1,0 +1,106 @@
+/* Mega menu css start */
+.main-menu {
+    & ul {
+        & li {
+            & .tw-submenu.submenu.has-homemenu {
+                width: 100%;
+                padding: 30px 30px 10px 30px;
+                background-color: hsl(var(--white));
+                box-shadow: rgba(149, 157, 165, 0.4) 0px 8px 24px;
+                & .homemenu {
+                    position: relative;
+                    padding: 0px 10px;
+                    margin-bottom: 20px;
+                }
+                & .homemenu-thumb {
+                    position: relative;
+                    &::before {
+                        position: absolute;
+                        content: "";
+                        top: 0;
+                        left: 0;
+                        height: 100%;
+                        width: 100%;
+                        opacity: 0;
+                        background: rgba(38, 34, 33, 0.7);
+                        transition: all 0.3s 0s ease-out;
+                    }
+                    & img {
+                        width: 100%;
+                        height: 292px;
+                        object-fit: cover;
+                    }
+                    &:hover {
+                        &::before {
+                            opacity: 1;
+                        }
+                        & .homemenu-btn {
+                            opacity: 1;
+                            visibility: visible;
+                            & .menu-btn {
+                                &.show-1 {
+                                    transform: translateY(0);
+                                }
+                                &.show-2 {
+                                    transform: translateY(0);
+                                }
+                                &::before {
+                                    display: none;
+                                }
+                            }
+                        }
+                    }
+                }
+                & .homemenu-title {
+                    & a {
+                        padding: 0;
+                        font-size: 16px;
+                        font-weight: 600;
+                        color: hsl(var(--heading-color));
+                        &:hover {
+                            color: var(--main-two-600);
+                            &::before {
+                                display: none;
+                            }
+                        }
+                    }
+                }
+                & .homemenu-btn {
+                    position: absolute;
+                    opacity: 0;
+                    text-align: center;
+                    visibility: hidden;
+                    transition: all 0.3s 0s ease-out;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 100%;
+                    & .menu-btn {
+                        width: 140px;
+                        &.show-1 {
+                            transform: translateY(15px);
+                            background: var(--main-two-600);
+                            &:hover {
+                                background: var(--tw-common-black);
+                                color: hsl(var(--white));
+                            }
+                        }
+                        &.show-2 {
+                            transform: translateY(20px);
+                            background: hsl(var(--white));
+                            color: hsl(var(--heading-color));
+                            &:hover {
+                                background: var(--tw-common-black);
+                                color: hsl(var(--white));
+                            }
+                        }
+                    }
+                }
+            }
+            &.p-static {
+                position: static;
+            }
+        }
+    }
+}
+/* Mega menu css end */

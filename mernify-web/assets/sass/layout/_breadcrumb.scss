@@ -1,0 +1,43 @@
+.breadcrumb {
+    background: #F4F2EE;
+    padding-block: 200px 133px;
+    --bs-breadcrumb-margin-bottom: 0;
+    &-title {
+        font-size: 328px;
+        line-height: 90%;
+        @include xxxxxl-screen {
+            font-size: 300px;
+        }
+        @include xxxxl-screen {
+            font-size: 290px;
+        }
+        @include xxl-screen {
+            font-size: 252px;
+        }
+        @include xl-screen {
+            font-size: 209px;
+        }
+        @include lg-screen {
+            font-size: 172px;
+        }
+        @include md-screen {
+            font-size: 130px;
+        }
+        @include sm-screen {
+            font-size: 100px;
+        }
+        @include msm-screen {
+            font-size: 76px;
+        }
+        @include xsm-screen {
+            font-size: 67px;
+        }
+
+
+    }
+    &-paragraph {
+        max-width: 1284px;
+        width: 100%;
+        margin: auto;
+    }
+}

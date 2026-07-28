@@ -1,0 +1,161 @@
+.testimonial {
+    &-area {
+        background: #f4f2ee;
+    }
+    &-paragraph {
+        line-height: 150%;
+    }
+}
+
+
+
+
+
+.testimonial-two {
+    &-area {
+        background: #f4f2ee;
+        padding-block-end: 280px;
+        padding-inline: 70px;
+        @include xxxxxl-screen {
+            padding-inline: 20px;
+        }
+        @include xxxxl-screen {
+            padding-inline: 0;
+        }
+        @include xl-screen {
+            padding-block-end: 160px;
+        }
+        @include lg-screen {
+            padding-block-end: 120px;
+        }
+    }
+    &-main {
+        @include lg-screen {
+            flex-wrap: wrap;
+        }
+    }
+    &-wrapper {
+        @include xxxxl-screen {
+            padding: 30px;
+        }
+        @include xxl-screen {
+            padding: 26px;
+        }
+        @include lg-screen {
+            margin-block-end: 30px;
+            padding: 40px;
+        }
+        @include sm-screen {
+            padding: 30px;
+        }
+
+    }
+    &-paragraph {
+        @include xxxxl-screen {
+            font-size: 22px;
+        }
+        @include xxl-screen {
+            font-size: 20px;
+        }
+        @include xl-screen {
+            font-size: 18px;
+        }
+        @include lg-screen {
+            font-size: 24px;
+        }
+        @include sm-screen {
+            font-size: 22px;
+        }
+        @include msm-screen {
+            font-size: 20px;
+        }
+        @include xsm-screen {
+            font-size: 18px;
+        }
+    }
+    &-shape {
+        transform: translate(-50%, -50%);
+        &-title {
+            font-size: 300px;
+            line-height: 90%;
+            @include xxxxxl-screen {
+                font-size: 280px;
+            }
+            @include xxl-screen {
+                font-size: 246px;
+            }
+            @include xl-screen {
+                font-size: 210px;
+            }
+            @include lg-screen {
+                font-size: 170px;
+            }
+            @include md-screen {
+                display: none;
+            }
+        }
+    }
+}
+
+
+.testimonial-three {
+    &-title {
+        @include msm-screen {
+            font-size: 2.4rem;
+        }
+    }
+    &-wrapper {
+        background: #f5f5f5;
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), -4px -4px 0 0 rgba(255, 255, 255, 0.25);
+        padding: 15px;
+        @include sm-screen {
+            flex-wrap: wrap;
+        }
+    }
+    &-thumb{
+        max-width: 360px;
+        width: 100%;
+        @include xl-screen {
+            max-width: 100%;
+        }
+ 
+    }
+    &-review {
+        box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25), -4px -4px 0 0 rgba(255, 255, 255, 0.25);
+        background: #f5f5f5;
+        border-radius: 90px;
+        padding: 5px 16px 2px;
+    }
+    &-paragraph {
+        @include xxl-screen {
+            font-size: 1.3rem;
+        }
+    }
+    &-btn {
+        border-radius: 50%;
+        &::before {
+            content: "";
+            position: absolute;
+            width: 70%;
+            height: 70%;
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            background-color: rgba(255, 255, 255, 0.471);
+            animation: borderanimate2 2s linear infinite;
+            z-index: -1;
+            border-radius: 50%;
+        }
+        &::after {
+            content: "";
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            inset-block-start: 50%;
+            inset-inline-start: 50%;
+            transform: scale(1.5);
+            border: 1px solid rgba(255, 255, 255, 0.471);
+            animation: borderanimate2 2s linear infinite;
+            border-radius: 50%;
+        }
+    }
+}

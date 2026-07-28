@@ -1,0 +1,13 @@
+.contact-ip {
+    &-paragraph {
+        @include msm-screen {
+            width: inherit;
+            margin-inline-start: 0;
+        }
+    }
+    &-left {
+        @include lg-screen {
+            margin-block-end: 60px;
+        }
+    }
+}

@@ -1,0 +1,801 @@
+[
+  {
+    "rel": "thumbs/banner-thumb.jpg",
+    "w": 582,
+    "h": 390,
+    "photoId": "1460925895917-afdab827c52f",
+    "outKb": 33
+  },
+  {
+    "rel": "thumbs/about-thumb-one.jpg",
+    "w": 500,
+    "h": 370,
+    "photoId": "1522071820081-009f0129c71c",
+    "outKb": 35
+  },
+  {
+    "rel": "thumbs/about-thumb-two.jpg",
+    "w": 500,
+    "h": 370,
+    "photoId": "1498050108023-c5249f4df085",
+    "outKb": 30
+  },
+  {
+    "rel": "thumbs/thumbnail-bg.jpg",
+    "w": 1920,
+    "h": 800,
+    "photoId": "1497366811353-6870744d04b2",
+    "outKb": 210
+  },
+  {
+    "rel": "thumbs/thumbnail-ab-bg.jpg",
+    "w": 1920,
+    "h": 900,
+    "photoId": "1497366216548-37526070297c",
+    "outKb": 148
+  },
+  {
+    "rel": "thumbs/thumbnail-two-bg.jpg",
+    "w": 1920,
+    "h": 900,
+    "photoId": "1519389950473-47ba0277781c",
+    "outKb": 274
+  },
+  {
+    "rel": "thumbs/cta-two-bg.jpg",
+    "error": "HTTP 404 for https://images.unsplash.com/photo-1557683316-973673bdc68f?w=3840&h=1440&fit=crop&q=85&auto=format"
+  },
+  {
+    "rel": "thumbs/home1.jpg",
+    "w": 500,
+    "h": 630,
+    "photoId": "1460925895917-afdab827c52f",
+    "outKb": 38
+  },
+  {
+    "rel": "thumbs/home2.jpg",
+    "w": 500,
+    "h": 630,
+    "photoId": "1555949963-aa79dcee981c",
+    "outKb": 39
+  },
+  {
+    "rel": "thumbs/home3.jpg",
+    "w": 500,
+    "h": 630,
+    "photoId": "1512941937669-90a1b58e7e9c",
+    "outKb": 44
+  },
+  {
+    "rel": "thumbs/coming-soon-img.png",
+    "w": 1200,
+    "h": 1200,
+    "photoId": "1618005182384-a83a8bd57fbe",
+    "outKb": 2010
+  },
+  {
+    "rel": "thumbs/about-ip-thumb.jpg",
+    "w": 747,
+    "h": 698,
+    "photoId": "1600880292203-757bb62b4baf",
+    "outKb": 77
+  },
+  {
+    "rel": "thumbs/about-ip-thumb.png",
+    "w": 747,
+    "h": 698,
+    "photoId": "1600880292203-757bb62b4baf",
+    "outKb": 1193
+  },
+  {
+    "rel": "thumbs/about-three-thumb.jpg",
+    "w": 725,
+    "h": 812,
+    "photoId": "1552664730-d307ca884978",
+    "outKb": 50
+  },
+  {
+    "rel": "thumbs/portfolio-thumb1.jpg",
+    "w": 1160,
+    "h": 828,
+    "photoId": "1551288049-bebda4e38f71",
+    "outKb": 103
+  },
+  {
+    "rel": "thumbs/portfolio-thumb2.jpg",
+    "w": 570,
+    "h": 330,
+    "photoId": "1512941937669-90a1b58e7e9c",
+    "outKb": 31
+  },
+  {
+    "rel": "thumbs/portfolio-thumb3.jpg",
+    "w": 570,
+    "h": 330,
+    "photoId": "1677442136019-21780ecad995",
+    "outKb": 52
+  },
+  {
+    "rel": "thumbs/portfolio-thumb4.jpg",
+    "w": 570,
+    "h": 330,
+    "photoId": "1550751827-4bd374c3f58b",
+    "outKb": 55
+  },
+  {
+    "rel": "thumbs/portfolio-thumb5.jpg",
+    "w": 570,
+    "h": 330,
+    "photoId": "1586717791821-3f44a563fa4c",
+    "outKb": 29
+  },
+  {
+    "rel": "thumbs/portfolio-thumb6.jpg",
+    "w": 1160,
+    "h": 828,
+    "photoId": "1558494949-ef010cbdcc31",
+    "outKb": 219
+  },
+  {
+    "rel": "thumbs/portfolio-thumb7.jpg",
+    "w": 1160,
+    "h": 828,
+    "photoId": "1519389950473-47ba0277781c",
+    "outKb": 157
+  },
+  {
+    "rel": "thumbs/portfolio-thumb8.jpg",
+    "w": 570,
+    "h": 330,
+    "photoId": "1531297484001-80022131f5a1",
+    "outKb": 11
+  },
+  {
+    "rel": "thumbs/portfolio-thumb9.jpg",
+    "w": 570,
+    "h": 330,
+    "photoId": "1587620962725-abab7fe55159",
+    "outKb": 30
+  },
+  {
+    "rel": "thumbs/portfolio-two-thumb1.jpg",
+    "w": 1770,
+    "h": 750,
+    "photoId": "1460925895917-afdab827c52f",
+    "outKb": 119
+  },
+  {
+    "rel": "thumbs/portfolio-two-thumb2.jpg",
+    "w": 1770,
+    "h": 750,
+    "photoId": "1555949963-aa79dcee981c",
+    "outKb": 110
+  },
+  {
+    "rel": "thumbs/portfolio-two-thumb3.jpg",
+    "w": 1770,
+    "h": 750,
+    "photoId": "1512941937669-90a1b58e7e9c",
+    "outKb": 132
+  },
+  {
+    "rel": "thumbs/portfolio-two-thumb4.jpg",
+    "w": 1770,
+    "h": 750,
+    "photoId": "1677442136019-21780ecad995",
+    "outKb": 296
+  },
+  {
+    "rel": "thumbs/portfolio-three-thumb1.jpg",
+    "w": 765,
+    "h": 440,
+    "photoId": "1551288049-bebda4e38f71",
+    "outKb": 46
+  },
+  {
+    "rel": "thumbs/portfolio-three-thumb2.jpg",
+    "w": 765,
+    "h": 440,
+    "photoId": "1586717791821-3f44a563fa4c",
+    "outKb": 45
+  },
+  {
+    "rel": "thumbs/portfolio-three-thumb3.jpg",
+    "w": 765,
+    "h": 440,
+    "photoId": "1558494949-ef010cbdcc31",
+    "outKb": 70
+  },
+  {
+    "rel": "thumbs/portfolio-three-thumb4.jpg",
+    "w": 765,
+    "h": 440,
+    "photoId": "1451187580459-43490279c0fa",
+    "outKb": 45
+  },
+  {
+    "rel": "thumbs/portfolio-ip-two-thumb1.jpg",
+    "w": 810,
+    "h": 440,
+    "photoId": "1498050108023-c5249f4df085",
+    "outKb": 50
+  },
+  {
+    "rel": "thumbs/portfolio-ip-two-thumb2.jpg",
+    "w": 810,
+    "h": 440,
+    "photoId": "1512941937669-90a1b58e7e9c",
+    "outKb": 48
+  },
+  {
+    "rel": "thumbs/portfolio-ip-two-thumb3.jpg",
+    "w": 810,
+    "h": 440,
+    "photoId": "1677442136019-21780ecad995",
+    "outKb": 96
+  },
+  {
+    "rel": "thumbs/portfolio-ip-two-thumb4.jpg",
+    "w": 810,
+    "h": 440,
+    "photoId": "1451187580459-43490279c0fa",
+    "outKb": 48
+  },
+  {
+    "rel": "thumbs/portfolio-details-thumb1.jpg",
+    "w": 1920,
+    "h": 900,
+    "photoId": "1497366811353-6870744d04b2",
+    "outKb": 225
+  },
+  {
+    "rel": "thumbs/portfolio-details-thumb2.jpg",
+    "w": 870,
+    "h": 785,
+    "photoId": "1460925895917-afdab827c52f",
+    "outKb": 73
+  },
+  {
+    "rel": "thumbs/portfolio-details-thumb3.jpg",
+    "w": 870,
+    "h": 785,
+    "photoId": "1555949963-aa79dcee981c",
+    "outKb": 67
+  },
+  {
+    "rel": "thumbs/portfolio-details-thumb4.jpg",
+    "w": 870,
+    "h": 785,
+    "photoId": "1512941937669-90a1b58e7e9c",
+    "outKb": 77
+  },
+  {
+    "rel": "thumbs/portfolio-details-thumb5.jpg",
+    "w": 868,
+    "h": 785,
+    "photoId": "1586717791821-3f44a563fa4c",
+    "outKb": 77
+  },
+  {
+    "rel": "thumbs/service-three-thumb1.png",
+    "w": 552,
+    "h": 257,
+    "photoId": "1519389950473-47ba0277781c",
+    "outKb": 364
+  },
+  {
+    "rel": "thumbs/service-three-thumb2.png",
+    "w": 552,
+    "h": 257,
+    "photoId": "1551288049-bebda4e38f71",
+    "outKb": 191
+  },
+  {
+    "rel": "thumbs/service-three-thumb3.png",
+    "w": 552,
+    "h": 257,
+    "photoId": "1498050108023-c5249f4df085",
+    "outKb": 222
+  },
+  {
+    "rel": "thumbs/service-three-thumb4.png",
+    "w": 552,
+    "h": 257,
+    "photoId": "1677442136019-21780ecad995",
+    "outKb": 379
+  },
+  {
+    "rel": "thumbs/service-thumb1.jpg",
+    "w": 690,
+    "h": 470,
+    "photoId": "1555949963-aa79dcee981c",
+    "outKb": 41
+  },
+  {
+    "rel": "thumbs/service-two-thumb1.jpg",
+    "w": 805,
+    "h": 559,
+    "photoId": "1558494949-ef010cbdcc31",
+    "outKb": 104
+  },
+  {
+    "rel": "thumbs/service-two-thumb2.jpg",
+    "w": 805,
+    "h": 559,
+    "photoId": "1451187580459-43490279c0fa",
+    "outKb": 55
+  },
+  {
+    "rel": "thumbs/service-details-bg1.jpg",
+    "w": 1920,
+    "h": 900,
+    "photoId": "1497366216548-37526070297c",
+    "outKb": 148
+  },
+  {
+    "rel": "thumbs/service-details-bg2.jpg",
+    "w": 1770,
+    "h": 800,
+    "photoId": "1518770660439-4636190af475",
+    "outKb": 234
+  },
+  {
+    "rel": "thumbs/banner-two-thumb.jpg",
+    "w": 526,
+    "h": 442,
+    "photoId": "1581091226825-a6a2a5aee158",
+    "outKb": 54
+  },
+  {
+    "rel": "thumbs/team-thumb1.jpg",
+    "w": 559,
+    "h": 650,
+    "photoId": "1507003211169-0a1dd7228f2d",
+    "outKb": 34
+  },
+  {
+    "rel": "thumbs/team-thumb2.jpg",
+    "w": 559,
+    "h": 650,
+    "photoId": "1494790108377-be9c29b29330",
+    "outKb": 30
+  },
+  {
+    "rel": "thumbs/team-thumb3.jpg",
+    "w": 559,
+    "h": 650,
+    "photoId": "1573496359142-b8d87734a5a2",
+    "outKb": 44
+  },
+  {
+    "rel": "thumbs/team-ip-thumb1.png",
+    "w": 390,
+    "h": 390,
+    "photoId": "1507003211169-0a1dd7228f2d",
+    "outKb": 260
+  },
+  {
+    "rel": "thumbs/team-ip-thumb2.png",
+    "w": 390,
+    "h": 390,
+    "photoId": "1494790108377-be9c29b29330",
+    "outKb": 282
+  },
+  {
+    "rel": "thumbs/team-ip-thumb3.png",
+    "w": 390,
+    "h": 390,
+    "photoId": "1438761681033-6461ffad8d80",
+    "outKb": 270
+  },
+  {
+    "rel": "thumbs/team-ip-thumb4.png",
+    "w": 390,
+    "h": 390,
+    "photoId": "1472099645785-5658abf4ff4e",
+    "outKb": 156
+  },
+  {
+    "rel": "thumbs/team-ip-thumb5.png",
+    "w": 390,
+    "h": 390,
+    "photoId": "1500648767791-00dcc994a43e",
+    "outKb": 322
+  },
+  {
+    "rel": "thumbs/team-ip-thumb6.png",
+    "w": 390,
+    "h": 390,
+    "photoId": "1573496359142-b8d87734a5a2",
+    "outKb": 326
+  },
+  {
+    "rel": "thumbs/team-img1.png",
+    "w": 52,
+    "h": 52,
+    "photoId": "1507003211169-0a1dd7228f2d",
+    "outKb": 8
+  },
+  {
+    "rel": "thumbs/team-img2.png",
+    "w": 52,
+    "h": 52,
+    "photoId": "1494790108377-be9c29b29330",
+    "outKb": 8
+  },
+  {
+    "rel": "thumbs/team-img3.png",
+    "w": 52,
+    "h": 52,
+    "photoId": "1438761681033-6461ffad8d80",
+    "outKb": 8
+  },
+  {
+    "rel": "thumbs/team-img4.png",
+    "w": 52,
+    "h": 52,
+    "photoId": "1472099645785-5658abf4ff4e",
+    "outKb": 6
+  },
+  {
+    "rel": "thumbs/testimonial-img1.png",
+    "w": 60,
+    "h": 60,
+    "photoId": "1507003211169-0a1dd7228f2d",
+    "outKb": 10
+  },
+  {
+    "rel": "thumbs/testimonial-img2.png",
+    "w": 60,
+    "h": 60,
+    "photoId": "1494790108377-be9c29b29330",
+    "outKb": 11
+  },
+  {
+    "rel": "thumbs/testimonial-img3.png",
+    "w": 60,
+    "h": 60,
+    "photoId": "1438761681033-6461ffad8d80",
+    "outKb": 10
+  },
+  {
+    "rel": "thumbs/testimonial-two-img1.png",
+    "w": 56,
+    "h": 56,
+    "photoId": "1472099645785-5658abf4ff4e",
+    "outKb": 6
+  },
+  {
+    "rel": "thumbs/testimonial-two-img2.png",
+    "w": 56,
+    "h": 56,
+    "photoId": "1500648767791-00dcc994a43e",
+    "outKb": 9
+  },
+  {
+    "rel": "thumbs/testimonial-two-img3.png",
+    "w": 56,
+    "h": 56,
+    "photoId": "1573496359142-b8d87734a5a2",
+    "outKb": 10
+  },
+  {
+    "rel": "thumbs/testimonial-three-thumb1.jpg",
+    "w": 360,
+    "h": 507,
+    "photoId": "1573164713714-d95e436ab8d6",
+    "outKb": 32
+  },
+  {
+    "rel": "thumbs/testimonial-three-thumb2.jpg",
+    "w": 360,
+    "h": 507,
+    "photoId": "1581091226825-a6a2a5aee158",
+    "outKb": 39
+  },
+  {
+    "rel": "thumbs/blog-ip-thumb1.jpg",
+    "w": 550,
+    "h": 360,
+    "photoId": "1555949963-aa79dcee981c",
+    "outKb": 29
+  },
+  {
+    "rel": "thumbs/blog-ip-thumb2.jpg",
+    "w": 550,
+    "h": 360,
+    "photoId": "1677442136019-21780ecad995",
+    "outKb": 55
+  },
+  {
+    "rel": "thumbs/blog-ip-thumb3.jpg",
+    "w": 550,
+    "h": 360,
+    "photoId": "1451187580459-43490279c0fa",
+    "outKb": 27
+  },
+  {
+    "rel": "thumbs/blog-ip-thumb4.jpg",
+    "w": 550,
+    "h": 360,
+    "photoId": "1512941937669-90a1b58e7e9c",
+    "outKb": 32
+  },
+  {
+    "rel": "thumbs/blog-ip-thumb5.jpg",
+    "w": 550,
+    "h": 360,
+    "photoId": "1586717791821-3f44a563fa4c",
+    "outKb": 30
+  },
+  {
+    "rel": "thumbs/blog-ip-thumb6.jpg",
+    "w": 550,
+    "h": 360,
+    "photoId": "1558494949-ef010cbdcc31",
+    "outKb": 44
+  },
+  {
+    "rel": "thumbs/blog-list-thumb1.jpg",
+    "w": 872,
+    "h": 450,
+    "photoId": "1460925895917-afdab827c52f",
+    "outKb": 48
+  },
+  {
+    "rel": "thumbs/blog-list-thumb2.jpg",
+    "w": 872,
+    "h": 450,
+    "photoId": "1498050108023-c5249f4df085",
+    "outKb": 54
+  },
+  {
+    "rel": "thumbs/blog-list-thumb3.jpg",
+    "w": 872,
+    "h": 450,
+    "photoId": "1677442136019-21780ecad995",
+    "outKb": 105
+  },
+  {
+    "rel": "thumbs/blog-list-thumb4.jpg",
+    "w": 872,
+    "h": 450,
+    "photoId": "1522071820081-009f0129c71c",
+    "outKb": 61
+  },
+  {
+    "rel": "thumbs/blog-details-thumb.jpg",
+    "w": 872,
+    "h": 450,
+    "photoId": "1519389950473-47ba0277781c",
+    "outKb": 80
+  },
+  {
+    "rel": "thumbs/blog-details-bg.jpg",
+    "w": 1920,
+    "h": 900,
+    "photoId": "1497366811353-6870744d04b2",
+    "outKb": 225
+  },
+  {
+    "rel": "thumbs/blog-ip-img1.jpg",
+    "w": 70,
+    "h": 70,
+    "photoId": "1507003211169-0a1dd7228f2d",
+    "outKb": 2
+  },
+  {
+    "rel": "thumbs/blog-details-img.png",
+    "w": 66,
+    "h": 66,
+    "photoId": "1494790108377-be9c29b29330",
+    "outKb": 13
+  },
+  {
+    "rel": "thumbs/blog-list-img1.png",
+    "w": 32,
+    "h": 32,
+    "photoId": "1438761681033-6461ffad8d80",
+    "outKb": 3
+  },
+  {
+    "rel": "thumbs/recend-post-img1.jpg",
+    "w": 90,
+    "h": 90,
+    "photoId": "1555949963-aa79dcee981c",
+    "outKb": 3
+  },
+  {
+    "rel": "thumbs/recend-post-img2.jpg",
+    "w": 90,
+    "h": 90,
+    "photoId": "1677442136019-21780ecad995",
+    "outKb": 3
+  },
+  {
+    "rel": "thumbs/recend-post-img3.jpg",
+    "w": 90,
+    "h": 90,
+    "photoId": "1512941937669-90a1b58e7e9c",
+    "outKb": 4
+  },
+  {
+    "rel": "thumbs/feature-three-thumb1.jpg",
+    "w": 290,
+    "h": 374,
+    "photoId": "1557682250-33bd709cbe85",
+    "outKb": 3
+  },
+  {
+    "rel": "thumbs/faq-two-thumb.jpg",
+    "w": 187,
+    "h": 197,
+    "photoId": "1587620962725-abab7fe55159",
+    "outKb": 9
+  },
+  {
+    "rel": "thumbs/footer-three-thumb.jpg",
+    "w": 154,
+    "h": 168,
+    "photoId": "1618005182384-a83a8bd57fbe",
+    "outKb": 3
+  },
+  {
+    "rel": "thumbs/marquee-thumb1.png",
+    "error": "HTTP 404 for https://images.unsplash.com/photo-1557683316-973673bdc68f?w=400&h=400&fit=crop&q=85&auto=format"
+  },
+  {
+    "rel": "thumbs/marquee-thumb11.png",
+    "w": 90,
+    "h": 50,
+    "photoId": "1557682250-33bd709cbe85",
+    "outKb": 5
+  },
+  {
+    "rel": "thumbs/marquee-thumb2.png",
+    "w": 140,
+    "h": 32,
+    "photoId": "1518770660439-4636190af475",
+    "outKb": 12
+  },
+  {
+    "rel": "thumbs/marquee-thumb22.png",
+    "w": 140,
+    "h": 32,
+    "photoId": "1550751827-4bd374c3f58b",
+    "outKb": 14
+  },
+  {
+    "rel": "thumbs/marquee-thumb3.png",
+    "w": 104,
+    "h": 42,
+    "photoId": "1558494949-ef010cbdcc31",
+    "outKb": 11
+  },
+  {
+    "rel": "thumbs/marquee-thumb33.png",
+    "w": 104,
+    "h": 42,
+    "photoId": "1451187580459-43490279c0fa",
+    "outKb": 12
+  },
+  {
+    "rel": "thumbs/marquee-thumb4.png",
+    "w": 61,
+    "h": 46,
+    "photoId": "1677442136019-21780ecad995",
+    "outKb": 9
+  },
+  {
+    "rel": "thumbs/marquee-thumb44.png",
+    "w": 61,
+    "h": 46,
+    "photoId": "1451187580459-43490279c0fa",
+    "outKb": 6
+  },
+  {
+    "rel": "thumbs/marquee-thumb5.png",
+    "w": 52,
+    "h": 44,
+    "photoId": "1519389950473-47ba0277781c",
+    "outKb": 7
+  },
+  {
+    "rel": "thumbs/marquee-thumb55.png",
+    "w": 52,
+    "h": 44,
+    "photoId": "1586717791821-3f44a563fa4c",
+    "outKb": 6
+  },
+  {
+    "rel": "thumbs/marquee-thumb6.png",
+    "w": 82,
+    "h": 50,
+    "photoId": "1498050108023-c5249f4df085",
+    "outKb": 10
+  },
+  {
+    "rel": "thumbs/marquee-thumb66.png",
+    "w": 82,
+    "h": 50,
+    "photoId": "1512941937669-90a1b58e7e9c",
+    "outKb": 12
+  },
+  {
+    "rel": "thumbs/marquee-two-thumb1.png",
+    "w": 98,
+    "h": 42,
+    "photoId": "1460925895917-afdab827c52f",
+    "outKb": 12
+  },
+  {
+    "rel": "thumbs/marquee-two-thumb11.png",
+    "w": 98,
+    "h": 42,
+    "photoId": "1551288049-bebda4e38f71",
+    "outKb": 8
+  },
+  {
+    "rel": "thumbs/marquee-two-thumb2.png",
+    "w": 106,
+    "h": 52,
+    "photoId": "1555949963-aa79dcee981c",
+    "outKb": 16
+  },
+  {
+    "rel": "thumbs/marquee-two-thumb22.png",
+    "w": 106,
+    "h": 52,
+    "photoId": "1587620962725-abab7fe55159",
+    "outKb": 16
+  },
+  {
+    "rel": "thumbs/marquee-two-thumb4.png",
+    "w": 170,
+    "h": 52,
+    "photoId": "1600880292203-757bb62b4baf",
+    "outKb": 26
+  },
+  {
+    "rel": "thumbs/marquee-two-thumb44.png",
+    "w": 170,
+    "h": 52,
+    "photoId": "1522071820081-009f0129c71c",
+    "outKb": 25
+  },
+  {
+    "rel": "thumbs/marquee-two-thumb6.png",
+    "w": 164,
+    "h": 36,
+    "photoId": "1497366216548-37526070297c",
+    "outKb": 15
+  },
+  {
+    "rel": "thumbs/marquee-two-thumb66.png",
+    "w": 164,
+    "h": 36,
+    "photoId": "1497366811353-6870744d04b2",
+    "outKb": 18
+  },
+  {
+    "rel": "thumbs/marquee-two-thumb7.png",
+    "w": 162,
+    "h": 36,
+    "photoId": "1581091226825-a6a2a5aee158",
+    "outKb": 19
+  },
+  {
+    "rel": "thumbs/marquee-two-thumb77.png",
+    "w": 162,
+    "h": 36,
+    "photoId": "1573164713714-d95e436ab8d6",
+    "outKb": 18
+  },
+  {
+    "rel": "shapes/banner-three-man.png",
+    "w": 705,
+    "h": 827,
+    "photoId": "1581091226825-a6a2a5aee158",
+    "outKb": 1284
+  }
+]
