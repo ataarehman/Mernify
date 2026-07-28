@@ -7,6 +7,63 @@
   padding-block: var(--mf-section-pad-y);
 }
 
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.filter {
+  appearance: none;
+  border: 1px solid var(--mf-border-default);
+  background: #fff;
+  color: var(--mf-text-secondary);
+  border-radius: var(--mf-radius-pill);
+  padding: 0.45rem 0.9rem;
+  font: inherit;
+  font-size: var(--mf-font-size-body-sm);
+  font-weight: var(--mf-weight-medium);
+  cursor: pointer;
+  transition:
+    background var(--mf-dur-sm) var(--mf-ease-out),
+    color var(--mf-dur-sm) var(--mf-ease-out),
+    border-color var(--mf-dur-sm) var(--mf-ease-out);
+}
+
+.filter:hover,
+.filter:focus-visible {
+  border-color: rgba(79, 70, 229, 0.45);
+  color: var(--mf-color-indigo);
+  outline: none;
+}
+
+.filter:focus-visible {
+  box-shadow: 0 0 0 3px var(--mf-focus-ring);
+}
+
+.filterActive {
+  background: var(--mf-color-indigo);
+  border-color: var(--mf-color-indigo);
+  color: #fff;
+}
+
+.filterActive:hover,
+.filterActive:focus-visible {
+  color: #fff;
+  border-color: var(--mf-color-indigo-hover);
+  background: var(--mf-color-indigo-hover);
+}
+
+.layout {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.featured {
+  min-width: 0;
+}
+
 .grid {
   list-style: none;
   margin: 0;
@@ -15,136 +72,34 @@
   gap: 1.25rem;
 }
 
-@media (min-width: 900px) {
+@media (min-width: 760px) {
   .grid {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-  }
-
-  .wide {
-    grid-column: span 8;
-  }
-
-  .narrow {
-    grid-column: span 4;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-.card {
-  display: grid;
-  height: 100%;
-  text-decoration: none;
-  color: inherit;
-  background: #ffffff;
-  border: 1px solid var(--mf-border-default);
-  border-radius: var(--mf-radius-xl);
-  overflow: hidden;
-  box-shadow: var(--mf-shadow-xs);
-  transition:
-    transform var(--mf-dur-sm) var(--mf-ease-out),
-    box-shadow var(--mf-dur-sm) var(--mf-ease-out);
-}
-
-.card:hover {
-  transform: translateY(-3px);
-  box-shadow: var(--mf-shadow-md);
-}
-
-.cardHead {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 1.15rem 1.25rem 0.85rem;
-}
-
-.cardHead h2 {
-  margin: 0;
-  font-family: var(--mf-font-display);
-  font-size: clamp(1.15rem, 2vw, 1.45rem);
-}
-
-.industry {
-  font-size: var(--mf-font-size-label);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--mf-text-secondary);
-}
-
-.media {
-  min-height: 220px;
-  background: #e8e4dc;
-}
-
-.media img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-height: 220px;
-  object-fit: cover;
-}
-
-.cardFoot {
-  display: grid;
-  gap: 0.75rem;
-  padding: 1rem 1.25rem 1.25rem;
-}
-
-.excerpt {
-  margin: 0;
-  font-size: var(--mf-font-size-body-sm);
-  line-height: 1.55;
-  color: var(--mf-text-secondary);
-}
-
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  color: var(--mf-color-indigo);
-  font-weight: var(--mf-weight-semibold);
-  font-size: var(--mf-font-size-body-sm);
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
 }
 
 .empty {
   display: grid;
-  gap: 1.5rem;
+  gap: 0.75rem;
+  justify-items: start;
   padding: clamp(1.5rem, 3vw, 2.25rem);
   border-radius: var(--mf-radius-xl);
   background: #ffffff;
   border: 1px solid var(--mf-border-default);
-  box-shadow: var(--mf-shadow-sm);
 }
 
-@media (min-width: 900px) {
-  .empty {
-    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-    align-items: center;
-  }
-}
-
-.emptyMedia {
-  border-radius: var(--mf-radius-lg);
-  overflow: hidden;
-  min-height: 220px;
-}
-
-.emptyMedia img {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.emptyCopy h2 {
+.empty h2 {
   margin: 0;
   font-family: var(--mf-font-display);
-  font-size: 1.5rem;
 }
 
-.emptyActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 1.25rem;
+.empty p {
+  margin: 0;
+  color: var(--mf-text-secondary);
 }

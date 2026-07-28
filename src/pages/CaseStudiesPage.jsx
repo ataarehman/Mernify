@@ -1,84 +1,86 @@
-import { Link } from 'react-router-dom'
-import { ArrowUpRight } from 'lucide-react'
+import { useMemo, useState } from 'react'
 import { PageHero } from '@/components/layout/PageHero'
 import { PageCta } from '@/components/layout/PageCta'
 import { PageMeta } from '@/components/seo/PageMeta'
-import { Button, Container } from '@/components/ui'
-import { homeWork, publishedCaseStudies } from '@/content/caseStudies'
+import { Container } from '@/components/ui'
+import { CaseStudyCard } from '@/components/case-study/CaseStudyCard'
+import {
+  caseStudyCategories,
+  homeWork,
+  publishedCaseStudies,
+} from '@/content/caseStudies'
 import styles from './CaseStudiesPage.module.css'
 
-const PLACEHOLDER_THUMBS = [
-  '/assets/images/thumbs/portfolio-thumb1.jpg',
-  '/assets/images/thumbs/portfolio-thumb2.jpg',
-  '/assets/images/thumbs/portfolio-thumb3.jpg',
-  '/assets/images/thumbs/portfolio-thumb4.jpg',
-  '/assets/images/thumbs/portfolio-thumb5.jpg',
-  '/assets/images/thumbs/portfolio-thumb6.jpg',
-]
-
 export function CaseStudiesPage() {
-  const items = publishedCaseStudies
+  const [category, setCategory] = useState('All')
+
+  const items = useMemo(() => {
+    if (category === 'All') return publishedCaseStudies
+    return publishedCaseStudies.filter((item) => item.category === category)
+  }, [category])
+
+  const featured = items[0]
+  const rest = items.slice(1)
 
   return (
     <>
       <PageMeta
         title="Case Studies"
-        description="Outcome-led product stories published when clients approve detail. Mernify does not invent customers or metrics."
+        description={homeWork.support}
         canonicalPath="/case-studies"
+        image={featured?.featuredImage}
       />
       <PageHero
         title="Portfolio"
         support={
           <>
-            Selected product work — published when clients approve{' '}
-            <span className={styles.accent}>detail</span>
+            Selected product work across analytics, healthcare, field services, workspace products,
+            and commerce — grounded in{' '}
+            <span className={styles.accent}>public evidence</span>
           </>
         }
       />
       <section className={styles.section} data-header-theme="light">
         <Container width="wide">
+          <div className={styles.toolbar} role="toolbar" aria-label="Filter case studies by category">
+            {caseStudyCategories.map((item) => {
+              const selected = item === category
+              return (
+                <button
+                  key={item}
+                  type="button"
+                  className={[styles.filter, selected ? styles.filterActive : ''].filter(Boolean).join(' ')}
+                  aria-pressed={selected}
+                  onClick={() => setCategory(item)}
+                >
+                  {item}
+                </button>
+              )
+            })}
+          </div>
+
           {items.length ? (
-            <ul className={styles.grid} role="list">
-              {items.map((item, index) => (
-                <li key={item.slug} className={index % 3 === 0 ? styles.wide : styles.narrow}>
-                  <Link to={`/case-studies/${item.slug}`} className={styles.card}>
-                    <div className={styles.cardHead}>
-                      <h2>{item.title}</h2>
-                      <span className={styles.industry}>{item.industry}</span>
-                    </div>
-                    <div className={styles.media}>
-                      <img
-                        src={PLACEHOLDER_THUMBS[index % PLACEHOLDER_THUMBS.length]}
-                        alt=""
-                      />
-                    </div>
-                    <div className={styles.cardFoot}>
-                      <p className={styles.excerpt}>{item.challenge}</p>
-                      <span className={styles.cta}>
-                        Read case study <ArrowUpRight size={14} aria-hidden="true" />
-                      </span>
-                    </div>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+            <div className={styles.layout}>
+              {featured ? (
+                <div className={styles.featured}>
+                  <CaseStudyCard study={featured} featured />
+                </div>
+              ) : null}
+              <ul className={styles.grid} role="list">
+                {rest.map((item) => (
+                  <li key={item.slug}>
+                    <CaseStudyCard study={item} />
+                  </li>
+                ))}
+              </ul>
+            </div>
           ) : (
             <div className={styles.empty} role="status">
-              <div className={styles.emptyMedia}>
-                <img src="/assets/images/thumbs/coming-soon-img.png" alt="" />
-              </div>
-              <div className={styles.emptyCopy}>
-                <h2>{homeWork.empty.title}</h2>
-                <p>{homeWork.empty.body}</p>
-                <div className={styles.emptyActions}>
-                  <Button as={Link} to={homeWork.empty.cta.to} size="lg">
-                    {homeWork.empty.cta.label}
-                  </Button>
-                  <Button as={Link} to={homeWork.empty.secondary.to} variant="secondary" size="lg">
-                    {homeWork.empty.secondary.label}
-                  </Button>
-                </div>
-              </div>
+              <h2>No projects in this category yet</h2>
+              <p>Try another filter or view the full portfolio.</p>
+              <button type="button" className={styles.filterActive} onClick={() => setCategory('All')}>
+                Show all
+              </button>
             </div>
           )}
         </Container>
