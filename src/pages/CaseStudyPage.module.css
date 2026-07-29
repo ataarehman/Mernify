@@ -456,7 +456,15 @@
 }
 .wireItems li > span:first-child { font-size: 10px; color: var(--cs-accent); }
 
-.wireShipped li { color: var(--cs-text); }
+/* Shipped column — no number prefix, full-width text */
+.wireShipped li {
+  display: block;
+  font-size: 12.5px;
+  line-height: 1.65;
+  color: var(--cs-text);
+  padding-left: 0.85rem;
+  border-left: 2px solid rgba(145,132,217,0.35);
+}
 .wireShipped li > span:first-child { display: none; }
 
 /* ─── Responsive ─── */
