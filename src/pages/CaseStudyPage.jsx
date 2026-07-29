@@ -36,9 +36,9 @@ export function CaseStudyPage() {
   const [iframeErr, setIframeErr] = useState(false)
   const shellRef = useRef(null)
 
-  // Dev: Vite middleware at /site-preview. Production: Express server at /api/site-preview
-  const proxyBase = import.meta.env.DEV ? '/site-preview' : '/api/site-preview'
-  const proxyUrl = study?.liveUrl
+  // Dev: Vite middleware. Prod: VITE_PROXY_URL env var (Cloudflare Worker URL)
+  const proxyBase = import.meta.env.VITE_PROXY_URL || (import.meta.env.DEV ? '/site-preview' : null)
+  const proxyUrl = proxyBase && study?.liveUrl
     ? `${proxyBase}?url=${encodeURIComponent(study.liveUrl)}`
     : null
 
