@@ -1,0 +1,74 @@
+.section {
+  padding: var(--mf-section-pad-y) 0;
+  background: var(--mf-bg-page);
+  overflow-x: clip;
+  max-width: 100%;
+}
+
+.layout {
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: clamp(2.5rem, 5vw, 4.5rem);
+  }
+}
+
+.copy {
+  display: grid;
+  gap: 1rem;
+  padding-top: 0.35rem;
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.85rem;
+  font-weight: var(--mf-weight-medium);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mf-color-indigo);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--mf-font-display);
+  font-size: clamp(1.75rem, 3.4vw, 3rem);
+  font-weight: var(--mf-weight-semibold);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: var(--mf-text-primary);
+}
+
+.support {
+  margin: 0;
+  max-width: 28rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--mf-text-secondary);
+}
+
+.email {
+  display: inline-block;
+  margin-top: 0.5rem;
+  color: var(--mf-color-cyan);
+  font-size: clamp(1.15rem, 2vw, 1.45rem);
+  font-weight: var(--mf-weight-medium);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.email:hover {
+  color: var(--mf-color-indigo);
+}
+
+.formCard {
+  padding: clamp(1.35rem, 3vw, 2rem);
+  border-radius: var(--mf-radius-lg);
+  background: #ffffff;
+  border: 1px solid var(--mf-border-default);
+  box-shadow: var(--mf-shadow-sm);
+}

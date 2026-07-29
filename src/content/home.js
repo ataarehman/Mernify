@@ -10,6 +10,63 @@ export const homeAbout = {
   cta: { label: 'Discuss Your Project', to: '/contact' },
 }
 
+export const homeJourney = {
+  eyebrow: '( Our Journey )',
+  title: 'Growth shaped by product partnerships',
+  support:
+    'From first conversations to lasting ownership — the milestones that define how MerNify shows up for ambitious teams.',
+  chapters: [
+    {
+      id: 'origin',
+      index: '01',
+      label: 'Origin',
+      title: 'Built around outcomes, not buzzwords',
+      body: 'MerNify began as a product-engineering studio for teams who needed senior thinking early — discovery, architecture, and delivery under one roof.',
+      metric: 'Partner-first',
+      detail: 'Direct communication from day one',
+    },
+    {
+      id: 'craft',
+      index: '02',
+      label: 'Craft',
+      title: 'Modern stacks. Clear delivery.',
+      body: 'We refined a way of working that couples UI systems, APIs, and cloud practices with transparent scope, so stakeholders always know what ships next.',
+      metric: 'Structured',
+      detail: 'Artifacts at every stage',
+    },
+    {
+      id: 'scale',
+      index: '03',
+      label: 'Scale',
+      title: 'Products across industries',
+      body: 'Analytics, healthcare RCM, field services, workspace tools, and commerce — real products in production, with the polish of focused engineering pods.',
+      metric: 'Multi-domain',
+      detail: 'Case-proven experience',
+    },
+    {
+      id: 'partner',
+      index: '04',
+      label: 'Partnership',
+      title: 'Long-term technical ownership',
+      body: 'We stay after launch — monitoring, iteration, and roadmap support — so software keeps creating value instead of becoming another handoff problem.',
+      metric: 'Ongoing',
+      detail: 'Improve after release',
+    },
+  ],
+  processEyebrow: '( How we work )',
+  processTitle: 'A clear path from discovery to launch',
+  processSupport:
+    'Six stages with tangible outputs — so progress is always visible to product and business stakeholders.',
+}
+
+export const homeInquiry = {
+  eyebrow: 'Start a conversation',
+  title: 'Tell us about the product you want to build',
+  support:
+    'Share enough context for a useful first reply. We’ll come back with clarifying questions and a suggested next step.',
+  email: 'hello@mernify.com',
+}
+
 export const homePortfolio = {
   eyebrow: 'SELECTED',
   title: 'CASE STUDIES',
@@ -76,40 +133,56 @@ export const homePortfolio = {
 }
 
 export const homeServicesCarousel = {
+  eyebrow: '( Services )',
   viewAll: { label: 'View All Services', to: '/services' },
-  tags: [
-    'Discovery & Architecture',
-    'Full-Stack Delivery',
-    'Product Strategy',
-    'UI/UX Systems',
-  ],
-  blurb:
-    'Outcome-led product engineering organized by commercial needs—not programming languages.',
   slides: [
     {
       slug: 'product-engineering',
       title: 'Product Engineering',
       image: '/assets/images/thumbs/portfolio-thumb1.jpg',
+      tags: ['Discovery & Architecture', 'Full-Stack Delivery', 'Product Strategy', 'UI/UX Systems'],
+      blurb:
+        'End-to-end product engineering that connects strategy, UX, and full-stack delivery into one coherent path.',
     },
     {
       slug: 'saas-development',
       title: 'SaaS Development',
       image: '/assets/images/thumbs/portfolio-thumb2.jpg',
+      tags: ['Multi-Tenant Architecture', 'Admin Portals', 'Subscription Foundations', 'Release Process'],
+      blurb:
+        'SaaS platforms with secure tenancy, role-based access, and admin systems prepared for customer growth.',
     },
     {
       slug: 'mobile-app-development',
       title: 'Mobile App Development',
       image: '/assets/images/thumbs/portfolio-thumb3.jpg',
+      tags: ['iOS & Android', 'API Integration', 'Offline-Ready UX', 'Store Release'],
+      blurb:
+        'Native-feel mobile products that stay reliable in the field — synced to the same backend your web team trusts.',
     },
     {
       slug: 'ai-integration',
       title: 'AI Integration',
       image: '/assets/images/thumbs/portfolio-thumb4.jpg',
+      tags: ['Workflow Copilots', 'RAG Systems', 'Automation', 'Guardrails'],
+      blurb:
+        'Practical AI layered into real products — assistive workflows with controls, evaluation, and measurable value.',
     },
     {
       slug: 'web-development',
       title: 'Web Development',
       image: '/assets/images/thumbs/portfolio-thumb5.jpg',
+      tags: ['Performance', 'Accessibility', 'Modern Frontends', 'Secure APIs'],
+      blurb:
+        'Fast, accessible web applications operators and customers actually use — built to extend without fragility.',
+    },
+    {
+      slug: 'ui-ux-design',
+      title: 'UI/UX Design',
+      image: '/assets/images/thumbs/portfolio-thumb1.jpg',
+      tags: ['User Research', 'Design Systems', 'Prototypes', 'Handoff Specs'],
+      blurb:
+        'Journeys and interfaces shaped before expensive build cycles — so engineering ships the right product.',
     },
   ],
 }
