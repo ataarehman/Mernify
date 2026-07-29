@@ -32,15 +32,23 @@ export function CaseStudyPage() {
   const { slug } = useParams()
   const study = getCaseStudyBySlug(slug)
   const [activeSection, setActiveSection] = useState('')
-  const [livePreview, setLivePreview] = useState(false)
-  const [previewDevice, setPreviewDevice] = useState('mobile')
+  const [previewDevice, setPreviewDevice] = useState('desktop')
+  const [iframeErr, setIframeErr] = useState(false)
   const shellRef = useRef(null)
+
+  // Dev: Vite middleware handles /site-preview. Prod (Vercel): /api/site-preview
+  const proxyBase = import.meta.env.DEV ? '/site-preview' : '/api/site-preview'
+  const proxyUrl = study?.liveUrl
+    ? `${proxyBase}?url=${encodeURIComponent(study.liveUrl)}`
+    : null
 
   const DEVICES = [
     { id: 'mobile',  label: 'Mobile',  width: 390  },
     { id: 'tablet',  label: 'Tablet',  width: 768  },
     { id: 'desktop', label: 'Desktop', width: 1280 },
   ]
+
+  useEffect(() => { setIframeErr(false) }, [previewDevice, study?.slug])
 
   // JSON-LD
   useEffect(() => {
@@ -161,29 +169,16 @@ export function CaseStudyPage() {
             )}
           </div>
 
-          {/* Preview action strip */}
+          {/* Hero live site link */}
           {study.liveUrl && (
             <div className={styles.heroActions}>
-              <button
-                className={styles.pipTrigger}
-                onClick={() => {
-                  setLivePreview(true)
-                  setTimeout(() => {
-                    const el = document.getElementById('responsive')
-                    if (el) window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - 72, behavior: 'smooth' })
-                  }, 50)
-                }}
-              >
-                <Monitor size={13} />
-                Preview in-page
-              </button>
               <a
                 href={study.liveUrl}
                 target="_blank"
                 rel="noreferrer noopener"
-                style={{ fontSize: '0.8125rem', color: 'var(--cs-muted)', display:'inline-flex', alignItems:'center', gap:'0.3rem' }}
+                className={styles.pipTrigger}
               >
-                Open in tab <ExternalLink size={11} />
+                <Monitor size={13} /> Visit live site <ExternalLink size={11} />
               </a>
             </div>
           )}
@@ -421,127 +416,87 @@ export function CaseStudyPage() {
                 <p className={styles.sectionSub}>Device frames, a breakpoint pass/fail table, and the annotated findings from testing.</p>
               </div>
               {study.liveUrl && (
-                <div className={styles.previewTabs}>
-                  <button
-                    className={[styles.previewTab, !livePreview ? styles.previewTabActive : ''].filter(Boolean).join(' ')}
-                    onClick={() => setLivePreview(false)}
-                  >
-                    Screenshots
-                  </button>
-                  <button
-                    className={[styles.previewTab, livePreview ? styles.previewTabActive : ''].filter(Boolean).join(' ')}
-                    onClick={() => setLivePreview(true)}
-                  >
-                    <Monitor size={12} /> Live preview
-                  </button>
-                </div>
+                <a
+                  href={study.liveUrl}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className={styles.liveSiteBtn}
+                >
+                  <Monitor size={13} /> Open live site <ExternalLink size={11} />
+                </a>
               )}
             </div>
 
-            {/* Screenshot device-frame preview */}
-            {livePreview ? (
-              <div className={styles.livePreviewWrap}>
-                <div className={styles.devicePicker}>
-                  {DEVICES.map((d) => (
-                    <button
-                      key={d.id}
-                      className={[styles.deviceBtn, previewDevice === d.id ? styles.deviceBtnActive : ''].filter(Boolean).join(' ')}
-                      onClick={() => setPreviewDevice(d.id)}
-                    >
-                      {d.label} <span className={styles.devicePx}>{d.width}px</span>
-                    </button>
-                  ))}
-                  {study.liveUrl && (
-                    <a
-                      href={study.liveUrl}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      className={styles.deviceExternal}
-                    >
-                      Open live site <ExternalLink size={11} />
-                    </a>
-                  )}
-                </div>
+            {/* Device picker */}
+            <div className={styles.devicePicker}>
+              {DEVICES.map((d) => (
+                <button
+                  key={d.id}
+                  className={[styles.deviceBtn, previewDevice === d.id ? styles.deviceBtnActive : ''].filter(Boolean).join(' ')}
+                  onClick={() => setPreviewDevice(d.id)}
+                >
+                  {d.label} <span className={styles.devicePx}>{d.width}px</span>
+                </button>
+              ))}
+            </div>
 
-                {/* Device frame with screenshot */}
-                <div className={styles.iframeStage}>
-                  {previewDevice === 'mobile' ? (
-                    <div className={styles.phoneFrame}>
-                      <div className={styles.phoneTop}>
-                        <span className={styles.phoneNotch} />
-                      </div>
-                      <div className={styles.phoneScreen}>
-                        <img
-                          src={study.gallery?.[1]?.src || study.gallery?.[0]?.src || study.featuredImage}
-                          alt={`${study.title} mobile view`}
-                          loading="lazy"
-                        />
-                      </div>
-                      <div className={styles.phoneBottom}>
-                        <span className={styles.phoneHomeBar} />
-                      </div>
-                    </div>
-                  ) : previewDevice === 'tablet' ? (
-                    <div className={styles.tabletFrame}>
-                      <div className={styles.tabletCamera} />
-                      <div className={styles.tabletScreen}>
-                        <img
-                          src={study.gallery?.[1]?.src || study.gallery?.[0]?.src || study.featuredImage}
-                          alt={`${study.title} tablet view`}
-                          loading="lazy"
-                        />
-                      </div>
-                    </div>
-                  ) : (
-                    <div className={styles.browserFrame}>
-                      <div className={styles.browserBar}>
-                        <span className={styles.browserDots}>
-                          <i /><i /><i />
-                        </span>
-                        <span className={styles.browserUrl}>{study.liveUrl || study.title}</span>
-                      </div>
-                      <div className={styles.browserScreen}>
-                        <img
-                          src={study.gallery?.[0]?.src || study.featuredImage}
-                          alt={`${study.title} desktop view`}
-                          loading="lazy"
-                        />
-                      </div>
-                    </div>
-                  )}
+            {/* Live site in device frame (proxy strips X-Frame-Options) */}
+            <div className={styles.iframeStage}>
+              {iframeErr ? (
+                <div className={styles.iframeFallback}>
+                  <p>This site couldn't load in-page.</p>
+                  <a href={study.liveUrl} target="_blank" rel="noreferrer noopener" className={styles.liveSiteBtn}>
+                    <Monitor size={13} /> Open live site <ExternalLink size={11} />
+                  </a>
                 </div>
-              </div>
-            ) : (
-              /* Static screenshots */
-              <>
-                {study.gallery?.length ? (
-                  <div className={styles.deviceRow}>
-                    <div>
-                      <p className={styles.deviceLabel}>Desktop — 1440px</p>
-                      <div className={`${styles.deviceFrame} ${styles.deviceDesktop}`}>
-                        <img
-                          src={study.gallery[0]?.src || study.featuredImage}
-                          alt={`${study.title} desktop`}
-                          loading="lazy"
-                        />
-                      </div>
-                    </div>
-                    {study.gallery[1] && (
-                      <div>
-                        <p className={styles.deviceLabel}>Tablet / Mobile</p>
-                        <div className={`${styles.deviceFrame} ${styles.deviceTablet}`}>
-                          <img
-                            src={study.gallery[1].src}
-                            alt={`${study.title} tablet/mobile`}
-                            loading="lazy"
-                          />
-                        </div>
-                      </div>
-                    )}
+              ) : previewDevice === 'mobile' ? (
+                <div className={styles.phoneFrame}>
+                  <div className={styles.phoneTop}><span className={styles.phoneNotch} /></div>
+                  <div className={styles.phoneScreen}>
+                    <iframe
+                      key={`${study.slug}-m`}
+                      src={proxyUrl}
+                      title={`${study.title} mobile`}
+                      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                      className={styles.phoneIframe}
+                      onError={() => setIframeErr(true)}
+                    />
                   </div>
-                ) : null}
-              </>
-            )}
+                  <div className={styles.phoneBottom}><span className={styles.phoneHomeBar} /></div>
+                </div>
+              ) : previewDevice === 'tablet' ? (
+                <div className={styles.tabletFrame}>
+                  <div className={styles.tabletCamera} />
+                  <div className={styles.tabletScreen}>
+                    <iframe
+                      key={`${study.slug}-t`}
+                      src={proxyUrl}
+                      title={`${study.title} tablet`}
+                      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                      className={styles.tabletIframe}
+                      onError={() => setIframeErr(true)}
+                    />
+                  </div>
+                </div>
+              ) : (
+                <div className={styles.browserFrame}>
+                  <div className={styles.browserBar}>
+                    <span className={styles.browserDots}><i /><i /><i /></span>
+                    <span className={styles.browserUrl}>{study.liveUrl}</span>
+                  </div>
+                  <div className={styles.browserScreen}>
+                    <iframe
+                      key={`${study.slug}-d`}
+                      src={proxyUrl}
+                      title={`${study.title} desktop`}
+                      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                      className={styles.desktopIframe}
+                      onError={() => setIframeErr(true)}
+                    />
+                  </div>
+                </div>
+              )}
+            </div>
 
             {study.responsive.breakpoints?.length ? (
               <table className={styles.bpTable}>

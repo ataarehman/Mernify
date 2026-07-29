@@ -117,10 +117,29 @@
   justify-content: center;
   align-items: flex-start;
   padding: 2rem 1.5rem 1.5rem;
-  margin-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   min-height: 360px;
 }
 .livePreviewWrap { margin-bottom: 2rem; }
+
+/* Live site button (responsive header) */
+.liveSiteBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 1.1rem;
+  border: 1.5px solid var(--cs-accent);
+  border-radius: var(--mf-radius-pill, 999px);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--cs-accent);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 140ms, color 140ms;
+  flex-shrink: 0;
+  margin-top: 0.35rem;
+}
+.liveSiteBtn:hover { background: var(--cs-accent); color: #fff; }
 
 /* ── Browser frame (Desktop) ── */
 .browserFrame {
@@ -167,16 +186,29 @@
   border: 1px solid rgba(0,0,0,0.1);
 }
 .browserScreen {
+  position: relative;
   background: #fff;
-  max-height: 560px;
+  height: 560px;
   overflow: hidden;
 }
-.browserScreen img {
+.desktopIframe {
   display: block;
   width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: top center;
+  height: 100%;
+  border: none;
+}
+
+/* Fallback when iframe fails */
+.iframeFallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 3rem;
+  text-align: center;
+  color: var(--cs-muted);
+  font-size: 0.9rem;
 }
 
 /* ── Phone frame (Mobile) ── */
@@ -200,17 +232,22 @@
   border-radius: 8px;
 }
 .phoneScreen {
+  position: relative;
   border-radius: 20px;
   overflow: hidden;
   background: #fff;
-  max-height: 420px;
+  /* visual 200×433 — iframe renders at 390px, scale 200/390≈0.513 */
+  width: 200px;
+  height: 433px;
 }
-.phoneScreen img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: top center;
+.phoneIframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 390px;
+  height: 844px;
+  border: none;
+  transform: scale(0.513);
+  transform-origin: top left;
 }
 .phoneBottom {
   display: flex;
@@ -227,7 +264,7 @@
 
 /* ── Tablet frame ── */
 .tabletFrame {
-  width: 380px;
+  width: 400px;
   background: #1a1a1f;
   border-radius: 22px;
   padding: 14px 10px;
@@ -241,17 +278,22 @@
   margin: 0 auto 10px;
 }
 .tabletScreen {
+  position: relative;
   border-radius: 10px;
   overflow: hidden;
   background: #fff;
-  max-height: 480px;
+  /* visual 380×479 — iframe at 768px, scale 380/768≈0.495 */
+  width: 380px;
+  height: 479px;
 }
-.tabletScreen img {
-  display: block;
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  object-position: top center;
+.tabletIframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 768px;
+  height: 968px;
+  border: none;
+  transform: scale(0.495);
+  transform-origin: top left;
 }
 
 /* ─── Hero preview trigger ─── */
