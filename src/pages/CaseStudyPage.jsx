@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ExternalLink, Monitor, X } from 'lucide-react'
+import { ExternalLink, Monitor } from 'lucide-react'
 import { PageMeta } from '@/components/seo/PageMeta'
 import { Button, Container, Text } from '@/components/ui'
 import { SITE } from '@/constants/site'
@@ -32,8 +32,15 @@ export function CaseStudyPage() {
   const { slug } = useParams()
   const study = getCaseStudyBySlug(slug)
   const [activeSection, setActiveSection] = useState('')
-  const [pipOpen, setPipOpen] = useState(false)
+  const [livePreview, setLivePreview] = useState(false)
+  const [previewDevice, setPreviewDevice] = useState('mobile')
   const shellRef = useRef(null)
+
+  const DEVICES = [
+    { id: 'mobile',  label: 'Mobile',  width: 390  },
+    { id: 'tablet',  label: 'Tablet',  width: 768  },
+    { id: 'desktop', label: 'Desktop', width: 1280 },
+  ]
 
   // JSON-LD
   useEffect(() => {
@@ -57,14 +64,6 @@ export function CaseStudyPage() {
     })
     return () => { document.getElementById(id)?.remove() }
   }, [study])
-
-  // Close PiP on Escape
-  useEffect(() => {
-    if (!pipOpen) return
-    const handler = (e) => { if (e.key === 'Escape') setPipOpen(false) }
-    window.addEventListener('keydown', handler)
-    return () => window.removeEventListener('keydown', handler)
-  }, [pipOpen])
 
   // Scrollspy
   useEffect(() => {
@@ -162,10 +161,19 @@ export function CaseStudyPage() {
             )}
           </div>
 
-          {/* Live preview + external link actions */}
+          {/* Preview action strip */}
           {study.liveUrl && (
             <div className={styles.heroActions}>
-              <button className={styles.pipTrigger} onClick={() => setPipOpen(true)}>
+              <button
+                className={styles.pipTrigger}
+                onClick={() => {
+                  setLivePreview(true)
+                  setTimeout(() => {
+                    const el = document.getElementById('responsive')
+                    if (el) window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - 72, behavior: 'smooth' })
+                  }, 50)
+                }}
+              >
                 <Monitor size={13} />
                 Preview in-page
               </button>
@@ -407,35 +415,101 @@ export function CaseStudyPage() {
         {/* ── 6. Responsive ────────────────────────── */}
         {study.responsive && (
           <section id="responsive" className={styles.section}>
-            <h2 className={styles.sectionTitle}>Responsive review</h2>
-            <p className={styles.sectionSub}>Device frames, a breakpoint pass/fail table, and the annotated findings from testing.</p>
+            <div className={styles.responsiveHead}>
+              <div>
+                <h2 className={styles.sectionTitle}>Responsive review</h2>
+                <p className={styles.sectionSub}>Device frames, a breakpoint pass/fail table, and the annotated findings from testing.</p>
+              </div>
+              {study.liveUrl && (
+                <div className={styles.previewTabs}>
+                  <button
+                    className={[styles.previewTab, !livePreview ? styles.previewTabActive : ''].filter(Boolean).join(' ')}
+                    onClick={() => setLivePreview(false)}
+                  >
+                    Screenshots
+                  </button>
+                  <button
+                    className={[styles.previewTab, livePreview ? styles.previewTabActive : ''].filter(Boolean).join(' ')}
+                    onClick={() => setLivePreview(true)}
+                  >
+                    <Monitor size={12} /> Live preview
+                  </button>
+                </div>
+              )}
+            </div>
 
-            {study.gallery?.length ? (
-              <div className={styles.deviceRow}>
-                <div>
-                  <p className={styles.deviceLabel}>Desktop — 1440px</p>
-                  <div className={`${styles.deviceFrame} ${styles.deviceDesktop}`}>
-                    <img
-                      src={study.gallery[0]?.src || study.featuredImage}
-                      alt={`${study.title} desktop`}
+            {/* Live iframe preview */}
+            {livePreview && study.liveUrl ? (
+              <div className={styles.livePreviewWrap}>
+                <div className={styles.devicePicker}>
+                  {DEVICES.map((d) => (
+                    <button
+                      key={d.id}
+                      className={[styles.deviceBtn, previewDevice === d.id ? styles.deviceBtnActive : ''].filter(Boolean).join(' ')}
+                      onClick={() => setPreviewDevice(d.id)}
+                    >
+                      {d.label} <span className={styles.devicePx}>{d.width}px</span>
+                    </button>
+                  ))}
+                  <a
+                    href={study.liveUrl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className={styles.deviceExternal}
+                  >
+                    Open in tab <ExternalLink size={11} />
+                  </a>
+                </div>
+                <div className={styles.iframeStage}>
+                  <div
+                    className={styles.iframeDevice}
+                    style={{ maxWidth: DEVICES.find((d) => d.id === previewDevice).width + 'px' }}
+                  >
+                    <iframe
+                      key={`${study.slug}-${previewDevice}`}
+                      src={study.liveUrl}
+                      title={`${study.title} live — ${previewDevice}`}
+                      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
                       loading="lazy"
+                      className={styles.liveFrame}
                     />
                   </div>
                 </div>
-                {study.gallery[1] && (
-                  <div>
-                    <p className={styles.deviceLabel}>Tablet / Mobile</p>
-                    <div className={`${styles.deviceFrame} ${styles.deviceTablet}`}>
-                      <img
-                        src={study.gallery[1].src}
-                        alt={`${study.title} tablet/mobile`}
-                        loading="lazy"
-                      />
-                    </div>
-                  </div>
-                )}
+                <p className={styles.iframeNote}>
+                  Some sites block embedding. If you see a blank panel, use "Open in tab" above.
+                </p>
               </div>
-            ) : null}
+            ) : (
+              /* Static screenshots */
+              <>
+                {study.gallery?.length ? (
+                  <div className={styles.deviceRow}>
+                    <div>
+                      <p className={styles.deviceLabel}>Desktop — 1440px</p>
+                      <div className={`${styles.deviceFrame} ${styles.deviceDesktop}`}>
+                        <img
+                          src={study.gallery[0]?.src || study.featuredImage}
+                          alt={`${study.title} desktop`}
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                    {study.gallery[1] && (
+                      <div>
+                        <p className={styles.deviceLabel}>Tablet / Mobile</p>
+                        <div className={`${styles.deviceFrame} ${styles.deviceTablet}`}>
+                          <img
+                            src={study.gallery[1].src}
+                            alt={`${study.title} tablet/mobile`}
+                            loading="lazy"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                ) : null}
+              </>
+            )}
 
             {study.responsive.breakpoints?.length ? (
               <table className={styles.bpTable}>
@@ -577,36 +651,6 @@ export function CaseStudyPage() {
           )}
         </div>
 
-        {/* ── Picture-in-page site preview drawer ── */}
-        {pipOpen && study.liveUrl && (
-          <div className={styles.pipOverlay} onClick={() => setPipOpen(false)}>
-            <div className={styles.pipDrawer} onClick={(e) => e.stopPropagation()}>
-              <div className={styles.pipHeader}>
-                <span className={styles.pipTitle}>{study.liveUrl}</span>
-                <div className={styles.pipActions}>
-                  <a
-                    href={study.liveUrl}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className={styles.pipExternalBtn}
-                  >
-                    <ExternalLink size={11} /> Open in tab
-                  </a>
-                  <button className={styles.pipCloseBtn} onClick={() => setPipOpen(false)} aria-label="Close preview">
-                    <X size={14} />
-                  </button>
-                </div>
-              </div>
-              <iframe
-                className={styles.pipFrame}
-                src={study.liveUrl}
-                title={`${study.title} live preview`}
-                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-                loading="lazy"
-              />
-            </div>
-          </div>
-        )}
 
       </div>
     </>
