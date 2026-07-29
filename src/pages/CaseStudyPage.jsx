@@ -36,7 +36,7 @@ export function CaseStudyPage() {
   const [iframeErr, setIframeErr] = useState(false)
   const shellRef = useRef(null)
 
-  // Dev: Vite middleware handles /site-preview. Prod (Vercel): /api/site-preview
+  // Dev: Vite middleware at /site-preview. Production: Express server at /api/site-preview
   const proxyBase = import.meta.env.DEV ? '/site-preview' : '/api/site-preview'
   const proxyUrl = study?.liveUrl
     ? `${proxyBase}?url=${encodeURIComponent(study.liveUrl)}`

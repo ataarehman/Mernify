@@ -1,15 +1,8 @@
-feat: add portfolio case studies with 12 projects and polished UI
+fix: replace blank iframe with screenshot-based device frame preview
 
-- New case study system: CaseStudyCard, CaseStudyHero, CaseStudyNext components
-  aligned with the site's light cream theme and design tokens
-- 12 published case studies: Servloom (featured), GODIVA, GoodBooks Plus,
-  MedBill Ultra, Metro Electric, SpaceWorx, MRZZM, Tailorize, Kinepolis,
-  Marmot, Pathe Belgium, Trendyol
-- Portfolio screenshots captured and stored under public/portfolio/
-- SVG brand covers for sites unreachable during capture (GODIVA, Kinepolis, Pathe)
-- CaseStudyCard media area fixed with aspect-ratio 16/9 to prevent broken image layout
-- Servloom pinned as first/featured card on the case studies index
-- PageMeta enhanced with Open Graph and Twitter card support
-- JSON-LD structured data injected per case study for SEO
-- ESLint config updated to ignore dist, public, and .tmp directories
-- Capture and utility scripts added under scripts/
+Most sites block iframe embedding via X-Frame-Options, causing blank panels.
+Replace with realistic device mockups showing the captured screenshots:
+- Desktop: macOS-style browser chrome (traffic-light dots, URL bar)
+- Tablet: dark tablet bezel with camera dot
+- Mobile: dark phone frame with notch and home bar
+Each device picks the appropriate gallery screenshot (desktop vs mobile).
