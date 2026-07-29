@@ -106,7 +106,7 @@
 }
 .deviceExternal:hover { text-decoration: underline; }
 
-/* The stage that centres the resized iframe */
+/* Stage wrapper */
 .iframeStage {
   width: 100%;
   background: var(--cs-section-alt);
@@ -115,30 +115,144 @@
   overflow: hidden;
   display: flex;
   justify-content: center;
-  padding: 1rem;
+  align-items: flex-start;
+  padding: 2rem 1.5rem 1.5rem;
   margin-bottom: 0.75rem;
-}
-.iframeDevice {
-  width: 100%;
-  transition: max-width 300ms var(--mf-ease-out, ease);
-  border-radius: var(--cs-r-md);
-  overflow: hidden;
-  border: 1px solid var(--cs-divider);
-  box-shadow: var(--cs-shadow-md);
-}
-.liveFrame {
-  display: block;
-  width: 100%;
-  height: clamp(480px, 70vh, 780px);
-  border: none;
-  background: #fff;
-}
-.iframeNote {
-  font-size: 0.78rem;
-  color: var(--cs-muted-2);
-  margin: 0 0 2rem;
+  min-height: 360px;
 }
 .livePreviewWrap { margin-bottom: 2rem; }
+
+/* ── Browser frame (Desktop) ── */
+.browserFrame {
+  width: 100%;
+  max-width: 860px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(15,23,42,0.18), 0 0 0 1px rgba(15,23,42,0.1);
+}
+.browserBar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #e8e8e8;
+  padding: 0.6rem 0.85rem;
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+}
+.browserDots {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+}
+.browserDots i {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+  font-style: normal;
+}
+.browserDots i:nth-child(1) { background: #ff5f57; }
+.browserDots i:nth-child(2) { background: #febc2e; }
+.browserDots i:nth-child(3) { background: #28c840; }
+.browserUrl {
+  flex: 1;
+  background: #fff;
+  border-radius: 5px;
+  font-size: 0.72rem;
+  color: #666;
+  padding: 0.25rem 0.65rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: 1px solid rgba(0,0,0,0.1);
+}
+.browserScreen {
+  background: #fff;
+  max-height: 560px;
+  overflow: hidden;
+}
+.browserScreen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* ── Phone frame (Mobile) ── */
+.phoneFrame {
+  width: 220px;
+  background: #1a1a1f;
+  border-radius: 36px;
+  padding: 10px;
+  box-shadow: 0 12px 40px rgba(15,23,42,0.3), inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+.phoneTop {
+  display: flex;
+  justify-content: center;
+  padding: 6px 0 8px;
+}
+.phoneNotch {
+  display: block;
+  width: 68px;
+  height: 10px;
+  background: #111;
+  border-radius: 8px;
+}
+.phoneScreen {
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  max-height: 420px;
+}
+.phoneScreen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: top center;
+}
+.phoneBottom {
+  display: flex;
+  justify-content: center;
+  padding: 10px 0 4px;
+}
+.phoneHomeBar {
+  display: block;
+  width: 60px;
+  height: 4px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 4px;
+}
+
+/* ── Tablet frame ── */
+.tabletFrame {
+  width: 380px;
+  background: #1a1a1f;
+  border-radius: 22px;
+  padding: 14px 10px;
+  box-shadow: 0 12px 40px rgba(15,23,42,0.3), inset 0 0 0 1px rgba(255,255,255,0.08);
+}
+.tabletCamera {
+  width: 8px;
+  height: 8px;
+  background: #333;
+  border-radius: 50%;
+  margin: 0 auto 10px;
+}
+.tabletScreen {
+  border-radius: 10px;
+  overflow: hidden;
+  background: #fff;
+  max-height: 480px;
+}
+.tabletScreen img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  object-position: top center;
+}
 
 /* ─── Hero preview trigger ─── */
 .pipTrigger {

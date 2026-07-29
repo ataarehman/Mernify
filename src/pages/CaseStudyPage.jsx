@@ -438,8 +438,8 @@ export function CaseStudyPage() {
               )}
             </div>
 
-            {/* Live iframe preview */}
-            {livePreview && study.liveUrl ? (
+            {/* Screenshot device-frame preview */}
+            {livePreview ? (
               <div className={styles.livePreviewWrap}>
                 <div className={styles.devicePicker}>
                   {DEVICES.map((d) => (
@@ -451,33 +451,65 @@ export function CaseStudyPage() {
                       {d.label} <span className={styles.devicePx}>{d.width}px</span>
                     </button>
                   ))}
-                  <a
-                    href={study.liveUrl}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className={styles.deviceExternal}
-                  >
-                    Open in tab <ExternalLink size={11} />
-                  </a>
+                  {study.liveUrl && (
+                    <a
+                      href={study.liveUrl}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className={styles.deviceExternal}
+                    >
+                      Open live site <ExternalLink size={11} />
+                    </a>
+                  )}
                 </div>
+
+                {/* Device frame with screenshot */}
                 <div className={styles.iframeStage}>
-                  <div
-                    className={styles.iframeDevice}
-                    style={{ maxWidth: DEVICES.find((d) => d.id === previewDevice).width + 'px' }}
-                  >
-                    <iframe
-                      key={`${study.slug}-${previewDevice}`}
-                      src={study.liveUrl}
-                      title={`${study.title} live — ${previewDevice}`}
-                      sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
-                      loading="lazy"
-                      className={styles.liveFrame}
-                    />
-                  </div>
+                  {previewDevice === 'mobile' ? (
+                    <div className={styles.phoneFrame}>
+                      <div className={styles.phoneTop}>
+                        <span className={styles.phoneNotch} />
+                      </div>
+                      <div className={styles.phoneScreen}>
+                        <img
+                          src={study.gallery?.[1]?.src || study.gallery?.[0]?.src || study.featuredImage}
+                          alt={`${study.title} mobile view`}
+                          loading="lazy"
+                        />
+                      </div>
+                      <div className={styles.phoneBottom}>
+                        <span className={styles.phoneHomeBar} />
+                      </div>
+                    </div>
+                  ) : previewDevice === 'tablet' ? (
+                    <div className={styles.tabletFrame}>
+                      <div className={styles.tabletCamera} />
+                      <div className={styles.tabletScreen}>
+                        <img
+                          src={study.gallery?.[1]?.src || study.gallery?.[0]?.src || study.featuredImage}
+                          alt={`${study.title} tablet view`}
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={styles.browserFrame}>
+                      <div className={styles.browserBar}>
+                        <span className={styles.browserDots}>
+                          <i /><i /><i />
+                        </span>
+                        <span className={styles.browserUrl}>{study.liveUrl || study.title}</span>
+                      </div>
+                      <div className={styles.browserScreen}>
+                        <img
+                          src={study.gallery?.[0]?.src || study.featuredImage}
+                          alt={`${study.title} desktop view`}
+                          loading="lazy"
+                        />
+                      </div>
+                    </div>
+                  )}
                 </div>
-                <p className={styles.iframeNote}>
-                  Some sites block embedding. If you see a blank panel, use "Open in tab" above.
-                </p>
               </div>
             ) : (
               /* Static screenshots */
