@@ -41,6 +41,34 @@
   object-position: top center;
 }
 
+/* No-photo: compact layout without the image slot */
+.noPhoto {
+  border-top: 3px solid var(--study-accent-fallback, var(--mf-color-indigo));
+}
+
+/* Minimal placeholder when no real screenshot exists */
+.mediaPlaceholder {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  aspect-ratio: 16 / 5;
+  background: linear-gradient(135deg, rgba(79,70,229,0.06) 0%, rgba(79,70,229,0.03) 100%);
+  border-bottom: 1px solid var(--mf-border-default);
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.placeholderInitial {
+  font-family: var(--mf-font-display);
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 700;
+  color: color-mix(in srgb, var(--study-accent, #4f46e5) 25%, transparent);
+  letter-spacing: -0.04em;
+  user-select: none;
+  line-height: 1;
+}
+
 .accent {
   position: absolute;
   inset: auto 0 0 0;

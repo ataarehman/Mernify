@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { ExternalLink } from 'lucide-react'
+import { ExternalLink, Monitor, X } from 'lucide-react'
 import { PageMeta } from '@/components/seo/PageMeta'
 import { Button, Container, Text } from '@/components/ui'
 import { SITE } from '@/constants/site'
@@ -20,18 +20,19 @@ const TOC = [
   ['results', 'Results'],
 ]
 
-// Sentiment bar: emotion 1–5 → height % and colour
+// Sentiment bar: emotion 1–5 → height % and colour (light theme)
 const emoColor = (n) =>
   n <= 2
-    ? 'rgba(255,255,255,0.18)'
+    ? 'rgba(15,23,42,0.12)'
     : n === 3
-      ? 'rgba(255,255,255,0.32)'
-      : 'rgba(145,132,217,0.65)'
+      ? 'rgba(15,23,42,0.22)'
+      : 'rgba(79,70,229,0.55)'
 
 export function CaseStudyPage() {
   const { slug } = useParams()
   const study = getCaseStudyBySlug(slug)
   const [activeSection, setActiveSection] = useState('')
+  const [pipOpen, setPipOpen] = useState(false)
   const shellRef = useRef(null)
 
   // JSON-LD
@@ -56,6 +57,14 @@ export function CaseStudyPage() {
     })
     return () => { document.getElementById(id)?.remove() }
   }, [study])
+
+  // Close PiP on Escape
+  useEffect(() => {
+    if (!pipOpen) return
+    const handler = (e) => { if (e.key === 'Escape') setPipOpen(false) }
+    window.addEventListener('keydown', handler)
+    return () => window.removeEventListener('keydown', handler)
+  }, [pipOpen])
 
   // Scrollspy
   useEffect(() => {
@@ -148,14 +157,28 @@ export function CaseStudyPage() {
             {study.liveUrl && (
               <div className={styles.heroMetaItem}>
                 <span className={styles.heroMetaLabel}>Live site</span>
-                <span className={styles.heroMetaValue}>
-                  <a href={study.liveUrl} target="_blank" rel="noreferrer noopener">
-                    {new URL(study.liveUrl).hostname} <ExternalLink size={11} style={{ verticalAlign: 'middle' }} />
-                  </a>
-                </span>
+                <span className={styles.heroMetaValue}>{new URL(study.liveUrl).hostname}</span>
               </div>
             )}
           </div>
+
+          {/* Live preview + external link actions */}
+          {study.liveUrl && (
+            <div className={styles.heroActions}>
+              <button className={styles.pipTrigger} onClick={() => setPipOpen(true)}>
+                <Monitor size={13} />
+                Preview in-page
+              </button>
+              <a
+                href={study.liveUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                style={{ fontSize: '0.8125rem', color: 'var(--cs-muted)', display:'inline-flex', alignItems:'center', gap:'0.3rem' }}
+              >
+                Open in tab <ExternalLink size={11} />
+              </a>
+            </div>
+          )}
 
           {study.metrics?.length ? (
             <div className={styles.heroMetrics}>
@@ -553,6 +576,37 @@ export function CaseStudyPage() {
             </Link>
           )}
         </div>
+
+        {/* ── Picture-in-page site preview drawer ── */}
+        {pipOpen && study.liveUrl && (
+          <div className={styles.pipOverlay} onClick={() => setPipOpen(false)}>
+            <div className={styles.pipDrawer} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.pipHeader}>
+                <span className={styles.pipTitle}>{study.liveUrl}</span>
+                <div className={styles.pipActions}>
+                  <a
+                    href={study.liveUrl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className={styles.pipExternalBtn}
+                  >
+                    <ExternalLink size={11} /> Open in tab
+                  </a>
+                  <button className={styles.pipCloseBtn} onClick={() => setPipOpen(false)} aria-label="Close preview">
+                    <X size={14} />
+                  </button>
+                </div>
+              </div>
+              <iframe
+                className={styles.pipFrame}
+                src={study.liveUrl}
+                title={`${study.title} live preview`}
+                sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
+                loading="lazy"
+              />
+            </div>
+          </div>
+        )}
 
       </div>
     </>

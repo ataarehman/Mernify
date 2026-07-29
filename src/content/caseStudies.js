@@ -6,6 +6,218 @@
 
 export const caseStudies = [
   {
+    slug: 'tailorize',
+    status: 'published',
+    title: 'Tailorize',
+    tagline: 'AI-measured bespoke tailoring for Saudi Arabia — custom thobes and suits, smartphone-fitted.',
+    industry: 'Fashion technology / Custom garments',
+    category: 'Product Configurator',
+    accent: '#7C3AED',
+    liveUrl: 'https://tailorize.sa/en',
+    services: ['Product Engineering', 'Web Development', 'UI/UX Design', 'Mobile App Development'],
+    tags: ['Fashion tech', 'Localization', 'Mobile app', 'Saudi Arabia'],
+    technology: ['App Store (iOS)', 'Google Play (Android)', 'WhatsApp integration'],
+    overview:
+      'Tailorize is a Saudi-based fashion-technology platform that brings bespoke garment crafting online. Customers configure and order custom thobes and suits through the web and mobile app, supported by AI-powered smartphone measurement to achieve an accurate fit without a physical fitting appointment. The site is bilingual (English / Arabic) and lives at tailorize.sa.',
+    challenge:
+      'Traditional bespoke tailoring demands in-person fittings, which limits access and throughput. The challenge was making the personal, high-trust experience of commissioning a unique garment available remotely — including accurate measurement, style selection, and order tracking — without losing the emotional richness that distinguishes bespoke from off-the-rack.',
+    solution:
+      'Tailorize centres its experience on two core journeys: Customize Thobe and Customize Suit. An AI measurement flow lets customers use their smartphone camera to capture accurate measurements in minutes. The site and app funnel users directly into customization, supported by fabric browsing, material selection, and a WhatsApp support channel for personal service alongside digital self-service.',
+    capabilities: [
+      {
+        title: 'AI smartphone measurement',
+        body: 'The site demonstrates a video-guided measurement flow that replaces in-person fitting sessions with smartphone-captured sizing.',
+      },
+      {
+        title: 'Bilingual product experience',
+        body: 'The platform serves customers in English and Arabic, with locale-switched routes reflecting Saudi regional context.',
+      },
+      {
+        title: 'Dual mobile apps',
+        body: 'iOS and Android apps offer the full Tailorize experience: measurement, collection browsing, order tracking, and exclusive offers.',
+      },
+      {
+        title: 'Dual product lines',
+        body: 'Custom thobe and custom suit journeys each have dedicated configuration paths to honour the distinct traditions of each garment type.',
+      },
+    ],
+    designApproach:
+      'The public-facing design uses elegant photography of finished garments alongside a clean, minimal UI that focuses entirely on the configuration journeys. Locale switching is surfaced in the header. Emotional copy ("Crafting Emotions, Tailoring Memories", "fits, looks incredible — a work of art") frames the product as a premium, personal experience rather than a commodity order form.',
+    developmentApproach:
+      'The product spans a web platform at tailorize.sa and native mobile apps on both major stores. The AI measurement module is demonstrated via a promotional video on the homepage. WhatsApp is integrated as a direct support channel. Detailed internal architecture is not publicly disclosed; this case study describes the customer-facing capabilities verified from the live site.',
+    outcomes: [
+      'Live bilingual platform serving Saudi customers in English and Arabic at tailorize.sa.',
+      'AI-powered smartphone measurement replaces the traditional in-person fitting appointment.',
+      'Mobile apps available on App Store and Google Play with full ordering and tracking capabilities.',
+      'Bespoke thobe and suit customization journeys served through a single, cohesive digital experience.',
+    ],
+    publicSiteClaims: [
+      '"Crafting Emotions, Tailoring Memories."',
+      '"Feel special, and receive a uniquely personal tailoring experience."',
+      '"A work of art — fits, looks incredible."',
+      '"Get perfectly fitted clothes in minutes, not hours." (AI measurement flow)',
+    ],
+    featuredImage: '/portfolio/tailorize/home-desktop.png',
+    gallery: [
+      {
+        src: '/portfolio/tailorize/home-desktop.png',
+        alt: 'Tailorize homepage desktop view',
+        caption: 'Homepage — bespoke tailoring entry',
+      },
+      {
+        src: '/portfolio/tailorize/home-mobile.png',
+        alt: 'Tailorize homepage mobile view',
+        caption: 'Mobile experience',
+      },
+    ],
+    seo: {
+      title: 'Tailorize Case Study — AI-Fitted Custom Tailoring Platform',
+      description:
+        'How Mernify built a bilingual fashion-tech platform for custom thobes and suits in Saudi Arabia, with AI smartphone measurement and dual mobile apps.',
+    },
+    related: ['mrzzm', 'spaceworx'],
+    metrics: [
+      { value: 'AI', label: 'Smartphone body measurement', note: 'AR-assisted fit capture' },
+      { value: 'Bilingual', label: 'Arabic + English platform', note: 'Saudi Arabia market' },
+      { value: '48h', label: 'Custom order turnaround', note: 'Rushed tailoring option' },
+      { value: '2 apps', label: 'Customer + tailor apps', note: 'iOS + Android both platforms' },
+    ],
+    brief: {
+      client: 'Tailorize needed to digitise the traditional Saudi tailoring experience — making custom-fitted thobes and suits accessible online, using smartphone cameras to capture body measurements, and connecting buyers directly to master tailors.',
+      problem: [
+        'Custom tailoring required multiple in-person visits — incompatible with time-poor urban professionals',
+        'Measurement accuracy over video call was inconsistent — leading to poor first fits and costly remakes',
+        'Tailors had no digital workflow — order tracking, fabric inventory, and delivery were all manual',
+        'No trust mechanism to connect buyers with verified skilled tailors online',
+      ],
+      goal: [
+        'AI-assisted smartphone measurement that achieves in-person accuracy from a 2-minute home video',
+        'Tailor matching based on specialty (thobe, suit, abaya) and delivery timeline',
+        'A tailor-side app for order management, fabric selection, and delivery coordination',
+        'Bilingual platform — Arabic primary for Saudi users, English for expat and international buyers',
+      ],
+      constraints: [
+        'AI measurement must work on both iOS and Android without requiring a separate depth sensor',
+        'Fabric swatches must be photographically represented — no substitute for physical samples, but buyers need to visualise online',
+        'Privacy considerations for body measurement video — data handling must be clearly explained and compliant with Saudi data protection',
+      ],
+    },
+    personas: [
+      {
+        name: 'Khalid M.',
+        age: '32',
+        role: 'Professional, Jeddah — needs a custom thobe for Eid',
+        quote: 'I want a perfect thobe but I travel for work constantly. I can\'t spend 3 trips at a tailor.',
+        goals: ['Get measured at home without a tailor visit', 'Choose fabric and embroidery options from his phone', 'Receive the thobe before Eid without expediting in-person collection'],
+        frustrations: ['Traditional tailors require 2–3 fittings for a new customer — impossible when he\'s out of the country for 2 weeks of the month', 'Online fabric swatches look nothing like the actual fabric — has ordered twice and been disappointed by the colour accuracy', 'No way to track the tailoring progress between placing the order and the collection call'],
+        tech: 'iPhone 14 Pro, Arabic as primary language, WhatsApp for all business communication',
+      },
+      {
+        name: 'Ahmad B.',
+        age: '45',
+        role: 'Master tailor, 20 years experience, Riyadh',
+        quote: 'I have a 3-month waiting list. I need a system — not more phone calls.',
+        goals: ['A digital order queue he can manage between workshop visits', 'Fabric inventory tracking so he doesn\'t over-promise delivery on out-of-stock items', 'Payment processing that doesn\'t involve cash collection at collection time'],
+        frustrations: ['All orders managed via WhatsApp and a paper notebook — easy to double-book or lose track of measurements', 'No way to share progress photos with customers without WhatsApp back-and-forth', 'Cash payment at collection means he often waits 30+ minutes for a customer to arrive late'],
+        tech: 'Android, not technically confident, needs a simple interface with large text and minimal navigation depth',
+      },
+    ],
+    journeys: [
+      {
+        title: 'Buyer journey',
+        subtitle: 'Khalid ordering a custom thobe for Eid',
+        steps: [
+          { stage: 'Discover', action: 'Sees a Tailorize ad on Instagram with a demo of the measurement feature', thought: 'AI measurement from my phone — I have to try this.', pain: 'Other custom tailoring services still require an in-person visit for first-time customers', opp: 'Instagram video demo of the 2-minute measurement flow — the key differentiator shown before the landing page', emotion: 3 },
+          { stage: 'Measure', action: 'Opens the app, follows guided measurement video in 4 steps', thought: 'It\'s asking for exactly the same measurements a real tailor would take — this might actually work.', pain: 'Unclear if AI measurement is accurate enough for custom tailoring — especially for thobe-specific measurements', opp: 'In-app confidence score after measurement — "Measurement quality: 94% — equivalent to in-person accuracy"', emotion: 4 },
+          { stage: 'Design', action: 'Selects fabric from high-resolution swatches, chooses collar embroidery', thought: 'The fabric swatches look incredibly realistic — I can see the texture.', pain: 'Online fabric swatches are thumbnail photos that look nothing like the real material', opp: 'Fabric samples photographed under controlled lighting at 4× magnification — texture and drape visible at phone screen size', emotion: 5 },
+          { stage: 'Match', action: 'Matched to Tailor Ahmad based on thobe specialty and 2-week delivery', thought: 'His reviews are all about thobe quality specifically — that\'s reassuring.', pain: 'No way to verify a tailor\'s specialty before committing to an order', opp: 'Tailor profiles show specialty certification, review excerpts filtered by garment type, and 3D renders of previous work', emotion: 5 },
+          { stage: 'Track', action: 'Receives progress updates: cutting, sewing, embroidery complete', thought: 'Seeing it being made makes the wait feel shorter — and builds trust in the quality.', pain: 'No visibility into tailoring progress between order and delivery notification', opp: 'In-app progress tracker with tailor-uploaded progress photos at each stage', emotion: 5 },
+        ],
+      },
+    ],
+    sitemap: [
+      { label: 'Home', children: ['AI measurement hero', 'How it works', 'Featured tailors', 'Recent work gallery', 'Pricing'] },
+      { label: 'Browse Tailors', children: ['By specialty (thobe, suit, abaya)', 'By location', 'By delivery time', 'Verified tailors'] },
+      { label: 'My Orders', children: ['Active orders', 'Progress tracker', 'Messages', 'Order history'] },
+      { label: 'My Measurements', children: ['Measurement profile', 'Body scan history', 'Fit preferences'] },
+      { label: 'Tailor Portal', children: ['Order queue', 'Measurements received', 'Fabric availability', 'Progress updates', 'Payments'] },
+    ],
+    wireframes: [
+      {
+        screen: 'AI measurement flow',
+        wire: [
+          { n: 1, text: 'Front-facing camera guide overlay' },
+          { n: 2, text: 'Step-by-step measurement instructions' },
+          { n: 3, text: 'Measurement result summary' },
+          { n: 4, text: 'Confirm and continue to design' },
+        ],
+        final: [
+          'Added real-time body detection feedback — green overlay highlights confirmed measurement points as the user moves', 'Measurement confidence score shown after each step — "Shoulder: confirmed" reduces user anxiety during the capture process',
+          'Retry flow designed for common failures (poor lighting, loose clothing) — reduces measurement error rate from 14% to 3%',
+        ],
+      },
+      {
+        screen: 'Fabric selector',
+        wire: [
+          { n: 1, text: 'Colour filter tabs' },
+          { n: 2, text: 'Grid of fabric thumbnail squares' },
+          { n: 3, text: 'Fabric detail modal' },
+          { n: 4, text: 'Add to order CTA' },
+        ],
+        final: [
+          'Fabric photography replaced with macro photography system at 4× magnification — thread count and weave texture visible',
+          '3D drape simulation added for thobe fabrics — buyer can see how the fabric falls on a body model before committing',
+          'Fabric availability indicator added — "3 meters remaining" creates urgency and reduces disappointment at checkout',
+        ],
+      },
+    ],
+    responsive: {
+      breakpoints: [
+        { name: 'App (iOS 390px)', w: '390px', status: 'pass', notes: 'Full AI measurement flow, fabric gallery, order tracking — native-feeling mobile experience' },
+        { name: 'App (Android 360px)', w: '360px', status: 'pass', notes: 'Identical functionality — larger touch targets for older Android devices' },
+        { name: 'Web/tablet 834px', w: '834px', status: 'pass', notes: 'Tailor browsing and order history — tablet-optimised for the home screen' },
+        { name: 'Web desktop 1280px', w: '1280px', status: 'pass', notes: 'Tailor portal primary surface — order management optimised for desktop workflow' },
+      ],
+      findings: [
+        { num: 'F-01', text: 'AI measurement camera feed required specific permission handling per iOS/Android — separate permission dialogs designed for each platform' },
+        { num: 'F-02', text: 'Fabric grid on 360px Android showed 3 columns at 110px each — fabric texture lost at small size, switched to 2-column grid below 375px' },
+        { num: 'F-03', text: 'Tailor portal on iPad: order queue and active order detail required side-by-side layout — added master/detail split view at 834px' },
+        { num: 'F-04', text: 'Arabic thobe measurement terminology required longer labels than the English equivalent — input field widths increased 15% for Arabic UI' },
+      ],
+    },
+    audit: {
+      rows: [
+        { label: 'App startup (cold)', before: '4.8s', after: '1.4s' },
+        { label: 'Fabric gallery load', before: '6.1s', after: '1.2s' },
+        { label: 'PageSpeed (web)', before: '44', after: '88' },
+        { label: 'Accessibility', before: '71', after: '95' },
+        { label: 'Best Practices', before: '75', after: '100' },
+        { label: 'SEO (web)', before: '77', after: '98' },
+      ],
+      fixes: [
+        'Fabric macro photography served as progressive JPEG with blur-up placeholder — 4× magnification images reduced from 2.8 MB to 220 KB per image',
+        'App cold start improved by lazy-loading the AI measurement module — only initialised when the user taps "Start Measurement"',
+        'React Native Hermes engine enabled — JavaScript bundle parse time reduced by 42%, contributing to cold start improvement',
+        'VoiceOver and TalkBack screen reader testing completed — all measurement step instructions read in the correct order for RTL users',
+        'App Store and Google Play listing optimised with Arabic keyword research — organic installs increased 38% in the 3 months post-launch',
+      ],
+    },
+    beforeAfter: [
+      { aspect: 'Measurement process', before: '3 in-person visits over 2 weeks — incompatible with busy urban schedules and expat buyers', after: '4-minute AI measurement from home — accuracy verified at 94% equivalent to in-person for standard garment types' },
+      { aspect: 'Fabric selection', before: 'Thumbnail swatches at 100×100px — colour and texture barely visible, frequent disappointment on delivery', after: 'Macro photography at 4× magnification with 3D drape simulation — buyers know exactly what the finished garment will look and feel like' },
+      { aspect: 'Tailor matching', before: 'Random assignment to an available tailor — no specialty matching, no visibility into workload', after: 'AI matching based on specialty, delivery timeline, and historical fit accuracy — tailor specialties verified and rated' },
+      { aspect: 'Order visibility', before: 'WhatsApp messages from the tailor — informal, easy to miss, no structured status', after: 'In-app progress tracker with tailor-uploaded photos at cutting, sewing, and embroidery stages' },
+      { aspect: 'Payment', before: 'Cash on collection — required a physical meeting to complete the transaction', after: 'Full payment at order confirmation via mada, Apple Pay, or saved card — collection is just a handover' },
+    ],
+    techNotes: [
+      'React Native (iOS + Android) with a shared Expo managed workflow — single codebase for both platforms',
+      'AI body measurement uses Google ML Kit Pose Detection API — works on any smartphone camera without a depth sensor',
+      'Fabric macro photography pipeline: photos taken on a custom lightbox rig, processed with ImageMagick, served via Cloudflare CDN',
+      'Tailor-side app built as a separate React Native app sharing the same API and design system as the buyer app',
+      'mada + Apple Pay + Google Pay via HyperPay — Saudi payment gateway with full GCC card network support',
+    ],
+  },,
+  {
     slug: 'servloom',
     status: 'published',
     title: 'Servloom',
@@ -249,7 +461,7 @@ export const caseStudies = [
       'Stripe Connect for payments — supports direct charge, saved cards, ACH, and Apple/Google Pay',
       'Offline-first mobile architecture using WatermelonDB local database with background sync',
     ],
-  },
+  },,
   {
     slug: 'godiva',
     status: 'published',
@@ -467,7 +679,7 @@ export const caseStudies = [
       'Next-gen image serving via Shopify CDN with responsive srcset and AVIF/WebP conversion',
       'Structured product data (JSON-LD) injected server-side for all SKU pages to enable Google Shopping rich results',
     ],
-  },
+  },,
   {
     slug: 'goodbooks-plus-analytics',
     status: 'published',
@@ -688,7 +900,7 @@ export const caseStudies = [
       'Multi-source data connectors via Apache Kafka for streaming data and PostgreSQL/MySQL for relational sources',
       'Role-based access control enforced at the API layer — analysts cannot view raw data, only aggregate views',
     ],
-  },
+  },,
   {
     slug: 'medbill-ultra',
     status: 'published',
@@ -916,7 +1128,7 @@ export const caseStudies = [
       'HIPAA-compliant contact form submissions routed through a BAA-covered third-party CRM (not WordPress database)',
       'All user-submitted data encrypted in transit via TLS 1.3 — no PHI stored on the marketing site',
     ],
-  },
+  },,
   {
     slug: 'metro-electric',
     status: 'published',
@@ -1137,7 +1349,7 @@ export const caseStudies = [
       'Government rebate calculator queries the WA government rebate API for live incentive values',
       'Schema markup generated dynamically based on service pages — one template serves all 10+ service types',
     ],
-  },
+  },,
   {
     slug: 'spaceworx',
     status: 'published',
@@ -1349,7 +1561,7 @@ export const caseStudies = [
       'CAD/BIM file library served from Cloudflare R2 — large files (up to 450 MB) served at edge with no origin latency',
       'B2B lead routing via HubSpot — RFQ form data enriched with company data via Clearbit before routing to the right sales rep',
     ],
-  },
+  },,
   {
     slug: 'mrzzm',
     status: 'published',
@@ -1567,219 +1779,7 @@ export const caseStudies = [
       'mada payment processing via HyperPay — the GCC payment gateway that supports mada, Apple Pay, and KNET',
       'Arabic font served as a subset WOFF2 file via Cloudflare CDN — preloaded in <link rel="preload"> to eliminate FOUT',
     ],
-  },
-  {
-    slug: 'tailorize',
-    status: 'published',
-    title: 'Tailorize',
-    tagline: 'AI-measured bespoke tailoring for Saudi Arabia — custom thobes and suits, smartphone-fitted.',
-    industry: 'Fashion technology / Custom garments',
-    category: 'Product Configurator',
-    accent: '#7C3AED',
-    liveUrl: 'https://tailorize.sa/en',
-    services: ['Product Engineering', 'Web Development', 'UI/UX Design', 'Mobile App Development'],
-    tags: ['Fashion tech', 'Localization', 'Mobile app', 'Saudi Arabia'],
-    technology: ['App Store (iOS)', 'Google Play (Android)', 'WhatsApp integration'],
-    overview:
-      'Tailorize is a Saudi-based fashion-technology platform that brings bespoke garment crafting online. Customers configure and order custom thobes and suits through the web and mobile app, supported by AI-powered smartphone measurement to achieve an accurate fit without a physical fitting appointment. The site is bilingual (English / Arabic) and lives at tailorize.sa.',
-    challenge:
-      'Traditional bespoke tailoring demands in-person fittings, which limits access and throughput. The challenge was making the personal, high-trust experience of commissioning a unique garment available remotely — including accurate measurement, style selection, and order tracking — without losing the emotional richness that distinguishes bespoke from off-the-rack.',
-    solution:
-      'Tailorize centres its experience on two core journeys: Customize Thobe and Customize Suit. An AI measurement flow lets customers use their smartphone camera to capture accurate measurements in minutes. The site and app funnel users directly into customization, supported by fabric browsing, material selection, and a WhatsApp support channel for personal service alongside digital self-service.',
-    capabilities: [
-      {
-        title: 'AI smartphone measurement',
-        body: 'The site demonstrates a video-guided measurement flow that replaces in-person fitting sessions with smartphone-captured sizing.',
-      },
-      {
-        title: 'Bilingual product experience',
-        body: 'The platform serves customers in English and Arabic, with locale-switched routes reflecting Saudi regional context.',
-      },
-      {
-        title: 'Dual mobile apps',
-        body: 'iOS and Android apps offer the full Tailorize experience: measurement, collection browsing, order tracking, and exclusive offers.',
-      },
-      {
-        title: 'Dual product lines',
-        body: 'Custom thobe and custom suit journeys each have dedicated configuration paths to honour the distinct traditions of each garment type.',
-      },
-    ],
-    designApproach:
-      'The public-facing design uses elegant photography of finished garments alongside a clean, minimal UI that focuses entirely on the configuration journeys. Locale switching is surfaced in the header. Emotional copy ("Crafting Emotions, Tailoring Memories", "fits, looks incredible — a work of art") frames the product as a premium, personal experience rather than a commodity order form.',
-    developmentApproach:
-      'The product spans a web platform at tailorize.sa and native mobile apps on both major stores. The AI measurement module is demonstrated via a promotional video on the homepage. WhatsApp is integrated as a direct support channel. Detailed internal architecture is not publicly disclosed; this case study describes the customer-facing capabilities verified from the live site.',
-    outcomes: [
-      'Live bilingual platform serving Saudi customers in English and Arabic at tailorize.sa.',
-      'AI-powered smartphone measurement replaces the traditional in-person fitting appointment.',
-      'Mobile apps available on App Store and Google Play with full ordering and tracking capabilities.',
-      'Bespoke thobe and suit customization journeys served through a single, cohesive digital experience.',
-    ],
-    publicSiteClaims: [
-      '"Crafting Emotions, Tailoring Memories."',
-      '"Feel special, and receive a uniquely personal tailoring experience."',
-      '"A work of art — fits, looks incredible."',
-      '"Get perfectly fitted clothes in minutes, not hours." (AI measurement flow)',
-    ],
-    featuredImage: '/portfolio/tailorize/home-desktop.png',
-    gallery: [
-      {
-        src: '/portfolio/tailorize/home-desktop.png',
-        alt: 'Tailorize homepage desktop view',
-        caption: 'Homepage — bespoke tailoring entry',
-      },
-      {
-        src: '/portfolio/tailorize/home-mobile.png',
-        alt: 'Tailorize homepage mobile view',
-        caption: 'Mobile experience',
-      },
-    ],
-    seo: {
-      title: 'Tailorize Case Study — AI-Fitted Custom Tailoring Platform',
-      description:
-        'How Mernify built a bilingual fashion-tech platform for custom thobes and suits in Saudi Arabia, with AI smartphone measurement and dual mobile apps.',
-    },
-    related: ['mrzzm', 'spaceworx'],
-    metrics: [
-      { value: 'AI', label: 'Smartphone body measurement', note: 'AR-assisted fit capture' },
-      { value: 'Bilingual', label: 'Arabic + English platform', note: 'Saudi Arabia market' },
-      { value: '48h', label: 'Custom order turnaround', note: 'Rushed tailoring option' },
-      { value: '2 apps', label: 'Customer + tailor apps', note: 'iOS + Android both platforms' },
-    ],
-    brief: {
-      client: 'Tailorize needed to digitise the traditional Saudi tailoring experience — making custom-fitted thobes and suits accessible online, using smartphone cameras to capture body measurements, and connecting buyers directly to master tailors.',
-      problem: [
-        'Custom tailoring required multiple in-person visits — incompatible with time-poor urban professionals',
-        'Measurement accuracy over video call was inconsistent — leading to poor first fits and costly remakes',
-        'Tailors had no digital workflow — order tracking, fabric inventory, and delivery were all manual',
-        'No trust mechanism to connect buyers with verified skilled tailors online',
-      ],
-      goal: [
-        'AI-assisted smartphone measurement that achieves in-person accuracy from a 2-minute home video',
-        'Tailor matching based on specialty (thobe, suit, abaya) and delivery timeline',
-        'A tailor-side app for order management, fabric selection, and delivery coordination',
-        'Bilingual platform — Arabic primary for Saudi users, English for expat and international buyers',
-      ],
-      constraints: [
-        'AI measurement must work on both iOS and Android without requiring a separate depth sensor',
-        'Fabric swatches must be photographically represented — no substitute for physical samples, but buyers need to visualise online',
-        'Privacy considerations for body measurement video — data handling must be clearly explained and compliant with Saudi data protection',
-      ],
-    },
-    personas: [
-      {
-        name: 'Khalid M.',
-        age: '32',
-        role: 'Professional, Jeddah — needs a custom thobe for Eid',
-        quote: 'I want a perfect thobe but I travel for work constantly. I can\'t spend 3 trips at a tailor.',
-        goals: ['Get measured at home without a tailor visit', 'Choose fabric and embroidery options from his phone', 'Receive the thobe before Eid without expediting in-person collection'],
-        frustrations: ['Traditional tailors require 2–3 fittings for a new customer — impossible when he\'s out of the country for 2 weeks of the month', 'Online fabric swatches look nothing like the actual fabric — has ordered twice and been disappointed by the colour accuracy', 'No way to track the tailoring progress between placing the order and the collection call'],
-        tech: 'iPhone 14 Pro, Arabic as primary language, WhatsApp for all business communication',
-      },
-      {
-        name: 'Ahmad B.',
-        age: '45',
-        role: 'Master tailor, 20 years experience, Riyadh',
-        quote: 'I have a 3-month waiting list. I need a system — not more phone calls.',
-        goals: ['A digital order queue he can manage between workshop visits', 'Fabric inventory tracking so he doesn\'t over-promise delivery on out-of-stock items', 'Payment processing that doesn\'t involve cash collection at collection time'],
-        frustrations: ['All orders managed via WhatsApp and a paper notebook — easy to double-book or lose track of measurements', 'No way to share progress photos with customers without WhatsApp back-and-forth', 'Cash payment at collection means he often waits 30+ minutes for a customer to arrive late'],
-        tech: 'Android, not technically confident, needs a simple interface with large text and minimal navigation depth',
-      },
-    ],
-    journeys: [
-      {
-        title: 'Buyer journey',
-        subtitle: 'Khalid ordering a custom thobe for Eid',
-        steps: [
-          { stage: 'Discover', action: 'Sees a Tailorize ad on Instagram with a demo of the measurement feature', thought: 'AI measurement from my phone — I have to try this.', pain: 'Other custom tailoring services still require an in-person visit for first-time customers', opp: 'Instagram video demo of the 2-minute measurement flow — the key differentiator shown before the landing page', emotion: 3 },
-          { stage: 'Measure', action: 'Opens the app, follows guided measurement video in 4 steps', thought: 'It\'s asking for exactly the same measurements a real tailor would take — this might actually work.', pain: 'Unclear if AI measurement is accurate enough for custom tailoring — especially for thobe-specific measurements', opp: 'In-app confidence score after measurement — "Measurement quality: 94% — equivalent to in-person accuracy"', emotion: 4 },
-          { stage: 'Design', action: 'Selects fabric from high-resolution swatches, chooses collar embroidery', thought: 'The fabric swatches look incredibly realistic — I can see the texture.', pain: 'Online fabric swatches are thumbnail photos that look nothing like the real material', opp: 'Fabric samples photographed under controlled lighting at 4× magnification — texture and drape visible at phone screen size', emotion: 5 },
-          { stage: 'Match', action: 'Matched to Tailor Ahmad based on thobe specialty and 2-week delivery', thought: 'His reviews are all about thobe quality specifically — that\'s reassuring.', pain: 'No way to verify a tailor\'s specialty before committing to an order', opp: 'Tailor profiles show specialty certification, review excerpts filtered by garment type, and 3D renders of previous work', emotion: 5 },
-          { stage: 'Track', action: 'Receives progress updates: cutting, sewing, embroidery complete', thought: 'Seeing it being made makes the wait feel shorter — and builds trust in the quality.', pain: 'No visibility into tailoring progress between order and delivery notification', opp: 'In-app progress tracker with tailor-uploaded progress photos at each stage', emotion: 5 },
-        ],
-      },
-    ],
-    sitemap: [
-      { label: 'Home', children: ['AI measurement hero', 'How it works', 'Featured tailors', 'Recent work gallery', 'Pricing'] },
-      { label: 'Browse Tailors', children: ['By specialty (thobe, suit, abaya)', 'By location', 'By delivery time', 'Verified tailors'] },
-      { label: 'My Orders', children: ['Active orders', 'Progress tracker', 'Messages', 'Order history'] },
-      { label: 'My Measurements', children: ['Measurement profile', 'Body scan history', 'Fit preferences'] },
-      { label: 'Tailor Portal', children: ['Order queue', 'Measurements received', 'Fabric availability', 'Progress updates', 'Payments'] },
-    ],
-    wireframes: [
-      {
-        screen: 'AI measurement flow',
-        wire: [
-          { n: 1, text: 'Front-facing camera guide overlay' },
-          { n: 2, text: 'Step-by-step measurement instructions' },
-          { n: 3, text: 'Measurement result summary' },
-          { n: 4, text: 'Confirm and continue to design' },
-        ],
-        final: [
-          'Added real-time body detection feedback — green overlay highlights confirmed measurement points as the user moves', 'Measurement confidence score shown after each step — "Shoulder: confirmed" reduces user anxiety during the capture process',
-          'Retry flow designed for common failures (poor lighting, loose clothing) — reduces measurement error rate from 14% to 3%',
-        ],
-      },
-      {
-        screen: 'Fabric selector',
-        wire: [
-          { n: 1, text: 'Colour filter tabs' },
-          { n: 2, text: 'Grid of fabric thumbnail squares' },
-          { n: 3, text: 'Fabric detail modal' },
-          { n: 4, text: 'Add to order CTA' },
-        ],
-        final: [
-          'Fabric photography replaced with macro photography system at 4× magnification — thread count and weave texture visible',
-          '3D drape simulation added for thobe fabrics — buyer can see how the fabric falls on a body model before committing',
-          'Fabric availability indicator added — "3 meters remaining" creates urgency and reduces disappointment at checkout',
-        ],
-      },
-    ],
-    responsive: {
-      breakpoints: [
-        { name: 'App (iOS 390px)', w: '390px', status: 'pass', notes: 'Full AI measurement flow, fabric gallery, order tracking — native-feeling mobile experience' },
-        { name: 'App (Android 360px)', w: '360px', status: 'pass', notes: 'Identical functionality — larger touch targets for older Android devices' },
-        { name: 'Web/tablet 834px', w: '834px', status: 'pass', notes: 'Tailor browsing and order history — tablet-optimised for the home screen' },
-        { name: 'Web desktop 1280px', w: '1280px', status: 'pass', notes: 'Tailor portal primary surface — order management optimised for desktop workflow' },
-      ],
-      findings: [
-        { num: 'F-01', text: 'AI measurement camera feed required specific permission handling per iOS/Android — separate permission dialogs designed for each platform' },
-        { num: 'F-02', text: 'Fabric grid on 360px Android showed 3 columns at 110px each — fabric texture lost at small size, switched to 2-column grid below 375px' },
-        { num: 'F-03', text: 'Tailor portal on iPad: order queue and active order detail required side-by-side layout — added master/detail split view at 834px' },
-        { num: 'F-04', text: 'Arabic thobe measurement terminology required longer labels than the English equivalent — input field widths increased 15% for Arabic UI' },
-      ],
-    },
-    audit: {
-      rows: [
-        { label: 'App startup (cold)', before: '4.8s', after: '1.4s' },
-        { label: 'Fabric gallery load', before: '6.1s', after: '1.2s' },
-        { label: 'PageSpeed (web)', before: '44', after: '88' },
-        { label: 'Accessibility', before: '71', after: '95' },
-        { label: 'Best Practices', before: '75', after: '100' },
-        { label: 'SEO (web)', before: '77', after: '98' },
-      ],
-      fixes: [
-        'Fabric macro photography served as progressive JPEG with blur-up placeholder — 4× magnification images reduced from 2.8 MB to 220 KB per image',
-        'App cold start improved by lazy-loading the AI measurement module — only initialised when the user taps "Start Measurement"',
-        'React Native Hermes engine enabled — JavaScript bundle parse time reduced by 42%, contributing to cold start improvement',
-        'VoiceOver and TalkBack screen reader testing completed — all measurement step instructions read in the correct order for RTL users',
-        'App Store and Google Play listing optimised with Arabic keyword research — organic installs increased 38% in the 3 months post-launch',
-      ],
-    },
-    beforeAfter: [
-      { aspect: 'Measurement process', before: '3 in-person visits over 2 weeks — incompatible with busy urban schedules and expat buyers', after: '4-minute AI measurement from home — accuracy verified at 94% equivalent to in-person for standard garment types' },
-      { aspect: 'Fabric selection', before: 'Thumbnail swatches at 100×100px — colour and texture barely visible, frequent disappointment on delivery', after: 'Macro photography at 4× magnification with 3D drape simulation — buyers know exactly what the finished garment will look and feel like' },
-      { aspect: 'Tailor matching', before: 'Random assignment to an available tailor — no specialty matching, no visibility into workload', after: 'AI matching based on specialty, delivery timeline, and historical fit accuracy — tailor specialties verified and rated' },
-      { aspect: 'Order visibility', before: 'WhatsApp messages from the tailor — informal, easy to miss, no structured status', after: 'In-app progress tracker with tailor-uploaded photos at cutting, sewing, and embroidery stages' },
-      { aspect: 'Payment', before: 'Cash on collection — required a physical meeting to complete the transaction', after: 'Full payment at order confirmation via mada, Apple Pay, or saved card — collection is just a handover' },
-    ],
-    techNotes: [
-      'React Native (iOS + Android) with a shared Expo managed workflow — single codebase for both platforms',
-      'AI body measurement uses Google ML Kit Pose Detection API — works on any smartphone camera without a depth sensor',
-      'Fabric macro photography pipeline: photos taken on a custom lightbox rig, processed with ImageMagick, served via Cloudflare CDN',
-      'Tailor-side app built as a separate React Native app sharing the same API and design system as the buyer app',
-      'mada + Apple Pay + Google Pay via HyperPay — Saudi payment gateway with full GCC card network support',
-    ],
-  },
+  },,
   {
     slug: 'kinepolis',
     status: 'published',
@@ -1990,7 +1990,7 @@ export const caseStudies = [
       'Canvas-rendered zoomable seat map using Konva.js — replaces SVG seat map that failed mobile tap accuracy testing',
       'Country-specific cookie consent managed via a custom consent service that resolves jurisdiction from user locale, not IP address',
     ],
-  },
+  },,
   {
     slug: 'marmot',
     status: 'published',
@@ -2207,7 +2207,7 @@ export const caseStudies = [
       'Regional review surfacing uses Yotpo\'s geographic review filter API — reviews tagged with buyer\'s country shown on scenario result pages',
       'Sustainability certification data stored in Shopify metafields with a Liquid template for the certification block — content team can update without developer involvement',
     ],
-  },
+  },,
   {
     slug: 'pathe-be',
     status: 'published',
@@ -2420,7 +2420,7 @@ export const caseStudies = [
       'Corporate booking portal built as a separate React SPA with a B2B-specific checkout flow and automated VAT invoice generation',
       'Seat map rendered on Canvas via Konva.js — replaced SVG seat map for mobile touch accuracy, identical to the Kinepolis approach',
     ],
-  },
+  },,
   {
     slug: 'trendyol',
     status: 'published',
