@@ -1,12 +1,10 @@
 /**
  * Vercel serverless function: transparent site proxy.
- * Strips X-Frame-Options so any URL can be embedded in an iframe.
- * Route: GET /api/site-preview?url=<encoded_full_url>
- *
- * Same logic as the Vite dev middleware in vite.config.js.
+ * Strips X-Frame-Options so any URL can load inside an iframe.
+ * GET /api/site-preview?url=<encoded_full_url>
  */
-export default async function handler(req, res) {
-  const targetUrl = req.query?.url
+module.exports = async function handler(req, res) {
+  const targetUrl = req.query && req.query.url
   if (!targetUrl) {
     res.status(400).send('Missing ?url= parameter')
     return
@@ -39,9 +37,7 @@ export default async function handler(req, res) {
 
     if (ct.includes('text/html')) {
       let html = await upstream.text()
-      // Base tag ensures relative URLs resolve to the origin
       html = html.replace(/(<head[^>]*>)/i, `$1<base href="${origin}/">`)
-      // Neutralise common JS frame-busting checks (best-effort)
       html = html.replace(/top\s*!==?\s*(?:self|window)/g, 'false')
       html = html.replace(/self\s*!==?\s*top/g, 'false')
       res.send(html)
