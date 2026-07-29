@@ -1,25 +1,42 @@
-import { useEffect } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { PageCta } from '@/components/layout/PageCta'
+import { ExternalLink } from 'lucide-react'
 import { PageMeta } from '@/components/seo/PageMeta'
 import { Button, Container, Text } from '@/components/ui'
-import { CaseStudyHero } from '@/components/case-study/CaseStudyHero'
-import { CaseStudyNext } from '@/components/case-study/CaseStudyNext'
 import { SITE } from '@/constants/site'
-import {
-  getCaseStudyBySlug,
-  getNextCaseStudy,
-  getRelatedCaseStudies,
-} from '@/content/caseStudies'
+import { getCaseStudyBySlug, getNextCaseStudy, publishedCaseStudies } from '@/content/caseStudies'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import styles from './CaseStudyPage.module.css'
+
+const TOC = [
+  ['brief', 'Brief'],
+  ['personas', 'Personas'],
+  ['journeys', 'Journeys'],
+  ['ia', 'IA'],
+  ['wireframes', 'Wireframes'],
+  ['responsive', 'Responsive'],
+  ['audit', 'Audit'],
+  ['beforeafter', 'Before / After'],
+  ['results', 'Results'],
+]
+
+// Sentiment bar: emotion 1–5 → height % and colour
+const emoColor = (n) =>
+  n <= 2
+    ? 'rgba(255,255,255,0.18)'
+    : n === 3
+      ? 'rgba(255,255,255,0.32)'
+      : 'rgba(145,132,217,0.65)'
 
 export function CaseStudyPage() {
   const { slug } = useParams()
   const study = getCaseStudyBySlug(slug)
+  const [activeSection, setActiveSection] = useState('')
+  const shellRef = useRef(null)
 
+  // JSON-LD
   useEffect(() => {
-    if (!study || study.status !== 'published') return undefined
+    if (!study || study.status !== 'published') return
     const id = 'case-study-jsonld'
     let el = document.getElementById(id)
     if (!el) {
@@ -36,16 +53,30 @@ export function CaseStudyPage() {
       image: `${SITE.url}${study.featuredImage}`,
       author: { '@type': 'Organization', name: SITE.name },
       mainEntityOfPage: `${SITE.url}/case-studies/${study.slug}`,
-      about: study.liveUrl || undefined,
     })
-    return () => {
-      el?.remove()
-    }
+    return () => { document.getElementById(id)?.remove() }
   }, [study])
 
-  if (!study) {
-    return <NotFoundPage />
-  }
+  // Scrollspy
+  useEffect(() => {
+    if (!study || study.status !== 'published') return
+    const ids = TOC.map(([id]) => id)
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) setActiveSection(e.target.id)
+        }
+      },
+      { rootMargin: '-10% 0px -80% 0px' }
+    )
+    ids.forEach((id) => {
+      const el = document.getElementById(id)
+      if (el) observer.observe(el)
+    })
+    return () => observer.disconnect()
+  }, [study])
+
+  if (!study) return <NotFoundPage />
 
   if (study.status !== 'published') {
     return (
@@ -56,28 +87,35 @@ export function CaseStudyPage() {
           canonicalPath={`/case-studies/${study.slug}`}
           noIndex
         />
-        <section className={styles.pending}>
-          <Container className={styles.pendingInner}>
-            <h1>This story is not published yet</h1>
-            <Text muted>
-              We only publish client-approved case studies with verified outcomes.
-            </Text>
-            <div className={styles.actions}>
-              <Button as={Link} to="/contact">
-                Discuss a similar project
-              </Button>
-              <Button as={Link} to="/case-studies" variant="secondary">
-                Back to case studies
-              </Button>
+        <div className={styles.shell}>
+          <div className={styles.pending}>
+            <div className={styles.pendingInner}>
+              <h1>This story is not published yet</h1>
+              <p style={{ color: 'var(--cs-muted)' }}>
+                We only publish client-approved case studies with verified outcomes.
+              </p>
+              <div className={styles.pendingActions}>
+                <Button as={Link} to="/contact">Discuss a similar project</Button>
+                <Button as={Link} to="/case-studies" variant="secondary">Back to case studies</Button>
+              </div>
             </div>
-          </Container>
-        </section>
+          </div>
+        </div>
       </>
     )
   }
 
-  const related = getRelatedCaseStudies(study)
   const next = getNextCaseStudy(study.slug)
+  const prev = (() => {
+    const idx = publishedCaseStudies.findIndex((s) => s.slug === study.slug)
+    return idx > 0 ? publishedCaseStudies[idx - 1] : publishedCaseStudies[publishedCaseStudies.length - 1]
+  })()
+
+  const scrollTo = (id) => (e) => {
+    e.preventDefault()
+    const el = document.getElementById(id)
+    if (el) window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - 56, behavior: 'smooth' })
+  }
 
   return (
     <>
@@ -87,140 +125,436 @@ export function CaseStudyPage() {
         canonicalPath={`/case-studies/${study.slug}`}
         image={study.featuredImage}
       />
-      <CaseStudyHero study={study} />
 
-      <section className={styles.section} data-header-theme="light">
-        <Container className={styles.layout}>
-          {study.limitations ? (
-            <aside className={styles.notice} role="note">
-              <strong>Research note.</strong> {study.limitations}
-            </aside>
-          ) : null}
+      <div className={styles.shell} ref={shellRef}>
 
-          <article className={styles.block}>
-            <h2>Project overview</h2>
-            <Text>{study.overview}</Text>
-          </article>
+        {/* ── Hero ─────────────────────────────────── */}
+        <header className={styles.hero}>
+          <p className={styles.heroEyebrow}>
+            {study.category} · {study.industry}
+          </p>
+          <h1 className={styles.heroTitle}>{study.title}</h1>
+          <p className={styles.heroSummary}>{study.tagline}</p>
 
-          <article className={styles.block}>
-            <h2>The challenge</h2>
-            <Text>{study.challenge}</Text>
-          </article>
-
-          <article className={styles.block}>
-            <h2>The solution</h2>
-            <Text>{study.solution}</Text>
-          </article>
-
-          <article className={styles.block}>
-            <h2>Key capabilities</h2>
-            <ul className={styles.capabilities} role="list">
-              {study.capabilities.map((item) => (
-                <li key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.body}</p>
-                </li>
-              ))}
-            </ul>
-          </article>
-
-          <article className={styles.block}>
-            <h2>Design and UX approach</h2>
-            <Text>{study.designApproach}</Text>
-          </article>
-
-          <article className={styles.block}>
-            <h2>Technology and implementation</h2>
-            <Text>{study.developmentApproach}</Text>
-            {study.technology?.length ? (
-              <ul className={styles.chipList} role="list">
-                {study.technology.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </ul>
-            ) : (
-              <p className={styles.muted}>
-                No private application stack is claimed beyond what is visible on the public site.
-              </p>
-            )}
-          </article>
-
-          <article className={styles.block}>
-            <h2>Outcomes</h2>
-            <ul className={styles.outcomes} role="list">
-              {study.outcomes.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-            {study.publicSiteClaims?.length ? (
-              <div className={styles.claims}>
-                <h3>Public site messaging</h3>
-                <p className={styles.muted}>
-                  The following statements appear on the live website. They are company claims, not
-                  independently audited Mernify delivery metrics.
-                </p>
-                <ul role="list">
-                  {study.publicSiteClaims.map((item) => (
-                    <li key={item}>{item}</li>
-                  ))}
-                </ul>
+          <div className={styles.heroMeta}>
+            <div className={styles.heroMetaItem}>
+              <span className={styles.heroMetaLabel}>Role</span>
+              <span className={styles.heroMetaValue}>{study.services?.join(' · ')}</span>
+            </div>
+            <div className={styles.heroMetaItem}>
+              <span className={styles.heroMetaLabel}>Stack</span>
+              <span className={styles.heroMetaValue}>{study.technology?.join(', ')}</span>
+            </div>
+            {study.liveUrl && (
+              <div className={styles.heroMetaItem}>
+                <span className={styles.heroMetaLabel}>Live site</span>
+                <span className={styles.heroMetaValue}>
+                  <a href={study.liveUrl} target="_blank" rel="noreferrer noopener">
+                    {new URL(study.liveUrl).hostname} <ExternalLink size={11} style={{ verticalAlign: 'middle' }} />
+                  </a>
+                </span>
               </div>
-            ) : null}
-          </article>
+            )}
+          </div>
 
-          {study.gallery?.length ? (
-            <article className={styles.block}>
-              <h2>Visual gallery</h2>
-              <ul className={styles.gallery} role="list">
-                {study.gallery.map((item) => (
-                  <li key={item.src}>
-                    <figure>
-                      <img
-                        src={item.src}
-                        alt={item.alt}
-                        loading="lazy"
-                        decoding="async"
-                        width={960}
-                        height={640}
-                      />
-                      {item.caption ? <figcaption>{item.caption}</figcaption> : null}
-                    </figure>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ) : null}
-
-          {related.length ? (
-            <div className={styles.related}>
-              <h2>Related case studies</h2>
-              <ul role="list">
-                {related.map((item) => (
-                  <li key={item.slug}>
-                    <Link to={`/case-studies/${item.slug}`}>{item.title}</Link>
-                    <span>{item.category}</span>
-                  </li>
-                ))}
-              </ul>
+          {study.metrics?.length ? (
+            <div className={styles.heroMetrics}>
+              {study.metrics.map((m) => (
+                <div key={m.label} className={styles.metricCard}>
+                  <div className={styles.metricValue}>{m.value}</div>
+                  <div className={styles.metricLabel}>{m.label}</div>
+                  {m.note && <div className={styles.metricNote}>{m.note}</div>}
+                </div>
+              ))}
             </div>
           ) : null}
+        </header>
 
-          <div className={styles.actions}>
-            <Button as={Link} to="/contact">
-              Discuss a similar project
-            </Button>
-            <Button as={Link} to="/case-studies" variant="secondary">
-              All case studies
-            </Button>
+        {/* Featured image */}
+        {study.featuredImage && (
+          <div className={styles.heroImage}>
+            <img
+              src={study.featuredImage}
+              alt={`${study.title} — featured screenshot`}
+              loading="eager"
+              decoding="async"
+              width={1240}
+              height={697}
+            />
           </div>
-        </Container>
-      </section>
+        )}
 
-      <CaseStudyNext study={next} />
-      <PageCta
-        title="Have a product story worth engineering carefully?"
-        accentWords={['engineering']}
-      />
+        {/* ── TOC ─────────────────────────────────── */}
+        <nav className={styles.toc} aria-label="Case study sections">
+          <div className={styles.tocInner}>
+            {TOC.map(([id, label]) => (
+              <a
+                key={id}
+                href={`#${id}`}
+                className={styles.tocLink}
+                data-active={activeSection === id || undefined}
+                onClick={scrollTo(id)}
+              >
+                {label}
+              </a>
+            ))}
+          </div>
+        </nav>
+
+        {/* ── 1. Brief ─────────────────────────────── */}
+        {study.brief && (
+          <section id="brief" className={styles.section}>
+            <div className={styles.briefGrid}>
+              <div>
+                <h2 className={styles.sectionTitle}>Client brief</h2>
+                <p className={styles.briefClient}>{study.brief.client}</p>
+              </div>
+              <div className={styles.briefCols}>
+                {study.brief.problem?.length ? (
+                  <div>
+                    <h3 className={styles.briefColTitle}>The problem</h3>
+                    <ul className={styles.briefList}>
+                      {study.brief.problem.map((i) => <li key={i}>{i}</li>)}
+                    </ul>
+                  </div>
+                ) : null}
+                {study.brief.goal?.length ? (
+                  <div>
+                    <h3 className={`${styles.briefColTitle} ${styles.accent}`}>The goal</h3>
+                    <ul className={`${styles.briefList} ${styles.accentBorder}`}>
+                      {study.brief.goal.map((i) => <li key={i}>{i}</li>)}
+                    </ul>
+                  </div>
+                ) : null}
+                {study.brief.constraints?.length ? (
+                  <div>
+                    <h3 className={styles.briefColTitle}>Constraints</h3>
+                    <ul className={styles.briefList}>
+                      {study.brief.constraints.map((i) => <li key={i}>{i}</li>)}
+                    </ul>
+                  </div>
+                ) : null}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── 2. Personas ──────────────────────────── */}
+        {study.personas?.length ? (
+          <section id="personas" className={`${styles.sectionDark}`}>
+            <div className={styles.sectionInner}>
+              <h2 className={styles.sectionTitle}>Who it is for</h2>
+              <p className={styles.sectionSub}>Two primary personas drove every layout decision.</p>
+              <div className={styles.personaGrid}>
+                {study.personas.map((p) => (
+                  <div key={p.name} className={styles.personaCard}>
+                    <div className={styles.personaHeader}>
+                      <span className={styles.personaName}>{p.name}</span>
+                      <span className={styles.personaAge}>{p.age}</span>
+                    </div>
+                    <p className={styles.personaRole}>{p.role}</p>
+                    <blockquote className={styles.personaQuote}>"{p.quote}"</blockquote>
+                    <div className={styles.personaCols}>
+                      <div>
+                        <p className={styles.personaColLabel}>Goals</p>
+                        <ul className={styles.personaItems}>
+                          {p.goals.map((g) => <li key={g}>{g}</li>)}
+                        </ul>
+                      </div>
+                      <div>
+                        <p className={styles.personaColLabel}>Frustrations</p>
+                        <ul className={styles.personaItems}>
+                          {p.frustrations.map((f) => <li key={f}>{f}</li>)}
+                        </ul>
+                      </div>
+                    </div>
+                    <p className={styles.personaTech}>Context — {p.tech}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {/* ── 3. Journeys ──────────────────────────── */}
+        {study.journeys?.length ? (
+          <section id="journeys" className={styles.section}>
+            <h2 className={styles.sectionTitle}>User journeys</h2>
+            <p className={styles.sectionSub}>
+              Two journeys mapped separately: the end user and the client. Bar height represents sentiment at each stage.
+            </p>
+            {study.journeys.map((j) => (
+              <div key={j.title} className={styles.journeyBlock}>
+                <div className={styles.journeyHeader}>
+                  <span className={styles.journeyTitle}>{j.title}</span>
+                  <span className={styles.journeySubtitle}>{j.subtitle}</span>
+                </div>
+                <div className={styles.journeySteps}>
+                  {j.steps.map((s, i) => (
+                    <div key={i} className={styles.stepCard}>
+                      <div className={styles.stepTop}>
+                        <span>{String(i + 1).padStart(2, '0')}</span>
+                        <span>{['', 'frustrated', 'wary', 'neutral', 'confident', 'delighted'][s.emotion] || ''}</span>
+                      </div>
+                      <div className={styles.stepBar}>
+                        <div
+                          className={styles.stepBarFill}
+                          style={{
+                            height: `${20 + s.emotion * 16}%`,
+                            background: emoColor(s.emotion),
+                          }}
+                        />
+                      </div>
+                      <p className={styles.stepStage}>{s.stage}</p>
+                      <p className={styles.stepAction}>{s.action}</p>
+                      <p className={styles.stepThought}>"{s.thought}"</p>
+                      <div>
+                        <p className={styles.stepPainLabel}>Pain</p>
+                        <p className={styles.stepPain}>{s.pain}</p>
+                      </div>
+                      <div>
+                        <p className={styles.stepOppLabel}>Design response</p>
+                        <p className={styles.stepOpp}>{s.opp}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </section>
+        ) : null}
+
+        {/* ── 4. IA ────────────────────────────────── */}
+        {study.sitemap?.length ? (
+          <section id="ia" className={`${styles.sectionDark}`}>
+            <div className={styles.sectionInner}>
+              <h2 className={styles.sectionTitle}>Information architecture</h2>
+              <p className={styles.sectionSub}>The site map as shipped. Top level is navigation; children are the sections beneath it.</p>
+              <div className={styles.sitemapGrid}>
+                {study.sitemap.map((n) => (
+                  <div key={n.label} className={styles.sitemapCard}>
+                    <div className={styles.sitemapCardHead}>{n.label}</div>
+                    <ul className={styles.sitemapCardItems}>
+                      {n.children.map((c) => <li key={c}>{c}</li>)}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        ) : null}
+
+        {/* ── 5. Wireframes ────────────────────────── */}
+        {study.wireframes?.length ? (
+          <section id="wireframes" className={styles.section}>
+            <h2 className={styles.sectionTitle}>Wireframe to final</h2>
+            <p className={styles.sectionSub}>What was specified, and what changed once it met real content, real devices, and real testing.</p>
+            <div className={styles.wireframeList}>
+              {study.wireframes.map((w, i) => (
+                <div key={w.screen} className={styles.wireframeCard}>
+                  <div>
+                    <p className={styles.wireScreen}>{w.screen}</p>
+                    <p className={styles.wireNum}>{String(i + 1).padStart(2, '0')}</p>
+                  </div>
+                  <div>
+                    <p className={styles.wireColLabel}>Wireframe spec</p>
+                    <ul className={styles.wireItems}>
+                      {w.wire.map((item) => (
+                        <li key={item.n}>
+                          <span>{item.n}</span>
+                          <span>{item.text}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <p className={`${styles.wireColLabel} ${styles.accent}`}>Shipped, and why</p>
+                    <ul className={`${styles.wireItems} ${styles.wireShipped}`}>
+                      {w.final.map((item) => (
+                        <li key={item}><span></span><span>{item}</span></li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {/* ── 6. Responsive ────────────────────────── */}
+        {study.responsive && (
+          <section id="responsive" className={styles.section}>
+            <h2 className={styles.sectionTitle}>Responsive review</h2>
+            <p className={styles.sectionSub}>Device frames, a breakpoint pass/fail table, and the annotated findings from testing.</p>
+
+            {study.gallery?.length ? (
+              <div className={styles.deviceRow}>
+                <div>
+                  <p className={styles.deviceLabel}>Desktop — 1440px</p>
+                  <div className={`${styles.deviceFrame} ${styles.deviceDesktop}`}>
+                    <img
+                      src={study.gallery[0]?.src || study.featuredImage}
+                      alt={`${study.title} desktop`}
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+                {study.gallery[1] && (
+                  <div>
+                    <p className={styles.deviceLabel}>Tablet / Mobile</p>
+                    <div className={`${styles.deviceFrame} ${styles.deviceTablet}`}>
+                      <img
+                        src={study.gallery[1].src}
+                        alt={`${study.title} tablet/mobile`}
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+            ) : null}
+
+            {study.responsive.breakpoints?.length ? (
+              <table className={styles.bpTable}>
+                <thead>
+                  <tr>
+                    <th>Breakpoint</th>
+                    <th>Width</th>
+                    <th>Status</th>
+                    <th>Behaviour</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {study.responsive.breakpoints.map((b) => (
+                    <tr key={b.name}>
+                      <td>{b.name}</td>
+                      <td>{b.w}</td>
+                      <td><span className={styles.bpPass}>{b.status === 'pass' ? 'Pass' : 'Fixed'}</span></td>
+                      <td>{b.notes}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            ) : null}
+
+            {study.responsive.findings?.length ? (
+              <div className={styles.findingsList}>
+                {study.responsive.findings.map((f) => (
+                  <div key={f.num} className={styles.findingItem}>
+                    <span className={styles.findingNum}>{f.num}</span>
+                    <span>{f.text}</span>
+                  </div>
+                ))}
+              </div>
+            ) : null}
+          </section>
+        )}
+
+        {/* ── 7. Audit ─────────────────────────────── */}
+        {study.audit && (
+          <section id="audit" className={`${styles.sectionDark}`}>
+            <div className={styles.sectionInner}>
+              <h2 className={styles.sectionTitle}>Performance &amp; SEO audit</h2>
+              <p className={styles.sectionSub}>Mobile, 4G throttled. Before and after optimisation.</p>
+              {study.audit.rows?.length ? (
+                <div className={styles.auditGrid}>
+                  {study.audit.rows.map((r) => (
+                    <div key={r.label} className={styles.auditCard}>
+                      <p className={styles.auditCardLabel}>{r.label}</p>
+                      <div className={styles.auditScores}>
+                        <span className={styles.auditBefore}>{r.before}</span>
+                        <span className={styles.auditArrow}>→</span>
+                        <span className={styles.auditAfter}>{r.after}</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+              {study.audit.fixes?.length ? (
+                <ul className={styles.auditFixes}>
+                  {study.audit.fixes.map((f) => <li key={f}>{f}</li>)}
+                </ul>
+              ) : null}
+            </div>
+          </section>
+        )}
+
+        {/* ── 8. Before / After ────────────────────── */}
+        {study.beforeAfter?.length ? (
+          <section id="beforeafter" className={styles.section}>
+            <h2 className={styles.sectionTitle}>Before and after</h2>
+            <p className={styles.sectionSub}>The five decisions that carried the project.</p>
+            <div className={styles.baList}>
+              {study.beforeAfter.map((b) => (
+                <div key={b.aspect} className={styles.baCard}>
+                  <span className={styles.baAspect}>{b.aspect}</span>
+                  <span className={styles.baBefore}>{b.before}</span>
+                  <span className={styles.baArrow}>→</span>
+                  <span className={styles.baAfter}>{b.after}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
+        {/* ── 9. Results ───────────────────────────── */}
+        {(study.metrics?.length || study.techNotes?.length) ? (
+          <section id="results" className={`${styles.sectionDark}`}>
+            <div className={styles.sectionInner}>
+              <h2 className={styles.sectionTitle}>Results</h2>
+              <p className={styles.sectionSub}>Outcomes attributed to the live site and public client statements.</p>
+              {study.metrics?.length ? (
+                <div className={styles.resultsMetrics}>
+                  {study.metrics.map((m) => (
+                    <div key={m.label} className={styles.resultCard}>
+                      <div className={styles.resultValue}>{m.value}</div>
+                      <div className={styles.resultLabel}>{m.label}</div>
+                      {m.note && <div className={styles.resultNote}>{m.note}</div>}
+                    </div>
+                  ))}
+                </div>
+              ) : null}
+              {study.techNotes?.length ? (
+                <ul className={styles.techNotes} style={{ marginTop: '2rem' }}>
+                  {study.techNotes.map((t) => <li key={t}>{t}</li>)}
+                </ul>
+              ) : null}
+            </div>
+          </section>
+        ) : null}
+
+        {/* ── Gallery fallback (no detailed sections) ─ */}
+        {!study.brief && study.gallery?.length ? (
+          <div className={styles.heroImage} style={{ marginTop: '2.5rem' }}>
+            <div className={styles.galleryGrid}>
+              {study.gallery.map((item) => (
+                <figure key={item.src}>
+                  <img src={item.src} alt={item.alt} loading="lazy" decoding="async" width={960} height={540} />
+                  {item.caption && <figcaption>{item.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
+          </div>
+        ) : null}
+
+        {/* ── Prev / Next ──────────────────────────── */}
+        <div className={styles.prevNext}>
+          {prev && (
+            <Link to={`/case-studies/${prev.slug}`} className={styles.prevNextLink}>
+              <span className={styles.prevNextHint}>← Previous</span>
+              <span className={styles.prevNextTitle}>{prev.title}</span>
+            </Link>
+          )}
+          <Link to="/case-studies" className={styles.allBtn}>All projects</Link>
+          {next && (
+            <Link to={`/case-studies/${next.slug}`} className={`${styles.prevNextLink}`} style={{ textAlign: 'right' }}>
+              <span className={styles.prevNextHint}>Next →</span>
+              <span className={styles.prevNextTitle}>{next.title}</span>
+            </Link>
+          )}
+        </div>
+
+      </div>
     </>
   )
 }

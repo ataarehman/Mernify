@@ -1,0 +1,15 @@
+feat: add portfolio case studies with 12 projects and polished UI
+
+- New case study system: CaseStudyCard, CaseStudyHero, CaseStudyNext components
+  aligned with the site's light cream theme and design tokens
+- 12 published case studies: Servloom (featured), GODIVA, GoodBooks Plus,
+  MedBill Ultra, Metro Electric, SpaceWorx, MRZZM, Tailorize, Kinepolis,
+  Marmot, Pathe Belgium, Trendyol
+- Portfolio screenshots captured and stored under public/portfolio/
+- SVG brand covers for sites unreachable during capture (GODIVA, Kinepolis, Pathe)
+- CaseStudyCard media area fixed with aspect-ratio 16/9 to prevent broken image layout
+- Servloom pinned as first/featured card on the case studies index
+- PageMeta enhanced with Open Graph and Twitter card support
+- JSON-LD structured data injected per case study for SEO
+- ESLint config updated to ignore dist, public, and .tmp directories
+- Capture and utility scripts added under scripts/

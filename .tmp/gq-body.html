@@ -1,0 +1,700 @@
+</style>
+<script src="c9e43330-3222-46c1-b8c1-f320e2de3f80"></script>
+<script src="3b238f52-cead-47a5-8021-800c8525aac6"></script>
+<script src="6aacef8b-1ac4-4905-a59c-aaa9f79db79e"></script>
+  <script src="8a98e0f9-5410-45b0-b968-1dfaf4166f34"></script>
+  <script src="bad55fc7-c149-4f1b-9517-1e9209aae4ea"></script>
+  <script src="e98d6334-2e86-4ef6-bedb-95c10a412267"></script>
+<style>
+  html, body { margin: 0; padding: 0; }
+  a { text-decoration: none; }
+  ul { padding: 0; margin: 0; list-style: none; }
+  p, li, table, figure, blockquote { margin: 0; }
+  h1, h2, h3, h4 { margin: 0; }
+</style>
+</helmet>
+
+<div style="min-height: 100vh; background: var(--color-bg); color: var(--color-text); font-family: var(--font-body);">
+
+  <header class="nav" style="position: sticky; top: 0; z-index: 50; gap: calc(var(--space-6) * 2); padding: var(--space-4) calc(var(--space-8) * 2); background: color-mix(in srgb, var(--color-bg) 92%, transparent); backdrop-filter: blur(10px); box-shadow: var(--shadow-sm);">
+    <a class="nav-brand" href="#" style="margin-right: 0; color: var(--color-text);">GQ</a>
+    <span style="margin-right: auto; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">Client case studies</span>
+    <span style="font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 45%, transparent);">{{ countLabel }}</span>
+    <sc-if value="{{ showCase }}" hint-placeholder-val="{{ false }}">
+      <a class="btn btn-secondary" href="#" sc-camel-on-click="{{ onBack }}" style="cursor: pointer;">← All projects</a>
+    </sc-if>
+  </header>
+
+  <sc-if value="{{ showIndex }}" hint-placeholder-val="{{ true }}">
+  <main>
+    <section style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 4) calc(var(--space-8) * 2) calc(var(--space-8) * 2.5);">
+      <p style="font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-accent); margin-bottom: var(--space-8);">Frontend · WordPress · Odoo — 2024 to 2026</p>
+      <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(40px, 5.4vw, 72px); line-height: 1.06; letter-spacing: -0.02em; max-width: 22ch;">Fourteen client builds, documented end to end.</h1>
+      <p style="margin-top: var(--space-8); max-width: 64ch; font-size: 17px; line-height: 1.62; color: color-mix(in srgb, var(--color-text) 78%, transparent);">Each case study carries the client brief, the people it was built for, journey maps for both the end user and the client, a storyboard, the information architecture, wireframe-to-final decisions, a responsive review at four breakpoints, a performance and SEO audit, and the outcome. Written for the person deciding whether to hire.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-4); margin-top: calc(var(--space-8) * 2);">
+        <sc-for list="{{ topStats }}" as="s" hint-placeholder-count="4">
+          <div class="card elev-sm" style="padding: var(--space-6);">
+            <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 38px; line-height: 1; color: var(--color-accent-300);">{{ s.value }}</div>
+            <div style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">{{ s.label }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section style="max-width: 1240px; margin: 0 auto; padding: 0 calc(var(--space-8) * 2) calc(var(--space-8) * 2);">
+      <div style="display: flex; align-items: baseline; justify-content: space-between; padding-bottom: var(--space-4); margin-bottom: var(--space-8);">
+        <h2 style="font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 70%, transparent);">The work</h2>
+        <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 45%, transparent);">Select a project</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: var(--space-4);">
+        <sc-for list="{{ projects }}" as="p" hint-placeholder-count="14">
+          <a class="card elev-sm" href="{{ p.href }}" sc-camel-on-click="{{ p.onOpen }}" style="gap: var(--space-6); padding: 0 0 var(--space-8); overflow: hidden; color: var(--color-text); cursor: pointer;" style-hover="box-shadow: var(--shadow-md);">
+            <site-mock spec="{{ p.specId }}" device="desktop" scene="landing" style="width: 100%; aspect-ratio: 16 / 9;"></site-mock>
+            <div style="display: flex; align-items: center; gap: var(--space-4); padding: 0 var(--space-8);">
+              <div style="width: 26px; height: 26px; border-radius: var(--radius-sm); display: grid; place-items: center; background: var(--color-accent-800); color: var(--color-accent-200); font-family: var(--font-heading); font-size: 12px; flex: 0 0 auto;">{{ p.initial }}</div>
+              <div style="min-width: 0;">
+                <div class="card-title" style="font-size: 22px;">{{ p.name }}</div>
+                <div class="card-kicker" style="margin-top: 3px;">{{ p.category }}</div>
+              </div>
+            </div>
+            <p class="card-body" style="font-size: 13.5px; line-height: 1.6; padding: 0 var(--space-8);">{{ p.short }}</p>
+            <div style="display: flex; flex-wrap: wrap; gap: var(--space-2); padding: 0 var(--space-8);">
+              <sc-for list="{{ p.chips }}" as="c" hint-placeholder-count="3">
+                <span class="tag tag-neutral">{{ c }}</span>
+              </sc-for>
+            </div>
+            <div class="card-meta" style="justify-content: space-between; margin-top: auto; padding: var(--space-4) var(--space-8) 0;">
+              <span style="color: var(--color-accent-300); font-size: 12px;">{{ p.headline }}</span>
+              <span>Case study →</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+      <p style="margin-top: calc(var(--space-8) * 1.5); font-size: 12px; line-height: 1.8; color: color-mix(in srgb, var(--color-text) 50%, transparent); max-width: 74ch;">Note — each thumbnail is a brand mock of the live site. Inside a case study, the responsive review loads the real site in a device frame and falls back to the mock if the host blocks embedding.</p>
+    </section>
+  </main>
+  </sc-if>
+
+  <sc-if value="{{ showCase }}" hint-placeholder-val="{{ false }}">
+  <article>
+
+    <div style="border-bottom: 1px solid var(--color-divider);">
+      <div style="max-width: 1240px; margin: 0 auto; padding: var(--space-4) calc(var(--space-8) * 2); display: flex; align-items: center; gap: var(--space-6); overflow-x: auto;">
+        <span style="flex: 0 0 auto; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 40%, transparent);">Case study {{ cs.index }} / {{ cs.total }}</span>
+        <sc-for list="{{ cs.switcher }}" as="s" hint-placeholder-count="14">
+          <a href="{{ s.href }}" sc-camel-on-click="{{ s.onOpen }}" style="flex: 0 0 auto; font-size: 12px; font-weight: {{ s.weight }}; color: {{ s.color }}; cursor: pointer; white-space: nowrap;" style-hover="color: var(--color-accent);">{{ s.name }}</a>
+        </sc-for>
+      </div>
+    </div>
+
+    <section style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 3) calc(var(--space-8) * 2) 0;">
+      <div style="display: flex; align-items: center; gap: var(--space-4); margin-bottom: var(--space-8);">
+        <div style="width: 34px; height: 34px; border-radius: var(--radius-sm); display: grid; place-items: center; background: var(--color-accent-800); color: var(--color-accent-200); font-family: var(--font-heading); font-size: 16px;">{{ cs.initial }}</div>
+        <span style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent);">{{ cs.category }} · {{ cs.year }}</span>
+      </div>
+      <h1 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: clamp(38px, 5.2vw, 68px); line-height: 1.05; letter-spacing: -0.02em;">{{ cs.name }}</h1>
+      <p style="margin-top: var(--space-8); max-width: 66ch; font-size: 18px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 80%, transparent);">{{ cs.summary }}</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-8); margin-top: calc(var(--space-8) * 1.6); padding-top: var(--space-8);">
+        <div>
+          <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-bottom: var(--space-2);">Role</div>
+          <div style="font-size: 14px; line-height: 1.55;">{{ cs.role }}</div>
+        </div>
+        <div>
+          <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-bottom: var(--space-2);">Platform</div>
+          <div style="font-size: 14px; line-height: 1.55;">{{ cs.cms }}</div>
+        </div>
+        <div>
+          <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-bottom: var(--space-2);">Live site</div>
+          <a href="{{ cs.url }}" target="_blank" rel="noopener" style="font-size: 14px; color: var(--color-accent);">{{ cs.domain }} ↗</a>
+        </div>
+        <div>
+          <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-bottom: var(--space-2);">Stack</div>
+          <div style="display: flex; flex-wrap: wrap; gap: var(--space-1);">
+            <sc-for list="{{ cs.stack }}" as="t" hint-placeholder-count="5">
+              <span class="tag tag-neutral">{{ t }}</span>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: var(--space-4); margin-top: calc(var(--space-8) * 1.6);">
+        <sc-for list="{{ cs.metrics }}" as="m" hint-placeholder-count="4">
+          <div class="card elev-sm" style="padding: var(--space-6);">
+            <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1; color: var(--color-accent-300);">{{ m.value }}</div>
+            <div style="font-size: 13px; line-height: 1.45;">{{ m.label }}</div>
+            <div class="card-meta">{{ m.note }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <nav style="position: sticky; top: 53px; z-index: 40; margin-top: calc(var(--space-8) * 2); background: color-mix(in srgb, var(--color-bg) 94%, transparent); backdrop-filter: blur(8px); box-shadow: var(--shadow-sm);">
+      <div style="max-width: 1240px; margin: 0 auto; padding: 0 calc(var(--space-8) * 2); display: flex; gap: var(--space-8); overflow-x: auto;">
+        <sc-for list="{{ cs.toc }}" as="t" hint-placeholder-count="10">
+          <a href="#" sc-camel-on-click="{{ t.onClick }}" style="flex: 0 0 auto; padding: var(--space-4) 0; font-size: 11px; letter-spacing: 0.07em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent); cursor: pointer;" style-hover="color: var(--color-accent);">{{ t.label }}</a>
+        </sc-for>
+      </div>
+    </nav>
+
+    <section id="brief" style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 3) calc(var(--space-8) * 2); scroll-margin-top: 110px;">
+      <div style="display: grid; grid-template-columns: minmax(0, 250px) minmax(0, 1fr); gap: calc(var(--space-8) * 2);">
+        <div>
+          <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.12;">Client brief</h2>
+          <p style="margin-top: var(--space-4); font-size: 13.5px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 60%, transparent);">{{ cs.brief.client }}</p>
+        </div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: calc(var(--space-8) * 1.5);">
+          <div>
+            <h3 style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); padding-bottom: var(--space-3);">The problem</h3>
+            <ul style="display: grid; gap: var(--space-4); margin-top: var(--space-4); border-left: 1px solid var(--color-divider); padding-left: var(--space-6);">
+              <sc-for list="{{ cs.brief.problem }}" as="i" hint-placeholder-count="4">
+                <li style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ i }}</li>
+              </sc-for>
+            </ul>
+          </div>
+          <div>
+            <h3 style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); padding-bottom: var(--space-3);">The goal</h3>
+            <ul style="display: grid; gap: var(--space-4); margin-top: var(--space-4); border-left: 1px solid var(--color-accent-700); padding-left: var(--space-6);">
+              <sc-for list="{{ cs.brief.goal }}" as="i" hint-placeholder-count="4">
+                <li style="font-size: 14px; line-height: 1.6;">{{ i }}</li>
+              </sc-for>
+            </ul>
+          </div>
+          <div>
+            <h3 style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent); padding-bottom: var(--space-3);">Constraints</h3>
+            <ul style="display: grid; gap: var(--space-4); margin-top: var(--space-4); border-left: 1px solid var(--color-divider); padding-left: var(--space-6);">
+              <sc-for list="{{ cs.brief.constraints }}" as="i" hint-placeholder-count="3">
+                <li style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 75%, transparent);">{{ i }}</li>
+              </sc-for>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="personas" style="scroll-margin-top: 110px;">
+      <div style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 2) calc(var(--space-8) * 2) calc(var(--space-8) * 3);">
+        <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.12;">Who it is for</h2>
+        <p style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: var(--space-2); margin-bottom: var(--space-8);">Two primary personas drove every layout decision below.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(330px, 1fr)); gap: var(--space-6);">
+          <sc-for list="{{ cs.personas }}" as="p" hint-placeholder-count="2">
+            <div class="card elev-sm" style="padding: calc(var(--space-8) * 1.2); gap: var(--space-6);">
+              <div style="display: flex; align-items: baseline; gap: var(--space-3);">
+                <div class="card-title" style="font-size: 25px;">{{ p.name }}</div>
+                <div style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 50%, transparent);">{{ p.age }}</div>
+              </div>
+              <div style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ p.role }}</div>
+              <blockquote style="padding-left: var(--space-6); border-left: 2px solid var(--color-accent); font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 19px; line-height: 1.4; color: var(--color-accent-200);">“{{ p.quote }}”</blockquote>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-8);">
+                <div>
+                  <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-bottom: var(--space-3);">Goals</div>
+                  <ul style="display: grid; gap: var(--space-2);">
+                    <sc-for list="{{ p.goals }}" as="g" hint-placeholder-count="3">
+                      <li style="font-size: 13px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 80%, transparent);">{{ g }}</li>
+                    </sc-for>
+                  </ul>
+                </div>
+                <div>
+                  <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-bottom: var(--space-3);">Frustrations</div>
+                  <ul style="display: grid; gap: var(--space-2);">
+                    <sc-for list="{{ p.frustrations }}" as="f" hint-placeholder-count="3">
+                      <li style="font-size: 13px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 80%, transparent);">{{ f }}</li>
+                    </sc-for>
+                  </ul>
+                </div>
+              </div>
+              <div class="card-meta" style="margin-top: var(--space-2);">Context — {{ p.tech }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="journeys" style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 2) calc(var(--space-8) * 2) calc(var(--space-8) * 3); scroll-margin-top: 110px;">
+      <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.12;">User journeys</h2>
+      <p style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: var(--space-2);">Two journeys, mapped separately: the person using the client's website, and the client working with GQ. Bar height is measured sentiment at that stage.</p>
+
+      <sc-for list="{{ cs.journeys }}" as="j" hint-placeholder-count="2">
+        <div style="margin-top: calc(var(--space-8) * 2);">
+          <div style="display: flex; align-items: baseline; gap: var(--space-4); padding-bottom: var(--space-4);">
+            <h3 style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent);">{{ j.title }}</h3>
+            <span style="font-size: 12.5px; color: color-mix(in srgb, var(--color-text) 50%, transparent);">{{ j.subtitle }}</span>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-2);">
+            <sc-for list="{{ j.steps }}" as="s" hint-placeholder-count="5">
+              <div class="card elev-sm" style="padding: var(--space-6); gap: var(--space-4);">
+                <div style="display: flex; align-items: baseline; justify-content: space-between; font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 45%, transparent);">
+                  <span>{{ s.num }}</span>
+                  <span>{{ s.emoLabel }}</span>
+                </div>
+                <div style="display: flex; align-items: flex-end; height: 82px; border-bottom: 1px solid var(--color-divider);">
+                  <div style="width: 100%; height: {{ s.barPct }}%; background: {{ s.barColor }}; border-radius: var(--radius-sm) var(--radius-sm) 0 0;"></div>
+                </div>
+                <div class="card-title" style="font-size: 19px;">{{ s.stage }}</div>
+                <div style="font-size: 12.5px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 80%, transparent);">{{ s.action }}</div>
+                <div style="font-family: var(--font-heading); font-size: 14px; line-height: 1.45; color: var(--color-accent-200);">“{{ s.thought }}”</div>
+                <div style="margin-top: auto; display: grid; gap: var(--space-3); padding-top: var(--space-4);">
+                  <div>
+                    <div style="font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 45%, transparent); margin-bottom: 3px;">Pain</div>
+                    <div style="font-size: 12px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ s.pain }}</div>
+                  </div>
+                  <div>
+                    <div style="font-size: 9.5px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); margin-bottom: 3px;">Design response</div>
+                    <div style="font-size: 12px; line-height: 1.5;">{{ s.opp }}</div>
+                  </div>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+
+    <section id="storyboard" style="background: linear-gradient(180deg, var(--color-section) 0%, var(--color-bg) 100%); scroll-margin-top: 110px;">
+      <div style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 3) calc(var(--space-8) * 2);">
+        <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.12;">Storyboard</h2>
+        <p style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 65%, transparent); margin-top: var(--space-2); max-width: 62ch;">Six frames from trigger to outcome. Each panel renders the actual screen it describes, mocked in {{ cs.name }}'s own brand at the device the user is holding.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: var(--space-8); margin-top: calc(var(--space-8) * 1.6);">
+          <sc-for list="{{ cs.storyboard }}" as="f" hint-placeholder-count="6">
+            <figure style="display: flex; flex-direction: column; gap: var(--space-6);">
+              <div style="position: relative; aspect-ratio: 4 / 3; background: color-mix(in srgb, var(--color-bg) 70%, transparent); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: var(--space-4); display: grid; place-items: center; overflow: hidden;">
+                <div style="position: absolute; top: var(--space-3); right: var(--space-4); z-index: 3; font-size: 10px; letter-spacing: 0.08em; color: color-mix(in srgb, var(--color-text) 40%, transparent);">{{ f.pad }}</div>
+                <div style="width: {{ f.frameW }}; height: 100%; border-radius: {{ f.frameRadius }}; overflow: hidden; box-shadow: var(--shadow-md); border: 1px solid color-mix(in srgb, var(--color-text) 12%, transparent); background: #fff;">
+                  <site-mock spec="{{ cs.specId }}" device="{{ f.device }}" scene="{{ f.scene }}" style="width: 100%; height: 100%;"></site-mock>
+                </div>
+                <div style="position: absolute; bottom: var(--space-3); left: var(--space-4); z-index: 3; font-size: 9px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 45%, transparent);">{{ f.sceneLabel }}</div>
+              </div>
+              <figcaption style="margin: 0;">
+                <div class="card-title" style="font-size: 21px;">{{ f.title }}</div>
+                <p style="margin-top: var(--space-2); font-size: 13.5px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 78%, transparent);">{{ f.caption }}</p>
+                <p style="margin-top: var(--space-3); font-size: 12px; line-height: 1.6; color: var(--color-accent-300);">{{ f.note }}</p>
+              </figcaption>
+            </figure>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="ia" style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 3) calc(var(--space-8) * 2); scroll-margin-top: 110px;">
+      <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.12;">Information architecture</h2>
+      <p style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: var(--space-2);">The site map as shipped. Top level is navigation; children are the sections or templates beneath it.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: var(--space-4); margin-top: var(--space-8);">
+        <sc-for list="{{ cs.sitemap }}" as="n" hint-placeholder-count="5">
+          <div class="card elev-sm" style="padding: 0; gap: 0; overflow: hidden;">
+            <div style="padding: var(--space-4) var(--space-6); background: color-mix(in srgb, var(--color-accent) 14%, transparent); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-accent-200);">{{ n.label }}</div>
+            <ul style="display: grid;">
+              <sc-for list="{{ n.children }}" as="c" hint-placeholder-count="4">
+                <li style="padding: var(--space-3) var(--space-6); border-top: 1px solid var(--color-divider); font-size: 13px; line-height: 1.45; color: color-mix(in srgb, var(--color-text) 80%, transparent);">{{ c }}</li>
+              </sc-for>
+            </ul>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="wireframes" style="scroll-margin-top: 110px;">
+      <div style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 2) calc(var(--space-8) * 2) calc(var(--space-8) * 3);">
+        <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.12;">Wireframe to final</h2>
+        <p style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: var(--space-2);">What the wireframe specified, and what changed once it met real content, real devices and real testing.</p>
+        <div style="display: grid; gap: var(--space-4); margin-top: var(--space-8);">
+          <sc-for list="{{ cs.wireframes }}" as="w" hint-placeholder-count="3">
+            <div class="card elev-sm" style="display: grid; grid-template-columns: minmax(0, 190px) minmax(0, 250px) minmax(0, 1fr) minmax(0, 1fr); gap: calc(var(--space-8) * 1.2); padding: calc(var(--space-8) * 1.2);">
+              <div>
+                <div class="card-title" style="font-size: 21px;">{{ w.screen }}</div>
+                <div class="card-meta" style="margin-top: var(--space-2);">{{ w.num }}</div>
+              </div>
+              <div>
+                <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-bottom: var(--space-3);">Wireframe</div>
+                <div style="aspect-ratio: 3 / 4; background: color-mix(in srgb, var(--color-bg) 65%, transparent); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); padding: var(--space-4); display: flex; flex-direction: column; gap: var(--space-2);">
+                  <div style="display: flex; align-items: center; gap: var(--space-2); padding-bottom: var(--space-2); border-bottom: 1px solid color-mix(in srgb, var(--color-text) 14%, transparent);">
+                    <span style="width: 16px; height: 5px; border-radius: 2px; background: color-mix(in srgb, var(--color-text) 30%, transparent);"></span>
+                    <span style="flex: 1;"></span>
+                    <span style="width: 22px; height: 5px; border-radius: 2px; background: color-mix(in srgb, var(--color-text) 16%, transparent);"></span>
+                  </div>
+                  <sc-for list="{{ w.panel }}" as="b" hint-placeholder-count="4">
+                    <div style="flex: {{ b.flex }}; width: {{ b.w }}; min-height: 22px; background: {{ b.bg }}; border: {{ b.border }}; border-radius: var(--radius-sm); padding: 4px 6px; display: flex; align-items: center; gap: 5px; overflow: hidden;">
+                      <span style="flex: 0 0 auto; width: 13px; height: 13px; border-radius: 50%; border: 1px solid var(--color-accent); color: var(--color-accent); font-size: 8px; line-height: 11px; text-align: center;">{{ b.n }}</span>
+                      <span style="font-size: 9px; line-height: 1.2; color: {{ b.fg }}; overflow: hidden;">{{ b.label }}</span>
+                    </div>
+                  </sc-for>
+                </div>
+              </div>
+              <div>
+                <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); padding-bottom: var(--space-3); border-bottom: 1px dashed var(--color-divider);">Wireframe spec</div>
+                <ul style="display: grid; gap: var(--space-3); margin-top: var(--space-4);">
+                  <sc-for list="{{ w.wire }}" as="i" hint-placeholder-count="4">
+                    <li style="display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: var(--space-3); font-size: 13px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 70%, transparent);">
+                      <span style="font-size: 10px; color: var(--color-accent);">{{ i.n }}</span>
+                      <span>{{ i.text }}</span>
+                    </li>
+                  </sc-for>
+                </ul>
+              </div>
+              <div>
+                <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-accent-700);">Shipped, and why</div>
+                <ul style="display: grid; gap: var(--space-3); margin-top: var(--space-4);">
+                  <sc-for list="{{ w.final }}" as="i" hint-placeholder-count="3">
+                    <li style="font-size: 13px; line-height: 1.55;">{{ i }}</li>
+                  </sc-for>
+                </ul>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <section id="responsive" style="max-width: 1240px; margin: 0 auto; padding: 0 calc(var(--space-8) * 2) calc(var(--space-8) * 3); scroll-margin-top: 110px;">
+      <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.12;">Responsive review</h2>
+      <p style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: var(--space-2);">Device frames, a breakpoint pass/fail table, and the annotated findings that came out of testing.</p>
+
+      <div style="display: flex; align-items: center; gap: var(--space-4); margin-top: var(--space-8);">
+        <span class="tag tag-outline">Live site</span>
+        <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 45%, transparent);">Each frame loads the live {{ cs.domain }} at a true device width. If the host blocks embedding, the frame falls back to an interactive mock of the same screen — the badge tells you which you are looking at.</span>
+        <a class="btn btn-ghost" href="{{ cs.url }}" target="_blank" rel="noopener">Open {{ cs.domain }} ↗</a>
+      </div>
+
+      <div style="display: grid; grid-template-columns: minmax(0, 2.1fr) minmax(0, 1.1fr) minmax(0, 0.7fr); gap: var(--space-6); align-items: end; margin-top: var(--space-6);">
+        <div>
+          <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-bottom: var(--space-3);">Desktop — 1440px</div>
+          <div class="card elev-md" style="padding: var(--space-2); gap: var(--space-2); border-radius: var(--radius-md);">
+            <div style="display: flex; gap: var(--space-1); padding: 0 var(--space-1);">
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--color-neutral-700);"></span>
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--color-neutral-700);"></span>
+              <span style="width: 7px; height: 7px; border-radius: 50%; background: var(--color-neutral-700);"></span>
+            </div>
+            <live-frame url="{{ cs.url }}" spec="{{ cs.specId }}" device="desktop" style="aspect-ratio: 16 / 10; border-radius: var(--radius-sm);"></live-frame>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-bottom: var(--space-3);">Tablet — 834px</div>
+          <div class="card elev-md" style="padding: var(--space-3); border-radius: var(--radius-lg);">
+            <live-frame url="{{ cs.url }}" spec="{{ cs.specId }}" device="tablet" style="aspect-ratio: 3 / 4; border-radius: var(--radius-md);"></live-frame>
+          </div>
+        </div>
+        <div>
+          <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent); margin-bottom: var(--space-3);">Phone — 390px</div>
+          <div class="card elev-md" style="padding: var(--space-2); border-radius: var(--radius-lg);">
+            <live-frame url="{{ cs.url }}" spec="{{ cs.specId }}" device="phone" style="aspect-ratio: 9 / 19.5; border-radius: var(--radius-md);"></live-frame>
+          </div>
+        </div>
+      </div>
+
+      <sc-raw-table class="table" style="margin-top: calc(var(--space-8) * 2);">
+        <sc-raw-thead>
+          <sc-raw-tr>
+            <sc-raw-th style="width: 130px;">Breakpoint</sc-raw-th>
+            <sc-raw-th style="width: 110px;">Class</sc-raw-th>
+            <sc-raw-th style="width: 110px;">Status</sc-raw-th>
+            <sc-raw-th>Behaviour</sc-raw-th>
+          </sc-raw-tr>
+        </sc-raw-thead>
+        <sc-raw-tbody>
+          <sc-for list="{{ cs.responsive.breakpoints }}" as="b" hint-placeholder-count="4">
+            <sc-raw-tr>
+              <sc-raw-td style="font-size: 13px;">{{ b.name }}</sc-raw-td>
+              <sc-raw-td style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 70%, transparent);">{{ b.w }}</sc-raw-td>
+              <sc-raw-td><span class="tag {{ b.badgeClass }}">{{ b.statusLabel }}</span></sc-raw-td>
+              <sc-raw-td style="font-size: 13px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 80%, transparent);">{{ b.notes }}</sc-raw-td>
+            </sc-raw-tr>
+          </sc-for>
+        </sc-raw-tbody>
+      </sc-raw-table>
+
+      <div style="margin-top: calc(var(--space-8) * 2);">
+        <h3 style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); padding-bottom: var(--space-4);">Annotated findings</h3>
+        <ul style="display: grid; gap: var(--space-2);">
+          <sc-for list="{{ cs.responsiveFindings }}" as="f" hint-placeholder-count="5">
+            <li class="card elev-sm" style="display: grid; grid-template-columns: 52px minmax(0, 1fr); gap: var(--space-6); padding: var(--space-6);">
+              <span style="font-size: 11px; letter-spacing: 0.06em; color: var(--color-accent);">{{ f.num }}</span>
+              <span style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 82%, transparent);">{{ f.text }}</span>
+            </li>
+          </sc-for>
+        </ul>
+      </div>
+    </section>
+
+    <section id="audit" style="scroll-margin-top: 110px;">
+      <div style="max-width: 1240px; margin: 0 auto; padding: 0 calc(var(--space-8) * 2) calc(var(--space-8) * 3);">
+        <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.12;">Performance &amp; SEO audit</h2>
+        <p style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: var(--space-2);">Mobile, 4G throttled. Illustrative figures for portfolio presentation — swap in your own report numbers before sending.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: var(--space-4); margin-top: var(--space-8);">
+          <sc-for list="{{ cs.auditRows }}" as="r" hint-placeholder-count="8">
+            <div class="card elev-sm" style="padding: var(--space-6);">
+              <div style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent);">{{ r.label }}</div>
+              <div style="display: flex; align-items: baseline; gap: var(--space-3);">
+                <span style="font-size: 14px; color: color-mix(in srgb, var(--color-text) 40%, transparent); text-decoration: line-through;">{{ r.before }}</span>
+                <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 40%, transparent);">→</span>
+                <span style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 26px; line-height: 1; color: var(--color-accent-300);">{{ r.after }}</span>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top: calc(var(--space-8) * 1.6);">
+          <h3 style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--color-accent); padding-bottom: var(--space-4);">What was actually changed</h3>
+          <ul style="display: grid; gap: var(--space-4); max-width: 92ch; border-left: 1px solid var(--color-divider); padding-left: var(--space-8);">
+            <sc-for list="{{ cs.audit.fixes }}" as="f" hint-placeholder-count="5">
+              <li style="font-size: 14px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 82%, transparent);">{{ f }}</li>
+            </sc-for>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="beforeafter" style="max-width: 1240px; margin: 0 auto; padding: 0 calc(var(--space-8) * 2) calc(var(--space-8) * 3); scroll-margin-top: 110px;">
+      <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.12;">Before and after</h2>
+      <p style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 55%, transparent); margin-top: var(--space-2);">The five decisions that carried the project.</p>
+      <div style="display: grid; gap: var(--space-2); margin-top: var(--space-8);">
+        <sc-for list="{{ cs.beforeAfter }}" as="b" hint-placeholder-count="5">
+          <div class="card elev-sm" style="display: grid; grid-template-columns: minmax(0, 180px) minmax(0, 1fr) 30px minmax(0, 1fr); gap: var(--space-6); align-items: center; padding: var(--space-6);">
+            <div style="font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">{{ b.aspect }}</div>
+            <div style="font-size: 13.5px; line-height: 1.55; color: color-mix(in srgb, var(--color-text) 50%, transparent); padding: var(--space-4); background: color-mix(in srgb, var(--color-bg) 60%, transparent); border-left: 2px solid var(--color-neutral-700); border-radius: var(--radius-sm);">{{ b.before }}</div>
+            <div style="text-align: center; font-size: 15px; color: color-mix(in srgb, var(--color-text) 40%, transparent);">→</div>
+            <div style="font-size: 14px; line-height: 1.55; padding: var(--space-4); background: color-mix(in srgb, var(--color-accent) 10%, transparent); border-left: 2px solid var(--color-accent); border-radius: var(--radius-sm);">{{ b.after }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </section>
+
+    <section id="results" style="background: linear-gradient(180deg, var(--color-bg) 0%, var(--color-section) 100%); scroll-margin-top: 110px;">
+      <div style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 3) calc(var(--space-8) * 2);">
+        <h2 style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 32px; line-height: 1.12;">Results</h2>
+        <p style="font-size: 13.5px; color: color-mix(in srgb, var(--color-text) 60%, transparent); margin-top: var(--space-2); max-width: 66ch;">Presentation figures. Replace with the client's analytics before this goes to a prospect — a real number with a date beats a big number without one.</p>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--space-4); margin-top: calc(var(--space-8) * 1.6);">
+          <sc-for list="{{ cs.metrics }}" as="m" hint-placeholder-count="4">
+            <div class="card elev-sm" style="padding: calc(var(--space-8) * 1.2); background: color-mix(in srgb, var(--color-bg) 55%, transparent);">
+              <div style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 42px; line-height: 1; color: var(--color-accent-300);">{{ m.value }}</div>
+              <div style="font-size: 14px; line-height: 1.5;">{{ m.label }}</div>
+              <div class="card-meta">{{ m.note }}</div>
+            </div>
+          </sc-for>
+        </div>
+        <div style="margin-top: calc(var(--space-8) * 2); display: grid; grid-template-columns: minmax(0, 230px) minmax(0, 1fr); gap: calc(var(--space-8) * 2);">
+          <h3 style="font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Engineering notes</h3>
+          <ul style="display: grid; gap: var(--space-4); max-width: 88ch;">
+            <sc-for list="{{ cs.techNotes }}" as="t" hint-placeholder-count="4">
+              <li style="font-size: 14px; line-height: 1.65; color: color-mix(in srgb, var(--color-text) 85%, transparent); padding-left: var(--space-6); border-left: 1px solid var(--color-divider);">{{ t }}</li>
+            </sc-for>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 2.5) calc(var(--space-8) * 2) calc(var(--space-8) * 4);">
+      <div style="display: flex; flex-wrap: wrap; gap: var(--space-8); justify-content: space-between; align-items: center;">
+        <a href="{{ cs.prevHref }}" sc-camel-on-click="{{ cs.onPrev }}" style="display: flex; flex-direction: column; gap: 3px; color: var(--color-text); cursor: pointer;">
+          <span style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent);">Previous</span>
+          <span style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 22px;">← {{ cs.prevName }}</span>
+        </a>
+        <a class="btn btn-primary" href="#" sc-camel-on-click="{{ onBack }}" style="cursor: pointer;">All 14 projects</a>
+        <a href="{{ cs.nextHref }}" sc-camel-on-click="{{ cs.onNext }}" style="display: flex; flex-direction: column; gap: 3px; text-align: right; color: var(--color-text); cursor: pointer;">
+          <span style="font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 50%, transparent);">Next</span>
+          <span style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 22px;">{{ cs.nextName }} →</span>
+        </a>
+      </div>
+    </section>
+
+  </article>
+  </sc-if>
+
+  <footer style="box-shadow: var(--shadow-sm);">
+    <div style="max-width: 1240px; margin: 0 auto; padding: calc(var(--space-8) * 1.6) calc(var(--space-8) * 2); display: flex; flex-wrap: wrap; gap: var(--space-8); justify-content: space-between; align-items: baseline;">
+      <span style="font-family: var(--font-heading); font-weight: var(--font-heading-weight); font-size: 18px;">Ghulam Qadir — Frontend &amp; WordPress</span>
+      <span style="font-size: 12px; color: color-mix(in srgb, var(--color-text) 50%, transparent);">georgequinngq1@gmail.com · Remote</span>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script="" data-props="{&quot;$preview&quot;: {&quot;width&quot;: 1400}}">
+const EMO_LABELS = ["", "frustrated", "wary", "neutral", "confident", "delighted"];
+const STATUS = {
+  pass: { statusLabel: "Pass", badgeClass: "tag-neutral" },
+  fixed: { statusLabel: "Fixed", badgeClass: "tag-outline" }
+};
+const pad = (n) => String(n).padStart(2, "0");
+const INDEX_HREF = "#";
+const fileHref = () => "#";
+const deckHref = () => "#";
+const emoColor = (n) => (n <= 2 ? "var(--color-neutral-700)" : n === 3 ? "var(--color-neutral-500)" : "var(--color-accent-500)");
+const steps = (list) => (list || []).map((s, i) => ({
+  num: pad(i + 1), stage: s.stage, action: s.action, thought: s.thought, pain: s.pain, opp: s.opp,
+  barPct: 20 + s.emotion * 16, barColor: emoColor(s.emotion), emoLabel: EMO_LABELS[s.emotion] || "neutral"
+}));
+const BIG = /hero|gallery|grid|table|calendar|diagram|list|cards?|result|panel|screenshot|timeline|entries|photo|image|body/i;
+const CTA = /cta|button|submit|add to cart|publish|book|enrol|sign|call bar|apply/i;
+const NARROW = /chip|row|badge|stepper|toggle|selector|count|progress|filter|tab|kicker|label|price|rating|meta/i;
+function panelize(list) {
+  return (list || []).slice(0, 6).map((raw, i) => {
+    const label = raw.split(/[:(]/)[0].replace(/\s+$/, "");
+    const isCta = CTA.test(raw);
+    return {
+      n: i + 1,
+      label: label.length > 34 ? label.slice(0, 32) + "…" : label,
+      flex: isCta ? "0 0 26px" : (BIG.test(raw) ? "2 1 0" : "1 1 0"),
+      w: NARROW.test(raw) ? "62%" : (isCta ? "44%" : "100%"),
+      bg: isCta ? "color-mix(in srgb, var(--color-accent) 16%, transparent)" : "color-mix(in srgb, var(--color-text) 7%, transparent)",
+      border: isCta ? "1px solid var(--color-accent)" : "1px dashed color-mix(in srgb, var(--color-text) 22%, transparent)",
+      fg: isCta ? "var(--color-accent-200)" : "color-mix(in srgb, var(--color-text) 62%, transparent)"
+    };
+  });
+}
+
+const TOC = [
+  ["brief", "Brief"], ["personas", "Personas"], ["journeys", "Journeys"], ["storyboard", "Storyboard"],
+  ["ia", "IA"], ["wireframes", "Wireframes"], ["responsive", "Responsive"], ["audit", "Audit"],
+  ["beforeafter", "Before / after"], ["results", "Results"]
+];
+const jumpTo = (id) => (e) => {
+  e.preventDefault();
+  const el = document.getElementById(id);
+  if (el) window.scrollTo({ top: window.scrollY + el.getBoundingClientRect().top - 108, behavior: "smooth" });
+};
+const TOC_VM = TOC.map(t => ({ label: t[1], onClick: jumpTo(t[0]) }));
+
+let ALL = null;
+function allProjects() {
+  const p1 = window.CS_PART1 || [], p2 = window.CS_PART2 || [];
+  let list = p1.concat(p2);
+  if (!list.length && window.CASE_STUDIES) list = window.CASE_STUDIES;
+  // only memoize once BOTH data files have landed, otherwise a partial list sticks
+  if (ALL && ALL.length >= list.length) return ALL;
+  if (p1.length && p2.length) { ALL = list; INDEX_VM = null; }
+  return list;
+}
+
+let INDEX_VM = null;
+function indexVM(open) {
+  if (INDEX_VM) return INDEX_VM;
+  const vm = allProjects().map(p => ({
+    name: p.name, initial: String(p.name || "?").charAt(0).toUpperCase(), category: p.category, id: p.id, specId: p.id, onOpen: open(p.id),
+    short: p.summary.length > 190 ? p.summary.slice(0, 188).replace(/\s\S*$/, "") + "…" : p.summary,
+    chips: [p.cms.split(" · ")[0], p.stack[1] || p.stack[0], p.year],
+    headline: p.metrics[0].label + " " + p.metrics[0].value
+  }));
+  if (vm.length) INDEX_VM = vm;
+  return vm;
+}
+
+const CASE_CACHE = {};
+function caseVM(id, open) {
+  if (CASE_CACHE[id]) return CASE_CACHE[id];
+  const list = allProjects();
+  const idx = list.findIndex(x => x.id === id);
+  if (idx < 0) return null;
+  const p = list[idx];
+  const prev = list[(idx - 1 + list.length) % list.length];
+  const next = list[(idx + 1) % list.length];
+  const a = p.audit.before, b = p.audit.after;
+  const rows = [
+    ["LCP", a.lcp, b.lcp], ["CLS", a.cls, b.cls], ["INP", a.inp, b.inp],
+    ["Performance", a.perf, b.perf], ["SEO", a.seo, b.seo], ["Accessibility", a.a11y, b.a11y],
+    ["Page weight", a.weight, b.weight], ["Requests", a.req, b.req]
+  ];
+  CASE_CACHE[id] = {
+    specId: p.id, initial: String(p.name || "?").charAt(0).toUpperCase(), name: p.name, category: p.category, year: p.year, role: p.role, cms: p.cms,
+    url: p.url, domain: p.domain, summary: p.summary, stack: p.stack,
+    metrics: p.metrics, brief: p.brief, personas: p.personas, sitemap: p.sitemap,
+    beforeAfter: p.beforeAfter, techNotes: p.techNotes, audit: p.audit,
+    auditRows: rows.map(r => ({ label: r[0], before: r[1], after: r[2] })),
+    responsive: {
+      breakpoints: p.responsive.breakpoints.map(x => Object.assign(
+        { name: x.name, w: x.w, notes: x.notes }, STATUS[x.status] || STATUS.pass
+      ))
+    },
+    responsiveFindings: p.responsive.findings.map((t, i) => ({ num: "R" + pad(i + 1), text: t })),
+    wireframes: p.wireframes.map((w, i) => ({
+      screen: w.screen, final: w.final, num: "Screen " + pad(i + 1),
+      panel: panelize(w.wire),
+      wire: w.wire.map((t, j) => ({ n: j + 1, text: t }))
+    })),
+    storyboard: p.storyboard.map(f => ({
+      title: f.title, caption: f.caption, note: f.note, pad: pad(f.n),
+      scene: SCENES[(f.n - 1) % SCENES.length],
+      sceneLabel: SCENE_LABEL[SCENES[(f.n - 1) % SCENES.length]],
+      device: PHONE_FIRST[p.id] ? "phone" : (f.n % 3 === 0 ? "phone" : "desktop"),
+      frameW: (PHONE_FIRST[p.id] || f.n % 3 === 0) ? "34%" : "100%",
+      frameRadius: (PHONE_FIRST[p.id] || f.n % 3 === 0) ? "14px" : "6px",
+      grid: f.n % 3 === 0 ? "1fr" : (f.n % 2 === 0 ? "1fr 1fr" : "1fr 1fr 1fr"),
+      blocks: f.n % 3 === 0 ? [0] : (f.n % 2 === 0 ? [0, 1] : [0, 1, 2]),
+      ctaW: f.n % 2 === 0 ? "46%" : "32%"
+    })),
+    journeys: [
+      { title: "End user — the client's customer", subtitle: p.personas[0].role, steps: steps(p.journeyUser) },
+      { title: "Client journey — working with GQ", subtitle: "Kickoff to steady state", steps: steps(p.journeyClient) }
+    ],
+    toc: TOC_VM,
+    onPrev: open ? open(prev.id) : null, prevName: prev.name, prevHref: fileHref(prev.name),
+    onNext: open ? open(next.id) : null, nextName: next.name, nextHref: fileHref(next.name),
+    index: pad(idx + 1), total: list.length,
+    switcher: list.map(x => ({
+      name: x.name, onOpen: open ? open(x.id) : null, href: fileHref(x.name), current: x.id === p.id,
+      color: x.id === p.id ? "var(--color-accent)" : "color-mix(in srgb, var(--color-text) 50%, transparent)",
+      weight: x.id === p.id ? "var(--font-heading-weight)" : "400"
+    }))
+  };
+  return CASE_CACHE[id];
+}
+
+const TOP_STATS = [
+  { value: "14", label: "Client builds" },
+  { value: "4", label: "Breakpoints reviewed each" },
+  { value: "28", label: "Journey maps" },
+  { value: "84", label: "Storyboard frames" }
+];
+
+const SCENES = ["landing", "browse", "detail", "form", "confirm"];
+const SCENE_LABEL = { landing: "Landing", browse: "Browse", detail: "Detail", form: "Form", confirm: "Confirmation" };
+const PHONE_FIRST = { "dispatch-hero": 1, happinessonwheels: 1, reddeercitytaxi: 1, medbrigade: 1, scentpura: 1, taxjar: 1 };
+
+class Component extends DCLogic {
+  state = { active: null };
+
+  constructor(props) {
+    super(props);
+    this._openers = {};
+    this.open = (id) => {
+      if (!this._openers[id]) {
+        this._openers[id] = (e) => {
+          if (e && e.preventDefault) e.preventDefault();
+          this.setState({ active: id });
+          window.scrollTo(0, 0);
+        };
+      }
+      return this._openers[id];
+    };
+    this.back = (e) => {
+      if (e && e.preventDefault) e.preventDefault();
+      this.setState({ active: null });
+      window.scrollTo(0, 0);
+    };
+  }
+
+  componentDidMount() {
+    if (allProjects().length >= 14) return;
+    let tries = 0;
+    this._timer = setInterval(() => {
+      tries++;
+      this.forceUpdate();
+      if (allProjects().length >= 14 || tries > 120) clearInterval(this._timer);
+    }, 60);
+  }
+  componentWillUnmount() {
+    if (this._timer) clearInterval(this._timer);
+  }
+
+  renderVals() {
+    const list = allProjects();
+    const cs = this.state.active ? caseVM(this.state.active, this.open) : null;
+    return {
+      countLabel: list.length ? list.length + " projects" : "",
+      showIndex: !cs, showCase: !!cs, onBack: this.back,
+      topStats: TOP_STATS, projects: indexVM(this.open), cs: cs, indexHref: INDEX_HREF,
+      liveSrc: cs ? cs.url : "about:blank"
+    };
+  }
+}
+
+</script>
+
+
+</body></html>
