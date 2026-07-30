@@ -99,12 +99,17 @@
 
   .title {
     max-width: 100%;
+    font-size: clamp(1.65rem, 5.2vw, 2.85rem);
   }
 
   .thumb {
     max-width: 100%;
     flex-basis: 100%;
-    min-height: 240px;
+    min-height: clamp(200px, 48vw, 280px);
+  }
+
+  .thumbClip {
+    min-height: clamp(200px, 48vw, 280px);
   }
 }
 
@@ -115,6 +120,10 @@
 
   .brandWord {
     font-size: clamp(3.5rem, 28vw, 9rem);
+  }
+
+  .title {
+    font-size: clamp(1.55rem, 7vw, 2.1rem);
   }
 }
 

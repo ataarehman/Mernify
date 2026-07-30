@@ -206,6 +206,23 @@
   color: var(--mf-color-cyan);
 }
 
+.serviceLinks {
+  margin: 1.25rem 0 0 !important;
+  display: flex !important;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem !important;
+}
+
+.serviceLinks a {
+  color: rgba(248, 250, 252, 0.72);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+
+.serviceLinks a:hover {
+  color: var(--mf-color-cyan);
+}
+
 .colRight {
   display: flex;
   flex-direction: column;

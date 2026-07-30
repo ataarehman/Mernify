@@ -77,7 +77,7 @@ export function HomeHero() {
         ease: 'none',
         scrollTrigger: {
           trigger: section,
-          scrub: 2,
+          scrub: 0.65,
           start: 'top top',
           end: 'bottom top',
         },

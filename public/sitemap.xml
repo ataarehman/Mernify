@@ -1,60 +1,84 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://mernify.com/</loc>
+    <loc>https://mernify.co/</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services</loc>
+    <loc>https://mernify.co/services</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services/product-engineering</loc>
+    <loc>https://mernify.co/services/product-engineering</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services/saas-development</loc>
+    <loc>https://mernify.co/services/saas-development</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services/web-development</loc>
+    <loc>https://mernify.co/services/web-development</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services/mobile-app-development</loc>
+    <loc>https://mernify.co/services/mobile-app-development</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services/ai-integration</loc>
+    <loc>https://mernify.co/services/ai-integration</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services/workflow-automation</loc>
+    <loc>https://mernify.co/services/workflow-automation</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services/ui-ux-design</loc>
+    <loc>https://mernify.co/services/ui-ux-design</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services/cloud-devops</loc>
+    <loc>https://mernify.co/services/cloud-devops</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services/api-development</loc>
+    <loc>https://mernify.co/services/api-development</loc>
   </url>
   <url>
-    <loc>https://mernify.com/services/dedicated-product-teams</loc>
+    <loc>https://mernify.co/services/dedicated-product-teams</loc>
   </url>
   <url>
-    <loc>https://mernify.com/industries</loc>
+    <loc>https://mernify.co/industries</loc>
   </url>
   <url>
-    <loc>https://mernify.com/case-studies</loc>
+    <loc>https://mernify.co/case-studies</loc>
   </url>
   <url>
-    <loc>https://mernify.com/process</loc>
+    <loc>https://mernify.co/case-studies/tailorize</loc>
   </url>
   <url>
-    <loc>https://mernify.com/about</loc>
+    <loc>https://mernify.co/case-studies/servloom</loc>
   </url>
   <url>
-    <loc>https://mernify.com/contact</loc>
+    <loc>https://mernify.co/case-studies/godiva</loc>
   </url>
   <url>
-    <loc>https://mernify.com/privacy</loc>
+    <loc>https://mernify.co/case-studies/goodbooks-plus-analytics</loc>
   </url>
   <url>
-    <loc>https://mernify.com/terms</loc>
+    <loc>https://mernify.co/case-studies/medbill-ultra</loc>
+  </url>
+  <url>
+    <loc>https://mernify.co/case-studies/metro-electric</loc>
+  </url>
+  <url>
+    <loc>https://mernify.co/case-studies/spaceworx</loc>
+  </url>
+  <url>
+    <loc>https://mernify.co/case-studies/mrzzm</loc>
+  </url>
+  <url>
+    <loc>https://mernify.co/process</loc>
+  </url>
+  <url>
+    <loc>https://mernify.co/about</loc>
+  </url>
+  <url>
+    <loc>https://mernify.co/contact</loc>
+  </url>
+  <url>
+    <loc>https://mernify.co/privacy</loc>
+  </url>
+  <url>
+    <loc>https://mernify.co/terms</loc>
   </url>
 </urlset>

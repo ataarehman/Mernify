@@ -20,18 +20,25 @@ export function MediaStrip({
     const image = imageRef.current
     if (!root || !image || prefersReducedMotion) return undefined
 
+    // Skip parallax on touch / narrow viewports — scrub jank source on mobile.
+    const light =
+      window.matchMedia('(pointer: coarse)').matches ||
+      window.matchMedia('(max-width: 900px)').matches
+    if (light) return undefined
+
     const ctx = gsap.context(() => {
       gsap.fromTo(
         image,
-        { yPercent: -12 },
+        { yPercent: -10 },
         {
-          yPercent: 12,
+          yPercent: 10,
           ease: 'none',
+          force3D: true,
           scrollTrigger: {
             trigger: root,
             start: 'top bottom',
             end: 'bottom top',
-            scrub: true,
+            scrub: 0.65,
           },
         },
       )

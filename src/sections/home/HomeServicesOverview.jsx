@@ -7,22 +7,23 @@ import { Container } from '@/components/ui'
 import { ClipReveal } from '@/components/motion/ClipReveal'
 import { homeServicesCarousel } from '@/content/home'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
+import { useInView } from '@/hooks/useInView'
 import styles from './HomeServicesOverview.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const AUTOPLAY_MS = 7000
+const AUTOPLAY_MS = 6500
 
 export function HomeServicesOverview() {
   const { slides, viewAll, eyebrow } = homeServicesCarousel
   const [index, setIndex] = useState(0)
-  const [paused, setPaused] = useState(false)
   const rootRef = useRef(null)
   const slideRef = useRef(null)
   const titleRef = useRef(null)
   const progressRef = useRef(null)
   const progressTween = useRef(null)
   const { prefersReducedMotion } = useReducedMotion()
+  const inView = useInView(rootRef, { rootMargin: '12% 0px' })
   const active = slides[index]
   const total = slides.length
 
@@ -36,33 +37,58 @@ export function HomeServicesOverview() {
   const goPrev = useCallback(() => goTo(index - 1), [goTo, index])
   const goNext = useCallback(() => goTo(index + 1), [goTo, index])
 
+  // Autoplay when in view — pauses offscreen / reduced motion / tab hidden.
   useEffect(() => {
-    if (prefersReducedMotion || total < 2 || paused) {
+    if (prefersReducedMotion || total < 2 || !inView) {
       progressTween.current?.kill()
-      if (progressRef.current) gsap.set(progressRef.current, { scaleX: paused ? 0 : 1 })
+      if (progressRef.current) gsap.set(progressRef.current, { scaleX: inView ? 1 : 0 })
       return undefined
     }
 
-    const bar = progressRef.current
-    progressTween.current?.kill()
-    if (bar) {
-      gsap.set(bar, { scaleX: 0, transformOrigin: 'left center' })
-      progressTween.current = gsap.to(bar, {
-        scaleX: 1,
-        duration: AUTOPLAY_MS / 1000,
-        ease: 'none',
-      })
-    }
+    let timer = 0
+    let cancelled = false
 
-    const timer = window.setInterval(() => {
-      setIndex((current) => (current + 1) % total)
-    }, AUTOPLAY_MS)
-
-    return () => {
-      window.clearInterval(timer)
+    const clear = () => {
+      window.clearTimeout(timer)
       progressTween.current?.kill()
     }
-  }, [index, paused, prefersReducedMotion, total])
+
+    const arm = () => {
+      if (cancelled || document.visibilityState === 'hidden') return
+
+      const bar = progressRef.current
+      progressTween.current?.kill()
+      if (bar) {
+        gsap.set(bar, { scaleX: 0, transformOrigin: 'left center' })
+        progressTween.current = gsap.to(bar, {
+          scaleX: 1,
+          duration: AUTOPLAY_MS / 1000,
+          ease: 'none',
+        })
+      }
+
+      timer = window.setTimeout(() => {
+        setIndex((current) => (current + 1) % total)
+      }, AUTOPLAY_MS)
+    }
+
+    const onVisibility = () => {
+      if (document.visibilityState === 'hidden') {
+        clear()
+      } else {
+        arm()
+      }
+    }
+
+    arm()
+    document.addEventListener('visibilitychange', onVisibility)
+
+    return () => {
+      cancelled = true
+      clear()
+      document.removeEventListener('visibilitychange', onVisibility)
+    }
+  }, [index, prefersReducedMotion, total, inView])
 
   useLayoutEffect(() => {
     const slide = slideRef.current
@@ -80,30 +106,30 @@ export function HomeServicesOverview() {
       const tl = gsap.timeline()
       tl.fromTo(
         slide,
-        { autoAlpha: 0, y: 36 },
-        { autoAlpha: 1, y: 0, duration: 0.7, ease: 'power3.out' },
+        { autoAlpha: 0, y: 28 },
+        { autoAlpha: 1, y: 0, duration: 0.65, ease: 'power3.out' },
       )
       if (chars?.length) {
         tl.fromTo(
           chars,
-          { x: 56, autoAlpha: 0, rotateX: -40 },
+          { x: 40, autoAlpha: 0, rotateX: -28 },
           {
             x: 0,
             autoAlpha: 1,
             rotateX: 0,
-            duration: 0.7,
-            stagger: 0.028,
+            duration: 0.65,
+            stagger: 0.024,
             ease: 'power3.out',
           },
-          0.08,
+          0.06,
         )
       }
       if (meta.length) {
         tl.fromTo(
           meta,
-          { autoAlpha: 0, y: 18 },
-          { autoAlpha: 1, y: 0, duration: 0.55, stagger: 0.08, ease: 'power2.out' },
-          0.2,
+          { autoAlpha: 0, y: 14 },
+          { autoAlpha: 1, y: 0, duration: 0.5, stagger: 0.07, ease: 'power2.out' },
+          0.16,
         )
       }
     }, slide)
@@ -118,11 +144,11 @@ export function HomeServicesOverview() {
     const ctx = gsap.context(() => {
       gsap.fromTo(
         root.querySelectorAll('[data-svc-enter]'),
-        { autoAlpha: 0, y: 40 },
+        { autoAlpha: 0, y: 36 },
         {
           autoAlpha: 1,
           y: 0,
-          duration: 0.9,
+          duration: 0.85,
           stagger: 0.1,
           ease: 'power3.out',
           scrollTrigger: { trigger: root, start: 'top 78%', once: true },
@@ -140,17 +166,15 @@ export function HomeServicesOverview() {
       data-header-theme="dark"
       id="services"
       aria-labelledby="home-services-overview-title"
-      onMouseEnter={() => setPaused(true)}
-      onMouseLeave={() => setPaused(false)}
-      onFocusCapture={() => setPaused(true)}
-      onBlurCapture={(event) => {
-        if (!event.currentTarget.contains(event.relatedTarget)) setPaused(false)
-      }}
     >
       <div className={styles.aura} aria-hidden="true" />
+      <div className={styles.gridGlow} aria-hidden="true" />
       <Container width="wide" className={styles.inner}>
         <div className={styles.top} data-svc-enter>
-          <p className={styles.eyebrow}>{eyebrow}</p>
+          <div className={styles.topCopy}>
+            <p className={styles.eyebrow}>{eyebrow}</p>
+            <p className={styles.topHint}>Capabilities we ship with product teams</p>
+          </div>
           <div className={styles.topActions}>
             <div className={styles.navBtns}>
               <button type="button" className={styles.navBtn} onClick={goPrev} aria-label="Previous service">
@@ -223,6 +247,7 @@ export function HomeServicesOverview() {
                     className={styles.thumbClip}
                     start="top 90%"
                   />
+                  <span className={styles.thumbFrame} aria-hidden="true" />
                 </Link>
 
                 <div className={styles.meta}>
@@ -242,7 +267,9 @@ export function HomeServicesOverview() {
 
             <div className={styles.bottom}>
               <p className={styles.pagination} aria-hidden="true">
-                [{String(index + 1).padStart(2, '0')}/{String(total).padStart(2, '0')}]
+                <span className={styles.pageCurrent}>{String(index + 1).padStart(2, '0')}</span>
+                <span className={styles.pageSep}>/</span>
+                <span>{String(total).padStart(2, '0')}</span>
               </p>
               <div className={styles.progressTrack} aria-hidden="true">
                 <span ref={progressRef} className={styles.progressBar} />

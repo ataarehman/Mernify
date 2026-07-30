@@ -14,6 +14,7 @@ import {
 import { Field, TextInput, TextArea, SelectInput } from '@/components/forms/Field'
 import { budgetRanges, serviceInterests } from '@/content/pages'
 import { homeInquiry } from '@/content/home'
+import { SITE } from '@/constants/site'
 import { submitContactForm } from '@/lib/submitContactForm'
 import styles from './InquiryStepperForm.module.css'
 
@@ -28,6 +29,7 @@ const initial = {
   timeline: '',
   message: '',
   consent: false,
+  website: '',
 }
 
 function validateStep(step, values) {
@@ -118,8 +120,17 @@ export function InquiryStepperForm() {
       return
     }
 
+    if (values.website?.trim()) {
+      setStatus('success')
+      setStatusMessage(`Thanks — your message was sent. ${SITE.responseSla}`)
+      setValues(initial)
+      setErrors({})
+      setStep(0)
+      return
+    }
+
     setStatus('loading')
-    setStatusMessage('Sending…')
+    setStatusMessage('Sending...')
     try {
       const result = await submitContactForm({
         name: values.name.trim(),
@@ -134,20 +145,32 @@ export function InquiryStepperForm() {
       setStatus('success')
       setStatusMessage(
         result.mode === 'mailto'
-          ? 'Opening your email client with a draft message. If nothing opens, email hello@mernify.com directly.'
-          : 'Thanks — your message was sent. We will reply soon.',
+          ? `Opening your email client with a draft message. If nothing opens, email ${SITE.email} directly. ${SITE.responseSla}`
+          : `Thanks — your message was sent. ${SITE.responseSla}`,
       )
       setValues(initial)
       setErrors({})
       setStep(0)
     } catch (err) {
       setStatus('error')
-      setStatusMessage(err?.message || 'Something went wrong. Please email hello@mernify.com.')
+      setStatusMessage(err?.message || `Something went wrong. Please email ${SITE.email}.`)
     }
   }
 
   return (
     <form className={styles.form} onSubmit={onSubmit} noValidate>
+      <div className={styles.honeypot} aria-hidden="true">
+        <label htmlFor="inquiry-website">Website</label>
+        <input
+          id="inquiry-website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={values.website}
+          onChange={onChange}
+        />
+      </div>
       <div className={styles.progressBlock}>
         <div className={styles.progressMeta}>
           <p className={styles.stepLabel}>
@@ -256,7 +279,7 @@ export function InquiryStepperForm() {
                     invalid={Boolean(errors.service)}
                     className={styles.control}
                   >
-                    <option value="">Select a service…</option>
+                    <option value="">Select a service...</option>
                     {serviceInterests.map((item) => (
                       <option key={item} value={item}>
                         {item}
@@ -275,7 +298,7 @@ export function InquiryStepperForm() {
                     onChange={onChange}
                     className={styles.control}
                   >
-                    <option value="">Select…</option>
+                    <option value="">Select...</option>
                     {budgetRanges.map((item) => (
                       <option key={item} value={item}>
                         {item}
@@ -358,7 +381,7 @@ export function InquiryStepperForm() {
           </button>
         ) : (
           <button type="submit" className={styles.primaryBtn} disabled={!canSubmit}>
-            {status === 'loading' ? 'Sending…' : 'Send inquiry'}
+            {status === 'loading' ? 'Sending...' : 'Send inquiry'}
             {status === 'loading' ? null : <ArrowRight size={18} aria-hidden="true" />}
           </button>
         )}

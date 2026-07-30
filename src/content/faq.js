@@ -37,7 +37,12 @@ export const faqs = [
   {
     question: 'How do you handle security and intellectual property?',
     answer:
-      'Client IP remains the client’s. We follow least-privilege access, careful secret handling, and secure development practices appropriate to the product’s risk profile.',
+      'Client IP remains the client’s from day one — source code, designs, and product materials produced under the engagement are assigned to you under the statement of work. We follow least-privilege access, careful secret handling, and secure development practices appropriate to the product’s risk profile. We do not reuse proprietary client code in other projects.',
+  },
+  {
+    question: 'How do we communicate during a project?',
+    answer:
+      'You work directly with the delivery team — typically weekly progress calls, shared written decisions, and async updates in an agreed channel. We establish overlap windows for time zones and keep escalation paths clear so nothing stalls in silence.',
   },
   {
     question: 'Do you work across time zones?',

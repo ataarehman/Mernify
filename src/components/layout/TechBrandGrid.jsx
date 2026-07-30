@@ -1,30 +1,27 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { ArrowUpRight } from 'lucide-react'
+import { homePartners } from '@/content/partners'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
 import styles from './TechBrandGrid.module.css'
 
-const MARKS = [
-  { idle: 'marquee-two-thumb1.png', hover: 'marquee-two-thumb11.png' },
-  { idle: 'marquee-two-thumb2.png', hover: 'marquee-two-thumb22.png' },
-  { idle: 'marquee-thumb55.png', hover: 'marquee-thumb5.png' },
-  { idle: 'marquee-two-thumb4.png', hover: 'marquee-two-thumb44.png' },
-  { idle: 'marquee-thumb33.png', hover: 'marquee-thumb3.png' },
-  { idle: 'marquee-thumb11.png', hover: 'marquee-thumb1.png' },
-  { idle: 'marquee-thumb66.png', hover: 'marquee-thumb6.png' },
-  { idle: 'marquee-thumb22.png', hover: 'marquee-thumb2.png' },
-]
-
 export function TechBrandGrid({
-  title = 'Built with modern product technology',
+  eyebrow = homePartners.eyebrow,
+  title = homePartners.title,
+  support = homePartners.support,
+  cta = homePartners.cta,
   className = '',
-  animated = false,
+  animated = true,
 }) {
   const rootRef = useRef(null)
   const titleRef = useRef(null)
+  const clients = homePartners.clients
 
   useRevealOnScroll(rootRef, {
     selector: animated ? '[data-fade-up]' : '[data-fade-up-disabled]',
-    start: 'top 88%',
+    start: 'top 86%',
+    y: 28,
     deps: [animated, title],
   })
   useScrubTitle(titleRef)
@@ -36,36 +33,71 @@ export function TechBrandGrid({
       data-header-theme="light"
       aria-labelledby="tech-brand-title"
     >
+      <div className={styles.atmosphere} aria-hidden="true">
+        <span className={styles.orbOne} />
+        <span className={styles.orbTwo} />
+      </div>
+
       <div className={styles.inner}>
-        <h2
-          id="tech-brand-title"
-          ref={titleRef}
-          className={styles.title}
-          {...(animated ? { 'data-fade-up': '', 'data-delay': '0' } : {})}
-        >
-          {animated
-            ? splitScrubChars(title).map(({ key, char }) => (
-                <span key={key} data-scrub-char>
-                  {char}
-                </span>
-              ))
-            : title}
-        </h2>
+        <header className={styles.header}>
+          <div className={styles.headerCopy} data-fade-up>
+            {eyebrow ? <p className={styles.eyebrow}>{eyebrow}</p> : null}
+            <h2 id="tech-brand-title" ref={titleRef} className={styles.title}>
+              {animated
+                ? splitScrubChars(title).map(({ key, char }) => (
+                    <span key={key} data-scrub-char>
+                      {char}
+                    </span>
+                  ))
+                : title}
+            </h2>
+            {support ? <p className={styles.support}>{support}</p> : null}
+          </div>
+
+          {cta ? (
+            <Link to={cta.to} className={styles.cta} data-fade-up data-delay="80">
+              {cta.label}
+              <ArrowUpRight size={17} aria-hidden="true" />
+            </Link>
+          ) : null}
+        </header>
+
         <ul className={styles.grid} role="list">
-          {MARKS.map((mark, index) => (
+          {clients.map((client, index) => (
             <li
-              key={mark.idle}
+              key={client.id}
               className={styles.item}
-              {...(animated
-                ? { 'data-fade-up': '', 'data-delay': String((index % 4) * 100 + 100) }
-                : {})}
+              data-fade-up
+              data-delay={String((index % 4) * 70 + 60)}
             >
-              <span className={styles.idle}>
-                <img src={`/assets/images/thumbs/${mark.idle}`} alt="" />
-              </span>
-              <span className={styles.hover}>
-                <img src={`/assets/images/thumbs/${mark.hover}`} alt="" />
-              </span>
+              <Link
+                to={client.to}
+                className={styles.card}
+                aria-label={`${client.name} case study`}
+              >
+                <span className={styles.idle} data-label={client.name}>
+                  <img
+                    src={client.logo}
+                    alt=""
+                    className={styles.logo}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+
+                <span className={styles.hover} aria-hidden="true">
+                  <span className={styles.preview}>
+                    <img src={client.image} alt="" loading="lazy" decoding="async" />
+                  </span>
+                  <span className={styles.hoverMeta}>
+                    <span className={styles.hoverName}>{client.name}</span>
+                    <span className={styles.hoverCategory}>{client.category}</span>
+                  </span>
+                  <span className={styles.hoverArrow}>
+                    <ArrowUpRight size={15} strokeWidth={2.25} />
+                  </span>
+                </span>
+              </Link>
             </li>
           ))}
         </ul>

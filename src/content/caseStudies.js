@@ -8,6 +8,11 @@ export const caseStudies = [
   {
     slug: 'tailorize',
     status: 'published',
+    authorship: {
+      mode: 'observed',
+      clientApproved: false,
+      note: 'Public product observation from tailorize.sa. Confirm delivery authorship with the client before claiming Mernify built this product.',
+    },
     title: 'Tailorize',
     tagline: 'AI-measured bespoke tailoring for Saudi Arabia — custom thobes and suits, smartphone-fitted.',
     industry: 'Fashion technology / Custom garments',

@@ -74,7 +74,11 @@ export function ServicesPage() {
       </section>
 
       <MediaStrip src="/assets/images/thumbs/thumbnail-ab-bg.jpg" height="tall" />
-      <TechBrandGrid animated />
+      <TechBrandGrid
+        title="Brands and products from our case studies"
+        support="Authentic logos from published work — the same projects you’ll find in our case studies."
+        animated
+      />
       <PageCta
         title="Ready to build your next digital product? Drop us a message, and let’s start engineering something reliable and scalable."
         accentWords={['message', 'scalable']}

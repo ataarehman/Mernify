@@ -5,6 +5,7 @@ import { PageMeta } from '@/components/seo/PageMeta'
 import { Button, Container, Text } from '@/components/ui'
 import { SITE } from '@/constants/site'
 import { getCaseStudyBySlug, getNextCaseStudy, publishedCaseStudies } from '@/content/caseStudies'
+import { authorshipLabel, getAuthorship } from '@/lib/authorship'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import styles from './CaseStudyPage.module.css'
 
@@ -122,6 +123,7 @@ export function CaseStudyPage() {
   }
 
   const next = getNextCaseStudy(study.slug)
+  const authorship = getAuthorship(study)
   const prev = (() => {
     const idx = publishedCaseStudies.findIndex((s) => s.slug === study.slug)
     return idx > 0 ? publishedCaseStudies[idx - 1] : publishedCaseStudies[publishedCaseStudies.length - 1]
@@ -151,6 +153,18 @@ export function CaseStudyPage() {
           </p>
           <h1 className={styles.heroTitle}>{study.title}</h1>
           <p className={styles.heroSummary}>{study.tagline}</p>
+
+          <p
+            className={styles.authorship}
+            data-mode={authorship.mode}
+            title={authorship.note}
+          >
+            {authorshipLabel(authorship.mode)}
+            {authorship.clientApproved ? ' · Client-approved' : null}
+          </p>
+          {authorship.mode !== 'delivered' ? (
+            <p className={styles.authorshipNote}>{authorship.note}</p>
+          ) : null}
 
           <div className={styles.heroMeta}>
             <div className={styles.heroMetaItem}>

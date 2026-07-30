@@ -90,3 +90,94 @@
   min-height: clamp(420px, 60vw, 760px);
   border: 0;
 }
+
+.nextSteps {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1.15rem 1.25rem;
+  border-radius: var(--mf-radius-lg);
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+}
+
+.nextTitle {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: var(--mf-weight-semibold);
+  color: var(--mf-text-primary);
+}
+
+.nextList {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.4rem;
+  color: var(--mf-text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.sla,
+.book {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--mf-text-secondary);
+  line-height: 1.5;
+}
+
+.book a {
+  color: var(--mf-color-indigo);
+  font-weight: 600;
+}
+
+.bookRow {
+  display: grid;
+  gap: 0.65rem;
+  justify-items: start;
+  margin-top: 0.35rem;
+}
+
+.bookHint {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--mf-text-secondary);
+  line-height: 1.45;
+}
+
+.mapGate {
+  display: grid;
+  place-content: center;
+  gap: 1rem;
+  min-height: clamp(420px, 60vw, 760px);
+  padding: 2rem;
+  text-align: center;
+  color: var(--mf-text-secondary);
+  background:
+    linear-gradient(160deg, rgba(248, 250, 252, 0.9), rgba(226, 232, 240, 0.95)),
+    #e8e4dc;
+}
+
+.mapGate p {
+  margin: 0 auto;
+  max-width: 22rem;
+  font-size: 0.95rem;
+  line-height: 1.55;
+}
+
+.mapBtn {
+  appearance: none;
+  border: 0;
+  cursor: pointer;
+  justify-self: center;
+  padding: 0.7rem 1.25rem;
+  border-radius: 999px;
+  background: var(--mf-color-indigo, #4f46e5);
+  color: #fff;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.mapBtn:hover {
+  filter: brightness(1.05);
+}

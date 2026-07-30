@@ -420,29 +420,56 @@
     color 0.3s ease;
 }
 
-.card:hover .thumb img,
-.card:focus-within .thumb img {
-  filter: blur(10px);
-  transform: scale(1.08);
+@media (hover: hover) and (pointer: fine) {
+  .card:hover .thumb img,
+  .card:focus-within .thumb img {
+    filter: blur(8px);
+    transform: scale(1.06);
+  }
+
+  .card:hover .glass,
+  .card:focus-within .glass {
+    opacity: 1;
+    background: rgba(15, 23, 42, 0.22);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .card:hover .glassBtn,
+  .card:focus-within .glassBtn {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .card:hover .glassBtn,
+  .card:focus-within .glassBtn {
+    background: #ffffff;
+  }
 }
 
-.card:hover .glass,
-.card:focus-within .glass {
-  opacity: 1;
-  background: rgba(15, 23, 42, 0.22);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-}
+@media (hover: none), (pointer: coarse) {
+  .glass {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(15, 23, 42, 0.55), transparent 55%);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 1rem;
+  }
 
-.card:hover .glassBtn,
-.card:focus-within .glassBtn {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
+  .glassBtn {
+    opacity: 1;
+    transform: none;
+    min-height: 2.5rem;
+    padding: 0.55rem 1rem;
+    font-size: 0.82rem;
+  }
 
-.card:hover .glassBtn,
-.card:focus-within .glassBtn {
-  background: #ffffff;
+  .thumb img {
+    filter: none !important;
+    transform: none !important;
+  }
 }
 
 .card:hover .cardTitle,
@@ -472,13 +499,20 @@
 }
 
 @media (max-width: 767px) {
-  .glass {
-    opacity: 0;
+  .body {
+    padding: 0.85rem 0.95rem 0.95rem;
   }
 
-  .card:hover .glass,
-  .card:focus-within .glass {
-    opacity: 1;
+  .cardTitle {
+    font-size: clamp(1.05rem, 4.5vw, 1.2rem);
+  }
+
+  .cardLarge .cardTitle {
+    font-size: clamp(1.1rem, 4.8vw, 1.3rem);
+  }
+
+  .excerpt {
+    font-size: 0.9rem;
   }
 }
 

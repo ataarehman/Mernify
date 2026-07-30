@@ -9,7 +9,7 @@ export function PrivacyPage() {
     <>
       <PageMeta
         title={privacyContent.title}
-        description="How Mernify handles information when you use mernify.com or contact us."
+        description="How Mernify handles information when you use mernify.co or contact us."
         canonicalPath="/privacy"
       />
       <PageHero title={privacyContent.title} support={`Last updated ${privacyContent.updated}`} />

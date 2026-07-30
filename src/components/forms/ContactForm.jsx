@@ -2,8 +2,10 @@ import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui'
 import { Field, TextInput, TextArea, SelectInput } from '@/components/forms/Field'
+import { BookCallCta } from '@/components/cta/BookCallCta'
 import { budgetRanges, serviceInterests } from '@/content/pages'
-import { submitContactForm } from '@/lib/submitContactForm'
+import { SITE } from '@/constants/site'
+import { hasContactEndpoint, submitContactForm } from '@/lib/submitContactForm'
 import styles from './ContactForm.module.css'
 
 const initial = {
@@ -15,6 +17,7 @@ const initial = {
   timeline: '',
   message: '',
   consent: false,
+  website: '',
 }
 
 function validate(values) {
@@ -41,16 +44,33 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle')
   const [statusMessage, setStatusMessage] = useState('')
+  const deliveryReady = hasContactEndpoint()
 
   const canSubmit = useMemo(() => status !== 'loading', [status])
 
   function onChange(event) {
     const { name, type, checked, value } = event.target
     setValues((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }))
+    if (errors[name]) {
+      setErrors((prev) => {
+        const next = { ...prev }
+        delete next[name]
+        return next
+      })
+    }
   }
 
   async function onSubmit(event) {
     event.preventDefault()
+
+    if (values.website?.trim()) {
+      setStatus('success')
+      setStatusMessage(`Thanks — your message was sent. ${SITE.responseSla}`)
+      setValues(initial)
+      setErrors({})
+      return
+    }
+
     const nextErrors = validate(values)
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length) {
@@ -60,7 +80,7 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
     }
 
     setStatus('loading')
-    setStatusMessage('Sending…')
+    setStatusMessage('Sending your message...')
     try {
       const result = await submitContactForm({
         name: values.name.trim(),
@@ -73,21 +93,65 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
         consent: true,
       })
       setStatus('success')
-      setStatusMessage(
-        result.mode === 'mailto'
-          ? 'Opening your email client with a draft message. If nothing opens, email hello@mernify.com directly.'
-          : 'Thanks — your message was sent. We will reply soon.',
-      )
+      if (result.mode === 'mailto') {
+        setStatusMessage(
+          `Opening your email client with a draft. If nothing opens, email ${SITE.email} directly. ${SITE.responseSla}`,
+        )
+      } else {
+        setStatusMessage(
+          `Thanks — your message was sent. ${SITE.responseSla} Next: we review context and reply with clarifying questions or a discovery-call invite.`,
+        )
+      }
       setValues(initial)
       setErrors({})
     } catch (err) {
       setStatus('error')
-      setStatusMessage(err?.message || 'Something went wrong. Please email hello@mernify.com.')
+      setStatusMessage(
+        err?.name === 'AbortError'
+          ? `The request timed out. Please try again or email ${SITE.email}.`
+          : err?.message || `Something went wrong. Please email ${SITE.email}.`,
+      )
     }
+  }
+
+  if (status === 'success') {
+    return (
+      <div className={styles.successPanel} role="status" aria-live="polite">
+        <p className={styles.successTitle}>Message sent</p>
+        <p className={styles.successText}>{statusMessage}</p>
+        <div className={styles.successActions}>
+          <Button type="button" size="lg" onClick={() => setStatus('idle')}>
+            Send another message
+          </Button>
+          <BookCallCta variant="ghost" size="lg" label="Prefer to book a call?" />
+        </div>
+      </div>
+    )
   }
 
   return (
     <form className={styles.form} onSubmit={onSubmit} noValidate>
+      {!deliveryReady && import.meta.env.DEV ? (
+        <p className={styles.configNote} role="note">
+          Form delivery is not fully configured in this environment. Submissions may open your email
+          client. Production builds should set <code>VITE_CONTACT_ENDPOINT</code> or{' '}
+          <code>VITE_WEB3FORMS_ACCESS_KEY</code>.
+        </p>
+      ) : null}
+
+      <div className={styles.honeypot} aria-hidden="true">
+        <label htmlFor="website">Website</label>
+        <input
+          id="website"
+          name="website"
+          type="text"
+          tabIndex={-1}
+          autoComplete="off"
+          value={values.website}
+          onChange={onChange}
+        />
+      </div>
+
       <div className={styles.grid}>
         <Field id="name" label="Name" required error={errors.name}>
           <TextInput
@@ -97,6 +161,8 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             value={values.name}
             onChange={onChange}
             invalid={Boolean(errors.name)}
+            maxLength={120}
+            disabled={status === 'loading'}
           />
         </Field>
         <Field id="email" label="Business email" required error={errors.email}>
@@ -108,6 +174,8 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             value={values.email}
             onChange={onChange}
             invalid={Boolean(errors.email)}
+            maxLength={160}
+            disabled={status === 'loading'}
           />
         </Field>
         <Field id="company" label="Company" error={errors.company}>
@@ -117,6 +185,8 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             autoComplete="organization"
             value={values.company}
             onChange={onChange}
+            maxLength={160}
+            disabled={status === 'loading'}
           />
         </Field>
         <Field id="service" label="Service interest" required error={errors.service}>
@@ -126,8 +196,9 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             value={values.service}
             onChange={onChange}
             invalid={Boolean(errors.service)}
+            disabled={status === 'loading'}
           >
-            <option value="">Select…</option>
+            <option value="">Select...</option>
             {serviceInterests.map((item) => (
               <option key={item} value={item}>
                 {item}
@@ -136,8 +207,14 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
           </SelectInput>
         </Field>
         <Field id="budget" label="Budget range" error={errors.budget}>
-          <SelectInput id="budget" name="budget" value={values.budget} onChange={onChange}>
-            <option value="">Select…</option>
+          <SelectInput
+            id="budget"
+            name="budget"
+            value={values.budget}
+            onChange={onChange}
+            disabled={status === 'loading'}
+          >
+            <option value="">Select...</option>
             {budgetRanges.map((item) => (
               <option key={item} value={item}>
                 {item}
@@ -152,6 +229,8 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             value={values.timeline}
             onChange={onChange}
             placeholder="e.g. discovery this month, MVP in Q4"
+            maxLength={120}
+            disabled={status === 'loading'}
           />
         </Field>
       </div>
@@ -164,16 +243,20 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
           onChange={onChange}
           invalid={Boolean(errors.message)}
           placeholder="Goals, users, current state, and what success looks like."
+          maxLength={5000}
+          disabled={status === 'loading'}
         />
       </Field>
 
-      <label className={styles.consent}>
+      <label className={styles.consent} htmlFor="consent">
         <input
+          id="consent"
           type="checkbox"
           name="consent"
           checked={values.consent}
           onChange={onChange}
           aria-invalid={errors.consent ? 'true' : undefined}
+          disabled={status === 'loading'}
         />
         <span>
           I agree to be contacted about this inquiry. See the{' '}
@@ -187,9 +270,10 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
       ) : null}
 
       <div className={styles.actions}>
-        <Button type="submit" size="lg" disabled={!canSubmit}>
-          {status === 'loading' ? 'Sending…' : 'Send message'}
+        <Button type="submit" size="lg" disabled={!canSubmit} aria-busy={status === 'loading'}>
+          {status === 'loading' ? 'Sending...' : 'Send message'}
         </Button>
+        <BookCallCta variant="ghost" size="lg" label="Book a Demo Call" />
       </div>
 
       <div

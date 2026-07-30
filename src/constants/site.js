@@ -27,8 +27,20 @@ export const SITE = {
   positioning:
     'Focused product-engineering partner for startups, growing businesses, and enterprises.',
   email: 'hello@mernify.com',
-  url: 'https://mernify.com',
+  url: 'https://mernify.co',
   defaultTitle: 'Mernify — We Design, Engineer & Scale Digital Products',
   defaultDescription:
     'Mernify helps startups, growing businesses, and enterprises build reliable web, mobile, SaaS, and AI-powered products that drive growth and create measurable business value.',
+  /** Default share image (1200×630). */
+  ogImage: '/og-image.jpg',
+  /** Optional Calendly (or equivalent) booking URL — set via VITE_CALENDLY_URL */
+  calendlyUrl: import.meta.env.VITE_CALENDLY_URL || '',
+  /** GA4 measurement id — set via VITE_GA_MEASUREMENT_ID */
+  gaId: import.meta.env.VITE_GA_MEASUREMENT_ID || '',
+  social: {
+    linkedin: 'https://www.linkedin.com/company/mernify',
+    facebook: 'https://www.facebook.com/mernify',
+    instagram: 'https://www.instagram.com/mernify',
+  },
+  responseSla: 'We typically reply within 1 business day.',
 }

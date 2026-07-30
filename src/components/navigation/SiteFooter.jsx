@@ -4,7 +4,7 @@ import { ArrowUpRight, ChevronRight } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container, LogoMark } from '@/components/ui'
-import { footerLegal, footerNav, footerSocial } from '@/content/navigation'
+import { footerLegal, footerNav, footerServices, footerSocial } from '@/content/navigation'
 import { SITE } from '@/constants/site'
 import { useFadeUp } from '@/hooks/useFadeUp'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
@@ -166,7 +166,7 @@ export function SiteFooter() {
                         href={item.href}
                         className={styles.socialLink}
                         target="_blank"
-                        rel="noreferrer"
+                        rel="noopener noreferrer"
                         aria-label={item.label}
                       >
                         <span className={styles.activeMedia}>
@@ -192,6 +192,13 @@ export function SiteFooter() {
                     <span>{item.label}</span>
                     <ChevronRight size={18} strokeWidth={2.25} aria-hidden="true" />
                   </Link>
+                </li>
+              ))}
+            </ul>
+            <ul className={styles.serviceLinks} aria-label="Services">
+              {footerServices.map((item) => (
+                <li key={item.to}>
+                  <Link to={item.to}>{item.label}</Link>
                 </li>
               ))}
             </ul>

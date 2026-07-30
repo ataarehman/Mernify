@@ -15,7 +15,9 @@
   background:
     radial-gradient(ellipse at 20% 40%, rgba(21, 198, 226, 0.12), transparent 55%),
     radial-gradient(ellipse at 85% 30%, rgba(79, 70, 229, 0.1), transparent 50%);
-  filter: blur(6px);
+  filter: blur(4px);
+  contain: paint;
+  transform: translateZ(0);
 }
 
 .header {

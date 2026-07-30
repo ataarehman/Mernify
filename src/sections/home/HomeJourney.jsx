@@ -15,6 +15,7 @@ import { Container } from '@/components/ui'
 import { homeJourney } from '@/content/home'
 import { processSteps } from '@/content/process'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
+import { useInView } from '@/hooks/useInView'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
 import styles from './HomeJourney.module.css'
 
@@ -44,6 +45,7 @@ export function HomeJourney() {
   const [activeChapter, setActiveChapter] = useState(0)
   const [activeStep, setActiveStep] = useState(0)
   const { prefersReducedMotion } = useReducedMotion()
+  const inView = useInView(rootRef, { rootMargin: '18% 0px' })
   const chapters = homeJourney.chapters
   const active = chapters[activeChapter] || chapters[0]
 
@@ -202,6 +204,7 @@ export function HomeJourney() {
       ref={rootRef}
       className={styles.section}
       data-header-theme="dark"
+      data-atmosphere-active={inView ? 'true' : 'false'}
       id="journey"
       aria-labelledby="home-journey-title"
     >

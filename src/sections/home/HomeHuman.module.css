@@ -151,48 +151,46 @@
 .thumb img {
   display: block;
   width: 100%;
-  height: clamp(320px, 42vw, 600px);
+  height: clamp(240px, 48vw, 560px);
   object-fit: cover;
   border-radius: 0.5rem;
   filter: blur(0);
-  transition: all 0.23s;
-}
-
-.card:hover .thumb img {
-  filter: blur(10px);
-  transform: scale(1.08);
+  transition: transform 0.35s ease, filter 0.35s ease;
 }
 
 .subtitle {
   position: absolute;
-  top: 2.8125rem;
-  left: 2.8125rem;
+  top: clamp(1.1rem, 3vw, 2.8125rem);
+  left: clamp(1.1rem, 3vw, 2.8125rem);
   z-index: 2;
-  font-size: 1.25rem;
+  font-size: clamp(0.95rem, 2.2vw, 1.25rem);
   font-weight: 600;
   color: #ffffff;
-  opacity: 0;
-  transform: translateY(-72px);
+  /* Visible by default for touch; hover media below animates on fine pointers */
+  opacity: 1;
+  transform: none;
   transition: 0.4s ease-in-out;
   pointer-events: none;
+  text-shadow: 0 1px 12px rgba(0, 0, 0, 0.35);
 }
 
 .cardTitle {
   position: absolute;
-  bottom: 2.8125rem;
-  left: 2.8125rem;
+  bottom: clamp(1.1rem, 3vw, 2.8125rem);
+  left: clamp(1.1rem, 3vw, 2.8125rem);
   z-index: 2;
   margin: 0;
-  max-width: calc(100% - 5.5rem);
+  max-width: calc(100% - 2.5rem);
   font-family: var(--mf-font-display);
-  font-size: clamp(2rem, 3.2vw, 3.75rem);
+  font-size: clamp(1.55rem, 4.5vw, 3.75rem);
   font-weight: var(--mf-weight-semibold);
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: #ffffff;
-  opacity: 0;
-  transform: translateY(110%);
+  opacity: 1;
+  transform: none;
   transition: 0.4s ease-in-out;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.4);
 }
 
 .cardTitle a {
@@ -200,23 +198,56 @@
   text-decoration: none;
 }
 
-.card:hover .subtitle,
-.card:hover .cardTitle {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .social {
   position: absolute;
-  top: 47%;
-  right: -13.75rem;
+  top: auto;
+  bottom: clamp(1rem, 3vw, 1.5rem);
+  right: clamp(0.75rem, 2vw, 1.25rem);
   z-index: 3;
-  transform: translateX(5.3125rem);
+  transform: none;
   transition: 0.4s ease-in-out;
 }
 
-.card:hover .social {
-  transform: translateX(0);
+@media (hover: hover) and (pointer: fine) {
+  .subtitle {
+    opacity: 0;
+    transform: translateY(-72px);
+    text-shadow: none;
+  }
+
+  .cardTitle {
+    opacity: 0;
+    transform: translateY(110%);
+    text-shadow: none;
+  }
+
+  .social {
+    top: 47%;
+    bottom: auto;
+    right: -13.75rem;
+    transform: translateX(5.3125rem);
+  }
+
+  .card:hover .thumb img {
+    filter: blur(8px);
+    transform: scale(1.06);
+  }
+
+  .card:hover .subtitle,
+  .card:hover .cardTitle {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .card:hover .social {
+    transform: translateX(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .thumb img {
+    height: clamp(320px, 42vw, 600px);
+  }
 }
 
 .social ul {
@@ -224,7 +255,19 @@
   margin: 0;
   padding: 0;
   list-style: none;
-  rotate: -90deg;
+  rotate: 0deg;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  justify-content: flex-end;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .social ul {
+    rotate: -90deg;
+    flex-wrap: nowrap;
+    gap: 0;
+    justify-content: flex-start;
+  }
 }
 
 .social a {
@@ -269,17 +312,47 @@
 
 @media (max-width: 1399px) {
   .subtitle {
-    left: 1.25rem;
+    left: clamp(1rem, 2.5vw, 1.25rem);
   }
 
   .cardTitle {
-    left: 1.25rem;
-    font-size: 2.75rem;
+    left: clamp(1rem, 2.5vw, 1.25rem);
+    font-size: clamp(1.55rem, 4vw, 2.75rem);
   }
 
   .social a {
     padding: 0.25rem 0.625rem 0.25rem 1.8125rem;
     font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .badge {
+    width: 100%;
+    padding: 1.25rem;
+  }
+
+  .avatars {
+    width: 12rem;
+    margin-bottom: 1.35rem;
+  }
+
+  .title {
+    font-size: clamp(1.55rem, 6.5vw, 1.9rem);
+  }
+
+  .cta {
+    width: 100%;
+  }
+
+  .ctaInner {
+    min-height: 3.25rem;
+    padding: 1rem 3.75rem 1rem 1.15rem;
+  }
+
+  .social a {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.7rem 0.3rem 1.5rem;
   }
 }
 

@@ -1,9 +1,10 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useMemo, useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { PageMeta } from '@/components/seo/PageMeta'
+import { JsonLd } from '@/components/seo/JsonLd'
 import { Button, Container } from '@/components/ui'
 import { ClipReveal } from '@/components/motion/ClipReveal'
 import { MediaStrip } from '@/components/layout/MediaStrip'
@@ -11,6 +12,7 @@ import { PageCta } from '@/components/layout/PageCta'
 import { TechBrandGrid } from '@/components/layout/TechBrandGrid'
 import { getServiceBySlug } from '@/content/services'
 import { getServiceImage, PROCESS_ICONS } from '@/lib/templateMedia'
+import { breadcrumbSchema, serviceSchema } from '@/lib/schema'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
 import { useCharEntrance, splitChars } from '@/hooks/useCharEntrance'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
@@ -100,6 +102,22 @@ export function ServiceDetailPage() {
     return undefined
   }, [slug, prefersReducedMotion])
 
+  const structuredData = useMemo(() => {
+    if (!service) return null
+    return [
+      serviceSchema({
+        title: service.title,
+        description: service.description,
+        slug: service.slug,
+      }),
+      breadcrumbSchema([
+        { name: 'Home', path: '/' },
+        { name: 'Services', path: '/services' },
+        { name: service.title, path: `/services/${service.slug}` },
+      ]),
+    ]
+  }, [service])
+
   if (!service) {
     return <NotFoundPage />
   }
@@ -115,6 +133,7 @@ export function ServiceDetailPage() {
         description={service.description}
         canonicalPath={`/services/${service.slug}`}
       />
+      {structuredData ? <JsonLd id="mf-service-schema" data={structuredData} /> : null}
 
       <section className={styles.banner} data-header-theme="light" aria-labelledby="service-title">
         <Container width="wide">
@@ -292,7 +311,11 @@ export function ServiceDetailPage() {
         </Container>
       </section>
 
-      <TechBrandGrid title={`Technology & tools behind ${service.title}`} animated />
+      <TechBrandGrid
+        title={`Selected work relevant to ${service.title}`}
+        support="Published case studies from products and brands we’ve helped design, build, and scale."
+        animated
+      />
 
       <PageCta
         title="Ready to build your next digital product? Drop us a message, and let’s start engineering something reliable and scalable."

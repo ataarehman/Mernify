@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
@@ -32,8 +32,29 @@ const FINAL_CLIPS = [
 
 const ORDER = [[0], [1, 3], [2, 4, 6], [5, 7], [8]]
 
+function useSimpleReveal() {
+  const [simple, setSimple] = useState(() => {
+    if (typeof window === 'undefined') return false
+    return (
+      window.matchMedia('(pointer: coarse)').matches ||
+      window.matchMedia('(max-width: 900px)').matches
+    )
+  })
+
+  useLayoutEffect(() => {
+    const mq = window.matchMedia('(pointer: coarse), (max-width: 900px)')
+    const sync = () => setSimple(mq.matches)
+    sync()
+    mq.addEventListener('change', sync)
+    return () => mq.removeEventListener('change', sync)
+  }, [])
+
+  return simple
+}
+
 /**
- * Template-style 9-tile clip reveal (mernify-web custom-gsap §08).
+ * Template-style 9-tile clip reveal on desktop.
+ * Falls back to a single fade on touch / smaller viewports for scroll perf.
  */
 export function ClipReveal({
   src,
@@ -44,17 +65,37 @@ export function ClipReveal({
 }) {
   const rootRef = useRef(null)
   const { prefersReducedMotion } = useReducedMotion()
+  const simple = useSimpleReveal()
 
   useLayoutEffect(() => {
     const root = rootRef.current
     if (!root || !src) return undefined
 
-    const masks = Array.from(root.querySelectorAll('[data-clip-mask]'))
-
-    if (prefersReducedMotion) {
-      gsap.set(masks, { clipPath: (i) => FINAL_CLIPS[i] })
+    if (prefersReducedMotion || simple) {
+      const source = root.querySelector('[data-clip-source]')
+      if (source) {
+        gsap.set(source, { opacity: 1 })
+      }
+      if (!prefersReducedMotion && simple && source) {
+        const ctx = gsap.context(() => {
+          gsap.fromTo(
+            source,
+            { opacity: 0, scale: 1.04 },
+            {
+              opacity: 1,
+              scale: 1,
+              duration: 0.85,
+              ease: 'power2.out',
+              scrollTrigger: { trigger: root, start, once: true },
+            },
+          )
+        }, root)
+        return () => ctx.revert()
+      }
       return undefined
     }
+
+    const masks = Array.from(root.querySelectorAll('[data-clip-mask]'))
 
     const ctx = gsap.context(() => {
       gsap.set(masks, { clipPath: (i) => INITIAL_CLIPS[i] })
@@ -84,25 +125,38 @@ export function ClipReveal({
     }, root)
 
     return () => ctx.revert()
-  }, [src, start, prefersReducedMotion])
+  }, [src, start, prefersReducedMotion, simple])
 
   return (
     <div
       ref={rootRef}
-      className={[styles.root, rounded ? styles.rounded : '', className]
+      className={[
+        styles.root,
+        rounded ? styles.rounded : '',
+        simple ? styles.simple : '',
+        className,
+      ]
         .filter(Boolean)
         .join(' ')}
     >
-      <img className={styles.source} src={src} alt={alt} />
-      {Array.from({ length: 9 }).map((_, index) => (
-        <div
-          key={index}
-          data-clip-mask
-          className={styles.mask}
-          style={{ backgroundImage: `url(${src})` }}
-          aria-hidden="true"
-        />
-      ))}
+      <img
+        data-clip-source
+        className={styles.source}
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+      />
+      {!simple &&
+        Array.from({ length: 9 }).map((_, index) => (
+          <div
+            key={index}
+            data-clip-mask
+            className={styles.mask}
+            style={{ backgroundImage: `url(${src})` }}
+            aria-hidden="true"
+          />
+        ))}
     </div>
   )
 }

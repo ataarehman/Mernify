@@ -20,6 +20,10 @@
   pointer-events: none;
 }
 
+.simple .source {
+  opacity: 0;
+}
+
 .mask {
   position: absolute;
   inset: 0;
@@ -27,14 +31,19 @@
   background-position: center;
   background-repeat: no-repeat;
   border-radius: inherit;
+  /* Avoid continuous layout/paint work from 9 full-bleed layers */
+  contain: paint;
+  will-change: clip-path;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .source {
+  .source,
+  .simple .source {
     opacity: 1;
   }
 
   .mask {
     display: none;
+    will-change: auto;
   }
 }

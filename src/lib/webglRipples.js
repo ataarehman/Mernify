@@ -362,8 +362,22 @@ export function createWebGLRipples(el, options) {
       resize()
       updateTextures()
       render()
+      rafId = requestAnimationFrame(step)
+    } else {
+      rafId = 0
     }
-    rafId = requestAnimationFrame(step)
+  }
+
+  let visibleInViewport = true
+
+  function applyRunning(next) {
+    if (destroyed) return
+    const shouldRun = Boolean(next) && document.visibilityState !== 'hidden'
+    if (shouldRun === running) return
+    running = shouldRun
+    if (running && !rafId) {
+      rafId = requestAnimationFrame(step)
+    }
   }
 
   function pointerToLocal(clientX, clientY) {
@@ -375,21 +389,25 @@ export function createWebGLRipples(el, options) {
   }
 
   function onPointerMove(event) {
-    if (destroyed || event.pointerType === 'touch') return
+    if (destroyed || !running || event.pointerType === 'touch') return
     const { x, y } = pointerToLocal(event.clientX, event.clientY)
     if (x < 0 || y < 0 || x > el.clientWidth || y > el.clientHeight) return
     dropAt(x, y, 0.03, 0.01)
   }
 
   function onPointerDown(event) {
-    if (destroyed || event.pointerType === 'touch') return
+    if (destroyed || !running || event.pointerType === 'touch') return
     const { x, y } = pointerToLocal(event.clientX, event.clientY)
     if (x < 0 || y < 0 || x > el.clientWidth || y > el.clientHeight) return
     dropAt(x, y, 0.09, 0.14)
   }
 
   function onVisibility() {
-    running = document.visibilityState !== 'hidden'
+    if (document.visibilityState === 'hidden') {
+      applyRunning(false)
+    } else if (visibleInViewport) {
+      applyRunning(true)
+    }
   }
 
   const image = new Image()
@@ -438,11 +456,16 @@ export function createWebGLRipples(el, options) {
   rafId = requestAnimationFrame(step)
 
   return {
+    setRunning(next) {
+      visibleInViewport = Boolean(next)
+      applyRunning(next)
+    },
     destroy() {
       if (destroyed) return
       destroyed = true
       running = false
       cancelAnimationFrame(rafId)
+      rafId = 0
       interactiveEl.removeEventListener('pointermove', onPointerMove)
       interactiveEl.removeEventListener('pointerdown', onPointerDown)
       window.removeEventListener('resize', resize)

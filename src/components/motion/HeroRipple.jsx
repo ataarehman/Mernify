@@ -8,6 +8,7 @@ const IMAGE_URL = '/assets/images/shapes/banner-shape.png'
 /**
  * Hero background with the same mouse-following WebGL liquid ripples
  * used by mernify-web (`ripple-2.js` + `.ripple-image`).
+ * Pauses the RAF loop when the hero leaves the viewport.
  */
 export function HeroRipple({ interactiveRef }) {
   const layerRef = useRef(null)
@@ -22,12 +23,16 @@ export function HeroRipple({ interactiveRef }) {
     const finePointer = window.matchMedia('(pointer: fine)').matches
     if (!finePointer || !canUseWebGLRipples()) return undefined
 
+    // Slightly lower resolution on mid/high DPR to keep scroll smooth.
+    const dpr = Math.min(window.devicePixelRatio || 1, 2)
+    const resolution = dpr > 1.5 ? 320 : 400
+
     let engine = null
     let cancelled = false
     try {
       engine = createWebGLRipples(layer, {
         imageUrl: IMAGE_URL,
-        resolution: 400,
+        resolution,
         perturbance: 0.03,
         interactiveEl: interactiveRef?.current || layer.parentElement || layer,
         onReady: () => {
@@ -45,8 +50,17 @@ export function HeroRipple({ interactiveRef }) {
 
     engineRef.current = engine
 
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        engine.setRunning(Boolean(entry?.isIntersecting))
+      },
+      { rootMargin: '12% 0px', threshold: 0 },
+    )
+    io.observe(layer)
+
     return () => {
       cancelled = true
+      io.disconnect()
       engine.destroy()
       engineRef.current = null
       setWebglReady(false)
@@ -55,7 +69,6 @@ export function HeroRipple({ interactiveRef }) {
 
   return (
     <div ref={layerRef} className={styles.ripple} aria-hidden="true">
-      {/* Static fallback — hidden once WebGL canvas paints successfully */}
       <img
         src={IMAGE_URL}
         alt=""

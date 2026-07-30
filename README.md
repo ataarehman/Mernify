@@ -34,15 +34,23 @@ npm run lint
 
 ### Contact form
 
-Set an optional endpoint in `.env`:
+Set delivery in `.env` / `.env.production` (see `.env.example`):
 
 ```bash
-VITE_CONTACT_ENDPOINT=https://your-form-backend.example/api/contact
+# Preferred: Cloudflare Worker URL
+VITE_CONTACT_ENDPOINT=https://mernify-contact.YOUR_SUBDOMAIN.workers.dev
+
+# Or Web3Forms access key
+# VITE_WEB3FORMS_ACCESS_KEY=...
 ```
 
-Without an endpoint, submit opens a **mailto** draft to `hello@mernify.com` (documented fallback — nothing pretends to be a live API).
+Without an endpoint, submit opens a **mailto** draft to `hello@mernify.com`.
 
-See `.env.example`.
+**Production deployment:** see [`deploy/DEPLOYMENT.md`](./deploy/DEPLOYMENT.md).
+
+```bash
+npm run check:ready   # build + readiness checks
+```
 
 ## Architecture
 

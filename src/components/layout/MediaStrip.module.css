@@ -11,9 +11,9 @@
 
 .image {
   position: absolute;
-  inset: -18% 0;
+  inset: -14% 0;
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  will-change: transform;
+  transform: translateZ(0);
 }

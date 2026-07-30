@@ -113,9 +113,22 @@ export function SiteHeader() {
     const instance = lenis?.current
     if (menuOpen) instance?.stop?.()
     else instance?.start?.()
+
+    const main = document.getElementById('main-content')
+    const footer = document.querySelector('footer')
+    if (menuOpen) {
+      main?.setAttribute('inert', '')
+      footer?.setAttribute('inert', '')
+    } else {
+      main?.removeAttribute('inert')
+      footer?.removeAttribute('inert')
+    }
+
     return () => {
       document.documentElement.classList.remove('mf-nav-open')
       instance?.start?.()
+      main?.removeAttribute('inert')
+      footer?.removeAttribute('inert')
     }
   }, [menuOpen, lenis])
 
@@ -425,7 +438,7 @@ export function SiteHeader() {
                   key={item.id}
                   href={item.href}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   aria-label={item.label}
                 >
                   {Icon ? <Icon /> : null}

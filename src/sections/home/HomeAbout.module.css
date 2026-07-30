@@ -33,11 +33,26 @@
 }
 
 .thumbOne {
-  min-height: clamp(280px, 40vw, 520px);
+  min-height: clamp(220px, 48vw, 520px);
 }
 
 .thumbTwo {
-  min-height: clamp(200px, 28vw, 320px);
+  min-height: clamp(160px, 36vw, 320px);
+}
+
+@media (max-width: 599px) {
+  .title {
+    font-size: clamp(1.5rem, 7vw, 1.85rem);
+  }
+
+  .paragraph {
+    font-size: 1.02rem;
+  }
+
+  .ctaInner {
+    min-height: 3.25rem;
+    padding: 1rem 3.75rem 1rem 1.15rem;
+  }
 }
 
 .scrubChar {

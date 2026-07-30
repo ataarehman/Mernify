@@ -79,6 +79,26 @@ export default defineConfig({
   build: {
     target: 'es2020',
     cssCodeSplit: true,
-    sourcemap: true,
+    // Do not expose source maps in production (audit PF-002 / SEC-001)
+    sourcemap: false,
+    modulePreload: { polyfill: false },
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('node_modules/gsap')) return 'gsap'
+          if (id.includes('node_modules/lenis')) return 'lenis'
+          if (id.includes('node_modules/lucide-react')) return 'icons'
+          if (
+            id.includes('node_modules/react-dom') ||
+            id.includes('node_modules/react-router') ||
+            id.includes('node_modules/react/')
+          ) {
+            return 'react-vendor'
+          }
+          return undefined
+        },
+      },
+    },
+    chunkSizeWarningLimit: 600,
   },
 })

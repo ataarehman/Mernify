@@ -8,11 +8,13 @@ gsap.registerPlugin(ScrollTrigger)
 /**
  * Template `.tw-itm-title.tw-itm-anim` scrub: chars rise from dimmed → full.
  * Expects [data-scrub-char] children inside the title element.
+ * On coarse pointers / narrow screens uses a one-shot fade instead of scrub
+ * to avoid ScrollTrigger jank while scrolling.
  */
 export function useScrubTitle(titleRef, {
   start = 'top 92%',
   end = 'top 60%',
-  scrub = 1,
+  scrub = 0.55,
 } = {}) {
   const { prefersReducedMotion } = useReducedMotion()
 
@@ -28,7 +30,31 @@ export function useScrubTitle(titleRef, {
       return undefined
     }
 
+    const light =
+      window.matchMedia('(pointer: coarse)').matches ||
+      window.matchMedia('(max-width: 900px)').matches
+
     const ctx = gsap.context(() => {
+      if (light) {
+        gsap.fromTo(
+          chars,
+          { opacity: 0.35, y: 10 },
+          {
+            opacity: 1,
+            y: 0,
+            ease: 'power2.out',
+            duration: 0.55,
+            stagger: 0.012,
+            scrollTrigger: {
+              trigger: title,
+              start: 'top 90%',
+              once: true,
+            },
+          },
+        )
+        return
+      }
+
       gsap.fromTo(
         chars,
         { opacity: 0.3, x: -7 },

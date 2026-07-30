@@ -10,6 +10,8 @@ html {
   background-color: var(--mf-color-navy);
   overflow-x: clip;
   max-width: 100%;
+  /* Native smooth scroll on touch / when Lenis is disabled */
+  scroll-behavior: smooth;
 }
 
 html.lenis,

@@ -18,10 +18,22 @@ export function MotionProvider({ children }) {
       return undefined
     }
 
+    // Skip smooth scroll on touch / coarse pointers (audit PF-005 / A11Y-006)
+    const coarse =
+      typeof window !== 'undefined' &&
+      window.matchMedia('(pointer: coarse)').matches
+    if (coarse) {
+      document.documentElement.classList.remove('lenis', 'lenis-smooth')
+      ScrollTrigger.refresh()
+      return undefined
+    }
+
     const lenis = new Lenis({
-      duration: 1.15,
+      duration: 1.05,
       smoothWheel: true,
       touchMultiplier: 1.2,
+      // Slightly softer sync keeps wheel + ST updates feeling less sticky.
+      syncTouch: false,
     })
 
     lenisRef.current = lenis
@@ -34,7 +46,8 @@ export function MotionProvider({ children }) {
     }
 
     gsap.ticker.add(tickerCallback)
-    gsap.ticker.lagSmoothing(0)
+    // Allow GSAP to recover after long frames instead of compounding jank.
+    gsap.ticker.lagSmoothing(500)
 
     ScrollTrigger.refresh()
 

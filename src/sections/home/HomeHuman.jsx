@@ -105,7 +105,7 @@ export function HomeHuman() {
                           <a
                             href={social.href}
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             onClick={(event) => event.stopPropagation()}
                           >
                             {social.label}

@@ -17,8 +17,15 @@
 .orbTwo {
   position: absolute;
   border-radius: 50%;
-  filter: blur(8px);
+  filter: blur(6px);
+  contain: paint;
   animation: floatSoft 10s ease-in-out infinite;
+}
+
+.section[data-atmosphere-active='false'] .orbOne,
+.section[data-atmosphere-active='false'] .orbTwo,
+.section[data-atmosphere-active='false'] .ring {
+  animation-play-state: paused;
 }
 
 .orbOne {
@@ -263,6 +270,10 @@
   line-height: 1.55;
 }
 
+.bookWrap {
+  margin-top: 0.35rem;
+}
+
 .formColumn {
   width: 100%;
   max-width: 32.5rem;
@@ -342,6 +353,21 @@
   50% {
     transform: scale(1.08);
     opacity: 0.9;
+  }
+}
+
+@media (max-width: 767px) {
+  .section {
+    padding: clamp(3.25rem, 9vw, 4.5rem) 0;
+  }
+
+  .emailCard {
+    backdrop-filter: blur(10px) saturate(140%);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+  }
+
+  .title {
+    font-size: clamp(1.55rem, 6.5vw, 2rem);
   }
 }
 

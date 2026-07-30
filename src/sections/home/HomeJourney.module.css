@@ -13,7 +13,9 @@
   inset: auto -10% 35% 35%;
   height: 40%;
   background: radial-gradient(ellipse at center, rgba(79, 70, 229, 0.2), transparent 60%);
-  filter: blur(12px);
+  filter: blur(8px);
+  contain: paint;
+  transform: translateZ(0);
 }
 
 .header {
@@ -490,6 +492,11 @@
   transform: scaleX(0);
   transform-origin: left center;
   animation: pathGlow 4.5s linear infinite;
+}
+
+.section[data-atmosphere-active='false'] .pathFill,
+.section[data-atmosphere-active='false'] .nodePulse {
+  animation-play-state: paused;
 }
 
 @media (max-width: 1099px) {

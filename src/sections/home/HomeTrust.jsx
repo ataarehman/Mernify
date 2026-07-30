@@ -1,4 +1,4 @@
-import { useLayoutEffect, useRef } from 'react'
+import { useEffect, useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import gsap from 'gsap'
@@ -6,6 +6,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container } from '@/components/ui'
 import { homePartners } from '@/content/partners'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
+import { useInView } from '@/hooks/useInView'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
 import styles from './HomeTrust.module.css'
 
@@ -16,11 +17,11 @@ function PartnerCard({ client }) {
     <li className={styles.item}>
       <Link to={client.to} className={styles.card} aria-label={`${client.name} case study`}>
         <span className={styles.idle}>
-          <img src={client.logo} alt="" className={styles.logo} />
+          <img src={client.logo} alt="" className={styles.logo} loading="lazy" decoding="async" />
         </span>
         <span className={styles.hover} aria-hidden="true">
           <span className={styles.preview}>
-            <img src={client.image} alt="" />
+            <img src={client.image} alt="" loading="lazy" decoding="async" />
           </span>
           <span className={styles.hoverMeta}>
             <span className={styles.hoverName}>{client.name}</span>
@@ -38,40 +39,42 @@ function PartnerCard({ client }) {
 /**
  * Seamless infinite marquee:
  * Duplicate the sequence into two identical groups and animate by the
- * measured width of ONE group (including item gaps). Avoids the classic
- * flex `gap` + `translateX(-50%)` seam that leaves a visible empty reset.
+ * measured width of ONE group (including item gaps). Pauses when offscreen.
  */
 function MarqueeRow({ clients, direction = 'left', duration = 42 }) {
+  const wrapRef = useRef(null)
   const trackRef = useRef(null)
   const groupRef = useRef(null)
+  const tweenRef = useRef(null)
+  const inViewRef = useRef(true)
   const { prefersReducedMotion } = useReducedMotion()
+  const inView = useInView(wrapRef, { rootMargin: '15% 0px' })
+  inViewRef.current = inView
 
   useLayoutEffect(() => {
     const track = trackRef.current
     const group = groupRef.current
     if (!track || !group || prefersReducedMotion) return undefined
 
-    let tween
-
     const apply = () => {
       const distance = group.offsetWidth
       if (!distance) return
 
-      tween?.kill()
-      // Include the trailing gap after the last card in the measured group
-      // (offsetWidth of a flex row already includes internal gaps only;
-      // the gap after the last item is the group's margin-inline-end).
+      tweenRef.current?.kill()
       const shift = distance
       const from = direction === 'right' ? -shift : 0
       const to = direction === 'right' ? 0 : -shift
 
-      gsap.set(track, { x: from })
-      tween = gsap.to(track, {
+      gsap.set(track, { x: from, force3D: true })
+      tweenRef.current = gsap.to(track, {
         x: to,
         duration,
         ease: 'none',
         repeat: -1,
+        force3D: true,
       })
+
+      if (!inViewRef.current) tweenRef.current.pause()
     }
 
     apply()
@@ -79,26 +82,25 @@ function MarqueeRow({ clients, direction = 'left', duration = 42 }) {
     ro.observe(group)
     window.addEventListener('resize', apply)
 
-    const onEnter = () => tween?.pause()
-    const onLeave = () => tween?.resume()
-    const wrap = track.parentElement
-    wrap?.addEventListener('mouseenter', onEnter)
-    wrap?.addEventListener('mouseleave', onLeave)
-
     return () => {
-      tween?.kill()
+      tweenRef.current?.kill()
+      tweenRef.current = null
       ro.disconnect()
       window.removeEventListener('resize', apply)
-      wrap?.removeEventListener('mouseenter', onEnter)
-      wrap?.removeEventListener('mouseleave', onLeave)
     }
   }, [clients, direction, duration, prefersReducedMotion])
 
-  // Keep each clone segment comfortably wider than typical viewports.
+  useEffect(() => {
+    const tween = tweenRef.current
+    if (!tween) return
+    if (inView) tween.resume()
+    else tween.pause()
+  }, [inView])
+
   const sequence = clients.length < 8 ? [...clients, ...clients] : clients
 
   return (
-    <div className={styles.trackWrap}>
+    <div ref={wrapRef} className={styles.trackWrap}>
       <ul ref={trackRef} className={styles.track} role="list">
         <li className={styles.group} ref={groupRef}>
           <ul className={styles.groupList}>
@@ -124,8 +126,6 @@ export function HomeTrust() {
   const titleRef = useRef(null)
   const { prefersReducedMotion } = useReducedMotion()
   const { clients } = homePartners
-  // Full set on both rails (reversed on the second) keeps wide viewports dense
-  // and avoids sparse “end of list” voids between clones.
   const streamA = clients
   const streamB = [...clients].reverse()
 

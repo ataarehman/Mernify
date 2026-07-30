@@ -1,15 +1,19 @@
 import { useRef } from 'react'
 import { Mail, MessageSquareText, ShieldCheck, Timer } from 'lucide-react'
 import { Container } from '@/components/ui'
+import { BookCallCta } from '@/components/cta/BookCallCta'
 import { InquiryStepperForm } from '@/components/forms/InquiryStepperForm'
 import { homeInquiry } from '@/content/home'
+import { SITE } from '@/constants/site'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
+import { useInView } from '@/hooks/useInView'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
 import styles from './HomeInquiry.module.css'
 
 export function HomeInquiry() {
   const rootRef = useRef(null)
   const titleRef = useRef(null)
+  const inView = useInView(rootRef, { rootMargin: '20% 0px' })
 
   useRevealOnScroll(rootRef, { selector: '[data-fade-up]', start: 'top 86%', y: 28 })
   useScrubTitle(titleRef)
@@ -19,6 +23,7 @@ export function HomeInquiry() {
       ref={rootRef}
       className={styles.section}
       data-header-theme="light"
+      data-atmosphere-active={inView ? 'true' : 'false'}
       id="inquire"
       aria-labelledby="home-inquiry-title"
     >
@@ -75,9 +80,15 @@ export function HomeInquiry() {
             <div className={styles.note} data-fade-up data-delay="280">
               <MessageSquareText size={16} aria-hidden="true" />
               <p>
-                Prefer a live conversation? Mention that in your message and we’ll suggest a
-                discovery call when it fits.
+                Prefer a live conversation?{' '}
+                {SITE.calendlyUrl
+                  ? 'Book a discovery call below — no form required.'
+                  : 'Mention that in your message and we will suggest a discovery call when it fits.'}
               </p>
+            </div>
+
+            <div className={styles.bookWrap} data-fade-up data-delay="320">
+              <BookCallCta size="md" label="Book a Demo Call" />
             </div>
           </aside>
 
