@@ -100,21 +100,28 @@
 .track {
   display: flex;
   align-items: stretch;
-  gap: 1.25rem;
   width: max-content;
   margin: 0;
   padding: 0.35rem 0;
   list-style: none;
-  animation: marqueeLeft var(--marquee-duration, 45s) linear infinite;
   will-change: transform;
 }
 
-.trackReverse {
-  animation-name: marqueeRight;
+.group {
+  flex: 0 0 auto;
+  margin: 0;
+  /* Trailing gap must equal item gap so the seam between clones is invisible */
+  padding-right: 1.25rem;
+  list-style: none;
 }
 
-.marquee:hover .track {
-  animation-play-state: paused;
+.groupList {
+  display: flex;
+  align-items: stretch;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
 
 .item {
@@ -191,8 +198,10 @@
   display: block;
   width: 100%;
   max-width: 11.5rem;
+  max-height: 3.25rem;
   height: auto;
   object-fit: contain;
+  object-position: center;
 }
 
 .hover {
@@ -294,33 +303,28 @@
   background: linear-gradient(270deg, #f8fafc, transparent);
 }
 
-@keyframes marqueeLeft {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-@keyframes marqueeRight {
-  from {
-    transform: translateX(-50%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .track,
-  .trackReverse {
-    animation: none;
+  .track {
     flex-wrap: wrap;
     width: 100%;
     max-width: 100%;
     justify-content: center;
-    transform: none;
+    transform: none !important;
+  }
+
+  .group {
+    padding-right: 0;
+    width: 100%;
+  }
+
+  .groupList {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .group[aria-hidden='true'] {
+    display: none;
   }
 
   .trackWrap {

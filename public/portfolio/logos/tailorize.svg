@@ -1,11 +1,11 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 170 48" fill="none" role="img" aria-label="Tailorize">
-  <rect x="0" y="8" width="32" height="32" rx="8" fill="url(#t)"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" fill="none" role="img" aria-label="Tailorize">
   <defs>
-    <linearGradient id="t" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="tz" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0%" stop-color="#4F46E5"/>
       <stop offset="100%" stop-color="#15C6E2"/>
     </linearGradient>
   </defs>
-  <text x="16" y="30" text-anchor="middle" fill="#fff" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">T</text>
-  <text x="44" y="30" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="18" font-weight="700">Tailorize</text>
+  <path d="M8 12h28v4H22v20h-8V16H8V12z" fill="url(#tz)"/>
+  <path d="M14 36c0-6 6-10 12-10s12 4 12 10" stroke="url(#tz)" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <text x="48" y="31" fill="#0F172A" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="700">Tailorize</text>
 </svg>

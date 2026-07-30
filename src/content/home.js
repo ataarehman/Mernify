@@ -60,11 +60,22 @@ export const homeJourney = {
 }
 
 export const homeInquiry = {
-  eyebrow: 'Start a conversation',
-  title: 'Tell us about the product you want to build',
+  eyebrow: '( Project inquiry )',
+  title: 'Let’s shape your next product',
   support:
-    'Share enough context for a useful first reply. We’ll come back with clarifying questions and a suggested next step.',
+    'Three short steps. Share what you’re building, and we’ll reply with clarifying questions and a clear next move.',
   email: 'hello@mernify.com',
+  response: 'Typical reply within 1–2 business days',
+  points: [
+    'No invented timelines or guarantees',
+    'Direct conversation with the delivery team',
+    'Discovery call only when it’s useful',
+  ],
+  steps: [
+    { id: 'you', label: 'About you', hint: 'Who should we reply to?' },
+    { id: 'focus', label: 'Project focus', hint: 'What are you looking for?' },
+    { id: 'details', label: 'Details', hint: 'Context that helps us prepare' },
+  ],
 }
 
 export const homePortfolio = {
@@ -78,8 +89,11 @@ export const homePortfolio = {
     {
       id: '01',
       title: 'GoodBooks Plus Analytics',
-      tags: ['ANALYTICS', 'SAAS'],
+      category: 'Analytics Platform',
+      excerpt: 'Self-serve BI that turns production and inventory data into decisions.',
+      tags: ['Analytics', 'SaaS'],
       year: '2024',
+      accent: '#F97316',
       image: '/portfolio/goodbooks-plus/analytics-desktop.png',
       to: '/case-studies/goodbooks-plus-analytics',
       size: 'large',
@@ -87,8 +101,11 @@ export const homePortfolio = {
     {
       id: '02',
       title: 'MedBill Ultra',
-      tags: ['HEALTHCARE', 'RCM'],
+      category: 'Medical Billing',
+      excerpt: 'A conversion-led website for US medical billing and RCM services.',
+      tags: ['Healthcare', 'RCM'],
       year: '2024',
+      accent: '#F59E0B',
       image: '/portfolio/medbill-ultra/home-desktop.png',
       to: '/case-studies/medbill-ultra',
       size: 'small',
@@ -96,8 +113,11 @@ export const homePortfolio = {
     {
       id: '03',
       title: 'Metro Electric',
-      tags: ['SERVICES', 'PERTH'],
+      category: 'Electrical Services',
+      excerpt: 'A premium service site for Perth commercial and industrial electrical work.',
+      tags: ['Services', 'Perth'],
       year: '2025',
+      accent: '#2563EB',
       image: '/portfolio/metro-electric/home-desktop.png',
       to: '/case-studies/metro-electric',
       size: 'small',
@@ -105,8 +125,11 @@ export const homePortfolio = {
     {
       id: '04',
       title: 'SpaceWorx',
-      tags: ['PRODUCT', 'WORKSPACE'],
+      category: 'Workspace Solutions',
+      excerpt: 'Product storytelling for modular privacy pods built for modern workplaces.',
+      tags: ['Product', 'Workspace'],
       year: '2025',
+      accent: '#65A30D',
       image: '/portfolio/spaceworx/home-desktop.png',
       to: '/case-studies/spaceworx',
       size: 'small',
@@ -114,8 +137,11 @@ export const homePortfolio = {
     {
       id: '05',
       title: 'MRZZM',
-      tags: ['COMMERCE', 'MARKETPLACE'],
+      category: 'E-commerce',
+      excerpt: 'A multi-category marketplace experience spanning Saudi Arabia and UAE.',
+      tags: ['Commerce', 'Marketplace'],
       year: '2025',
+      accent: '#4F46E5',
       image: '/portfolio/mrzzm/home-desktop.png',
       to: '/case-studies/mrzzm',
       size: 'small',
@@ -123,8 +149,11 @@ export const homePortfolio = {
     {
       id: '06',
       title: 'Tailorize',
-      tags: ['FASHION', 'LOCALIZED'],
+      category: 'Product Configurator',
+      excerpt: 'AI-measured bespoke tailoring for Saudi Arabia — custom thobes and suits.',
+      tags: ['Fashion', 'Localized'],
       year: '2025',
+      accent: '#7C3AED',
       image: '/portfolio/tailorize/home-desktop.png',
       to: '/case-studies/tailorize',
       size: 'large',

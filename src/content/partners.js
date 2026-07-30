@@ -64,7 +64,7 @@ export const homePartners = {
       name: 'Servloom',
       short: 'SL',
       category: 'SaaS',
-      logo: '/portfolio/logos/servloom.svg',
+      logo: '/portfolio/logos/servloom.png',
       image: '/portfolio/servloom/home-desktop.png',
       to: '/case-studies/servloom',
     },

@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container } from '@/components/ui'
 import { ClipReveal } from '@/components/motion/ClipReveal'
+import { HeroRipple } from '@/components/motion/HeroRipple'
 import { homeHero } from '@/content/home'
 import { BIG_TEXT_BLEND_COLOR, BIG_TEXT_BREAKPOINTS } from '@/motion/presets/bigText'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
@@ -77,7 +78,6 @@ export function HomeHero() {
         scrollTrigger: {
           trigger: section,
           scrub: 2,
-          // Progress 0 at top of hero; shrinks as the banner scrolls away
           start: 'top top',
           end: 'bottom top',
         },
@@ -98,9 +98,7 @@ export function HomeHero() {
       data-header-theme="dark"
       aria-labelledby="hero-title"
     >
-      <div className={styles.ripple} aria-hidden="true">
-        <img src="/assets/images/shapes/banner-shape.png" alt="" />
-      </div>
+      <HeroRipple interactiveRef={wrapRef} />
 
       <Container width="wide" className={styles.inner}>
         <div className={styles.top}>

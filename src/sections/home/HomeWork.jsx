@@ -1,5 +1,6 @@
 import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
+import { ArrowUpRight } from 'lucide-react'
 import { Container } from '@/components/ui'
 import { homePortfolio } from '@/content/home'
 import { useFadeUp } from '@/hooks/useFadeUp'
@@ -19,7 +20,6 @@ export function HomeWork() {
   useScrubTitle(eyebrowRef, { start: 'top 95%', end: 'top 55%', scrub: 1.2 })
   useScrubTitle(titleRef, { start: 'top 92%', end: 'top 48%', scrub: 1.2 })
 
-  // Size both mega lines to nearly the full content width (align with "PUBLISHED WORK").
   useLayoutEffect(() => {
     const header = headerRef.current
     const title = titleRef.current
@@ -30,7 +30,6 @@ export function HomeWork() {
       const available = header.clientWidth
       if (!available) return
 
-      // Probe natural glyph width (max-content), then scale to fill the row.
       const probe = 100
       title.style.width = 'max-content'
       title.style.fontSize = `${probe}px`
@@ -44,9 +43,7 @@ export function HomeWork() {
       if (eyebrow) eyebrow.style.width = ''
       if (!ratio) return
 
-      // Fill almost the full row so "CASE STUDIES" lines up near the K in WORK.
       const size = `${Math.max((available / ratio) * 0.995, 28)}px`
-
       title.style.fontSize = size
       if (eyebrow) eyebrow.style.fontSize = size
     }
@@ -66,7 +63,8 @@ export function HomeWork() {
       data-header-theme="light"
       aria-labelledby="home-work-title"
     >
-      <Container width="wide">
+      <div className={styles.atmosphere} aria-hidden="true" />
+      <Container width="wide" className={styles.inner}>
         <div ref={headerRef} className={styles.header}>
           <p ref={eyebrowRef} className={styles.line} aria-hidden="true">
             {splitScrubChars(homePortfolio.eyebrow).map(({ key, char }) => (
@@ -90,11 +88,15 @@ export function HomeWork() {
         </div>
 
         <div className={styles.mid} data-fade-up>
+          <div className={styles.midLead}>
+            <p className={styles.kicker}>Portfolio</p>
+            <h3 className={styles.status}>{homePortfolio.status}</h3>
+            <p className={styles.support}>{homePortfolio.support}</p>
+          </div>
           <Link to={homePortfolio.cta.to} className={styles.midCta}>
             {homePortfolio.cta.label}
+            <ArrowUpRight size={18} aria-hidden="true" />
           </Link>
-          <p className={styles.support}>{homePortfolio.support}</p>
-          <h3 className={styles.status}>{homePortfolio.status}</h3>
         </div>
 
         <div className={styles.masonry}>
@@ -124,27 +126,47 @@ function ProjectCard({ project, large = false }) {
   return (
     <article
       className={[styles.card, large ? styles.cardLarge : ''].filter(Boolean).join(' ')}
+      style={{ '--card-accent': project.accent || 'var(--mf-color-indigo)' }}
       data-fade-up
     >
-      <div className={styles.cardTop}>
-        <h4 className={styles.cardTitle}>
-          <Link to={project.to}>{project.title}</Link>
-        </h4>
-        <ul className={styles.tags} role="list">
-          {project.tags.map((tag) => (
-            <li key={tag}>
-              <span>{tag}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <Link to={project.to} className={styles.thumb} data-cursor="View">
-        <img src={project.image} alt="" />
+      <Link to={project.to} className={styles.cardLink} data-cursor="View">
+        <span className={styles.thumb}>
+          <img src={project.image} alt="" loading="lazy" decoding="async" />
+        </span>
+
+        <span className={styles.body}>
+          <span className={styles.meta}>
+            <span className={styles.index}>{project.id}</span>
+            <span className={styles.dot} aria-hidden="true" />
+            <span className={styles.category}>{project.category}</span>
+            <span className={styles.year}>{project.year}</span>
+          </span>
+
+          <span className={styles.cardTitle}>{project.title}</span>
+
+          {project.excerpt ? <span className={styles.excerpt}>{project.excerpt}</span> : null}
+
+          <span className={styles.footer}>
+            <span className={styles.tags}>
+              {project.tags.map((tag) => (
+                <span key={tag} className={styles.tag}>
+                  {tag}
+                </span>
+              ))}
+            </span>
+            <span className={styles.arrow} aria-hidden="true">
+              <ArrowUpRight size={16} strokeWidth={2.25} />
+            </span>
+          </span>
+        </span>
+
+        <span className={styles.glass} aria-hidden="true">
+          <span className={styles.glassBtn}>
+            View Case Study
+            <ArrowUpRight size={16} strokeWidth={2.25} />
+          </span>
+        </span>
       </Link>
-      <div className={styles.cardBottom}>
-        <p>({project.id}. Project)</p>
-        <p>({project.year})</p>
-      </div>
     </article>
   )
 }
