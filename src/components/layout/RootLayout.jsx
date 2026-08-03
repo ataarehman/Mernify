@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { SkipLink } from '@/components/ui'
 import { SiteHeader } from '@/components/navigation/SiteHeader'
 import { SiteFooter } from '@/components/navigation/SiteFooter'
@@ -11,6 +11,11 @@ import {
 import { shouldPlayPageEntrance } from '@/components/motion/pageEntrance'
 import { useMotion } from '@/app/providers/useMotion'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { CHAT_ENABLED } from '@/lib/chat/featureFlag'
+
+const MernifyChat = CHAT_ENABLED
+  ? lazy(() => import('@/components/chat/MernifyChat').then((m) => ({ default: m.MernifyChat })))
+  : null
 
 export function RootLayout() {
   const location = useLocation()
@@ -47,6 +52,11 @@ export function RootLayout() {
       <SiteFooter />
       <CookieConsent />
       <Analytics />
+      {MernifyChat ? (
+        <Suspense fallback={null}>
+          <MernifyChat />
+        </Suspense>
+      ) : null}
     </>
   )
 }
