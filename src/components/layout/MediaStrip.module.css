@@ -1,12 +1,22 @@
 .strip {
   position: relative;
-  height: clamp(280px, 55vw, 720px);
+  height: clamp(200px, 42vw, 720px);
   overflow: hidden;
   background: var(--mf-color-navy-deep);
 }
 
 .tall {
-  height: clamp(320px, 58vw, 780px);
+  height: clamp(220px, 48vw, 780px);
+}
+
+@media (min-width: 960px) {
+  .strip {
+    height: clamp(280px, 55vw, 720px);
+  }
+
+  .tall {
+    height: clamp(320px, 58vw, 780px);
+  }
 }
 
 .image {

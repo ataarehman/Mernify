@@ -412,4 +412,8 @@
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
   }
+
+  .section {
+    padding: var(--mf-section-pad-y-sm) 0;
+  }
 }

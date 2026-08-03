@@ -221,7 +221,7 @@ export const caseStudies = [
       'Tailor-side app built as a separate React Native app sharing the same API and design system as the buyer app',
       'mada + Apple Pay + Google Pay via HyperPay — Saudi payment gateway with full GCC card network support',
     ],
-  },,
+  },
   {
     slug: 'servloom',
     status: 'published',
@@ -466,7 +466,7 @@ export const caseStudies = [
       'Stripe Connect for payments — supports direct charge, saved cards, ACH, and Apple/Google Pay',
       'Offline-first mobile architecture using WatermelonDB local database with background sync',
     ],
-  },,
+  },
   {
     slug: 'godiva',
     status: 'published',
@@ -684,7 +684,7 @@ export const caseStudies = [
       'Next-gen image serving via Shopify CDN with responsive srcset and AVIF/WebP conversion',
       'Structured product data (JSON-LD) injected server-side for all SKU pages to enable Google Shopping rich results',
     ],
-  },,
+  },
   {
     slug: 'goodbooks-plus-analytics',
     status: 'published',
@@ -905,7 +905,7 @@ export const caseStudies = [
       'Multi-source data connectors via Apache Kafka for streaming data and PostgreSQL/MySQL for relational sources',
       'Role-based access control enforced at the API layer — analysts cannot view raw data, only aggregate views',
     ],
-  },,
+  },
   {
     slug: 'medbill-ultra',
     status: 'published',
@@ -1133,7 +1133,7 @@ export const caseStudies = [
       'HIPAA-compliant contact form submissions routed through a BAA-covered third-party CRM (not WordPress database)',
       'All user-submitted data encrypted in transit via TLS 1.3 — no PHI stored on the marketing site',
     ],
-  },,
+  },
   {
     slug: 'metro-electric',
     status: 'published',
@@ -1354,7 +1354,7 @@ export const caseStudies = [
       'Government rebate calculator queries the WA government rebate API for live incentive values',
       'Schema markup generated dynamically based on service pages — one template serves all 10+ service types',
     ],
-  },,
+  },
   {
     slug: 'spaceworx',
     status: 'published',
@@ -1566,7 +1566,7 @@ export const caseStudies = [
       'CAD/BIM file library served from Cloudflare R2 — large files (up to 450 MB) served at edge with no origin latency',
       'B2B lead routing via HubSpot — RFQ form data enriched with company data via Clearbit before routing to the right sales rep',
     ],
-  },,
+  },
   {
     slug: 'mrzzm',
     status: 'published',
@@ -1784,7 +1784,7 @@ export const caseStudies = [
       'mada payment processing via HyperPay — the GCC payment gateway that supports mada, Apple Pay, and KNET',
       'Arabic font served as a subset WOFF2 file via Cloudflare CDN — preloaded in <link rel="preload"> to eliminate FOUT',
     ],
-  },,
+  },
   {
     slug: 'kinepolis',
     status: 'published',
@@ -1995,7 +1995,7 @@ export const caseStudies = [
       'Canvas-rendered zoomable seat map using Konva.js — replaces SVG seat map that failed mobile tap accuracy testing',
       'Country-specific cookie consent managed via a custom consent service that resolves jurisdiction from user locale, not IP address',
     ],
-  },,
+  },
   {
     slug: 'marmot',
     status: 'published',
@@ -2212,7 +2212,7 @@ export const caseStudies = [
       'Regional review surfacing uses Yotpo\'s geographic review filter API — reviews tagged with buyer\'s country shown on scenario result pages',
       'Sustainability certification data stored in Shopify metafields with a Liquid template for the certification block — content team can update without developer involvement',
     ],
-  },,
+  },
   {
     slug: 'pathe-be',
     status: 'published',
@@ -2425,7 +2425,7 @@ export const caseStudies = [
       'Corporate booking portal built as a separate React SPA with a B2B-specific checkout flow and automated VAT invoice generation',
       'Seat map rendered on Canvas via Konva.js — replaced SVG seat map for mobile touch accuracy, identical to the Kinepolis approach',
     ],
-  },,
+  },
   {
     slug: 'trendyol',
     status: 'published',

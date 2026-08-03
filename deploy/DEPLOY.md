@@ -1,6 +1,7 @@
 # Quick deploy checklist
 
-Full guide: [`DEPLOYMENT.md`](./DEPLOYMENT.md)
+**Your remaining steps:** [`LAUNCH_CHECKLIST.md`](./LAUNCH_CHECKLIST.md)  
+**Full guide:** [`DEPLOYMENT.md`](./DEPLOYMENT.md)
 
 ## Before build
 

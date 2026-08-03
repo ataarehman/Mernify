@@ -48,17 +48,27 @@ export function PageCta({
   mediaSrc = '/assets/images/thumbs/cta-premium-media.jpg',
   mediaAlt = 'Product team collaborating on a digital product engagement',
   animated = false,
+  scrub = {},
 }) {
   const rootRef = useRef(null)
   const titleRef = useRef(null)
 
   useRevealOnScroll(rootRef, {
     selector: animated ? '[data-fade-up]' : '[data-fade-up-disabled]',
-    start: 'top 88%',
-    y: 28,
+    start: 'top bottom',
+    duration: 1,
+    once: false,
+    ease: 'power1.out',
+    y: 40,
     deps: [animated, title],
   })
-  useScrubTitle(titleRef)
+  useScrubTitle(titleRef, {
+    start: 'top 92%',
+    end: 'top 60%',
+    scrub: 0.55,
+    stagger: 0.02,
+    ...scrub,
+  })
 
   return (
     <section

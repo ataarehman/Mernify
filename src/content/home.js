@@ -64,7 +64,7 @@ export const homeInquiry = {
   title: 'Let’s shape your next product',
   support:
     'Three short steps. Share what you’re building, and we’ll reply with clarifying questions and a clear next move.',
-  email: 'hello@mernify.com',
+  email: 'info@mernify.co',
   response: 'Typical reply within 1–2 business days',
   points: [
     'No invented timelines or guarantees',

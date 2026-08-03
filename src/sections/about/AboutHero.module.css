@@ -116,6 +116,14 @@
     padding-bottom: 2rem;
   }
 
+  .word {
+    white-space: normal;
+  }
+
+  .title {
+    font-size: clamp(2.4rem, 13vw, 4.5rem);
+  }
+
   .actions {
     width: 100%;
     flex-direction: column;

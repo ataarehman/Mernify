@@ -1,4 +1,4 @@
-﻿/* â€”â€” Partner pillars (service-ip inspired) â€”â€” */
+/* â€”â€” Partner pillars (service-ip inspired) â€”â€” */
 
 .partner {
   position: relative;
@@ -126,7 +126,7 @@
   flex-direction: column;
   justify-content: space-between;
   gap: 1.5rem;
-  min-height: clamp(19rem, 30vw, 25.5rem);
+  min-height: clamp(16rem, 28vw, 25.5rem);
   padding: 1.5rem 1.35rem 1.6rem;
   border-radius: 1.25rem;
   background:
@@ -759,20 +759,37 @@
 
   .word { white-space: normal; }
 
-  .audiencesMedia { min-height: 16rem; }
+  .partner,
+  .values {
+    padding: var(--mf-section-pad-y-sm) 0;
+  }
+
+  .pillar {
+    min-height: 15.5rem;
+    padding: 1.25rem 1.15rem 1.35rem;
+  }
+
+  .audiencesMedia {
+    grid-template-columns: 1fr;
+    min-height: 0;
+    gap: 0.75rem;
+  }
+
+  .mediaPrimary,
+  .mediaSecondary {
+    min-height: 14rem;
+    margin-top: 0;
+    border-radius: 1rem;
+  }
+
+  .mediaPrimary {
+    border-radius: 1rem 1rem 1rem 2.5rem;
+  }
 
   .badgeRing { animation: none; }
 }
 
 @media (max-width: 560px) {
-  .audiencesMedia {
-    grid-template-columns: 1fr 1fr;
-    gap: 0.55rem;
-    min-height: 14rem;
-  }
-
-  .mediaSecondary { margin-top: 0.85rem; }
-
   .audienceRow {
     grid-template-columns: auto minmax(0, 1fr);
     gap: 0.7rem;

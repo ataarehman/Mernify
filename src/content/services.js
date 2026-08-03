@@ -192,3 +192,106 @@ export const homeServices = {
   viewAll: { label: 'View all services', to: '/services' },
   items: services,
 }
+
+/** Extra Services page sections (complements the catalogue list) */
+export const servicesPage = {
+  intro: {
+    eyebrow: '( Who we are )',
+    title:
+      'A multidisciplinary agency delivering impactful digital products that inspire progress, creativity and new potential.',
+    support:
+      'Every engagement starts with the decision you need to make—ship, scale, stabilize, or explore—then maps the right capability mix.',
+    media: {
+      back: {
+        src: '/assets/images/thumbs/about-thumb-two.jpg',
+        alt: 'Abstract texture study in soft cream and beige tones',
+      },
+      front: {
+        src: '/assets/images/thumbs/about-thumb-one.jpg',
+        alt: 'Product designer reviewing a mobile experience',
+      },
+    },
+    tags: [
+      { label: 'Product Engineering', to: '/services/product-engineering' },
+      { label: 'Web Design & Development', to: '/services/web-development' },
+      { label: 'UI/UX Design', to: '/services/ui-ux-design' },
+      { label: 'SaaS Development', to: '/services/saas-development' },
+      { label: 'AI Integration', to: '/services/ai-integration' },
+      { label: 'Mobile Apps', to: '/services/mobile-app-development' },
+      { label: 'Cloud & DevOps', to: '/services/cloud-devops' },
+      { label: 'Dedicated Teams', to: '/services/dedicated-product-teams' },
+    ],
+  },
+  engagement: {
+    eyebrow: 'Engagement models',
+    title: 'Choose how you want to work with us',
+    support:
+      'Same engineering standard—different commercial shapes—so startups and operators can match pace, risk, and budget.',
+    models: [
+      {
+        id: 'outcome',
+        index: '01',
+        icon: 'checkCircle',
+        title: 'Outcome project',
+        text: 'A defined milestone—MVP, migration, redesign, or platform slice—with clear acceptance criteria.',
+        points: ['Fixed discovery + build phases', 'Scoped backlog & timeline', 'Demo-driven checkpoints'],
+        cta: { label: 'Discuss a project', to: '/contact?intent=project' },
+      },
+      {
+        id: 'pod',
+        index: '02',
+        icon: 'users',
+        title: 'Dedicated product pod',
+        text: 'An embedded squad that owns a roadmap lane with weekly cadence and transparent reporting.',
+        points: ['Product + design + engineering', 'Shared tooling & rituals', 'Flexible capacity'],
+        cta: { label: 'Build a pod', to: '/contact?intent=pod' },
+        featured: true,
+      },
+      {
+        id: 'partner',
+        index: '03',
+        icon: 'lifeBuoy',
+        title: 'Continuous partner',
+        text: 'Longer-horizon partnership for iteration, reliability, and feature velocity after launch.',
+        points: ['Priority support lanes', 'Release & ops hygiene', 'Roadmap co-planning'],
+        cta: { label: 'Explore partnership', to: '/contact?intent=partnership' },
+      },
+    ],
+  },
+  delivery: {
+    eyebrow: 'Delivery standard',
+    title: 'What working with Mernify feels like in practice',
+    support:
+      'Predictable communication, senior-led decisions, and production discipline—so progress stays visible and shippable.',
+    media: {
+      src: '/assets/images/services/delivery-mockup.jpg',
+      alt: 'Design and product workspace with interface mockups',
+    },
+    principles: [
+      {
+        id: 'cadence',
+        title: 'Visible cadence',
+        text: 'Weekly demos, written updates, and decision logs—not black-box progress.',
+      },
+      {
+        id: 'quality',
+        title: 'Release-ready quality',
+        text: 'Review gates, environments, and observability baked into the delivery path.',
+      },
+      {
+        id: 'handoff',
+        title: 'Clean handoff',
+        text: 'Docs, runbooks, and knowledge transfer so your team can operate with confidence.',
+      },
+      {
+        id: 'adapt',
+        title: 'Adaptive scope',
+        text: 'We protect outcomes while adjusting scope when discovery reveals better paths.',
+      },
+    ],
+    actions: {
+      primary: { label: 'See our process', to: '/process' },
+      secondary: { label: 'Talk to us', to: '/contact' },
+    },
+  },
+}

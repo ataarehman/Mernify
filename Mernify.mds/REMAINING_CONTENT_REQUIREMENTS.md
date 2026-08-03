@@ -31,7 +31,7 @@ Until then, the site correctly shows an empty / pending state — do **not** inv
 
 | Item | Status | Action |
 |------|--------|--------|
-| Public email `hello@mernify.com` | Assumed in copy | Confirm mailbox exists, monitored SLA |
+| Public email `info@mernify.co` | Assumed in copy | Confirm mailbox exists, monitored SLA |
 | Form backend | Mailto fallback only | Set `VITE_CONTACT_ENDPOINT` or document mailto as intentional |
 | Discovery-call scheduling | CTA copy implies scheduling | Provide Calendly/equivalent URL if desired |
 | Response-time promise | Not claimed | Only add if operationally true |

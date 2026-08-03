@@ -13,6 +13,8 @@ export function TechBrandGrid({
   cta = homePartners.cta,
   className = '',
   animated = true,
+  /** Match index-2 brand-area AOS: fade-up 1000ms, delays 100–400, replay. */
+  aos = false,
 }) {
   const rootRef = useRef(null)
   const titleRef = useRef(null)
@@ -20,11 +22,14 @@ export function TechBrandGrid({
 
   useRevealOnScroll(rootRef, {
     selector: animated ? '[data-fade-up]' : '[data-fade-up-disabled]',
-    start: 'top 86%',
-    y: 28,
-    deps: [animated, title],
+    start: aos ? 'top bottom' : 'top 86%',
+    duration: aos ? 1 : 0.9,
+    once: !aos,
+    ease: aos ? 'power1.out' : 'power3.out',
+    y: aos ? 40 : 28,
+    deps: [animated, title, aos],
   })
-  useScrubTitle(titleRef)
+  useScrubTitle(titleRef, aos ? { scrub: 1, stagger: 0.2 } : {})
 
   return (
     <section
@@ -68,7 +73,12 @@ export function TechBrandGrid({
               key={client.id}
               className={styles.item}
               data-fade-up
-              data-delay={String((index % 4) * 70 + 60)}
+              data-delay={
+                aos
+                  ? String(((index % 4) + 1) * 100)
+                  : String((index % 4) * 70 + 60)
+              }
+              data-duration={aos ? '1000' : undefined}
             >
               <Link
                 to={client.to}

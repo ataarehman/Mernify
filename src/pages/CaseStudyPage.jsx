@@ -6,6 +6,7 @@ import { Button, Container, Text } from '@/components/ui'
 import { SITE } from '@/constants/site'
 import { getCaseStudyBySlug, getNextCaseStudy, publishedCaseStudies } from '@/content/caseStudies'
 import { authorshipLabel, getAuthorship } from '@/lib/authorship'
+import { resolveProxyUrl } from '@/lib/env'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import styles from './CaseStudyPage.module.css'
 
@@ -37,8 +38,8 @@ export function CaseStudyPage() {
   const [iframeErr, setIframeErr] = useState(false)
   const shellRef = useRef(null)
 
-  // Dev: Vite middleware. Prod: VITE_PROXY_URL env var (Cloudflare Worker URL)
-  const proxyBase = import.meta.env.VITE_PROXY_URL || (import.meta.env.DEV ? '/site-preview' : null)
+  // Dev: Vite middleware. Prod: validated VITE_PROXY_URL (Cloudflare Worker)
+  const proxyBase = resolveProxyUrl() || (import.meta.env.DEV ? '/site-preview' : '')
   const proxyUrl = proxyBase && study?.liveUrl
     ? `${proxyBase}?url=${encodeURIComponent(study.liveUrl)}`
     : null

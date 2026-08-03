@@ -15,7 +15,7 @@ c = c.replace(
   /Julian Miles|Adrian Miles|James Hayes|Alexander Moore|Michael Anderson|Sophia Williams|Emily Johnson|Ethan Roberts/g,
   'Delivery Partner',
 )
-c = c.replace(/\+8801314986186/g, 'hello@mernify.com')
+c = c.replace(/\+8801314986186/g, 'info@mernify.co')
 c = c.replace(
   /1st Floor, Afroza Tower, Uposhohor New Market, Rajshahi 6202/g,
   'Remote-first · Global collaboration',
@@ -30,7 +30,7 @@ console.log('about cleaned')
 
 const contact = 'F:/mern.org/mernify-web/contact.html'
 let cc = fs.readFileSync(contact, 'utf8')
-cc = cc.replace(/\+8801314986186/g, 'hello@mernify.com')
+cc = cc.replace(/\+8801314986186/g, 'info@mernify.co')
 cc = cc.replace(
   /1st Floor, Afroza Tower, Uposhohor New Market, Rajshahi 6202/g,
   'Remote-first · Global collaboration',

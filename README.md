@@ -14,8 +14,8 @@ Premium product-engineering website for startups, growing businesses, and enterp
 - React Router 7
 - CSS Modules + design tokens (`--mf-*`)
 - GSAP + Lenis (motion; respects `prefers-reduced-motion`)
-- Lucide React + Simple Icons
-- Fontsource Inter + Space Grotesk
+- Lucide React
+- Fontsource Phudu + Instrument Sans
 
 ## Setup
 
@@ -30,27 +30,24 @@ Open the URL Vite prints (default `http://localhost:5173`).
 npm run build
 npm run preview
 npm run lint
+npm run check:ready   # production build + env readiness warnings
 ```
 
-### Contact form
+### Environment
 
-Set delivery in `.env` / `.env.production` (see `.env.example`):
+Copy `.env.example` → `.env` / `.env.production`. All `VITE_*` values are public in the client bundle.
 
-```bash
-# Preferred: Cloudflare Worker URL
-VITE_CONTACT_ENDPOINT=https://mernify-contact.YOUR_SUBDOMAIN.workers.dev
+| Variable | Purpose |
+|----------|---------|
+| `VITE_CONTACT_ENDPOINT` | Contact API (Cloudflare Worker) |
+| `VITE_WEB3FORMS_ACCESS_KEY` | Alternate contact delivery |
+| `VITE_CALENDLY_URL` | Booking CTA (else `/contact?intent=discovery`) |
+| `VITE_GA_MEASUREMENT_ID` | GA4 (loads only after cookie consent) |
+| `VITE_PROXY_URL` | Optional case-study iframe preview proxy |
 
-# Or Web3Forms access key
-# VITE_WEB3FORMS_ACCESS_KEY=...
-```
+Without a contact endpoint/key, the form falls back to **mailto** `info@mernify.co`.
 
-Without an endpoint, submit opens a **mailto** draft to `hello@mernify.com`.
-
-**Production deployment:** see [`deploy/DEPLOYMENT.md`](./deploy/DEPLOYMENT.md).
-
-```bash
-npm run check:ready   # build + readiness checks
-```
+**Go-live:** [`deploy/LAUNCH_CHECKLIST.md`](./deploy/LAUNCH_CHECKLIST.md) · [`deploy/DEPLOYMENT.md`](./deploy/DEPLOYMENT.md)
 
 ## Architecture
 
@@ -59,10 +56,10 @@ src/
   app/           # providers, router
   components/    # ui, navigation, forms, seo, media, layout
   content/       # copy & structured data (source of truth for text)
-  sections/home/ # homepage sections
+  sections/      # page sections
   pages/         # route compositions
   styles/        # tokens, reset, fonts
-  lib/           # helpers (contact submit, icons)
+  lib/           # helpers (env, contact submit, consent, schema)
 ```
 
 ### Routes
@@ -81,30 +78,15 @@ src/
 | `/privacy` | Privacy Policy |
 | `/terms` | Terms of Service |
 
-Legacy `/work` maps to case studies.
+Legacy `/work` redirects to `/case-studies`. Production hosts **must** use SPA fallback (`try_files` → `index.html`); see `deploy/nginx.conf.example`.
 
 ## Brand
 
 - Primary Indigo `#4F46E5`
 - Electric Cyan `#06B6D4`
 - Midnight Navy `#0F172A`
-- Type: Space Grotesk (headings) + Inter (body)
-
-## Documentation
-
-All project markdown lives in [`Mernify.md/`](./Mernify.md/).
-
-- `Mernify.md/CURRENT_WEBSITE_AUDIT.md`
-- `Mernify.md/REDESIGN_IMPLEMENTATION_PLAN.md`
-- `Mernify.md/CONTENT_ARCHITECTURE.md`
-- `Mernify.md/DESIGN_SYSTEM.md`
-- `Mernify.md/IMPLEMENTATION_REPORT.md`
-- `Mernify.md/FINAL_QA_REPORT.md`
-- `Mernify.md/ROUTE_TEST_MATRIX.md`
-- `Mernify.md/REMAINING_CONTENT_REQUIREMENTS.md`
-
-A synced copy also exists at `Mernify.mds/` in the companion workspace when present.
+- Type: Phudu (display) + Instrument Sans (body)
 
 ## Content policy
 
-Do not invent clients, testimonials, metrics, or certifications. Case-study entries marked **placeholder** are structural shells awaiting real approved content.
+Do not invent clients, testimonials, metrics, or certifications. Team bios and testimonials stay unpublished until approved (`published: true`). Case-study `authorship.mode` should remain non-delivered until the client confirms.

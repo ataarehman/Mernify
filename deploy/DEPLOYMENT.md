@@ -54,8 +54,8 @@ On hosts that inject env vars (Cloudflare Pages, Netlify, Vercel), set the same 
 1. Create a Worker and paste [`../cf-worker/contact.js`](../cf-worker/contact.js).
 2. Add secrets/vars:
    - `RESEND_API_KEY` (secret)
-   - `CONTACT_TO=hello@mernify.com`
-   - `CONTACT_FROM=Mernify <hello@your-verified-domain>`
+   - `CONTACT_TO=info@mernify.co`
+   - `CONTACT_FROM=Mernify <info@mernify.co>`
    - `ALLOWED_ORIGIN=https://mernify.co,https://www.mernify.co`
 3. Set `VITE_CONTACT_ENDPOINT` to the Worker URL.
 4. Rebuild and deploy the static site.
@@ -63,7 +63,7 @@ On hosts that inject env vars (Cloudflare Pages, Netlify, Vercel), set the same 
 
 ### Fast path (Web3Forms)
 
-1. Create a key at https://web3forms.com pointing to `hello@mernify.com`.
+1. Create a key at https://web3forms.com pointing to `info@mernify.co`.
 2. Set `VITE_WEB3FORMS_ACCESS_KEY`.
 3. Rebuild and deploy.
 
@@ -157,7 +157,7 @@ Set build command `npm run build`, output directory `dist`, and all `VITE_*` env
 2. Open `/case-studies` and `/services/saas-development` via **direct URL** (SPA fallback must work).
 3. Submit contact form → confirm email arrives.
 4. Accept cookies → confirm GA4 realtime hit.
-5. Click “Book a discovery call” → Calendly or contact intent.
+5. Click “Book a Demo Call” → Calendly or contact intent.
 6. Submit sitemap in Google Search Console.
 
 ---
@@ -179,5 +179,13 @@ Unpublished team/testimonials do **not** render on the site.
 - No `dangerouslySetInnerHTML` in app source.
 - Production source maps disabled (`vite.config.js`).
 - `react-router-dom@7.18.2` installed (RSC CSRF advisory patch). This SPA does not use unstable RSC APIs.
-- Dev-only `brace-expansion` / ESLint advisories are not shipped in `dist/`.
+- Dev-only ESLint advisories are not shipped in `dist/`.
 - Maps iframe is consent-gated on the contact page.
+- Private secrets (e.g. Resend) belong only on the Cloudflare Worker — never in `VITE_*`.
+
+---
+
+## 10. What we need from you
+
+See **[`LAUNCH_CHECKLIST.md`](./LAUNCH_CHECKLIST.md)** for the exact credentials and values required before go-live (contact delivery, Calendly, GA4, domain/server).
+

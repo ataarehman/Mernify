@@ -226,7 +226,7 @@ export const contactContent = {
   support:
     'Share enough context for a useful first conversation. We respond with clarifying questions, a suggested next step, and whether a discovery call makes sense.',
   emailLabel: 'Email',
-  email: 'hello@mernify.com',
+  email: 'info@mernify.co',
   note: 'Form submissions use a documented integration interface. In local development without an endpoint, the form opens a draft email as a safe fallback.',
   nextSteps: [
     'We review your inquiry and reply with clarifying questions.',
@@ -284,11 +284,11 @@ export const privacyContent = {
     },
     {
       heading: 'Your choices',
-      body: 'You may request access, correction, or deletion of personal information you have sent us by emailing hello@mernify.com.',
+      body: 'You may request access, correction, or deletion of personal information you have sent us by emailing info@mernify.co.',
     },
     {
       heading: 'Contact',
-      body: 'Privacy questions: hello@mernify.com.',
+      body: 'Privacy questions: info@mernify.co.',
     },
   ],
 }
@@ -323,7 +323,7 @@ export const termsContent = {
     },
     {
       heading: 'Contact',
-      body: 'Questions about these Terms: hello@mernify.com.',
+      body: 'Questions about these Terms: info@mernify.co.',
     },
   ],
 }

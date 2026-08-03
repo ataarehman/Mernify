@@ -20,6 +20,7 @@ export function AboutWho() {
   const rootRef = useRef(null)
   const titleRef = useRef(null)
   const { who } = aboutContent
+  const titleWords = who.title.match(/\S+/g) || []
 
   useRevealOnScroll(rootRef, { selector: '[data-fade-up]', start: 'top 84%', y: 28 })
   useScrubTitle(titleRef, { start: 'top 90%', end: 'top 55%', scrub: 0.5 })
@@ -38,9 +39,14 @@ export function AboutWho() {
           <div className={styles.headerCopy} data-fade-up>
             <p className={styles.eyebrow}>{who.eyebrow}</p>
             <h2 id="about-who-title" ref={titleRef} className={styles.title}>
-              {splitScrubChars(who.title).map(({ key, char }) => (
-                <span key={key} data-scrub-char className={styles.char}>
-                  {char}
+              {titleWords.map((word, wordIndex) => (
+                <span key={`${word}-${wordIndex}`} className={styles.word}>
+                  {splitScrubChars(word).map(({ key, char }) => (
+                    <span key={`${wordIndex}-${key}`} data-scrub-char className={styles.char}>
+                      {char}
+                    </span>
+                  ))}
+                  {'\u00A0'}
                 </span>
               ))}
             </h2>

@@ -544,7 +544,7 @@
     {
       "flow": "contact-submit-fallback",
       "pass": true,
-      "statusAfter": "Opening your email client with a draft message. If nothing opens, email hello@mernify.com directly."
+      "statusAfter": "Opening your email client with a draft message. If nothing opens, email info@mernify.co directly."
     },
     {
       "flow": "history-back-forward",

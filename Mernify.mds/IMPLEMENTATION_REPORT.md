@@ -61,14 +61,14 @@ VITE_CONTACT_ENDPOINT=https://your-endpoint
 ```
 
 Contract: JSON POST with name, email, company, service, budget, message, timeline?, consent.  
-Without endpoint: mailto draft to `hello@mernify.com`.
+Without endpoint: mailto draft to `info@mernify.co`.
 
 ---
 
 ## Remaining content work (not code blockers)
 
 1. Replace case-study placeholders with approved client stories and verified outcomes
-2. Confirm `hello@mernify.com` and production form endpoint
+2. Confirm `info@mernify.co` and production form endpoint
 3. Legal review of Privacy/Terms
 4. Optional: real customer logos when licensed
 5. Optional: hero A/B or further motion polish after stakeholder review

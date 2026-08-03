@@ -121,7 +121,7 @@
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-@media (min-width: 700px) {
+@media (min-width: 960px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 1rem;
@@ -320,19 +320,27 @@
 }
 
 @media (hover: none) {
-  .card:hover {
+  .card:hover,
+  .card:focus-visible {
     transform: none;
   }
 
-  .card:hover .idle {
+  .card:hover .idle,
+  .card:focus-visible .idle {
     opacity: 1;
     visibility: visible;
     transform: none;
   }
 
-  .card:hover .hover {
+  .card:hover .hover,
+  .card:focus-visible .hover {
     opacity: 0;
     visibility: hidden;
+  }
+
+  .card:hover::before,
+  .card:focus-visible::before {
+    transform: scaleX(0);
   }
 
   .idle {
@@ -350,6 +358,24 @@
   }
 }
 
+@media (max-width: 768px) {
+  .orbOne,
+  .orbTwo {
+    filter: none;
+  }
+
+  .card {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    min-height: 6.25rem;
+    padding: 1rem 0.85rem;
+  }
+
+  .section {
+    padding: var(--mf-section-pad-y-sm) 0;
+  }
+}
+
 @media (max-width: 699px) {
   .header {
     flex-direction: column;
@@ -358,11 +384,6 @@
 
   .cta {
     justify-content: center;
-  }
-
-  .card {
-    min-height: 6.25rem;
-    padding: 1rem 0.85rem;
   }
 }
 

@@ -42,3 +42,16 @@ export function resolveContactEndpoint(raw = import.meta.env.VITE_CONTACT_ENDPOI
     return ''
   }
 }
+
+/** Optional case-study live-preview proxy (Cloudflare Worker). */
+export function resolveProxyUrl(raw = import.meta.env.VITE_PROXY_URL) {
+  const value = trimEnv(raw)
+  if (!value) return ''
+  try {
+    const url = new URL(value)
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return ''
+    return url.toString().replace(/\/$/, '')
+  } catch {
+    return ''
+  }
+}

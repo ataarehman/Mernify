@@ -48,43 +48,67 @@ export function AboutProcess() {
       return undefined
     }
 
+    const light =
+      window.matchMedia('(pointer: coarse)').matches ||
+      window.matchMedia('(max-width: 900px)').matches
+
     const cards = Array.from(root.querySelectorAll('[data-process-step]'))
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        progress,
-        { scaleX: 0 },
-        {
-          scaleX: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: root.querySelector(`.${styles.grid}`),
-            start: 'top 70%',
-            end: 'bottom 40%',
-            scrub: 0.55,
+      if (light) {
+        gsap.fromTo(
+          progress,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: root.querySelector(`.${styles.grid}`),
+              start: 'top 80%',
+              once: true,
+            },
           },
-        },
-      )
+        )
+      } else {
+        gsap.fromTo(
+          progress,
+          { scaleX: 0 },
+          {
+            scaleX: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: root.querySelector(`.${styles.grid}`),
+              start: 'top 70%',
+              end: 'bottom 40%',
+              scrub: 0.55,
+            },
+          },
+        )
+      }
 
       cards.forEach((card, index) => {
-        ScrollTrigger.create({
-          trigger: card,
-          start: 'top 65%',
-          end: 'bottom 45%',
-          onEnter: () => setActive(index),
-          onEnterBack: () => setActive(index),
-        })
+        if (!light) {
+          ScrollTrigger.create({
+            trigger: card,
+            start: 'top 65%',
+            end: 'bottom 45%',
+            onEnter: () => setActive(index),
+            onEnterBack: () => setActive(index),
+          })
+        }
 
         gsap.fromTo(
           card,
-          { autoAlpha: 0, y: 32 },
+          { autoAlpha: 0, y: light ? 18 : 32 },
           {
             autoAlpha: 1,
             y: 0,
-            duration: 0.7,
+            duration: light ? 0.55 : 0.7,
             ease: 'power3.out',
+            force3D: true,
             scrollTrigger: {
               trigger: card,
-              start: 'top 90%',
+              start: 'top 92%',
               once: true,
             },
           },

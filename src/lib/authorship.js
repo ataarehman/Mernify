@@ -1,5 +1,3 @@
-import { SITE } from '@/constants/site'
-
 /**
  * Authorship / attribution for case studies.
  * - delivered: Mernify built the product (client-confirmed)
@@ -19,16 +17,4 @@ export function authorshipLabel(mode) {
   if (mode === 'delivered') return 'Delivered by Mernify'
   if (mode === 'pending') return 'Authorship pending confirmation'
   return 'Public product observation'
-}
-
-export function organizationWithSameAs() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: SITE.name,
-    url: SITE.url,
-    email: SITE.email,
-    logo: `${SITE.url}/favicon.svg`,
-    sameAs: Object.values(SITE.social || {}),
-  }
 }

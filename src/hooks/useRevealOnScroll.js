@@ -5,9 +5,29 @@ import { useReducedMotion } from '@/app/providers/useReducedMotion'
 
 gsap.registerPlugin(ScrollTrigger)
 
+function getRevealOffsets(el, { y, isLight }) {
+  const lightX = 52
+  const fullX = 100
+
+  if (el.hasAttribute('data-fade-right')) {
+    return { autoAlpha: 0, x: isLight ? -lightX : -fullX, y: 0 }
+  }
+  if (el.hasAttribute('data-fade-left')) {
+    return { autoAlpha: 0, x: isLight ? lightX : fullX, y: 0 }
+  }
+
+  return { autoAlpha: 0, x: 0, y: isLight ? Math.min(y, 22) : y }
+}
+
 /**
  * AOS-style per-element fade/slide reveals.
- * Supports `data-delay` in milliseconds (e.g. data-delay="200").
+ * Supports:
+ * - `data-fade-up` (default vertical)
+ * - `data-fade-left` / `data-fade-right` (horizontal slide, matching template AOS)
+ * - `data-delay` in milliseconds (e.g. data-delay="200")
+ * - `data-duration` in milliseconds (optional per-element override)
+ *
+ * Uses lighter motion on coarse / narrow viewports for smoother scroll.
  */
 export function useRevealOnScroll(
   scopeRef,
@@ -17,6 +37,7 @@ export function useRevealOnScroll(
     y = 40,
     duration = 0.9,
     once = true,
+    ease = 'power3.out',
     deps = [],
   } = {},
 ) {
@@ -30,31 +51,67 @@ export function useRevealOnScroll(
     if (!targets.length) return undefined
 
     if (prefersReducedMotion) {
-      gsap.set(targets, { autoAlpha: 1, y: 0 })
+      gsap.set(targets, { clearProps: 'opacity,visibility,transform', autoAlpha: 1, x: 0, y: 0 })
       return undefined
     }
+
+    const isLight =
+      window.matchMedia('(pointer: coarse)').matches ||
+      window.matchMedia('(max-width: 900px)').matches
+
+    const motionDuration = isLight ? Math.min(duration, 0.85) : duration
+    const triggerStart = isLight ? 'top 92%' : start
 
     const ctx = gsap.context(() => {
       targets.forEach((el) => {
         const delayMs = Number(el.getAttribute('data-delay') || 0)
-        gsap.fromTo(
-          el,
-          { autoAlpha: 0, y },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration,
-            delay: Number.isFinite(delayMs) ? delayMs / 1000 : 0,
-            ease: 'power3.out',
-            immediateRender: false,
-            scrollTrigger: {
-              trigger: el,
-              start,
-              once,
-            },
+        const durationMs = Number(el.getAttribute('data-duration') || 0)
+        const from = getRevealOffsets(el, { y, isLight })
+        const itemDuration =
+          Number.isFinite(durationMs) && durationMs > 0
+            ? (isLight ? Math.min(durationMs, 1200) : durationMs) / 1000
+            : motionDuration
+        const enterDelay = Number.isFinite(delayMs) ? delayMs / 1000 : 0
+
+        gsap.set(el, from)
+
+        // paused tween — ScrollTrigger callbacks drive play/reverse like AOS once:false
+        const tween = gsap.fromTo(el, from, {
+          autoAlpha: 1,
+          x: 0,
+          y: 0,
+          duration: itemDuration,
+          ease,
+          force3D: true,
+          paused: true,
+          immediateRender: false,
+          overwrite: 'auto',
+        })
+
+        ScrollTrigger.create({
+          trigger: el,
+          start: triggerStart,
+          once,
+          invalidateOnRefresh: true,
+          onEnter: () => {
+            tween.delay(enterDelay).restart(true)
           },
-        )
+          onEnterBack: () => {
+            if (once) return
+            tween.delay(enterDelay).restart(true)
+          },
+          onLeave: () => {
+            if (once) return
+            tween.delay(0).reverse()
+          },
+          onLeaveBack: () => {
+            if (once) return
+            tween.delay(0).reverse()
+          },
+        })
       })
+
+      ScrollTrigger.refresh()
     }, scope)
 
     return () => ctx.revert()
@@ -65,6 +122,7 @@ export function useRevealOnScroll(
     y,
     duration,
     once,
+    ease,
     prefersReducedMotion,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     ...deps,

@@ -189,7 +189,7 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 960px) {
   .grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
@@ -452,5 +452,13 @@
   .cta {
     width: 100%;
     max-width: 22rem;
+  }
+
+  .section {
+    padding: var(--mf-section-pad-y-sm) 0;
+  }
+
+  .card {
+    padding: 1.15rem 1.05rem 1.2rem;
   }
 }

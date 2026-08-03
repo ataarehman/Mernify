@@ -1,19 +1,19 @@
-/** Thumb images mapped from mernify-web service / portfolio assets */
+/** Premium service visuals (Dribbble-style product / UI mockup compositions) */
 export const SERVICE_IMAGES = {
-  'product-engineering': '/assets/images/thumbs/service-three-thumb1.png',
-  'saas-development': '/assets/images/thumbs/service-three-thumb2.png',
-  'web-development': '/assets/images/thumbs/service-three-thumb3.png',
-  'ai-integration': '/assets/images/thumbs/service-three-thumb4.png',
-  'ui-ux-design': '/assets/images/thumbs/about-thumb-two.jpg',
-  'mobile-app-development': '/assets/images/thumbs/portfolio-two-thumb3.jpg',
-  'workflow-automation': '/assets/images/thumbs/portfolio-thumb5.jpg',
-  'cloud-devops': '/assets/images/thumbs/portfolio-thumb6.jpg',
-  'api-development': '/assets/images/thumbs/portfolio-thumb7.jpg',
-  'dedicated-product-teams': '/assets/images/thumbs/team-thumb1.jpg',
+  'product-engineering': '/assets/images/services/product-engineering.jpg',
+  'saas-development': '/assets/images/services/saas-development.jpg',
+  'web-development': '/assets/images/services/web-development.jpg',
+  'ai-integration': '/assets/images/services/ai-integration.jpg',
+  'ui-ux-design': '/assets/images/services/ui-ux-design.jpg',
+  'mobile-app-development': '/assets/images/services/mobile-app-development.jpg',
+  'workflow-automation': '/assets/images/services/workflow-automation.jpg',
+  'cloud-devops': '/assets/images/services/cloud-devops.jpg',
+  'api-development': '/assets/images/services/api-development.jpg',
+  'dedicated-product-teams': '/assets/images/services/dedicated-product-teams.jpg',
 }
 
 export function getServiceImage(slug) {
-  return SERVICE_IMAGES[slug] || '/assets/images/thumbs/service-thumb1.jpg'
+  return SERVICE_IMAGES[slug] || '/assets/images/services/product-engineering.jpg'
 }
 
 export const INDUSTRY_IMAGES = [

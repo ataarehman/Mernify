@@ -8,8 +8,8 @@
  * 1. Cloudflare Dashboard → Workers → Create → paste this file
  * 2. Settings → Variables / Secrets:
  *      RESEND_API_KEY   = re_xxxxxxxx (https://resend.com)  [Secret]
- *      CONTACT_TO      = hello@mernify.com
- *      CONTACT_FROM    = Mernify <hello@mernify.com>  (verified domain preferred)
+ *      CONTACT_TO      = info@mernify.co
+ *      CONTACT_FROM    = Mernify <info@mernify.co>  (verified domain preferred)
  *      ALLOWED_ORIGIN  = https://mernify.co,https://www.mernify.co
  * 3. Copy worker URL into VITE_CONTACT_ENDPOINT
  * 4. Rebuild the static site
@@ -43,11 +43,14 @@ function json(data, status, headers) {
 }
 
 function sanitize(value, max) {
-  return String(value ?? '')
-    .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F]/g, '')
-    .replace(/<[^>]*>/g, '')
-    .trim()
-    .slice(0, max)
+  const cleaned = String(value ?? '')
+    .split('')
+    .filter((ch) => {
+      const code = ch.charCodeAt(0)
+      return code >= 32 || code === 9 || code === 10 || code === 13
+    })
+    .join('')
+  return cleaned.replace(/<[^>]*>/g, '').trim().slice(0, max)
 }
 
 function clientIp(request) {
@@ -145,8 +148,8 @@ export default {
       return json({ error: 'Server misconfigured' }, 500, cors)
     }
 
-    const to = env.CONTACT_TO || 'hello@mernify.com'
-    const from = env.CONTACT_FROM || 'Mernify <onboarding@resend.dev>'
+    const to = env.CONTACT_TO || 'info@mernify.co'
+    const from = env.CONTACT_FROM || 'Mernify <info@mernify.co>'
 
     const text = [
       `New inquiry from ${name}`,
@@ -177,7 +180,7 @@ export default {
 
     if (!resendRes.ok) {
       // Do not leak upstream response bodies to browsers
-      return json({ error: 'Delivery failed. Please email hello@mernify.com.' }, 502, cors)
+      return json({ error: 'Delivery failed. Please email info@mernify.co.' }, 502, cors)
     }
 
     return json({ ok: true }, 200, cors)

@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { hasAnalyticsConsent, readConsent } from '@/lib/consent'
+import { hasAnalyticsConsent } from '@/lib/consent'
 import { resolveGaId } from '@/lib/env'
 
 const GA_ID = resolveGaId()
@@ -35,10 +35,6 @@ export function Analytics() {
     const onConsent = () => maybeLoad()
     window.addEventListener('mf:consent', onConsent)
     return () => window.removeEventListener('mf:consent', onConsent)
-  }, [])
-
-  useEffect(() => {
-    readConsent()
   }, [])
 
   return null

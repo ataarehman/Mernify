@@ -7,8 +7,8 @@ import { CookieConsent } from '@/components/privacy/CookieConsent'
 import { Analytics } from '@/components/privacy/Analytics'
 import {
   PageEntranceCurtain,
-  shouldPlayPageEntrance,
 } from '@/components/motion/PageEntranceCurtain'
+import { shouldPlayPageEntrance } from '@/components/motion/pageEntrance'
 import { useMotion } from '@/app/providers/useMotion'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 

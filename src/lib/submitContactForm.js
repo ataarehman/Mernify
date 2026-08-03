@@ -10,7 +10,9 @@
  * Never put RESEND_API_KEY or other private secrets in VITE_* variables.
  */
 
-const EMAIL = 'hello@mernify.com'
+import { resolveContactEndpoint } from '@/lib/env'
+
+const EMAIL = 'info@mernify.co'
 
 function sanitizeField(value, max = 500) {
   return String(value ?? '')
@@ -83,7 +85,7 @@ async function postJson(url, body) {
 
 export async function submitContactForm(payload) {
   const safe = toSafePayload(payload)
-  const endpoint = String(import.meta.env.VITE_CONTACT_ENDPOINT || '').trim()
+  const endpoint = resolveContactEndpoint()
   const web3Key = String(import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '').trim()
 
   if (endpoint) {
@@ -120,7 +122,6 @@ export async function submitContactForm(payload) {
 /** True when a real delivery path is configured (not mailto-only). */
 export function hasContactEndpoint() {
   return Boolean(
-    String(import.meta.env.VITE_CONTACT_ENDPOINT || '').trim() ||
-      String(import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '').trim(),
+    resolveContactEndpoint() || String(import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '').trim(),
   )
 }
