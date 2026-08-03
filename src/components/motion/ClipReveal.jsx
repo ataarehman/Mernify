@@ -1,6 +1,7 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { whenPageEntranceReady } from '@/components/motion/pageEntrance'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
 import styles from './ClipReveal.module.css'
 
@@ -52,9 +53,29 @@ function useSimpleReveal() {
   return simple
 }
 
+function playTileTimeline(masks) {
+  const tl = gsap.timeline()
+  ORDER.forEach((indices, step) => {
+    const targets = indices.map((i) => masks[i]).filter(Boolean)
+    if (!targets.length) return
+    tl.to(
+      targets,
+      {
+        clipPath: (_j, el) => FINAL_CLIPS[masks.indexOf(el)],
+        duration: 1,
+        ease: 'power4.out',
+        stagger: 0.1,
+      },
+      step * 0.125,
+    )
+  })
+  return tl
+}
+
 /**
  * Template-style 9-tile clip reveal on desktop.
  * Falls back to a single fade on touch / smaller viewports for scroll perf.
+ * `immediate` waits for page entrance then plays without scroll gating (hero).
  */
 export function ClipReveal({
   src,
@@ -62,6 +83,9 @@ export function ClipReveal({
   className = '',
   rounded = true,
   start = 'top 75%',
+  immediate = false,
+  loading = 'lazy',
+  fetchPriority,
 }) {
   const rootRef = useRef(null)
   const { prefersReducedMotion } = useReducedMotion()
@@ -77,55 +101,86 @@ export function ClipReveal({
         gsap.set(source, { opacity: 1 })
       }
       if (!prefersReducedMotion && simple && source) {
-        const ctx = gsap.context(() => {
-          gsap.fromTo(
-            source,
-            { opacity: 0, scale: 1.04 },
-            {
-              opacity: 1,
-              scale: 1,
-              duration: 0.85,
-              ease: 'power2.out',
-              scrollTrigger: { trigger: root, start, once: true },
-            },
-          )
-        }, root)
-        return () => ctx.revert()
+        let ctx
+        const cleanupReady = whenPageEntranceReady(() => {
+            ctx = gsap.context(() => {
+              if (immediate) {
+                gsap.fromTo(
+                  source,
+                  { opacity: 0, scale: 1.04 },
+                  { opacity: 1, scale: 1, duration: 0.85, ease: 'power2.out' },
+                )
+                return
+              }
+              gsap.fromTo(
+                source,
+                { opacity: 0, scale: 1.04 },
+                {
+                  opacity: 1,
+                  scale: 1,
+                  duration: 0.85,
+                  ease: 'power2.out',
+                  scrollTrigger: {
+                    trigger: root,
+                    start,
+                    once: true,
+                    invalidateOnRefresh: true,
+                  },
+                },
+              )
+            }, root)
+          })
+        return () => {
+          cleanupReady()
+          ctx?.revert()
+        }
       }
       return undefined
     }
 
     const masks = Array.from(root.querySelectorAll('[data-clip-mask]'))
+    let ctx
 
-    const ctx = gsap.context(() => {
-      gsap.set(masks, { clipPath: (i) => INITIAL_CLIPS[i] })
+    const cleanupReady = whenPageEntranceReady(() => {
+        ctx = gsap.context(() => {
+          gsap.set(masks, { clipPath: (i) => INITIAL_CLIPS[i] })
 
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: root,
-          start,
-          once: true,
-        },
+          if (immediate) {
+            playTileTimeline(masks)
+            return
+          }
+
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: root,
+              start,
+              once: true,
+              invalidateOnRefresh: true,
+            },
+          })
+
+          ORDER.forEach((indices, step) => {
+            const targets = indices.map((i) => masks[i]).filter(Boolean)
+            if (!targets.length) return
+            tl.to(
+              targets,
+              {
+                clipPath: (_j, el) => FINAL_CLIPS[masks.indexOf(el)],
+                duration: 1,
+                ease: 'power4.out',
+                stagger: 0.1,
+              },
+              step * 0.125,
+            )
+          })
+        }, root)
       })
 
-      ORDER.forEach((indices, step) => {
-        const targets = indices.map((i) => masks[i]).filter(Boolean)
-        if (!targets.length) return
-        tl.to(
-          targets,
-          {
-            clipPath: (j, el) => FINAL_CLIPS[masks.indexOf(el)],
-            duration: 1,
-            ease: 'power4.out',
-            stagger: 0.1,
-          },
-          step * 0.125,
-        )
-      })
-    }, root)
-
-    return () => ctx.revert()
-  }, [src, start, prefersReducedMotion, simple])
+    return () => {
+      cleanupReady()
+      ctx?.revert()
+    }
+  }, [src, start, prefersReducedMotion, simple, immediate])
 
   return (
     <div
@@ -144,8 +199,9 @@ export function ClipReveal({
         className={styles.source}
         src={src}
         alt={alt}
-        loading="lazy"
+        loading={loading}
         decoding="async"
+        {...(fetchPriority ? { fetchPriority } : {})}
       />
       {!simple &&
         Array.from({ length: 9 }).map((_, index) => (

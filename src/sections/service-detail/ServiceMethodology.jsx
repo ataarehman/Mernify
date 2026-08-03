@@ -67,13 +67,13 @@ export function ServiceMethodology({ content, serviceTitle }) {
           ) : null}
         </div>
 
-        <ol className={styles.steps}>
+        <ol className={styles.steps} data-dense={steps.length > 4 ? 'true' : undefined}>
           {steps.map((step, index) => (
             <li
               key={step.title}
               className={styles.step}
               data-fade-up
-              data-delay={String(100 + index * 90)}
+              data-delay={String(100 + index * 70)}
             >
               <div className={styles.stepTop}>
                 <span className={styles.badge}>Step {String(index + 1).padStart(2, '0')}</span>
@@ -83,7 +83,7 @@ export function ServiceMethodology({ content, serviceTitle }) {
               </div>
               <h3>{step.title}</h3>
               <p>{step.body}</p>
-              {index < steps.length - 1 ? (
+              {index < steps.length - 1 && steps.length <= 4 ? (
                 <span className={styles.connector} aria-hidden="true" />
               ) : null}
             </li>

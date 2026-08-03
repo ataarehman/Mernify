@@ -4,9 +4,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container } from '@/components/ui'
 import { ClipReveal } from '@/components/motion/ClipReveal'
 import { HeroRipple } from '@/components/motion/HeroRipple'
+import { whenPageEntranceReady } from '@/components/motion/pageEntrance'
 import { homeHero } from '@/content/home'
 import { BIG_TEXT_BLEND_COLOR, BIG_TEXT_BREAKPOINTS } from '@/motion/presets/bigText'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
+import { refreshScrollTriggers } from '@/lib/scrollManager'
 import styles from './HomeHero.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -16,7 +18,7 @@ export function HomeHero() {
   const brandRef = useRef(null)
   const { prefersReducedMotion } = useReducedMotion()
 
-  // Entrance: char fly-in + thumb (clip handled by ClipReveal)
+  // Entrance: wait for page curtain so motion is visible on first paint.
   useLayoutEffect(() => {
     const el = wrapRef.current
     if (!el || prefersReducedMotion) return undefined
@@ -24,30 +26,40 @@ export function HomeHero() {
     const title = el.querySelector('[data-hero-title]')
     const chars = title?.querySelectorAll('[data-char]')
     const brand = brandRef.current
+    let ctx
 
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
+    const cleanupReady = whenPageEntranceReady(() => {
+      ctx = gsap.context(() => {
+        const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
 
-      if (chars?.length && window.innerWidth > 576) {
-        gsap.set(title, { perspective: 300 })
-        tl.from(chars, {
-          duration: 1,
-          delay: 0.35,
-          x: 100,
-          autoAlpha: 0,
-          stagger: 0.05,
+        if (chars?.length && window.innerWidth > 576) {
+          gsap.set(title, { perspective: 300 })
+          tl.from(chars, {
+            duration: 1,
+            delay: 0.08,
+            x: 100,
+            autoAlpha: 0,
+            stagger: 0.05,
+          })
+        } else if (title) {
+          tl.from(title, { autoAlpha: 0, y: 28, duration: 0.8, delay: 0.05 })
+        }
+
+        if (brand) {
+          gsap.set(brand, { x: 0, y: 0, scale: 1, color: '#ffffff' })
+          tl.from(brand, { autoAlpha: 0, duration: 0.85 }, '-=0.55')
+        }
+
+        tl.add(() => {
+          refreshScrollTriggers(ScrollTrigger, { afterMs: 80 })
         })
-      } else if (title) {
-        tl.from(title, { autoAlpha: 0, y: 28, duration: 0.8, delay: 0.2 })
-      }
+      }, el)
+    }, { playEntrance: true })
 
-      if (brand) {
-        gsap.set(brand, { x: 0, y: 0, scale: 1, color: '#ffffff' })
-        tl.from(brand, { autoAlpha: 0, duration: 0.85 }, '-=0.55')
-      }
-    }, el)
-
-    return () => ctx.revert()
+    return () => {
+      cleanupReady()
+      ctx?.revert()
+    }
   }, [prefersReducedMotion])
 
   // Scroll scrub: giant Mernify scales / drifts into about (template §05)
@@ -56,37 +68,47 @@ export function HomeHero() {
     const brand = brandRef.current
     if (!section || !brand || prefersReducedMotion) return undefined
 
-    const mm = gsap.matchMedia()
+    let mm
 
-    const conditions = Object.fromEntries(
-      BIG_TEXT_BREAKPOINTS.map((bp, index) => [`bp${index}`, bp.query]),
-    )
+    const cleanupReady = whenPageEntranceReady(() => {
+      mm = gsap.matchMedia()
 
-    mm.add(conditions, (context) => {
-      let active = BIG_TEXT_BREAKPOINTS[0]
-      BIG_TEXT_BREAKPOINTS.forEach((bp, index) => {
-        if (context.conditions[`bp${index}`]) active = bp
+      const conditions = Object.fromEntries(
+        BIG_TEXT_BREAKPOINTS.map((bp, index) => [`bp${index}`, bp.query]),
+      )
+
+      mm.add(conditions, (context) => {
+        let active = BIG_TEXT_BREAKPOINTS[0]
+        BIG_TEXT_BREAKPOINTS.forEach((bp, index) => {
+          if (context.conditions[`bp${index}`]) active = bp
+        })
+
+        const tween = gsap.to(brand, {
+          scale: active.scale,
+          y: active.y,
+          x: active.x,
+          color: BIG_TEXT_BLEND_COLOR,
+          transformOrigin: 'bottom center',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            scrub: 0.65,
+            start: 'top top',
+            end: 'bottom top',
+            invalidateOnRefresh: true,
+          },
+        })
+
+        return () => tween.scrollTrigger?.kill()
       })
 
-      const tween = gsap.to(brand, {
-        scale: active.scale,
-        y: active.y,
-        x: active.x,
-        color: BIG_TEXT_BLEND_COLOR,
-        transformOrigin: 'bottom center',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: section,
-          scrub: 0.65,
-          start: 'top top',
-          end: 'bottom top',
-        },
-      })
+      refreshScrollTriggers(ScrollTrigger, { afterMs: 100 })
+    }, { playEntrance: true })
 
-      return () => tween.scrollTrigger?.kill()
-    })
-
-    return () => mm.revert()
+    return () => {
+      cleanupReady()
+      mm?.revert()
+    }
   }, [prefersReducedMotion])
 
   const titleWords = homeHero.title.split(' ')
@@ -120,6 +142,9 @@ export function HomeHero() {
               src="/assets/images/thumbs/banner-thumb.jpg"
               alt="Product engineering work at Mernify"
               className={styles.thumbClip}
+              immediate
+              loading="eager"
+              fetchPriority="high"
             />
           </div>
         </div>

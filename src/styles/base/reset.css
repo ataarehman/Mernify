@@ -10,8 +10,9 @@ html {
   background-color: var(--mf-color-navy);
   overflow-x: clip;
   max-width: 100%;
-  /* Native smooth scroll on touch / when Lenis is disabled */
-  scroll-behavior: smooth;
+  /* Never use native smooth scroll for SPA route resets — it causes footer flashes.
+     Lenis handles intentional smooth scrolling when enabled. */
+  scroll-behavior: auto;
 }
 
 html.lenis,

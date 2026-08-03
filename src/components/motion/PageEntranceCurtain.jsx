@@ -3,6 +3,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useMotion } from '@/app/providers/useMotion'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
+import { refreshScrollTriggers } from '@/lib/scrollManager'
 import styles from './PageEntranceCurtain.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -19,19 +20,31 @@ const FLAT = 'M0 2S175 1 500 1s500 1 500 1V0H0Z'
 export function PageEntranceCurtain({
   label = 'Mernify',
   hold = 0.4,
+  onComplete,
 }) {
   const rootRef = useRef(null)
   const pathRef = useRef(null)
   const textRef = useRef(null)
   const [done, setDone] = useState(false)
+  const completedRef = useRef(false)
   const { prefersReducedMotion } = useReducedMotion()
   const { lenis } = useMotion()
 
   useLayoutEffect(() => {
     if (done) return undefined
 
-    if (prefersReducedMotion) {
+    const finish = () => {
+      if (completedRef.current) return
+      completedRef.current = true
+      document.documentElement.style.overflow = ''
+      lenis?.current?.start()
       setDone(true)
+      onComplete?.()
+      refreshScrollTriggers(ScrollTrigger, { afterMs: 180 })
+    }
+
+    if (prefersReducedMotion) {
+      finish()
       return undefined
     }
 
@@ -48,12 +61,7 @@ export function PageEntranceCurtain({
 
     const tl = gsap.timeline({
       defaults: { ease: 'power2.inOut' },
-      onComplete: () => {
-        document.documentElement.style.overflow = prevOverflow
-        lenisInstance?.start()
-        setDone(true)
-        requestAnimationFrame(() => ScrollTrigger.refresh())
-      },
+      onComplete: finish,
     })
 
     if (text) {
@@ -81,7 +89,7 @@ export function PageEntranceCurtain({
       document.documentElement.style.overflow = prevOverflow
       lenisInstance?.start()
     }
-  }, [done, hold, prefersReducedMotion, lenis])
+  }, [done, hold, prefersReducedMotion, lenis, onComplete])
 
   if (done) return null
 

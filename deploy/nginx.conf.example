@@ -15,8 +15,9 @@ server {
   add_header Referrer-Policy "strict-origin-when-cross-origin" always;
   add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
 
-  # Optional CSP — tighten script-src once GA/Calendly domains are confirmed
-  # add_header Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com; frame-src https://www.google.com https://calendly.com;" always;
+  # Optional CSP — tighten script-src once GA/Calendly domains are confirmed.
+  # IMPORTANT: include your contact Worker + Web3Forms in connect-src or the form will fail.
+  # add_header Content-Security-Policy "default-src 'self'; img-src 'self' data: https:; style-src 'self' 'unsafe-inline'; script-src 'self' https://www.googletagmanager.com https://www.google-analytics.com; connect-src 'self' https://www.google-analytics.com https://*.workers.dev https://api.web3forms.com; frame-src https://www.google.com https://calendly.com;" always;
 
   # Hashed Vite assets — long cache
   location /assets/ {

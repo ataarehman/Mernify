@@ -4,6 +4,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useReducedMotion } from './useReducedMotion'
 import { MotionContext } from './motionContext'
+import { scrollDocumentToTop } from '@/lib/scrollManager'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -49,6 +50,8 @@ export function MotionProvider({ children }) {
     // Allow GSAP to recover after long frames instead of compounding jank.
     gsap.ticker.lagSmoothing(500)
 
+    // Align Lenis with the intended top position after attach.
+    scrollDocumentToTop(lenisRef)
     ScrollTrigger.refresh()
 
     return () => {
@@ -56,6 +59,8 @@ export function MotionProvider({ children }) {
       lenis.destroy()
       lenisRef.current = null
       document.documentElement.classList.remove('lenis', 'lenis-smooth')
+      // Only kill Lenis-coupled triggers owned by this session teardown —
+      // component hooks recreate their own triggers on remount.
       ScrollTrigger.getAll().forEach((trigger) => trigger.kill())
     }
   }, [prefersReducedMotion])
@@ -67,7 +72,9 @@ export function MotionProvider({ children }) {
         const lenis = lenisRef.current
         if (!lenis || prefersReducedMotion) {
           if (typeof target === 'string') {
-            document.querySelector(target)?.scrollIntoView()
+            document.querySelector(target)?.scrollIntoView({ behavior: 'smooth' })
+          } else if (typeof target === 'number') {
+            window.scrollTo({ top: target, left: 0, behavior: 'smooth' })
           }
           return
         }

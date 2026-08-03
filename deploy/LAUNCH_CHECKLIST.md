@@ -15,7 +15,7 @@ Provide / configure:
 1. **Resend API key** → Worker secret `RESEND_API_KEY`
 2. **From address** (verified domain) → Worker `CONTACT_FROM` (e.g. `Mernify <info@mernify.co>`)
 3. **Inbox** → Worker `CONTACT_TO` (e.g. `info@mernify.co`)
-4. **CORS origins** → Worker `ALLOWED_ORIGIN` = `https://mernify.co,https://www.mernify.co` (adjust if domain differs)
+4. **CORS origins** → Worker `ALLOWED_ORIGIN` = `https://mernify.co,https://www.mernify.co` (exact origins; include both www and apex if used). Redeploy the Worker after updating `cf-worker/contact.js` so ACAO matches `originAllowed()`.
 5. Deploy Worker from `cf-worker/contact.js`
 6. Put Worker URL in build env → `VITE_CONTACT_ENDPOINT`
 
