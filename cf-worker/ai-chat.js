@@ -7,10 +7,10 @@
  * Deploy:
  * 1. Cloudflare Dashboard → Workers → Create → paste this file
  * 2. Settings → Variables / Secrets:
- *      AI_PROVIDER          = anthropic | openai          (default: anthropic)
- *      AI_API_KEY           = sk-ant-... or sk-...        [Secret]
- *      AI_PRIMARY_MODEL     = claude-sonnet-4-5-20251001  (default)
- *      AI_FALLBACK_MODEL    = claude-haiku-4-5-20251001   (default)
+ *      AI_PROVIDER          = anthropic | openai | deepseek  (default: anthropic)
+ *      AI_API_KEY           = sk-ant-... or sk-... or sk-... [Secret]
+ *      AI_PRIMARY_MODEL     = claude-haiku-4-5-20251001 | deepseek-chat (default per provider)
+ *      AI_FALLBACK_MODEL    = claude-haiku-4-5-20251001 | deepseek-chat (default per provider)
  *      CONTACT_ENDPOINT     = https://mernify-contact.YOUR_SUBDOMAIN.workers.dev
  *      RESEND_API_KEY       = re_xxxxxxxx                 [Secret]
  *      CONTACT_TO           = info@mernify.co
@@ -31,10 +31,12 @@ const REQUEST_TIMEOUT_MS = 30_000
 const RATE_WINDOW_MS = 60_000
 const RATE_MAX = 20
 
-const DEFAULT_MODEL = 'claude-haiku-4-5-20251001'
-const DEFAULT_FALLBACK_MODEL = 'claude-haiku-4-5-20251001'
+const DEFAULT_MODEL_ANTHROPIC = 'claude-haiku-4-5-20251001'
+const DEFAULT_MODEL_OPENAI = 'gpt-4o-mini'
+const DEFAULT_MODEL_DEEPSEEK = 'deepseek-chat'
 const ANTHROPIC_API_URL = 'https://api.anthropic.com/v1/messages'
 const OPENAI_API_URL = 'https://api.openai.com/v1/chat/completions'
+const DEEPSEEK_API_URL = 'https://api.deepseek.com/v1/chat/completions'
 
 // ─── Rate Limiter ─────────────────────────────────────────────────────────────
 
@@ -416,7 +418,8 @@ async function callAnthropic(apiKey, model, systemPrompt, messages, timeoutMs) {
   }
 }
 
-async function callOpenAI(apiKey, model, systemPrompt, messages, timeoutMs) {
+// DeepSeek uses the same request/response format as OpenAI — baseUrl is the only difference.
+async function callOpenAICompat(apiKey, model, systemPrompt, messages, timeoutMs, baseUrl, providerLabel) {
   const controller = new AbortController()
   const timer = setTimeout(() => controller.abort(), timeoutMs)
 
@@ -426,7 +429,7 @@ async function callOpenAI(apiKey, model, systemPrompt, messages, timeoutMs) {
   ]
 
   try {
-    const res = await fetch(OPENAI_API_URL, {
+    const res = await fetch(baseUrl, {
       method: 'POST',
       headers: {
         Authorization: `Bearer ${apiKey}`,
@@ -438,7 +441,7 @@ async function callOpenAI(apiKey, model, systemPrompt, messages, timeoutMs) {
 
     if (!res.ok) {
       const err = await res.text().catch(() => '')
-      throw new Error(`OpenAI ${res.status}: ${err.slice(0, 200)}`)
+      throw new Error(`${providerLabel} ${res.status}: ${err.slice(0, 200)}`)
     }
 
     const data = await res.json()
@@ -453,15 +456,30 @@ async function generateAIResponse(env, systemPrompt, messages) {
   const apiKey = env.AI_API_KEY
   if (!apiKey) throw new Error('AI_API_KEY not configured')
 
-  const model = env.AI_PRIMARY_MODEL || DEFAULT_MODEL
-  const fallbackModel = env.AI_FALLBACK_MODEL || DEFAULT_FALLBACK_MODEL
+  const defaultModel =
+    provider === 'openai' ? DEFAULT_MODEL_OPENAI
+    : provider === 'deepseek' ? DEFAULT_MODEL_DEEPSEEK
+    : DEFAULT_MODEL_ANTHROPIC
+  const model = env.AI_PRIMARY_MODEL || defaultModel
+  const fallbackModel = env.AI_FALLBACK_MODEL || defaultModel
 
   if (provider === 'openai') {
     try {
-      return await callOpenAI(apiKey, model, systemPrompt, messages, REQUEST_TIMEOUT_MS)
+      return await callOpenAICompat(apiKey, model, systemPrompt, messages, REQUEST_TIMEOUT_MS, OPENAI_API_URL, 'OpenAI')
     } catch (err) {
       if (model !== fallbackModel) {
-        return await callOpenAI(apiKey, fallbackModel, systemPrompt, messages, REQUEST_TIMEOUT_MS)
+        return await callOpenAICompat(apiKey, fallbackModel, systemPrompt, messages, REQUEST_TIMEOUT_MS, OPENAI_API_URL, 'OpenAI')
+      }
+      throw err
+    }
+  }
+
+  if (provider === 'deepseek') {
+    try {
+      return await callOpenAICompat(apiKey, model, systemPrompt, messages, REQUEST_TIMEOUT_MS, DEEPSEEK_API_URL, 'DeepSeek')
+    } catch (err) {
+      if (model !== fallbackModel) {
+        return await callOpenAICompat(apiKey, fallbackModel, systemPrompt, messages, REQUEST_TIMEOUT_MS, DEEPSEEK_API_URL, 'DeepSeek')
       }
       throw err
     }
