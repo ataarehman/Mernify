@@ -16,6 +16,7 @@ import {
   Target,
   Users,
   Workflow,
+  Zap,
 } from 'lucide-react'
 
 export const SERVICE_ICONS = {
@@ -36,4 +37,5 @@ export const SERVICE_ICONS = {
   layers: Layers,
   checkCircle: CheckCircle2,
   lifeBuoy: LifeBuoy,
+  zap: Zap,
 }

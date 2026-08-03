@@ -2,10 +2,12 @@ import { useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
   ArrowUpRight,
-  Globe,
+  Building2,
+  Factory,
   GraduationCap,
   HeartPulse,
   Landmark,
+  Plane,
   ShoppingBag,
   Truck,
   Wrench,
@@ -21,16 +23,16 @@ import styles from './ServiceIndustries.module.css'
 gsap.registerPlugin(ScrollTrigger)
 
 const INDUSTRY_VISUALS = {
-  healthcare: { Icon: HeartPulse, accent: '#22d3ee', label: 'Care systems' },
-  'financial-services': { Icon: Landmark, accent: '#818cf8', label: 'Money flows' },
-  logistics: { Icon: Truck, accent: '#34d399', label: 'Movement' },
-  retail: { Icon: ShoppingBag, accent: '#f472b6', label: 'Commerce' },
-  education: { Icon: GraduationCap, accent: '#a78bfa', label: 'Learning' },
-  'field-service': { Icon: Wrench, accent: '#38bdf8', label: 'Field ops' },
-  construction: { Icon: Wrench, accent: '#fbbf24', label: 'Build' },
-  'real-estate': { Icon: Landmark, accent: '#fb7185', label: 'Property' },
-  manufacturing: { Icon: Truck, accent: '#2dd4bf', label: 'Production' },
-  travel: { Icon: Globe, accent: '#67e8f9', label: 'Journeys' },
+  healthcare: { Icon: HeartPulse, accent: '#22d3ee', label: 'Care systems', motif: 'pulse' },
+  'financial-services': { Icon: Landmark, accent: '#818cf8', label: 'Money flows', motif: 'ledger' },
+  logistics: { Icon: Truck, accent: '#34d399', label: 'Movement', motif: 'route' },
+  retail: { Icon: ShoppingBag, accent: '#f472b6', label: 'Commerce', motif: 'stack' },
+  education: { Icon: GraduationCap, accent: '#a78bfa', label: 'Learning', motif: 'beam' },
+  'field-service': { Icon: Wrench, accent: '#38bdf8', label: 'Field ops', motif: 'grid' },
+  construction: { Icon: Building2, accent: '#fbbf24', label: 'Build', motif: 'grid' },
+  'real-estate': { Icon: Building2, accent: '#fb7185', label: 'Property', motif: 'stack' },
+  manufacturing: { Icon: Factory, accent: '#2dd4bf', label: 'Production', motif: 'route' },
+  travel: { Icon: Plane, accent: '#67e8f9', label: 'Journeys', motif: 'beam' },
 }
 
 function isLightMotion() {
@@ -42,7 +44,9 @@ function isLightMotion() {
 
 export function ServiceIndustries({ content }) {
   const rootRef = useRef(null)
-  const constellationRef = useRef(null)
+  const showcaseRef = useRef(null)
+  const detailRef = useRef(null)
+  const railRef = useRef(null)
   const { prefersReducedMotion } = useReducedMotion()
 
   const items = (content.slugs || [])
@@ -56,6 +60,10 @@ export function ServiceIndustries({ content }) {
 
   const [activeSlug, setActiveSlug] = useState(items[0]?.slug || null)
   const active = items.find((item) => item.slug === activeSlug) || items[0]
+  const activeIndex = Math.max(
+    0,
+    items.findIndex((item) => item.slug === active?.slug),
+  )
 
   useRevealOnScroll(rootRef, {
     selector: '[data-fade-up]',
@@ -65,56 +73,96 @@ export function ServiceIndustries({ content }) {
   })
 
   useLayoutEffect(() => {
-    const root = constellationRef.current
+    const root = showcaseRef.current
     if (!root || prefersReducedMotion || !items.length) return undefined
-
-    const nodes = root.querySelectorAll('[data-industry-node]')
-    const spine = root.querySelector('[data-industry-spine]')
-    if (!nodes.length) return undefined
 
     const light = isLightMotion()
     const ctx = gsap.context(() => {
-      if (spine) {
+      const tiles = root.querySelectorAll('[data-industry-tile]')
+      const connector = root.querySelector('[data-industry-connector]')
+
+      if (connector) {
         gsap.fromTo(
-          spine,
-          { scaleY: 0 },
+          connector,
+          { scaleX: 0 },
           {
-            scaleY: 1,
-            ease: 'none',
-            transformOrigin: 'top center',
+            scaleX: 1,
+            ease: 'power2.out',
+            transformOrigin: 'left center',
+            duration: light ? 0.7 : 1.05,
             scrollTrigger: {
               trigger: root,
-              start: 'top 75%',
-              end: 'bottom 55%',
-              scrub: light ? false : 0.7,
-              once: light,
+              start: 'top 78%',
+              once: true,
             },
-            duration: light ? 0.9 : undefined,
           },
         )
       }
 
       gsap.fromTo(
-        nodes,
-        { autoAlpha: 0, x: (i) => (i % 2 === 0 ? -36 : 36), scale: 0.9 },
+        tiles,
+        { autoAlpha: 0, y: 28, scale: 0.92 },
         {
           autoAlpha: 1,
-          x: 0,
+          y: 0,
           scale: 1,
-          duration: light ? 0.7 : 0.95,
-          stagger: 0.1,
+          duration: light ? 0.55 : 0.8,
+          stagger: 0.08,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: root,
-            start: 'top 72%',
+            start: 'top 76%',
             once: true,
           },
         },
       )
+
+      if (!light) {
+        const icons = root.querySelectorAll(`.${styles.tileIcon}`)
+        icons.forEach((icon, i) => {
+          gsap.to(icon, {
+            y: i % 2 === 0 ? -5 : 5,
+            duration: 2.6 + (i % 3) * 0.4,
+            repeat: -1,
+            yoyo: true,
+            ease: 'sine.inOut',
+            delay: i * 0.15,
+          })
+        })
+      }
     }, root)
 
     return () => ctx.revert()
   }, [prefersReducedMotion, items.length])
+
+  useLayoutEffect(() => {
+    const panel = detailRef.current
+    if (!panel || prefersReducedMotion) return undefined
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        panel.querySelectorAll('[data-detail-anim]'),
+        { autoAlpha: 0, y: 16 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.45,
+          stagger: 0.06,
+          ease: 'power2.out',
+        },
+      )
+    }, panel)
+
+    return () => ctx.revert()
+  }, [activeSlug, prefersReducedMotion])
+
+  useLayoutEffect(() => {
+    const rail = railRef.current
+    const activeBtn = rail?.querySelector('[aria-pressed="true"]')
+    if (!rail || !activeBtn || typeof activeBtn.scrollIntoView !== 'function') return
+    if (!window.matchMedia('(max-width: 899px)').matches) return
+    activeBtn.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', inline: 'center', block: 'nearest' })
+  }, [activeSlug, prefersReducedMotion])
 
   if (!items.length) return null
 
@@ -126,11 +174,14 @@ export function ServiceIndustries({ content }) {
       className={styles.section}
       data-header-theme="dark"
       aria-labelledby="service-industries-title"
+      style={active ? { '--accent': active.accent } : undefined}
     >
       <div className={styles.atmosphere} aria-hidden="true">
         <span className={styles.orbOne} />
         <span className={styles.orbTwo} />
+        <span className={styles.orbThree} />
         <span className={styles.mesh} />
+        <span className={styles.horizon} />
       </div>
 
       <Container width="wide" className={styles.shell}>
@@ -147,88 +198,91 @@ export function ServiceIndustries({ content }) {
           </Link>
         </header>
 
-        <div className={styles.stage}>
-          <div ref={constellationRef} className={styles.constellation}>
-            <span className={styles.spine} data-industry-spine aria-hidden="true" />
-
-            <ol className={styles.nodes} role="list">
+        <div ref={showcaseRef} className={styles.showcase}>
+          <div className={styles.railWrap}>
+            <span className={styles.connector} data-industry-connector aria-hidden="true" />
+            <ul ref={railRef} className={styles.rail} role="list" aria-label="Industries">
               {items.map((item, index) => {
                 const isActive = item.slug === active?.slug
                 const Icon = item.Icon
-                const side = index % 2 === 0 ? 'left' : 'right'
-
                 return (
-                  <li
-                    key={item.slug}
-                    className={[
-                      styles.nodeRow,
-                      side === 'left' ? styles.sideLeft : styles.sideRight,
-                      isActive ? styles.nodeRowActive : '',
-                    ]
-                      .filter(Boolean)
-                      .join(' ')}
-                    data-industry-node
-                    style={{ '--accent': item.accent }}
-                  >
+                  <li key={item.slug} className={styles.railItem} data-industry-tile>
                     <button
                       type="button"
-                      className={styles.nodeHit}
+                      className={[styles.tile, isActive ? styles.tileActive : ''].filter(Boolean).join(' ')}
+                      style={{ '--tile-accent': item.accent }}
                       aria-pressed={isActive}
-                      onMouseEnter={() => setActiveSlug(item.slug)}
+                      onMouseEnter={() => {
+                        if (!window.matchMedia('(pointer: coarse)').matches) {
+                          setActiveSlug(item.slug)
+                        }
+                      }}
                       onFocus={() => setActiveSlug(item.slug)}
                       onClick={() => setActiveSlug(item.slug)}
                     >
-                      <span className={styles.nodeOrb} aria-hidden="true">
-                        <span className={styles.nodeRing} />
-                        <span className={styles.nodeCore}>
-                          <Icon size={18} strokeWidth={2.1} />
-                        </span>
+                      <span className={styles.tileGlow} aria-hidden="true" />
+                      <span className={styles.tileIcon} aria-hidden="true">
+                        <Icon size={22} strokeWidth={1.9} />
                       </span>
-
-                      <span className={styles.nodeCopy}>
-                        <span className={styles.nodeMeta}>
-                          <span className={styles.nodeIndex}>
-                            {String(index + 1).padStart(2, '0')}
-                          </span>
-                          <span className={styles.nodeLabel}>{item.label}</span>
-                        </span>
-                        <span className={styles.nodeTitle}>{item.title}</span>
-                        <span className={styles.nodeSummary}>{item.summary}</span>
+                      <span className={styles.tileMeta}>
+                        <span className={styles.tileIndex}>{String(index + 1).padStart(2, '0')}</span>
+                        <span className={styles.tileTitle}>{item.title}</span>
+                        <span className={styles.tileLabel}>{item.label}</span>
                       </span>
                     </button>
-
-                    <span className={styles.branch} aria-hidden="true" />
                   </li>
                 )
               })}
-            </ol>
+            </ul>
           </div>
 
-          <aside
-            className={styles.focus}
-            data-fade-up
-            data-delay="120"
+          <article
+            ref={detailRef}
+            className={styles.detail}
             aria-live="polite"
-            style={active ? { '--accent': active.accent } : undefined}
+            data-motif={active?.motif || 'pulse'}
           >
-            <div className={styles.focusGlow} aria-hidden="true" />
-            <div className={styles.focusIcon} aria-hidden="true">
-              <ActiveIcon size={28} strokeWidth={1.8} />
+            <div className={styles.detailVisual} aria-hidden="true" data-detail-anim>
+              <div className={styles.visualFrame}>
+                <span className={styles.visualHalo} />
+                <span className={styles.visualRing} />
+                <span className={styles.visualCore}>
+                  <ActiveIcon size={42} strokeWidth={1.55} />
+                </span>
+                <span className={styles.visualOrbit} />
+                <span className={styles.visualSpark} data-spark="a" />
+                <span className={styles.visualSpark} data-spark="b" />
+                <span className={styles.visualSpark} data-spark="c" />
+              </div>
+              <p className={styles.visualIndex}>
+                <span>{String(activeIndex + 1).padStart(2, '0')}</span>
+                <span>/</span>
+                <span>{String(items.length).padStart(2, '0')}</span>
+              </p>
             </div>
-            <p className={styles.focusEyebrow}>In focus</p>
-            <h3 className={styles.focusTitle}>{active?.title}</h3>
-            <p className={styles.focusText}>{active?.summary}</p>
-            {active?.focus?.length ? (
-              <ul className={styles.focusList} role="list">
-                {active.focus.map((point) => (
-                  <li key={point}>{point}</li>
-                ))}
-              </ul>
-            ) : null}
-            <Link to="/industries" className={styles.focusCta}>
-              View industry patterns <ArrowUpRight size={16} />
-            </Link>
-          </aside>
+
+            <div className={styles.detailCopy}>
+              <p className={styles.detailEyebrow} data-detail-anim>
+                {active?.label}
+              </p>
+              <h3 className={styles.detailTitle} data-detail-anim>
+                {active?.title}
+              </h3>
+              <p className={styles.detailText} data-detail-anim>
+                {active?.summary}
+              </p>
+              {active?.focus?.length ? (
+                <ul className={styles.detailList} role="list" data-detail-anim>
+                  {active.focus.map((point) => (
+                    <li key={point}>{point}</li>
+                  ))}
+                </ul>
+              ) : null}
+              <Link to="/industries" className={styles.detailCta} data-detail-anim>
+                View industry patterns <ArrowUpRight size={16} />
+              </Link>
+            </div>
+          </article>
         </div>
       </Container>
     </section>

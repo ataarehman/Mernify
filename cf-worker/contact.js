@@ -23,12 +23,12 @@ const RATE_MAX = 8
 /** @type {Map<string, { count: number, reset: number }>} */
 const rateMap = new Map()
 
-const CORS = (origin, allowed) => ({
-  'Access-Control-Allow-Origin': allowed.includes(origin) ? origin : allowed[0],
+const CORS = (origin) => ({
+  'Access-Control-Allow-Origin': origin,
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
   'Access-Control-Allow-Headers': 'Content-Type, Accept',
   'Access-Control-Max-Age': '86400',
-  'Vary': 'Origin',
+  Vary: 'Origin',
 })
 
 function json(data, status, headers) {
@@ -79,8 +79,19 @@ function originAllowed(origin, allowed) {
     (a) =>
       origin === a ||
       (a.includes('localhost') && origin.startsWith('http://localhost')) ||
+      (a.includes('127.0.0.1') && origin.startsWith('http://127.0.0.1')) ||
       origin.endsWith('.pages.dev'),
   )
+}
+
+/** Build CORS headers only when the request Origin is allowed — never echo a mismatched fallback. */
+function corsFor(origin, allowed) {
+  if (originAllowed(origin, allowed)) return CORS(origin)
+  return {
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Accept',
+    Vary: 'Origin',
+  }
 }
 
 export default {
@@ -90,7 +101,7 @@ export default {
       .map((s) => s.trim())
       .filter(Boolean)
     const origin = request.headers.get('Origin') || ''
-    const cors = CORS(origin || allowed[0], allowed)
+    const cors = corsFor(origin, allowed)
 
     if (request.method === 'OPTIONS') {
       if (origin && !originAllowed(origin, allowed)) {

@@ -27,6 +27,14 @@ import { ServiceLifecycle } from '@/sections/service-detail/ServiceLifecycle'
 import { ServiceIndustries } from '@/sections/service-detail/ServiceIndustries'
 import { ServiceEngagement } from '@/sections/service-detail/ServiceEngagement'
 import { ServiceFaq } from '@/sections/service-detail/ServiceFaq'
+import { ServiceSolutions } from '@/sections/service-detail/ServiceSolutions'
+import { ServiceStack } from '@/sections/service-detail/ServiceStack'
+import { ServiceSaasEcosystem } from '@/sections/service-detail/ServiceSaasEcosystem'
+import { ServiceEngineeringHub } from '@/sections/service-detail/ServiceEngineeringHub'
+import { ServiceWebLayers } from '@/sections/service-detail/ServiceWebLayers'
+import { ServiceMobileJourney } from '@/sections/service-detail/ServiceMobileJourney'
+import { ServiceAiPipeline } from '@/sections/service-detail/ServiceAiPipeline'
+import { ServiceDesignFlow } from '@/sections/service-detail/ServiceDesignFlow'
 import styles from './ServiceDetailPage.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -373,17 +381,23 @@ export function ServiceDetailPage() {
               data-duration="1400"
             >
               <div ref={overviewMediaRef} className={styles.overviewMediaInner}>
+                <span className={styles.overviewGlow} aria-hidden="true" />
+                <span className={styles.overviewAccent} aria-hidden="true" />
                 <div className={styles.overviewStage}>
-                  <img
+                  <ClipReveal
                     src={detail.overviewMedia.src}
                     alt={detail.overviewMedia.alt}
-                    width={1800}
-                    height={1800}
-                    loading="lazy"
-                    decoding="async"
+                    className={styles.overviewClip}
+                    start="top 82%"
                   />
+                  <span className={styles.overviewSheen} aria-hidden="true" />
                 </div>
                 <span className={styles.overviewBadge}>{detail.overviewBadge}</span>
+                <span className={styles.overviewFloat} aria-hidden="true">
+                  {service.slug === 'product-engineering'
+                    ? 'Strategy → systems → scale'
+                    : 'Idea → architecture → release'}
+                </span>
               </div>
             </div>
 
@@ -520,6 +534,22 @@ export function ServiceDetailPage() {
         serviceTitle={service.shortTitle || service.title}
       />
 
+      {detail.ecosystem ? <ServiceSaasEcosystem content={detail.ecosystem} /> : null}
+
+      {detail.engineeringHub ? <ServiceEngineeringHub content={detail.engineeringHub} /> : null}
+
+      {detail.webLayers ? <ServiceWebLayers content={detail.webLayers} /> : null}
+
+      {detail.mobileJourney ? <ServiceMobileJourney content={detail.mobileJourney} /> : null}
+
+      {detail.aiPipeline ? <ServiceAiPipeline content={detail.aiPipeline} /> : null}
+
+      {detail.designFlow ? <ServiceDesignFlow content={detail.designFlow} /> : null}
+
+      {detail.solutions ? <ServiceSolutions content={detail.solutions} /> : null}
+
+      {detail.stack ? <ServiceStack content={detail.stack} /> : null}
+
       <ServiceWhy content={detail.why} />
 
       <ServiceLifecycle content={detail.lifecycle} />
@@ -567,8 +597,29 @@ export function ServiceDetailPage() {
       />
 
       <PageCta
-        title="Ready to build your next digital product? Drop us a message, and let’s start engineering something reliable and scalable."
-        accentWords={['message', 'scalable']}
+        title={
+          detail.ctaTitle ||
+          'Ready to build your next digital product? Drop us a message, and let’s start engineering something reliable and scalable.'
+        }
+        accentWords={
+          detail.ctaTitle
+            ? [
+                'SaaS',
+                'scalable',
+                'platform',
+                'web',
+                'mobile',
+                'AI',
+                'design',
+                'trust',
+                'retention',
+                'guardrails',
+                'engineer',
+                'maintainable',
+                'ship',
+              ]
+            : ['message', 'scalable']
+        }
         mediaSrc={detail.ctaMedia.src}
         mediaAlt={detail.ctaMedia.alt}
         animated

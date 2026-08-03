@@ -2,7 +2,10 @@
   position: relative;
   overflow-x: clip;
   overflow-y: visible;
-  background: var(--mf-color-navy-deep);
+  background:
+    radial-gradient(ellipse 80% 55% at 70% 20%, rgba(79, 70, 229, 0.22), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 15% 80%, rgba(21, 198, 226, 0.14), transparent 50%),
+    var(--mf-color-navy-deep);
   color: var(--mf-text-on-dark);
   padding: calc(var(--mf-header-height) + clamp(2.5rem, 5vw, 4.5rem)) 0 0;
   z-index: 2;

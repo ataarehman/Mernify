@@ -222,12 +222,32 @@ export const aboutContent = {
 
 export const contactContent = {
   eyebrow: 'Contact',
-  title: 'Tell us about the product you want to build',
+  title: 'Let’s build the next version of your product',
   support:
     'Share enough context for a useful first conversation. We respond with clarifying questions, a suggested next step, and whether a discovery call makes sense.',
   emailLabel: 'Email',
   email: 'info@mernify.co',
-  note: 'Form submissions use a documented integration interface. In local development without an endpoint, the form opens a draft email as a safe fallback.',
+  media: {
+    src: '/assets/images/services/contact-collaboration.png',
+    alt: 'Mernify team in a focused product consultation with a client',
+  },
+  trust: [
+    {
+      icon: 'clock',
+      title: 'Reply within 1 business day',
+      text: 'You get a real response — not an auto-reply queue.',
+    },
+    {
+      icon: 'shield',
+      title: 'No pressure, clear ownership',
+      text: 'We only propose work when we can take accountability for delivery.',
+    },
+    {
+      icon: 'sparkles',
+      title: 'Senior-minded partners',
+      text: 'Product, design, and engineering stay connected from the first conversation.',
+    },
+  ],
   nextSteps: [
     'We review your inquiry and reply with clarifying questions.',
     'If there is a fit, we suggest a discovery call or a written next step.',
@@ -276,7 +296,7 @@ export const privacyContent = {
     },
     {
       heading: 'Cookies and analytics',
-      body: 'The marketing site uses essential cookies required for basic operation. Optional analytics cookies (for example Google Analytics) load only after you accept them via the consent banner. You can change your preference by clearing site data for mernify.co. Embedded maps load only after analytics consent or an explicit “Load map” action.',
+      body: 'The marketing site uses essential cookies required for basic operation. Optional analytics cookies (for example Google Analytics) load only after you accept them via the consent banner. You can change your preference by clearing site data for mernify.co.',
     },
     {
       heading: 'Data retention',
