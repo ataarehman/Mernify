@@ -1,4 +1,4 @@
-import { lazy, Suspense } from 'react'
+import { lazy } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { RootLayout } from '@/components/layout/RootLayout'
 import { HomePage } from '@/pages/HomePage'
@@ -33,30 +33,24 @@ const NotFoundPage = lazy(() =>
   import('@/pages/NotFoundPage').then((m) => ({ default: m.NotFoundPage })),
 )
 
-function RouteFallback() {
-  return <div className="mf-main" aria-hidden="true" />
-}
-
 export function AppRouter() {
   return (
-    <Suspense fallback={<RouteFallback />}>
-      <Routes>
-        <Route element={<RootLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="services" element={<ServicesPage />} />
-          <Route path="services/:slug" element={<ServiceDetailPage />} />
-          <Route path="industries" element={<IndustriesPage />} />
-          <Route path="case-studies" element={<CaseStudiesPage />} />
-          <Route path="case-studies/:slug" element={<CaseStudyPage />} />
-          <Route path="process" element={<ProcessPage />} />
-          <Route path="about" element={<AboutPage />} />
-          <Route path="contact" element={<ContactPage />} />
-          <Route path="privacy" element={<PrivacyPage />} />
-          <Route path="terms" element={<TermsPage />} />
-          <Route path="work" element={<Navigate to="/case-studies" replace />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Route>
-      </Routes>
-    </Suspense>
+    <Routes>
+      <Route element={<RootLayout />}>
+        <Route index element={<HomePage />} />
+        <Route path="services" element={<ServicesPage />} />
+        <Route path="services/:slug" element={<ServiceDetailPage />} />
+        <Route path="industries" element={<IndustriesPage />} />
+        <Route path="case-studies" element={<CaseStudiesPage />} />
+        <Route path="case-studies/:slug" element={<CaseStudyPage />} />
+        <Route path="process" element={<ProcessPage />} />
+        <Route path="about" element={<AboutPage />} />
+        <Route path="contact" element={<ContactPage />} />
+        <Route path="privacy" element={<PrivacyPage />} />
+        <Route path="terms" element={<TermsPage />} />
+        <Route path="work" element={<Navigate to="/case-studies" replace />} />
+        <Route path="*" element={<NotFoundPage />} />
+      </Route>
+    </Routes>
   )
 }

@@ -368,12 +368,35 @@ export function createWebGLRipples(el, options) {
     }
   }
 
+  /** Paint one frame even when the RAF loop is paused (critical for first reveal). */
+  function paintOnce() {
+    if (destroyed || !backgroundTexture) return false
+    resize()
+    if ((el.clientWidth || 0) < 2 || (el.clientHeight || 0) < 2) return false
+    updateTextures()
+    render()
+    canvas.style.opacity = '1'
+    return true
+  }
+
   let visibleInViewport = true
+  let readyNotified = false
+
+  function notifyReady() {
+    if (readyNotified || destroyed) return
+    readyNotified = true
+    options.onReady?.()
+  }
 
   function applyRunning(next) {
     if (destroyed) return
     const shouldRun = Boolean(next) && document.visibilityState !== 'hidden'
-    if (shouldRun === running) return
+    if (shouldRun === running) {
+      if (shouldRun && backgroundTexture && !rafId) {
+        rafId = requestAnimationFrame(step)
+      }
+      return
+    }
     running = shouldRun
     if (running && !rafId) {
       rafId = requestAnimationFrame(step)
@@ -429,10 +452,30 @@ export function createWebGLRipples(el, options) {
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, wrapping)
     gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, image)
     backgroundTexture = texture
-    resize()
-    // Reveal once the first texture is uploaded (matches static full-strength canvas).
-    canvas.style.opacity = '1'
-    options.onReady?.()
+
+    // Always paint once before announcing ready — never reveal an empty canvas.
+    const painted = paintOnce()
+    if (!painted) {
+      // Layout may still be settling (entrance curtain / fonts). Retry briefly.
+      let attempts = 0
+      const retry = () => {
+        if (destroyed || readyNotified) return
+        attempts += 1
+        if (paintOnce() || attempts >= 20) {
+          notifyReady()
+          if (running && !rafId) rafId = requestAnimationFrame(step)
+          return
+        }
+        requestAnimationFrame(retry)
+      }
+      requestAnimationFrame(retry)
+    } else {
+      notifyReady()
+    }
+
+    if (running && !rafId) {
+      rafId = requestAnimationFrame(step)
+    }
   }
   image.onerror = () => {
     if (destroyed) return
@@ -460,6 +503,8 @@ export function createWebGLRipples(el, options) {
       visibleInViewport = Boolean(next)
       applyRunning(next)
     },
+    resize,
+    paintOnce,
     destroy() {
       if (destroyed) return
       destroyed = true

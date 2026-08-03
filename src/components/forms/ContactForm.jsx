@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui'
 import { Field, TextInput, TextArea, SelectInput } from '@/components/forms/Field'
 import { BookCallCta } from '@/components/cta/BookCallCta'
-import { budgetRanges, serviceInterests } from '@/content/pages'
+import { serviceInterests } from '@/content/pages'
 import { SITE } from '@/constants/site'
-import { hasContactEndpoint, submitContactForm } from '@/lib/submitContactForm'
+import { submitContactForm } from '@/lib/submitContactForm'
 import styles from './ContactForm.module.css'
 
 const initial = {
@@ -13,8 +13,6 @@ const initial = {
   email: '',
   company: '',
   service: '',
-  budget: '',
-  timeline: '',
   message: '',
   consent: false,
   website: '',
@@ -27,9 +25,8 @@ function validate(values) {
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
     errors.email = 'Enter a valid email address.'
   }
-  if (!values.service) errors.service = 'Select a service interest.'
   if (!values.message.trim() || values.message.trim().length < 20) {
-    errors.message = 'Describe the project in at least a few sentences.'
+    errors.message = 'Share a bit more detail — at least a few sentences.'
   }
   if (!values.consent) errors.consent = 'Consent is required to contact you.'
   return errors
@@ -39,12 +36,12 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
   const [values, setValues] = useState(() => ({
     ...initial,
     service: defaultService,
-    message: defaultIntent === 'discovery' ? 'I would like to schedule a discovery call about: ' : '',
+    message:
+      defaultIntent === 'discovery' ? 'I would like to schedule a discovery call about: ' : '',
   }))
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle')
   const [statusMessage, setStatusMessage] = useState('')
-  const deliveryReady = hasContactEndpoint()
 
   const canSubmit = useMemo(() => status !== 'loading', [status])
 
@@ -63,6 +60,7 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
   async function onSubmit(event) {
     event.preventDefault()
 
+    // Honeypot — bots only
     if (values.website?.trim()) {
       setStatus('success')
       setStatusMessage(`Thanks — your message was sent. ${SITE.responseSla}`)
@@ -87,8 +85,8 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
         email: values.email.trim(),
         company: values.company.trim(),
         service: values.service,
-        budget: values.budget,
-        timeline: values.timeline.trim(),
+        budget: '',
+        timeline: '',
         message: values.message.trim(),
         consent: true,
       })
@@ -117,6 +115,7 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
   if (status === 'success') {
     return (
       <div className={styles.successPanel} role="status" aria-live="polite">
+        <p className={styles.successEyebrow}>Received</p>
         <p className={styles.successTitle}>Message sent</p>
         <p className={styles.successText}>{statusMessage}</p>
         <div className={styles.successActions}>
@@ -131,18 +130,10 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
 
   return (
     <form className={styles.form} onSubmit={onSubmit} noValidate>
-      {!deliveryReady && import.meta.env.DEV ? (
-        <p className={styles.configNote} role="note">
-          Form delivery is not fully configured in this environment. Submissions may open your email
-          client. Production builds should set <code>VITE_CONTACT_ENDPOINT</code> or{' '}
-          <code>VITE_WEB3FORMS_ACCESS_KEY</code>.
-        </p>
-      ) : null}
-
       <div className={styles.honeypot} aria-hidden="true">
-        <label htmlFor="website">Website</label>
+        <label htmlFor="mf-hp">Leave blank</label>
         <input
-          id="website"
+          id="mf-hp"
           name="website"
           type="text"
           tabIndex={-1}
@@ -163,6 +154,7 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             invalid={Boolean(errors.name)}
             maxLength={120}
             disabled={status === 'loading'}
+            placeholder="Your name"
           />
         </Field>
         <Field id="email" label="Business email" required error={errors.email}>
@@ -176,8 +168,12 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             invalid={Boolean(errors.email)}
             maxLength={160}
             disabled={status === 'loading'}
+            placeholder="you@company.com"
           />
         </Field>
+      </div>
+
+      <div className={styles.grid}>
         <Field id="company" label="Company" error={errors.company}>
           <TextInput
             id="company"
@@ -187,9 +183,10 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             onChange={onChange}
             maxLength={160}
             disabled={status === 'loading'}
+            placeholder="Company or product name"
           />
         </Field>
-        <Field id="service" label="Service interest" required error={errors.service}>
+        <Field id="service" label="Service interest" error={errors.service}>
           <SelectInput
             id="service"
             name="service"
@@ -198,7 +195,7 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             invalid={Boolean(errors.service)}
             disabled={status === 'loading'}
           >
-            <option value="">Select...</option>
+            <option value="">Select (optional)</option>
             {serviceInterests.map((item) => (
               <option key={item} value={item}>
                 {item}
@@ -206,43 +203,16 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             ))}
           </SelectInput>
         </Field>
-        <Field id="budget" label="Budget range" error={errors.budget}>
-          <SelectInput
-            id="budget"
-            name="budget"
-            value={values.budget}
-            onChange={onChange}
-            disabled={status === 'loading'}
-          >
-            <option value="">Select...</option>
-            {budgetRanges.map((item) => (
-              <option key={item} value={item}>
-                {item}
-              </option>
-            ))}
-          </SelectInput>
-        </Field>
-        <Field id="timeline" label="Optional timeline" hint="When do you hope to start or launch?">
-          <TextInput
-            id="timeline"
-            name="timeline"
-            value={values.timeline}
-            onChange={onChange}
-            placeholder="e.g. discovery this month, MVP in Q4"
-            maxLength={120}
-            disabled={status === 'loading'}
-          />
-        </Field>
       </div>
 
-      <Field id="message" label="Project description" required error={errors.message}>
+      <Field id="message" label="How can we help?" required error={errors.message}>
         <TextArea
           id="message"
           name="message"
           value={values.message}
           onChange={onChange}
           invalid={Boolean(errors.message)}
-          placeholder="Goals, users, current state, and what success looks like."
+          placeholder="Goals, current state, users, and what a useful next step looks like."
           maxLength={5000}
           disabled={status === 'loading'}
         />
@@ -259,8 +229,8 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
           disabled={status === 'loading'}
         />
         <span>
-          I agree to be contacted about this inquiry. See the{' '}
-          <Link to="/privacy">Privacy Policy</Link>.
+          I agree to be contacted about this inquiry. See the <Link to="/privacy">Privacy Policy</Link>
+          .
         </span>
       </label>
       {errors.consent ? (
@@ -273,15 +243,10 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
         <Button type="submit" size="lg" disabled={!canSubmit} aria-busy={status === 'loading'}>
           {status === 'loading' ? 'Sending...' : 'Send message'}
         </Button>
-        <BookCallCta variant="ghost" size="lg" label="Book a Demo Call" />
+        <BookCallCta variant="ghost" size="lg" label="Book a call instead" />
       </div>
 
-      <div
-        className={styles.status}
-        role="status"
-        aria-live="polite"
-        data-state={status}
-      >
+      <div className={styles.status} role="status" aria-live="polite" data-state={status}>
         {statusMessage}
       </div>
     </form>

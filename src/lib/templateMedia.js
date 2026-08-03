@@ -1,11 +1,11 @@
 /** Premium service visuals (Dribbble-style product / UI mockup compositions) */
 export const SERVICE_IMAGES = {
-  'product-engineering': '/assets/images/services/product-engineering.jpg',
-  'saas-development': '/assets/images/services/saas-development.jpg',
-  'web-development': '/assets/images/services/web-development.jpg',
-  'ai-integration': '/assets/images/services/ai-integration.jpg',
-  'ui-ux-design': '/assets/images/services/ui-ux-design.jpg',
-  'mobile-app-development': '/assets/images/services/mobile-app-development.jpg',
+  'product-engineering': '/assets/images/services/pe-hero.png',
+  'saas-development': '/assets/images/services/saas-hero.png',
+  'web-development': '/assets/images/services/web-hero.png',
+  'ai-integration': '/assets/images/services/ai-hero.png',
+  'ui-ux-design': '/assets/images/services/uiux-hero.png',
+  'mobile-app-development': '/assets/images/services/mobile-hero.png',
   'workflow-automation': '/assets/images/services/workflow-automation.jpg',
   'cloud-devops': '/assets/images/services/cloud-devops.jpg',
   'api-development': '/assets/images/services/api-development.jpg',
@@ -13,7 +13,7 @@ export const SERVICE_IMAGES = {
 }
 
 export function getServiceImage(slug) {
-  return SERVICE_IMAGES[slug] || '/assets/images/services/product-engineering.jpg'
+  return SERVICE_IMAGES[slug] || '/assets/images/services/pe-hero.png'
 }
 
 export const INDUSTRY_IMAGES = [

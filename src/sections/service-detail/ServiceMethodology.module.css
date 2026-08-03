@@ -119,6 +119,14 @@
   .steps {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+
+  .steps[data-dense='true'] .step {
+    padding: 1.15rem 1.1rem 1.25rem;
+  }
+
+  .steps[data-dense='true'] .connector {
+    display: none;
+  }
 }
 
 .step {
