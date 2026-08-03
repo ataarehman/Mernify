@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react'
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { RootLayout } from '@/components/layout/RootLayout'
 import { HomePage } from '@/pages/HomePage'
 
@@ -53,7 +53,7 @@ export function AppRouter() {
           <Route path="contact" element={<ContactPage />} />
           <Route path="privacy" element={<PrivacyPage />} />
           <Route path="terms" element={<TermsPage />} />
-          <Route path="work" element={<CaseStudiesPage />} />
+          <Route path="work" element={<Navigate to="/case-studies" replace />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

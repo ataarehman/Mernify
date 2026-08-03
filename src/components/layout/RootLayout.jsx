@@ -3,6 +3,12 @@ import { useEffect } from 'react'
 import { SkipLink } from '@/components/ui'
 import { SiteHeader } from '@/components/navigation/SiteHeader'
 import { SiteFooter } from '@/components/navigation/SiteFooter'
+import { CookieConsent } from '@/components/privacy/CookieConsent'
+import { Analytics } from '@/components/privacy/Analytics'
+import {
+  PageEntranceCurtain,
+} from '@/components/motion/PageEntranceCurtain'
+import { shouldPlayPageEntrance } from '@/components/motion/pageEntrance'
 import { useMotion } from '@/app/providers/useMotion'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -10,6 +16,7 @@ export function RootLayout() {
   const location = useLocation()
   const { lenis } = useMotion()
   const isHome = location.pathname === '/'
+  const playEntrance = shouldPlayPageEntrance(location.pathname)
 
   useEffect(() => {
     const instance = lenis?.current
@@ -18,12 +25,18 @@ export function RootLayout() {
     } else {
       window.scrollTo(0, 0)
     }
-    ScrollTrigger.refresh()
-  }, [location.pathname, lenis])
+    // Curtain refreshes ScrollTrigger on complete; skip eager refresh when playing.
+    if (!playEntrance) {
+      ScrollTrigger.refresh()
+    }
+  }, [location.pathname, lenis, playEntrance])
 
   return (
     <>
       <SkipLink />
+      {playEntrance ? (
+        <PageEntranceCurtain key={location.pathname} label="Mernify" />
+      ) : null}
       <SiteHeader />
       <main
         id="main-content"
@@ -32,6 +45,8 @@ export function RootLayout() {
         <Outlet />
       </main>
       <SiteFooter />
+      <CookieConsent />
+      <Analytics />
     </>
   )
 }

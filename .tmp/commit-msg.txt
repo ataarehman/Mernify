@@ -1,0 +1,8 @@
+fix: replace blank iframe with screenshot-based device frame preview
+
+Most sites block iframe embedding via X-Frame-Options, causing blank panels.
+Replace with realistic device mockups showing the captured screenshots:
+- Desktop: macOS-style browser chrome (traffic-light dots, URL bar)
+- Tablet: dark tablet bezel with camera dot
+- Mobile: dark phone frame with notch and home bar
+Each device picks the appropriate gallery screenshot (desktop vs mobile).

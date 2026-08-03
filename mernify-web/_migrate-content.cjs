@@ -12,10 +12,10 @@ const globalReplacements = [
   [/Unifex HTML Template, Digital Marketing, Social Media Agency, Marketing Template, Advertising Agency, Creative Agency, Bootstrap, Responsive/g, 'Mernify, Product Engineering, SaaS, Mobile Apps, AI Integration, Web Development'],
   [/Let’s Talk/g, 'Discuss Your Project'],
   [/Let's Talk/g, 'Discuss Your Project'],
-  [/unifexdonin@gmail\.com/g, 'hello@mernify.com'],
-  [/info\.domin@gmail\.com/g, 'hello@mernify.com'],
-  [/techubinfo@mail\.com/g, 'hello@mernify.com'],
-  [/support@example\.com/g, 'hello@mernify.com'],
+  [/unifexdonin@gmail\.com/g, 'info@mernify.co'],
+  [/info\.domin@gmail\.com/g, 'info@mernify.co'],
+  [/techubinfo@mail\.com/g, 'info@mernify.co'],
+  [/support@example\.com/g, 'info@mernify.co'],
   [/© 2025\s*UNIFEXTheme\.?\s*All right reserved/gi, '© 2026 Mernify. All rights reserved'],
   [/Copyright © 2025 Unifex All Rights Reserved\./gi, '© 2026 Mernify. All rights reserved.'],
   [/Unifex agency/gi, 'Mernify'],
@@ -113,7 +113,7 @@ function migrateIndex(html) {
 
   // Offcanvas contact bits
   out = out.replace(/Manchester 21, Zurich, CH/g, 'Remote-first · Global collaboration')
-  out = out.replace(/\(\+00\) 678 345 98568/g, 'hello@mernify.com')
+  out = out.replace(/\(\+00\) 678 345 98568/g, 'info@mernify.co')
   out = out.replace(/Get UPdate/g, 'Get Updates')
 
   return out

@@ -1,23 +1,35 @@
 .hero {
-  padding: calc(var(--mf-header-height) + clamp(2rem, 5vw, 3.5rem)) 0 clamp(2.5rem, 6vw, 4rem);
+  position: relative;
+  padding: calc(var(--mf-header-height) + clamp(5rem, 12vw, 9.5rem)) 0
+    clamp(4.5rem, 9vw, 7.5rem);
+  overflow: hidden;
 }
 
 .light {
-  background: var(--mf-bg-page);
+  background: #f8fafc;
   color: var(--mf-text-primary);
 }
 
 .dark {
-  background: var(--mf-color-navy);
+  background: var(--mf-color-navy-deep);
   color: var(--mf-text-on-dark);
 }
 
 .inner {
-  max-width: var(--mf-container-narrow);
+  position: relative;
+  z-index: 1;
+  max-width: min(80rem, 100%);
+  text-align: center;
+  margin-inline: auto;
 }
 
 .eyebrow {
-  margin-bottom: var(--mf-space-3);
+  margin: 0 0 var(--mf-space-4);
+  font-size: var(--mf-font-size-label);
+  font-weight: var(--mf-weight-semibold);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mf-text-secondary);
 }
 
 .dark .eyebrow {
@@ -25,15 +37,25 @@
 }
 
 .title {
-  font-size: clamp(2rem, 5vw, 3rem);
-  letter-spacing: -0.03em;
+  margin: 0;
+  font-family: var(--mf-font-display);
+  font-size: clamp(4.2rem, 18vw, 16rem);
+  font-weight: var(--mf-weight-semibold);
+  letter-spacing: -0.05em;
+  line-height: 0.9;
+  text-wrap: balance;
 }
 
 .support {
-  margin-top: var(--mf-space-5);
-  font-size: clamp(1rem, 1.5vw, 1.125rem);
-  line-height: 1.65;
-  max-width: 38rem;
+  margin: clamp(1.25rem, 3vw, 2rem) auto 0;
+  font-size: clamp(0.95rem, 1.7vw, 1.35rem);
+  line-height: 1.45;
+  max-width: 56rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: var(--mf-font-display);
+  font-weight: var(--mf-weight-medium);
+  color: var(--mf-text-secondary);
 }
 
 .dark .support {
@@ -43,6 +65,7 @@
 .actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: var(--mf-space-3);
   margin-top: var(--mf-space-6);
 }

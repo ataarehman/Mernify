@@ -8,6 +8,10 @@ html {
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   background-color: var(--mf-color-navy);
+  overflow-x: clip;
+  max-width: 100%;
+  /* Native smooth scroll on touch / when Lenis is disabled */
+  scroll-behavior: smooth;
 }
 
 html.lenis,
@@ -30,6 +34,7 @@ html.lenis body {
 body {
   margin: 0;
   min-width: 320px;
+  max-width: 100%;
   min-height: 100vh;
   font-family: var(--mf-font-body);
   font-size: var(--mf-font-size-body);

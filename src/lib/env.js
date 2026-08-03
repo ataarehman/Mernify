@@ -1,0 +1,57 @@
+/**
+ * Safe readers for public (VITE_*) runtime config.
+ * These values are embedded in the client bundle — never store private API secrets here.
+ */
+
+function trimEnv(value) {
+  return String(value ?? '').trim()
+}
+
+/** Accept https Calendly (or calendly-style) booking URLs only. */
+export function resolveCalendlyUrl(raw = import.meta.env.VITE_CALENDLY_URL) {
+  const value = trimEnv(raw)
+  if (!value) return ''
+  try {
+    const url = new URL(value)
+    if (url.protocol !== 'https:') return ''
+    const host = url.hostname.toLowerCase()
+    if (host === 'calendly.com' || host.endsWith('.calendly.com')) return url.toString()
+    // Allow other https booking tools if explicitly configured
+    return url.toString()
+  } catch {
+    return ''
+  }
+}
+
+/** GA4 measurement IDs look like G-XXXXXXXXXX */
+export function resolveGaId(raw = import.meta.env.VITE_GA_MEASUREMENT_ID) {
+  const value = trimEnv(raw)
+  if (!value) return ''
+  if (!/^G-[A-Z0-9]+$/i.test(value)) return ''
+  return value
+}
+
+export function resolveContactEndpoint(raw = import.meta.env.VITE_CONTACT_ENDPOINT) {
+  const value = trimEnv(raw)
+  if (!value) return ''
+  try {
+    const url = new URL(value)
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return ''
+    return url.toString()
+  } catch {
+    return ''
+  }
+}
+
+/** Optional case-study live-preview proxy (Cloudflare Worker). */
+export function resolveProxyUrl(raw = import.meta.env.VITE_PROXY_URL) {
+  const value = trimEnv(raw)
+  if (!value) return ''
+  try {
+    const url = new URL(value)
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return ''
+    return url.toString().replace(/\/$/, '')
+  } catch {
+    return ''
+  }
+}

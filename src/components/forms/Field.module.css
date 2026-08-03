@@ -25,13 +25,14 @@
   min-height: 2.875rem;
   padding: 0.7rem 0.9rem;
   border-radius: var(--mf-radius-sm);
-  border: 1px solid var(--mf-border-default);
-  background: var(--mf-color-white);
+  border: 1px solid transparent;
+  background: #f4f2ee;
   color: var(--mf-text-primary);
   font: inherit;
   transition:
     border-color var(--mf-dur-sm) var(--mf-ease-out),
-    box-shadow var(--mf-dur-sm) var(--mf-ease-out);
+    box-shadow var(--mf-dur-sm) var(--mf-ease-out),
+    background-color var(--mf-dur-sm) var(--mf-ease-out);
 }
 
 .control:focus-visible {

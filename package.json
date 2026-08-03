@@ -7,19 +7,18 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "check:ready": "vite build && node scripts/check-ready.mjs"
   },
   "dependencies": {
-    "@fontsource/inter": "^5.3.0",
-    "@fontsource/space-grotesk": "^5.3.0",
+    "@fontsource/instrument-sans": "^5.3.0",
+    "@fontsource/phudu": "^5.3.0",
     "gsap": "^3.13.0",
     "lenis": "^1.3.8",
     "lucide-react": "^1.26.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.3",
-    "simple-icons": "^16.27.0",
-    "three": "^0.178.0"
+    "react-router-dom": "^7.18.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.30.1",

@@ -1,0 +1,107 @@
+import { useLayoutEffect, useRef } from 'react'
+import { Link } from 'react-router-dom'
+import { ArrowRight } from 'lucide-react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { Container } from '@/components/ui'
+import { ClipReveal } from '@/components/motion/ClipReveal'
+import { homeAbout } from '@/content/home'
+import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
+import { useReducedMotion } from '@/app/providers/useReducedMotion'
+import styles from './HomeAbout.module.css'
+
+gsap.registerPlugin(ScrollTrigger)
+
+export function HomeAbout() {
+  const rootRef = useRef(null)
+  const titleRef = useRef(null)
+  const { prefersReducedMotion } = useReducedMotion()
+
+  useScrubTitle(titleRef)
+
+  useLayoutEffect(() => {
+    const root = rootRef.current
+    if (!root || prefersReducedMotion) return undefined
+
+    const targets = root.querySelectorAll('[data-fade-up]')
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        targets,
+        { autoAlpha: 0, y: 36 },
+        {
+          autoAlpha: 1,
+          y: 0,
+          duration: 0.9,
+          stagger: 0.12,
+          ease: 'power3.out',
+          immediateRender: false,
+          scrollTrigger: { trigger: root, start: 'top 80%', once: true },
+        },
+      )
+    }, root)
+
+    return () => ctx.revert()
+  }, [prefersReducedMotion])
+
+  const scrubChars = splitScrubChars(homeAbout.lead)
+
+  return (
+    <>
+      <section
+        ref={rootRef}
+        className={styles.about}
+        data-header-theme="light"
+        aria-labelledby="home-about-title"
+      >
+        <Container width="wide">
+          <div className={styles.grid}>
+            <div className={styles.thumbOne} data-fade-up>
+              <ClipReveal
+                src="/assets/images/thumbs/about-thumb-one.jpg"
+                alt=""
+                className={styles.thumbClip}
+              />
+            </div>
+
+            <div className={styles.main}>
+              <h2 id="home-about-title" ref={titleRef} className={styles.title}>
+                {scrubChars.map(({ key, char }) => (
+                  <span key={key} data-scrub-char className={styles.scrubChar}>
+                    {char}
+                  </span>
+                ))}
+              </h2>
+
+              <div className={styles.lower}>
+                <div className={styles.thumbTwo} data-fade-up>
+                  <ClipReveal
+                    src="/assets/images/thumbs/about-thumb-two.jpg"
+                    alt=""
+                    className={styles.thumbClip}
+                  />
+                </div>
+                <div className={styles.copy} data-fade-up>
+                  <p className={styles.paragraph}>{homeAbout.body}</p>
+                  <Link to={homeAbout.cta.to} className={styles.cta}>
+                    <span className={styles.ctaInner}>
+                      <span className={styles.ctaIcon} aria-hidden="true">
+                        <span className={styles.ctaIconTrack}>
+                          <ArrowRight size={18} strokeWidth={2.5} />
+                          <ArrowRight size={18} strokeWidth={2.5} />
+                        </span>
+                      </span>
+                      <span className={styles.ctaText}>
+                        <span>{homeAbout.cta.label}</span>
+                      </span>
+                    </span>
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+      <div className={styles.spacer} aria-hidden="true" />
+    </>
+  )
+}

@@ -1,16 +1,23 @@
 .section {
-  padding-bottom: var(--mf-section-pad-y);
+  background: var(--mf-color-cream);
+  padding-block: var(--mf-section-pad-y);
 }
 
 .content {
-  max-width: var(--mf-container-narrow);
   display: grid;
-  gap: var(--mf-space-7);
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  max-width: 46rem;
+}
+
+.block {
+  padding: 1.25rem 1.35rem;
+  border-radius: var(--mf-radius-lg);
+  background: #ffffff;
+  border: 1px solid var(--mf-border-default);
 }
 
 .block h2 {
-  margin: 0 0 var(--mf-space-3);
+  margin: 0 0 0.65rem;
   font-family: var(--mf-font-display);
   font-size: 1.25rem;
-  letter-spacing: -0.02em;
 }

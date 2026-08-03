@@ -2,11 +2,11 @@ const fs = require('fs')
 const path = require('path')
 const ROOT = 'F:/mern.org/mernify-web'
 const reps = [
-  [/href="tel:hello@mernify\.com"/g, 'href="mailto:hello@mernify.com"'],
+  [/href="tel:hello@mernify\.com"/g, 'href="mailto:info@mernify.co"'],
   [/Manchester 21, Zurich, CH/g, 'Remote-first · Global collaboration'],
-  [/\(\+00\) 678 345 98568/g, 'hello@mernify.com'],
-  [/href="tel:\+48555223224"/g, 'href="mailto:hello@mernify.com"'],
-  [/href="tel:2518546308"/g, 'href="mailto:hello@mernify.com"'],
+  [/\(\+00\) 678 345 98568/g, 'info@mernify.co'],
+  [/href="tel:\+48555223224"/g, 'href="mailto:info@mernify.co"'],
+  [/href="tel:2518546308"/g, 'href="mailto:info@mernify.co"'],
 ]
 for (const f of fs.readdirSync(ROOT).filter((x) => x.endsWith('.html'))) {
   const fp = path.join(ROOT, f)

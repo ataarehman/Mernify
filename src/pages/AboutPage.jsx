@@ -1,65 +1,36 @@
-import { Link } from 'react-router-dom'
-import { PageHero } from '@/components/layout/PageHero'
+import { PageCta } from '@/components/layout/PageCta'
+import { MediaStrip } from '@/components/layout/MediaStrip'
+import { TechBrandGrid } from '@/components/layout/TechBrandGrid'
 import { PageMeta } from '@/components/seo/PageMeta'
-import { Button, Container, Section, Text } from '@/components/ui'
 import { aboutContent } from '@/content/pages'
-import styles from './AboutPage.module.css'
+import { AboutHero } from '@/sections/about/AboutHero'
+import { AboutWho } from '@/sections/about/AboutWho'
+import { AboutMission } from '@/sections/about/AboutMission'
+import { AboutProcess } from '@/sections/about/AboutProcess'
+import { AboutWhy } from '@/sections/about/AboutWhy'
+import { AboutTeam } from '@/sections/about/AboutTeam'
 
 export function AboutPage() {
   return (
     <>
-      <PageMeta
-        title="About"
-        description={aboutContent.lead}
-        canonicalPath="/about"
-      />
-      <PageHero
-        eyebrow={aboutContent.eyebrow}
-        title={aboutContent.title}
-        support={aboutContent.lead}
-        actions={
-          <Button as={Link} to="/contact">
-            Work with us
-          </Button>
-        }
-      />
-      <Section tone="light" className={styles.section}>
-        <Container className={styles.layout}>
-          <div className={styles.block}>
-            <h2>Mission</h2>
-            <Text>{aboutContent.mission}</Text>
-          </div>
-          <div className={styles.block}>
-            <h2>Vision</h2>
-            <Text>{aboutContent.vision}</Text>
-          </div>
-          <div className={styles.block}>
-            <h2>Promise</h2>
-            <Text>{aboutContent.promise}</Text>
-          </div>
+      <PageMeta title="About" description={aboutContent.lead} canonicalPath="/about" />
 
-          <div className={styles.block}>
-            <h2>Values</h2>
-            <ul className={styles.values} role="list">
-              {aboutContent.values.map((item) => (
-                <li key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className={styles.block}>
-            <h2>Who we work with</h2>
-            <ul className={styles.audiences} role="list">
-              {aboutContent.audiences.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </Container>
-      </Section>
+      <AboutHero />
+      <MediaStrip src="/assets/images/thumbs/thumbnail-bg.jpg" height="tall" />
+      <AboutWho />
+      <AboutMission />
+      <AboutProcess />
+      <AboutWhy />
+      <AboutTeam />
+      <MediaStrip src="/assets/images/thumbs/thumbnail-ab-bg.jpg" />
+      <TechBrandGrid animated />
+      <PageCta
+        title={aboutContent.cta.title}
+        support={aboutContent.cta.support}
+        accentWords={aboutContent.cta.accentWords}
+        cta={aboutContent.cta.cta}
+        animated
+      />
     </>
   )
 }

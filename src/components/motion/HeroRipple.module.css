@@ -1,0 +1,29 @@
+.ripple {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: transparent;
+}
+
+.fallback,
+.fallbackHidden {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  display: block;
+  transition: opacity 0.45s ease;
+}
+
+.fallbackHidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fallbackHidden {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,166 @@
+{
+  "base": "http://localhost:5173",
+  "at": "2026-07-28T15:47:31.121Z",
+  "totals": {
+    "ok": 19,
+    "warn": 0,
+    "fail": 0,
+    "total": 19
+  },
+  "results": [
+    {
+      "route": "/",
+      "status": "ok",
+      "ms": 1778,
+      "title": "Mernify — We Design, Engineer & Scale Digital Products",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project WE DESIGN, EN Mernify is a focused",
+      "notes": []
+    },
+    {
+      "route": "/services",
+      "status": "ok",
+      "ms": 1481,
+      "title": "Services — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project Services WE ARE “MERNIFY” — A MODE",
+      "notes": []
+    },
+    {
+      "route": "/services/product-engineering",
+      "status": "ok",
+      "ms": 1573,
+      "title": "Product Engineering — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project ( PRODUCT ENGINEERING ) Product En",
+      "notes": []
+    },
+    {
+      "route": "/services/saas-development",
+      "status": "ok",
+      "ms": 1502,
+      "title": "SaaS Development — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project ( SAAS DEVELOPMENT ) SaaS Developm",
+      "notes": []
+    },
+    {
+      "route": "/services/web-development",
+      "status": "ok",
+      "ms": 1519,
+      "title": "Web Development — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project ( WEB DEVELOPMENT ) Web Developmen",
+      "notes": []
+    },
+    {
+      "route": "/services/mobile-app-development",
+      "status": "ok",
+      "ms": 1527,
+      "title": "Mobile App Development — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project ( MOBILE APP DEVELOPMENT ) Mobile ",
+      "notes": []
+    },
+    {
+      "route": "/services/ai-integration",
+      "status": "ok",
+      "ms": 1483,
+      "title": "AI Integration — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project ( AI INTEGRATION ) AI Integration ",
+      "notes": []
+    },
+    {
+      "route": "/industries",
+      "status": "ok",
+      "ms": 1429,
+      "title": "Industries — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project Industries ONE PLATFORM MINDSET. E",
+      "notes": []
+    },
+    {
+      "route": "/case-studies",
+      "status": "ok",
+      "ms": 1422,
+      "title": "Case Studies — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project Portfolio SELECTED PRODUCT WORK — ",
+      "notes": []
+    },
+    {
+      "route": "/case-studies/saas-operations-platform",
+      "status": "ok",
+      "ms": 1384,
+      "title": "Case study pending publication — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project CASE STUDY This story is not publi",
+      "notes": []
+    },
+    {
+      "route": "/case-studies/field-service-mobile",
+      "status": "ok",
+      "ms": 1423,
+      "title": "Case study pending publication — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project CASE STUDY This story is not publi",
+      "notes": []
+    },
+    {
+      "route": "/case-studies/ai-document-workflow",
+      "status": "ok",
+      "ms": 1419,
+      "title": "Case study pending publication — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project CASE STUDY This story is not publi",
+      "notes": []
+    },
+    {
+      "route": "/process",
+      "status": "ok",
+      "ms": 1458,
+      "title": "Process — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project Process A CLEAR PATH FROM DISCOVER",
+      "notes": []
+    },
+    {
+      "route": "/about",
+      "status": "ok",
+      "ms": 1439,
+      "title": "About — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project About Mernify WE ARE “MERNIFY” — A",
+      "notes": []
+    },
+    {
+      "route": "/contact",
+      "status": "ok",
+      "ms": 1432,
+      "title": "Contact — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project Contact TELL US ABOUT THE PRODUCT ",
+      "notes": []
+    },
+    {
+      "route": "/privacy",
+      "status": "ok",
+      "ms": 1433,
+      "title": "Privacy Policy — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project Privacy Policy LAST UPDATED 2026-0",
+      "notes": []
+    },
+    {
+      "route": "/terms",
+      "status": "ok",
+      "ms": 1367,
+      "title": "Terms of Service — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project Terms of Service LAST UPDATED 2026",
+      "notes": []
+    },
+    {
+      "route": "/work",
+      "status": "ok",
+      "ms": 1431,
+      "title": "Case Studies — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project Portfolio SELECTED PRODUCT WORK — ",
+      "notes": []
+    },
+    {
+      "route": "/this-page-should-404",
+      "status": "ok",
+      "ms": 1467,
+      "title": "Page not found — Mernify",
+      "snippet": "Skip to content Home About Services Case Studies Process Contact Discuss Your Project 404 Page not found THE PAGE YOU AR",
+      "notes": []
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": []
+}

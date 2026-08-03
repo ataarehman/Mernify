@@ -16,7 +16,7 @@ Engineering and UI QA gates for critical/high **code** defects are currently cle
 
 1. No published, client-approved case studies (honest empty state is correct, but weak for conversion trust).
 2. Contact delivery is mailto fallback only unless `VITE_CONTACT_ENDPOINT` is configured.
-3. `hello@mernify.com` ownership and monitoring not verified in-repo.
+3. `info@mernify.co` ownership and monitoring not verified in-repo.
 4. Privacy/Terms need legal review before treating as production policies.
 
 Soft internal preview / stakeholder review: **acceptable**.  

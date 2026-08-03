@@ -40,7 +40,7 @@ Set an optional endpoint in `.env`:
 VITE_CONTACT_ENDPOINT=https://your-form-backend.example/api/contact
 ```
 
-Without an endpoint, submit opens a **mailto** draft to `hello@mernify.com` (documented fallback — nothing pretends to be a live API).
+Without an endpoint, submit opens a **mailto** draft to `info@mernify.co` (documented fallback — nothing pretends to be a live API).
 
 See `.env.example`.
 

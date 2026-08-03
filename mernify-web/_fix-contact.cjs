@@ -6,8 +6,8 @@ c = c.replace(
   /Contact Our Expert Team for Reliable Support, Guidance, and Professional Assistance/g,
   'Tell us about the product you want to build',
 )
-c = c.replace(/\(251\) 854-6308/g, 'hello@mernify.com')
-c = c.replace(/\+8801314986186/g, 'hello@mernify.com')
+c = c.replace(/\(251\) 854-6308/g, 'info@mernify.co')
+c = c.replace(/\+8801314986186/g, 'info@mernify.co')
 c = c.replace(
   /1st Floor, Afroza Tower, Uposhohor New Market, Rajshahi 6202/g,
   'Remote-first · Global collaboration',
@@ -31,12 +31,12 @@ console.log('contact fixed')
 for (const f of ['about.html', 'service.html', 'portfolio.html', 'faq.html', 'index.html']) {
   const fp = `F:/mern.org/mernify-web/${f}`
   let h = fs.readFileSync(fp, 'utf8')
-  h = h.replace(/\+8801314986186/g, 'hello@mernify.com')
+  h = h.replace(/\+8801314986186/g, 'info@mernify.co')
   h = h.replace(
     /1st Floor, Afroza Tower, Uposhohor New Market, Rajshahi 6202/g,
     'Remote-first · Global collaboration',
   )
-  h = h.replace(/\(251\) 854-6308/g, 'hello@mernify.com')
+  h = h.replace(/\(251\) 854-6308/g, 'info@mernify.co')
   fs.writeFileSync(fp, h)
 }
 console.log('phones cleaned')
