@@ -1,5 +1,5 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import { Suspense, useCallback, useLayoutEffect } from 'react'
+import { lazy, Suspense, useCallback, useLayoutEffect } from 'react'
 import { SkipLink } from '@/components/ui'
 import { SiteHeader } from '@/components/navigation/SiteHeader'
 import { SiteFooter } from '@/components/navigation/SiteFooter'
@@ -18,6 +18,11 @@ import {
   refreshScrollTriggers,
   scrollDocumentToTop,
 } from '@/lib/scrollManager'
+import { CHAT_ENABLED } from '@/lib/chat/featureFlag'
+
+const MernifyChat = CHAT_ENABLED
+  ? lazy(() => import('@/components/chat/MernifyChat').then((m) => ({ default: m.MernifyChat })))
+  : null
 
 function RouteFallback() {
   return <div className="mf-main" aria-hidden="true" />
@@ -83,6 +88,11 @@ export function RootLayout() {
       <SiteFooter />
       <CookieConsent />
       <Analytics />
+      {MernifyChat ? (
+        <Suspense fallback={null}>
+          <MernifyChat />
+        </Suspense>
+      ) : null}
     </>
   )
 }
