@@ -1,21 +1,32 @@
 import { Outlet, useLocation } from 'react-router-dom'
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useCallback, useLayoutEffect } from 'react'
 import { SkipLink } from '@/components/ui'
 import { SiteHeader } from '@/components/navigation/SiteHeader'
 import { SiteFooter } from '@/components/navigation/SiteFooter'
 import { CookieConsent } from '@/components/privacy/CookieConsent'
 import { Analytics } from '@/components/privacy/Analytics'
+import { PageEntranceCurtain } from '@/components/motion/PageEntranceCurtain'
 import {
-  PageEntranceCurtain,
-} from '@/components/motion/PageEntranceCurtain'
-import { shouldPlayPageEntrance } from '@/components/motion/pageEntrance'
+  beginPageEntrance,
+  notifyPageEntranceComplete,
+  shouldPlayPageEntrance,
+} from '@/components/motion/pageEntrance'
 import { useMotion } from '@/app/providers/useMotion'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import {
+  disableBrowserScrollRestoration,
+  refreshScrollTriggers,
+  scrollDocumentToTop,
+} from '@/lib/scrollManager'
 import { CHAT_ENABLED } from '@/lib/chat/featureFlag'
 
 const MernifyChat = CHAT_ENABLED
   ? lazy(() => import('@/components/chat/MernifyChat').then((m) => ({ default: m.MernifyChat })))
   : null
+
+function RouteFallback() {
+  return <div className="mf-main" aria-hidden="true" />
+}
 
 export function RootLayout() {
   const location = useLocation()
@@ -23,31 +34,56 @@ export function RootLayout() {
   const isHome = location.pathname === '/'
   const playEntrance = shouldPlayPageEntrance(location.pathname)
 
-  useEffect(() => {
-    const instance = lenis?.current
-    if (instance) {
-      instance.scrollTo(0, { immediate: true })
-    } else {
-      window.scrollTo(0, 0)
+  // Disable browser scroll restoration once for the SPA session.
+  useLayoutEffect(() => {
+    disableBrowserScrollRestoration()
+  }, [])
+
+  // Reset scroll BEFORE paint so new routes never flash mid-page / footer.
+  useLayoutEffect(() => {
+    scrollDocumentToTop(lenis)
+
+    if (playEntrance) {
+      beginPageEntrance()
+      return undefined
     }
-    // Curtain refreshes ScrollTrigger on complete; skip eager refresh when playing.
-    if (!playEntrance) {
-      ScrollTrigger.refresh()
-    }
-  }, [location.pathname, lenis, playEntrance])
+
+    notifyPageEntranceComplete()
+    return refreshScrollTriggers(ScrollTrigger, { afterMs: 160 })
+  }, [location.pathname, location.key, lenis, playEntrance])
+
+  const handleEntranceComplete = useCallback(() => {
+    scrollDocumentToTop(lenis)
+    notifyPageEntranceComplete()
+    refreshScrollTriggers(ScrollTrigger, { afterMs: 200 })
+    window.setTimeout(() => {
+      try {
+        ScrollTrigger.refresh()
+      } catch {
+        // ignore
+      }
+    }, 600)
+  }, [lenis])
 
   return (
     <>
       <SkipLink />
       {playEntrance ? (
-        <PageEntranceCurtain key={location.pathname} label="Mernify" />
+        <PageEntranceCurtain
+          key={location.key}
+          label="Mernify"
+          onComplete={handleEntranceComplete}
+        />
       ) : null}
       <SiteHeader />
       <main
         id="main-content"
         className={['mf-main', isHome ? 'mf-main-home' : 'mf-main-inner'].filter(Boolean).join(' ')}
       >
-        <Outlet />
+        {/* Suspense inside layout so header/footer/Lenis scroll state stay mounted */}
+        <Suspense fallback={<RouteFallback />}>
+          <Outlet />
+        </Suspense>
       </main>
       <SiteFooter />
       <CookieConsent />
