@@ -20,9 +20,8 @@ function isChatEnabled() {
     if (params.get('mernify_ai') === '1') return true
   }
 
-  // Default: enabled in dev, enabled when endpoint is set, disabled otherwise
-  if (import.meta.env.DEV) return true
-  return Boolean(String(import.meta.env.VITE_AI_CHAT_ENDPOINT || '').trim())
+  // Default: always enabled (chat is production-ready)
+  return true
 }
 
 export const CHAT_ENABLED = isChatEnabled()
