@@ -51,6 +51,53 @@ const SOCIAL_ICONS = {
   linkedin: LinkedinIcon,
 }
 
+const NEWSLETTER_ENDPOINT = String(import.meta.env.VITE_CONTACT_ENDPOINT || '')
+  .replace('/api/contact', '/api/newsletter')
+
+function NewsletterForm() {
+  const [email, setEmail] = useState('')
+  const [status, setStatus] = useState('idle')
+
+  async function handleSubmit(event) {
+    event.preventDefault()
+    const val = email.trim()
+    if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return
+    setStatus('loading')
+    try {
+      const endpoint = NEWSLETTER_ENDPOINT || 'https://mernify.co/api/newsletter'
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: val }),
+      })
+      setStatus(res.ok ? 'done' : 'error')
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  if (status === 'done') return <p style={{ fontSize: '0.85rem', color: 'inherit' }}>Thanks! We&apos;ll be in touch.</p>
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="email"
+        name="email"
+        placeholder="Enter mail"
+        aria-label="Email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        disabled={status === 'loading'}
+        required
+      />
+      <button type="submit" aria-label="Subscribe" disabled={status === 'loading'}>
+        <Send size={16} aria-hidden="true" />
+      </button>
+      {status === 'error' && <p style={{ fontSize: '0.75rem', marginTop: '0.25rem', color: 'inherit' }}>Failed. Try again.</p>}
+    </form>
+  )
+}
+
 export function SiteHeader() {
   const { pathname } = useLocation()
   const { prefersReducedMotion } = useReducedMotion()
@@ -418,16 +465,7 @@ export function SiteHeader() {
 
           <div className={styles.offcanvasInput}>
             <h4>Get Updates</h4>
-            <form
-              onSubmit={(event) => {
-                event.preventDefault()
-              }}
-            >
-              <input type="email" name="email" placeholder="Enter mail" aria-label="Email" />
-              <button type="submit" aria-label="Subscribe">
-                <Send size={16} aria-hidden="true" />
-              </button>
-            </form>
+            <NewsletterForm />
           </div>
 
           <div className={styles.offcanvasSocial}>
