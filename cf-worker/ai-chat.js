@@ -11,10 +11,8 @@
  *      AI_API_KEY           = sk-ant-... or sk-... or sk-... [Secret]
  *      AI_PRIMARY_MODEL     = claude-haiku-4-5-20251001 | deepseek-chat (default per provider)
  *      AI_FALLBACK_MODEL    = claude-haiku-4-5-20251001 | deepseek-chat (default per provider)
- *      CONTACT_ENDPOINT     = https://mernify-contact.YOUR_SUBDOMAIN.workers.dev
- *      RESEND_API_KEY       = re_xxxxxxxx                 [Secret]
- *      CONTACT_TO           = info@mernify.co
- *      CONTACT_FROM         = Mernify <info@mernify.co>
+ *      EMAIL_SERVICE_URL    = https://mernify.co/api/email
+ *      EMAIL_SECRET         = <shared secret>             [Secret]
  *      ALLOWED_ORIGIN       = https://mernify.co,https://www.mernify.co
  * 3. Copy worker URL into VITE_AI_CHAT_ENDPOINT
  * 4. Rebuild static site
@@ -499,13 +497,10 @@ async function generateAIResponse(env, systemPrompt, messages) {
 // ─── Lead delivery ────────────────────────────────────────────────────────────
 
 async function deliverLead(env, lead) {
-  const apiKey = env.RESEND_API_KEY
-  if (!apiKey) return { ok: false, error: 'RESEND_API_KEY not configured' }
+  const endpoint = (env.EMAIL_SERVICE_URL || 'https://mernify.co/api/email').replace(/^\uFEFF/, '').trim()
+  const secret = (env.EMAIL_SECRET || '').replace(/^\uFEFF/, '').trim()
 
-  const to = env.CONTACT_TO || 'info@mernify.co'
-  const from = env.CONTACT_FROM || 'Mernify <info@mernify.co>'
-
-  const text = [
+  const message = [
     `New AI Chat Lead — ${lead.name || 'Anonymous'}`,
     `Email: ${lead.email || '—'}`,
     `Company: ${lead.company || '—'}`,
@@ -522,22 +517,25 @@ async function deliverLead(env, lead) {
     lead.summary || '(none)',
   ].join('\n')
 
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${apiKey}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({
-      from,
-      to: [to],
-      reply_to: lead.email || undefined,
-      subject: `Mernify AI Lead — ${lead.company || lead.name || 'Visitor'}`,
-      text,
-    }),
-  })
+  const headers = { 'Content-Type': 'application/json' }
+  if (secret) headers['x-email-secret'] = secret
 
-  return res.ok ? { ok: true } : { ok: false, error: `Resend ${res.status}` }
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        name: lead.name || 'Anonymous',
+        email: lead.email || '',
+        company: lead.company || '',
+        service: lead.recommendedService || '',
+        message,
+      }),
+    })
+    return res.ok ? { ok: true } : { ok: false, error: `Email service ${res.status}` }
+  } catch (err) {
+    return { ok: false, error: `Email service unreachable: ${err.message}` }
+  }
 }
 
 // ─── Main handler ─────────────────────────────────────────────────────────────
