@@ -16,7 +16,7 @@ export const caseStudies = [
     title: 'Tailorize',
     tagline: 'AI-measured bespoke tailoring for Saudi Arabia — custom thobes and suits, smartphone-fitted.',
     industry: 'Fashion technology / Custom garments',
-    category: 'Product Configurator',
+    category: 'AI Solutions',
     accent: '#7C3AED',
     liveUrl: 'https://tailorize.sa/en',
     services: ['Product Engineering', 'Web Development', 'UI/UX Design', 'Mobile App Development'],
@@ -228,7 +228,7 @@ export const caseStudies = [
     title: 'Servloom',
     tagline: 'An all-in-one field service SaaS — booking, dispatch, CRM, payments, and AI automation for trade businesses.',
     industry: 'Field service management / SaaS',
-    category: 'SaaS Platform',
+    category: 'SaaS Platforms',
     accent: '#0EA5E9',
     liveUrl: 'https://servloom.com/',
     services: ['SaaS Development', 'Product Engineering', 'UI/UX Design', 'AI Integration'],
@@ -473,7 +473,7 @@ export const caseStudies = [
     title: 'GODIVA',
     tagline: 'Premium Belgian chocolatier — luxury e-commerce experience with gifting, seasonal collections, subscriptions, and a global rewards programme.',
     industry: 'Luxury retail / Confectionery e-commerce',
-    category: 'E-Commerce Platform',
+    category: 'E-commerce',
     accent: '#c8932a',
     liveUrl: 'https://www.godiva.com/',
     services: ['Web Development', 'UI/UX Design', 'SaaS Development', 'Product Engineering'],
@@ -527,12 +527,17 @@ export const caseStudies = [
       '"Corporate Gifting — custom gifts for every occasion."',
       '"Shop online, pick up in boutique."',
     ],
-    featuredImage: '/portfolio/godiva/cover.svg',
+    featuredImage: '/portfolio/godiva/home-desktop.png',
     gallery: [
       {
-        src: '/portfolio/godiva/cover.svg',
+        src: '/portfolio/godiva/home-desktop.png',
         alt: 'GODIVA premium Belgian chocolatier website — luxury e-commerce experience',
         caption: 'godiva.com — premium chocolate e-commerce with seasonal gifting and loyalty',
+      },
+      {
+        src: '/portfolio/godiva/home-mobile.png',
+        alt: 'GODIVA website on mobile',
+        caption: 'Mobile — luxury commerce experience',
       },
     ],
     seo: {
@@ -691,7 +696,7 @@ export const caseStudies = [
     title: 'GoodBooks Plus Analytics',
     tagline: 'Self-serve BI that turns production and inventory data into decisions.',
     industry: 'Business intelligence / Manufacturing operations',
-    category: 'Analytics Platform',
+    category: 'SaaS Platforms',
     accent: '#F97316',
     liveUrl: 'https://goodbooksplus.com/analytics/',
     services: ['Product Engineering', 'Web Development', 'UI/UX Design', 'SaaS Development'],
@@ -912,7 +917,7 @@ export const caseStudies = [
     title: 'MedBill Ultra',
     tagline: 'A conversion-led website for US medical billing and RCM services.',
     industry: 'Healthcare technology / Medical billing',
-    category: 'Medical Billing',
+    category: 'Web Development',
     accent: '#F59E0B',
     liveUrl: 'https://medbillultra.com/',
     services: ['Web Development', 'UI/UX Design', 'Lead Generation Experience'],
@@ -967,6 +972,11 @@ export const caseStudies = [
         src: '/portfolio/medbill-ultra/home-mobile.png',
         alt: 'MedBill Ultra homepage on mobile',
         caption: 'Mobile — homepage',
+      },
+      {
+        src: '/portfolio/medbill-ultra/features-desktop.png',
+        alt: 'MedBill Ultra features overview',
+        caption: 'Desktop — features',
       },
       {
         src: '/portfolio/medbill-ultra/about-desktop.png',
@@ -1140,7 +1150,7 @@ export const caseStudies = [
     title: 'Metro Electric',
     tagline: 'A premium service site for Perth commercial and industrial electrical work.',
     industry: 'Electrical services / Field engineering',
-    category: 'Electrical Services',
+    category: 'Web Development',
     accent: '#2563EB',
     liveUrl: 'https://metroelectric.com.au/',
     services: ['Web Development', 'UI/UX Design', 'Content Architecture'],
@@ -1361,7 +1371,7 @@ export const caseStudies = [
     title: 'SpaceWorx',
     tagline: 'Product storytelling for modular privacy pods built for modern workplaces.',
     industry: 'Commercial interiors / Workspace solutions',
-    category: 'Workspace Solutions',
+    category: 'UI/UX Design',
     accent: '#A3E635',
     liveUrl: 'https://www.spaceworx.us/',
     services: ['Web Development', 'UI/UX Design', 'Product Marketing Experience'],
@@ -1573,7 +1583,7 @@ export const caseStudies = [
     title: 'MRZZM',
     tagline: 'A full-stack multi-category marketplace operating across Saudi Arabia and UAE — electronics, beauty, health, and more.',
     industry: 'E-commerce / Multi-category marketplace',
-    category: 'E-commerce',
+    category: 'Mobile Applications',
     accent: '#4F46E5',
     liveUrl: 'https://mrzzm.mountsol.dev/',
     services: ['Product Engineering', 'Web Development', 'UI/UX Design', 'SaaS Development'],
@@ -1628,6 +1638,16 @@ export const caseStudies = [
         src: '/portfolio/mrzzm/home-desktop.png',
         alt: 'MRZZM multi-category marketplace homepage on desktop',
         caption: 'Homepage — hero banner + trust strip',
+      },
+      {
+        src: '/portfolio/mrzzm/home-hero.png',
+        alt: 'MRZZM marketplace hero showcase',
+        caption: 'Desktop — hero presentation',
+      },
+      {
+        src: '/portfolio/mrzzm/home-products.png',
+        alt: 'MRZZM product category browsing',
+        caption: 'Desktop — product discovery',
       },
       {
         src: '/portfolio/mrzzm/home-mobile.png',
@@ -1791,7 +1811,7 @@ export const caseStudies = [
     title: 'Kinepolis',
     tagline: 'Europe\'s premier cinema group — multilingual digital platform for film discovery, ticketing, and loyalty across six countries.',
     industry: 'Entertainment / Cinema',
-    category: 'Digital Experience',
+    category: 'Web Development',
     accent: '#E11D48',
     liveUrl: 'https://kinepolis.be/',
     services: ['Product Engineering', 'Web Development', 'UI/UX Design'],
@@ -1836,12 +1856,22 @@ export const caseStudies = [
       '"Film programming and events in all Belgian Kinepolis cinemas."',
       '"Kinepolis has adapted its Privacy Policy — more clearly explaining which personal data we process."',
     ],
-    featuredImage: '/portfolio/kinepolis/cover.svg',
+    featuredImage: '/portfolio/kinepolis/home-desktop.png',
     gallery: [
       {
-        src: '/portfolio/kinepolis/cover.svg',
-        alt: 'Kinepolis European cinema network — six-country coverage',
-        caption: 'Six-country European cinema platform',
+        src: '/portfolio/kinepolis/home-desktop.png',
+        alt: 'Kinepolis six-country site selector with regional language entry points',
+        caption: 'Site selector — one platform, multiple European markets',
+      },
+      {
+        src: '/portfolio/kinepolis/cinema-desktop.png',
+        alt: 'Kinepolis premium multiplex atmosphere',
+        caption: 'Brand atmosphere — cinema-first experience',
+      },
+      {
+        src: '/portfolio/kinepolis/home-mobile.png',
+        alt: 'Kinepolis site selector on mobile',
+        caption: 'Mobile — regional entry',
       },
     ],
     limitations:
@@ -2219,7 +2249,7 @@ export const caseStudies = [
     title: 'Pathé Belgium',
     tagline: 'Seven Belgian cinema locations, one digital experience — online ticketing, unlimited subscription, IMAX, 4DX, and events.',
     industry: 'Entertainment / Cinema',
-    category: 'Digital Experience',
+    category: 'Web Development',
     accent: '#DC2626',
     liveUrl: 'https://www.pathe.be/en',
     services: ['Product Engineering', 'Web Development', 'UI/UX Design'],
@@ -2266,12 +2296,17 @@ export const caseStudies = [
       '"The full programme for the cinema week is available for booking starting Monday evening."',
       '"Book easily with our free app."',
     ],
-    featuredImage: '/portfolio/pathe/cover.svg',
+    featuredImage: '/portfolio/pathe/home-desktop.png',
     gallery: [
       {
-        src: '/portfolio/pathe/cover.svg',
-        alt: 'Pathé Belgium cinema platform overview',
-        caption: 'Seven cinemas · Pathé Infinity · IMAX + 4DX + Dolby',
+        src: '/portfolio/pathe/home-desktop.png',
+        alt: 'Pathé Belgium cinema atmosphere — premium theatre interior',
+        caption: 'Brand atmosphere — Pathé Belgium cinema network',
+      },
+      {
+        src: '/portfolio/pathe/home-mobile.png',
+        alt: 'Pathé Belgium cinematic brand visual',
+        caption: 'Visual — cinema experience',
       },
     ],
     limitations:
@@ -2653,10 +2688,40 @@ export const caseStudies = [
 
 export const publishedCaseStudies = caseStudies.filter((item) => item.status === 'published')
 
+/** Agency portfolio categories — only those present in published work. */
+const AGENCY_CATEGORY_ORDER = [
+  'Web Development',
+  'Mobile Applications',
+  'UI/UX Design',
+  'E-commerce',
+  'SaaS Platforms',
+  'AI Solutions',
+]
+
 export const caseStudyCategories = [
   'All',
-  ...Array.from(new Set(publishedCaseStudies.map((item) => item.category))),
+  ...AGENCY_CATEGORY_ORDER.filter((category) =>
+    publishedCaseStudies.some((item) => item.category === category),
+  ),
 ]
+
+export const caseStudyIndustries = [
+  'All',
+  ...Array.from(
+    new Set(
+      publishedCaseStudies.map((item) => item.industry.split('/')[0].trim()).filter(Boolean),
+    ),
+  ).sort(),
+]
+
+export function filterCaseStudies({ category = 'All', industry = 'All' } = {}) {
+  return publishedCaseStudies.filter((item) => {
+    const matchCategory = category === 'All' || item.category === category
+    const industryRoot = item.industry?.split('/')[0].trim()
+    const matchIndustry = industry === 'All' || industryRoot === industry
+    return matchCategory && matchIndustry
+  })
+}
 
 export const homeWork = {
   eyebrow: 'Case studies',

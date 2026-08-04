@@ -2,50 +2,86 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, ExternalLink } from 'lucide-react'
 import styles from './CaseStudyCard.module.css'
 
-const isSvgOnly = (src) => src?.endsWith('cover.svg') || src?.endsWith('.svg')
+const isRaster = (src) =>
+  Boolean(src) && !src.endsWith('.svg') && !src.endsWith('cover.svg')
 
-export function CaseStudyCard({ study, featured = false }) {
-  const noPhoto = isSvgOnly(study.featuredImage) || !study.featuredImage
+function resolveCover(study) {
+  if (isRaster(study.featuredImage)) return study.featuredImage
+  const fromGallery = (study.gallery || []).find((item) => isRaster(item.src))
+  return fromGallery?.src || null
+}
+
+export function CaseStudyCard({ study }) {
+  const cover = resolveCover(study)
+  const metrics = (study.metrics || []).slice(0, 2)
+  const badges = (study.services || []).slice(0, 3)
+
   return (
-    <article className={[styles.card, featured ? styles.featured : '', noPhoto ? styles.noPhoto : ''].filter(Boolean).join(' ')}>
-      {!noPhoto && (
-        <Link to={`/case-studies/${study.slug}`} className={styles.media} data-cursor="View">
+    <article
+      className={styles.card}
+      style={{ '--study-accent': study.accent || '#4f46e5' }}
+    >
+      <Link
+        to={`/case-studies/${study.slug}`}
+        className={cover ? styles.media : styles.brandMedia}
+        data-cursor="View"
+      >
+        {cover ? (
           <img
-            src={study.featuredImage}
-            alt=""
+            src={cover}
+            alt={`${study.title} preview`}
             loading="lazy"
             decoding="async"
-            width={featured ? 960 : 640}
-            height={featured ? 640 : 420}
+            width={640}
+            height={400}
           />
-          <span className={styles.accent} style={{ '--study-accent': study.accent }} aria-hidden="true" />
-        </Link>
-      )}
-      {noPhoto && (
-        <Link to={`/case-studies/${study.slug}`} className={styles.mediaPlaceholder} data-cursor="View">
-          <span className={styles.placeholderInitial} style={{ '--study-accent': study.accent || '#4f46e5' }}>
-            {study.title.charAt(0)}
+        ) : (
+          <>
+            <span className={styles.brandGlow} aria-hidden="true" />
+            <span className={styles.brandMark}>{study.title.charAt(0)}</span>
+            <span className={styles.brandName}>{study.title}</span>
+          </>
+        )}
+        <span className={styles.overlay} aria-hidden="true">
+          <span className={styles.overlayLabel}>
+            View study <ArrowUpRight size={15} aria-hidden="true" />
           </span>
-          <span className={styles.accent} style={{ '--study-accent': study.accent }} aria-hidden="true" />
-        </Link>
-      )}
+        </span>
+      </Link>
+
       <div className={styles.body}>
         <div className={styles.meta}>
           <span className={styles.category}>{study.category}</span>
-          <span className={styles.industry}>{study.industry}</span>
+          <span className={styles.industry}>{study.industry.split('/')[0].trim()}</span>
         </div>
+
         <h2 className={styles.title}>
           <Link to={`/case-studies/${study.slug}`}>{study.title}</Link>
         </h2>
         <p className={styles.tagline}>{study.tagline}</p>
-        <ul className={styles.tags} role="list">
-          {study.tags.slice(0, 4).map((tag) => (
-            <li key={tag}>{tag}</li>
-          ))}
-        </ul>
+
+        {metrics.length ? (
+          <ul className={styles.metrics} role="list">
+            {metrics.map((metric) => (
+              <li key={`${metric.label}-${metric.value}`}>
+                <strong>{metric.value}</strong>
+                <span>{metric.label}</span>
+              </li>
+            ))}
+          </ul>
+        ) : null}
+
+        {badges.length ? (
+          <ul className={styles.badges} role="list">
+            {badges.map((badge) => (
+              <li key={badge}>{badge}</li>
+            ))}
+          </ul>
+        ) : null}
+
         <div className={styles.actions}>
           <Link to={`/case-studies/${study.slug}`} className={styles.cta}>
-            View case study <ArrowUpRight size={16} aria-hidden="true" />
+            View case study <ArrowUpRight size={15} aria-hidden="true" />
           </Link>
           {study.liveUrl ? (
             <a
@@ -54,7 +90,7 @@ export function CaseStudyCard({ study, featured = false }) {
               target="_blank"
               rel="noreferrer noopener"
             >
-              Live site <ExternalLink size={14} aria-hidden="true" />
+              Live site <ExternalLink size={13} aria-hidden="true" />
             </a>
           ) : null}
         </div>

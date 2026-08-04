@@ -1,42 +1,83 @@
 /**
- * Cloudflare Worker — site preview proxy
+ * Cloudflare Worker — site preview proxy (standalone deploy)
  *
- * Fetches any URL server-side, strips X-Frame-Options and CSP
- * frame-ancestors so the response can be embedded in an iframe.
+ * Prefer Cloudflare Pages Function at /site-preview (functions/site-preview.js)
+ * so the portfolio works with zero VITE_PROXY_URL. Use this Worker only when
+ * the static site is hosted somewhere that cannot run Pages Functions.
  *
- * ── Deploy in 2 minutes ──────────────────────────────────────────────
- * 1. Go to https://dash.cloudflare.com  →  Workers & Pages  →  Create
- * 2. Choose "Hello World" starter, name it e.g. "mernify-preview"
- * 3. Click "Edit code", paste the entire content of this file, Save & Deploy
- * 4. Copy the worker URL: https://mernify-preview.<your-subdomain>.workers.dev
- * 5. In your site root create .env.production:
- *      VITE_PROXY_URL=https://mernify-preview.<your-subdomain>.workers.dev
- * 6. Rebuild and redeploy your site.  Done.
- *
- * Free tier: 100,000 requests / day — more than enough for a portfolio.
+ * Deploy:
+ * 1. dash.cloudflare.com → Workers → Create → paste this file
+ * 2. Set VITE_PROXY_URL=https://mernify-preview.<subdomain>.workers.dev
+ * 3. Rebuild the site
  */
+
+const ALLOWED_HOSTS = new Set([
+  'tailorize.sa',
+  'www.tailorize.sa',
+  'servloom.com',
+  'www.servloom.com',
+  'godiva.com',
+  'www.godiva.com',
+  'goodbooksplus.com',
+  'www.goodbooksplus.com',
+  'medbillultra.com',
+  'www.medbillultra.com',
+  'metroelectric.com.au',
+  'www.metroelectric.com.au',
+  'spaceworx.us',
+  'www.spaceworx.us',
+  'mrzzm.mountsol.dev',
+  'kinepolis.be',
+  'www.kinepolis.be',
+  'marmot.com',
+  'www.marmot.com',
+  'pathe.be',
+  'www.pathe.be',
+  'trendyol.com',
+  'www.trendyol.com',
+])
 
 export default {
   async fetch(request) {
-    const url = new URL(request.url)
-
-    // Allow browser pre-flight requests
     if (request.method === 'OPTIONS') {
-      return new Response(null, {
-        headers: corsHeaders(),
-      })
+      return new Response(null, { status: 204, headers: corsHeaders() })
     }
 
+    const url = new URL(request.url)
     const targetUrl = url.searchParams.get('url')
     if (!targetUrl) {
       return new Response('Missing ?url= parameter', { status: 400, headers: corsHeaders() })
     }
 
     let targetOrigin
+    let host
     try {
-      targetOrigin = new URL(targetUrl).origin
+      const parsed = new URL(targetUrl)
+      if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+        return new Response('Only http(s) URLs are allowed', { status: 400, headers: corsHeaders() })
+      }
+      targetOrigin = parsed.origin
+      host = parsed.hostname.toLowerCase()
     } catch {
       return new Response('Invalid URL', { status: 400, headers: corsHeaders() })
+    }
+
+    if (!ALLOWED_HOSTS.has(host)) {
+      return new Response('Host not allowlisted for preview', { status: 403, headers: corsHeaders() })
+    }
+
+    if (url.searchParams.get('probe') === '1') {
+      return new Response(JSON.stringify({ ok: true, origin: targetOrigin }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json; charset=utf-8', ...corsHeaders() },
+      })
+    }
+
+    if (request.method === 'HEAD') {
+      return new Response(null, {
+        status: 200,
+        headers: { 'Content-Type': 'text/html; charset=utf-8', ...corsHeaders() },
+      })
     }
 
     let upstream
@@ -61,14 +102,15 @@ export default {
     const headers = {
       'Content-Type': ct,
       ...corsHeaders(),
-      // Deliberately omit X-Frame-Options and CSP frame-ancestors
     }
 
     if (ct.includes('text/html')) {
       let html = await upstream.text()
-      // Inject base tag so relative URLs (images, CSS, JS) still resolve correctly
-      html = html.replace(/(<head[^>]*>)/i, `$1<base href="${targetOrigin}/">`)
-      // Neutralise common JS frame-busting patterns (best-effort)
+      if (/<head[^>]*>/i.test(html)) {
+        html = html.replace(/(<head[^>]*>)/i, `$1<base href="${targetOrigin}/">`)
+      } else {
+        html = `<head><base href="${targetOrigin}/"></head>${html}`
+      }
       html = html.replace(/top\s*!==?\s*(?:self|window)/g, 'false')
       html = html.replace(/self\s*!==?\s*top/g, 'false')
       return new Response(html, { status: upstream.status, headers })
@@ -82,7 +124,10 @@ export default {
 function corsHeaders() {
   return {
     'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, OPTIONS',
+    'Access-Control-Allow-Methods': 'GET, HEAD, OPTIONS',
     'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Expose-Headers': 'X-Mernify-Preview',
+    'Cache-Control': 'public, max-age=300',
+    'X-Mernify-Preview': '1',
   }
 }

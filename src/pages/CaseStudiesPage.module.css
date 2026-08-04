@@ -1,105 +1,24 @@
-.accent {
-  color: var(--mf-color-indigo);
-}
-
-.section {
-  background: var(--mf-color-cream);
-  padding-block: var(--mf-section-pad-y);
-}
-
-.toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.55rem;
-  margin-bottom: clamp(1.5rem, 3vw, 2.25rem);
-}
-
-.filter {
-  appearance: none;
-  border: 1px solid var(--mf-border-default);
-  background: #fff;
-  color: var(--mf-text-secondary);
-  border-radius: var(--mf-radius-pill);
-  padding: 0.45rem 0.9rem;
-  font: inherit;
-  font-size: var(--mf-font-size-body-sm);
-  font-weight: var(--mf-weight-medium);
-  cursor: pointer;
-  transition:
-    background var(--mf-dur-sm) var(--mf-ease-out),
-    color var(--mf-dur-sm) var(--mf-ease-out),
-    border-color var(--mf-dur-sm) var(--mf-ease-out);
-}
-
-.filter:hover,
-.filter:focus-visible {
-  border-color: rgba(79, 70, 229, 0.45);
-  color: var(--mf-color-indigo);
-  outline: none;
-}
-
-.filter:focus-visible {
-  box-shadow: 0 0 0 3px var(--mf-focus-ring);
-}
-
-.filterActive {
-  background: var(--mf-color-indigo);
-  border-color: var(--mf-color-indigo);
-  color: #fff;
-}
-
-.filterActive:hover,
-.filterActive:focus-visible {
-  color: #fff;
-  border-color: var(--mf-color-indigo-hover);
-  background: var(--mf-color-indigo-hover);
-}
-
-.layout {
-  display: grid;
-  gap: 1.25rem;
-}
-
-.featured {
+.page {
   min-width: 0;
 }
 
-.grid {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 1.25rem;
+/* Visual polish only — same PageHero layout/structure as before */
+.portfolioHero {
+  background:
+    radial-gradient(ellipse 70% 55% at 50% -5%, rgba(79, 70, 229, 0.1), transparent 58%),
+    radial-gradient(ellipse 45% 40% at 85% 70%, rgba(6, 182, 212, 0.06), transparent 55%),
+    linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
-@media (min-width: 760px) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+.heroTitle {
+  display: inline-block;
 }
 
-@media (min-width: 1100px) {
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.heroChar {
+  display: inline-block;
+  will-change: transform, opacity;
 }
 
-.empty {
-  display: grid;
-  gap: 0.75rem;
-  justify-items: start;
-  padding: clamp(1.5rem, 3vw, 2.25rem);
-  border-radius: var(--mf-radius-xl);
-  background: #ffffff;
-  border: 1px solid var(--mf-border-default);
-}
-
-.empty h2 {
-  margin: 0;
-  font-family: var(--mf-font-display);
-}
-
-.empty p {
-  margin: 0;
-  color: var(--mf-text-secondary);
+.accent {
+  color: var(--mf-color-indigo);
 }

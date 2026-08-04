@@ -5,6 +5,7 @@ import { PageMeta } from '@/components/seo/PageMeta'
 import { Button, Container, Text } from '@/components/ui'
 import { SITE } from '@/constants/site'
 import { getCaseStudyBySlug, getNextCaseStudy, publishedCaseStudies } from '@/content/caseStudies'
+import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
 import { authorshipLabel, getAuthorship } from '@/lib/authorship'
 import { resolveProxyUrl } from '@/lib/env'
 import { NotFoundPage } from '@/pages/NotFoundPage'
@@ -17,6 +18,7 @@ const TOC = [
   ['ia', 'IA'],
   ['wireframes', 'Wireframes'],
   ['responsive', 'Responsive'],
+  ['gallery', 'Visuals'],
   ['audit', 'Audit'],
   ['beforeafter', 'Before / After'],
   ['results', 'Results'],
@@ -25,22 +27,24 @@ const TOC = [
 // Sentiment bar: emotion 1–5 → height % and colour (light theme)
 const emoColor = (n) =>
   n <= 2
-    ? 'rgba(15,23,42,0.12)'
+    ? 'rgba(148, 163, 184, 0.85)'
     : n === 3
-      ? 'rgba(15,23,42,0.22)'
-      : 'rgba(79,70,229,0.55)'
+      ? 'rgba(99, 102, 241, 0.55)'
+      : n === 4
+        ? 'rgba(79, 70, 229, 0.72)'
+        : 'rgba(79, 70, 229, 0.92)'
 
 export function CaseStudyPage() {
   const { slug } = useParams()
   const study = getCaseStudyBySlug(slug)
   const [activeSection, setActiveSection] = useState('')
   const [previewDevice, setPreviewDevice] = useState('desktop')
-  const [iframeErr, setIframeErr] = useState(false)
+  const [iframeErr, setIframeErr] = useState(null) // null=probing, true=failed, false=ready
   const shellRef = useRef(null)
 
-  // Dev: Vite middleware. Prod: validated VITE_PROXY_URL (Cloudflare Worker)
-  const proxyBase = resolveProxyUrl() || (import.meta.env.DEV ? '/site-preview' : '')
-  const proxyUrl = proxyBase && study?.liveUrl
+  // Same-origin /site-preview in dev + Cloudflare Pages; optional absolute Worker via VITE_PROXY_URL
+  const proxyBase = resolveProxyUrl()
+  const proxyUrl = study?.liveUrl
     ? `${proxyBase}?url=${encodeURIComponent(study.liveUrl)}`
     : null
 
@@ -50,7 +54,62 @@ export function CaseStudyPage() {
     { id: 'desktop', label: 'Desktop', width: 1280 },
   ]
 
-  useEffect(() => { setIframeErr(false) }, [previewDevice, study?.slug])
+  // Probe the preview proxy. Uses ?probe=1 JSON so SPA fallbacks don't look healthy.
+  useEffect(() => {
+    if (!proxyUrl || !study?.liveUrl) {
+      setIframeErr(true)
+      return undefined
+    }
+
+    let cancelled = false
+    setIframeErr(null)
+    const controller = new AbortController()
+    const timer = window.setTimeout(() => controller.abort(), 10000)
+    const probeUrl = `${proxyUrl}${proxyUrl.includes('?') ? '&' : '?'}probe=1`
+
+    ;(async () => {
+      try {
+        const res = await fetch(probeUrl, {
+          method: 'GET',
+          signal: controller.signal,
+          credentials: 'omit',
+          headers: { Accept: 'application/json' },
+        })
+        if (cancelled) return
+        if (!res.ok) {
+          setIframeErr(true)
+          return
+        }
+        const ct = res.headers.get('content-type') || ''
+        if (!ct.includes('application/json')) {
+          // SPA host rewrote /site-preview → index.html
+          setIframeErr(true)
+          return
+        }
+        const data = await res.json()
+        if (!cancelled) setIframeErr(!(data && data.ok === true))
+      } catch (err) {
+        if (!cancelled && err?.name !== 'AbortError') setIframeErr(true)
+      } finally {
+        window.clearTimeout(timer)
+      }
+    })()
+
+    return () => {
+      cancelled = true
+      controller.abort()
+      window.clearTimeout(timer)
+    }
+  }, [proxyUrl, study?.liveUrl, study?.slug])
+
+  useRevealOnScroll(shellRef, {
+    selector: '[data-fade-up]',
+    start: 'top 88%',
+    duration: 0.85,
+    once: true,
+    ease: 'power3.out',
+    deps: [study?.slug],
+  })
 
   // JSON-LD
   useEffect(() => {
@@ -85,7 +144,7 @@ export function CaseStudyPage() {
           if (e.isIntersecting) setActiveSection(e.target.id)
         }
       },
-      { rootMargin: '-10% 0px -80% 0px' }
+      { rootMargin: '-18% 0px -70% 0px' }
     )
     ids.forEach((id) => {
       const el = document.getElementById(id)
@@ -130,6 +189,20 @@ export function CaseStudyPage() {
     return idx > 0 ? publishedCaseStudies[idx - 1] : publishedCaseStudies[publishedCaseStudies.length - 1]
   })()
 
+  const tocItems = TOC.filter(([id]) => {
+    if (id === 'brief') return Boolean(study.brief)
+    if (id === 'personas') return Boolean(study.personas?.length)
+    if (id === 'journeys') return Boolean(study.journeys?.length)
+    if (id === 'ia') return Boolean(study.sitemap?.length)
+    if (id === 'wireframes') return Boolean(study.wireframes?.length)
+    if (id === 'responsive') return Boolean(study.responsive)
+    if (id === 'gallery') return Boolean(study.gallery?.length)
+    if (id === 'audit') return Boolean(study.audit)
+    if (id === 'beforeafter') return Boolean(study.beforeAfter?.length)
+    if (id === 'results') return Boolean(study.metrics?.length || study.techNotes?.length)
+    return true
+  })
+
   const scrollTo = (id) => (e) => {
     e.preventDefault()
     const el = document.getElementById(id)
@@ -145,61 +218,86 @@ export function CaseStudyPage() {
         image={study.featuredImage}
       />
 
-      <div className={styles.shell} ref={shellRef}>
+      <div
+        className={styles.shell}
+        ref={shellRef}
+        style={{ '--study-accent': study.accent || '#4f46e5' }}
+      >
 
         {/* ── Hero ─────────────────────────────────── */}
-        <header className={styles.hero}>
-          <p className={styles.heroEyebrow}>
-            {study.category} · {study.industry}
-          </p>
-          <h1 className={styles.heroTitle}>{study.title}</h1>
-          <p className={styles.heroSummary}>{study.tagline}</p>
+        <header className={styles.hero} data-header-theme="light">
+          <div className={styles.heroGrid}>
+            <div className={styles.heroCopy} data-fade-up>
+              <p className={styles.heroEyebrow}>
+                {study.category} · {study.industry}
+              </p>
+              <h1 className={styles.heroTitle}>{study.title}</h1>
+              <p className={styles.heroSummary}>{study.tagline}</p>
 
-          <p
-            className={styles.authorship}
-            data-mode={authorship.mode}
-            title={authorship.note}
-          >
-            {authorshipLabel(authorship.mode)}
-            {authorship.clientApproved ? ' · Client-approved' : null}
-          </p>
-          {authorship.mode !== 'delivered' ? (
-            <p className={styles.authorshipNote}>{authorship.note}</p>
-          ) : null}
-
-          <div className={styles.heroMeta}>
-            <div className={styles.heroMetaItem}>
-              <span className={styles.heroMetaLabel}>Role</span>
-              <span className={styles.heroMetaValue}>{study.services?.join(' · ')}</span>
-            </div>
-            <div className={styles.heroMetaItem}>
-              <span className={styles.heroMetaLabel}>Stack</span>
-              <span className={styles.heroMetaValue}>{study.technology?.join(', ')}</span>
-            </div>
-            {study.liveUrl && (
-              <div className={styles.heroMetaItem}>
-                <span className={styles.heroMetaLabel}>Live site</span>
-                <span className={styles.heroMetaValue}>{new URL(study.liveUrl).hostname}</span>
+              <div className={styles.authorshipBlock}>
+                <p
+                  className={styles.authorship}
+                  data-mode={authorship.mode}
+                  title={authorship.note}
+                >
+                  {authorshipLabel(authorship.mode)}
+                  {authorship.clientApproved ? ' · Client-approved' : null}
+                </p>
+                {authorship.mode !== 'delivered' ? (
+                  <p className={styles.authorshipNote}>{authorship.note}</p>
+                ) : null}
               </div>
-            )}
+
+              <div className={styles.heroMeta}>
+                <div className={styles.heroMetaItem}>
+                  <span className={styles.heroMetaLabel}>Role</span>
+                  <span className={styles.heroMetaValue}>{study.services?.join(' · ')}</span>
+                </div>
+                <div className={styles.heroMetaItem}>
+                  <span className={styles.heroMetaLabel}>Stack</span>
+                  <span className={styles.heroMetaValue}>{study.technology?.join(', ')}</span>
+                </div>
+                {study.liveUrl && (
+                  <div className={styles.heroMetaItem}>
+                    <span className={styles.heroMetaLabel}>Live site</span>
+                    <span className={styles.heroMetaValue}>{new URL(study.liveUrl).hostname}</span>
+                  </div>
+                )}
+              </div>
+
+              {study.liveUrl && (
+                <div className={styles.heroActions}>
+                  <a
+                    href={study.liveUrl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className={styles.pipTrigger}
+                  >
+                    <Monitor size={13} /> Visit live site <ExternalLink size={11} />
+                  </a>
+                </div>
+              )}
+            </div>
+
+            {study.featuredImage ? (
+              <div className={styles.heroImage} data-fade-up data-delay="80">
+                <div className={styles.heroImageGlow} aria-hidden="true" />
+                <div className={styles.heroImageFrame}>
+                  <img
+                    src={study.featuredImage}
+                    alt={`${study.title} — featured screenshot`}
+                    loading="eager"
+                    decoding="async"
+                    width={1240}
+                    height={697}
+                  />
+                </div>
+              </div>
+            ) : null}
           </div>
 
-          {/* Hero live site link */}
-          {study.liveUrl && (
-            <div className={styles.heroActions}>
-              <a
-                href={study.liveUrl}
-                target="_blank"
-                rel="noreferrer noopener"
-                className={styles.pipTrigger}
-              >
-                <Monitor size={13} /> Visit live site <ExternalLink size={11} />
-              </a>
-            </div>
-          )}
-
           {study.metrics?.length ? (
-            <div className={styles.heroMetrics}>
+            <div className={styles.heroMetrics} data-fade-up data-delay="120">
               {study.metrics.map((m) => (
                 <div key={m.label} className={styles.metricCard}>
                   <div className={styles.metricValue}>{m.value}</div>
@@ -211,24 +309,10 @@ export function CaseStudyPage() {
           ) : null}
         </header>
 
-        {/* Featured image */}
-        {study.featuredImage && (
-          <div className={styles.heroImage}>
-            <img
-              src={study.featuredImage}
-              alt={`${study.title} — featured screenshot`}
-              loading="eager"
-              decoding="async"
-              width={1240}
-              height={697}
-            />
-          </div>
-        )}
-
         {/* ── TOC ─────────────────────────────────── */}
-        <nav className={styles.toc} aria-label="Case study sections">
+        <nav className={styles.toc} aria-label="Case study sections" data-header-theme="light">
           <div className={styles.tocInner}>
-            {TOC.map(([id, label]) => (
+            {tocItems.map(([id, label]) => (
               <a
                 key={id}
                 href={`#${id}`}
@@ -244,9 +328,9 @@ export function CaseStudyPage() {
 
         {/* ── 1. Brief ─────────────────────────────── */}
         {study.brief && (
-          <section id="brief" className={styles.section}>
+          <section id="brief" className={styles.section} data-header-theme="light" data-fade-up>
             <div className={styles.briefGrid}>
-              <div>
+              <div className={styles.sectionIntro}>
                 <h2 className={styles.sectionTitle}>Client brief</h2>
                 <p className={styles.briefClient}>{study.brief.client}</p>
               </div>
@@ -282,10 +366,12 @@ export function CaseStudyPage() {
 
         {/* ── 2. Personas ──────────────────────────── */}
         {study.personas?.length ? (
-          <section id="personas" className={`${styles.sectionDark}`}>
+          <section id="personas" className={`${styles.sectionDark}`} data-header-theme="light" data-fade-up>
             <div className={styles.sectionInner}>
-              <h2 className={styles.sectionTitle}>Who it is for</h2>
-              <p className={styles.sectionSub}>Two primary personas drove every layout decision.</p>
+              <div className={styles.sectionIntro}>
+                <h2 className={styles.sectionTitle}>Who it is for</h2>
+                <p className={styles.sectionSub}>Two primary personas drove every layout decision.</p>
+              </div>
               <div className={styles.personaGrid}>
                 {study.personas.map((p) => (
                   <div key={p.name} className={styles.personaCard}>
@@ -319,47 +405,70 @@ export function CaseStudyPage() {
 
         {/* ── 3. Journeys ──────────────────────────── */}
         {study.journeys?.length ? (
-          <section id="journeys" className={styles.section}>
-            <h2 className={styles.sectionTitle}>User journeys</h2>
-            <p className={styles.sectionSub}>
-              Two journeys mapped separately: the end user and the client. Bar height represents sentiment at each stage.
-            </p>
+          <section
+            id="journeys"
+            className={`${styles.section} ${styles.journeysSection}`}
+            data-header-theme="light"
+            data-fade-up
+          >
+            <div className={styles.sectionIntro}>
+              <h2 className={styles.sectionTitle}>User journeys</h2>
+              <p className={styles.sectionSub}>
+                Two journeys mapped separately: the end user and the client. Bar height represents sentiment at each stage.
+              </p>
+            </div>
             {study.journeys.map((j) => (
               <div key={j.title} className={styles.journeyBlock}>
                 <div className={styles.journeyHeader}>
                   <span className={styles.journeyTitle}>{j.title}</span>
                   <span className={styles.journeySubtitle}>{j.subtitle}</span>
                 </div>
-                <div className={styles.journeySteps}>
+                <ol className={styles.journeyTimeline}>
                   {j.steps.map((s, i) => (
-                    <div key={i} className={styles.stepCard}>
-                      <div className={styles.stepTop}>
-                        <span>{String(i + 1).padStart(2, '0')}</span>
-                        <span>{['', 'frustrated', 'wary', 'neutral', 'confident', 'delighted'][s.emotion] || ''}</span>
+                    <li
+                      key={i}
+                      className={styles.journeyStep}
+                      style={{ '--step-emotion': s.emotion }}
+                      data-fade-up
+                    >
+                      <div className={styles.stepRail} aria-hidden="true">
+                        <span className={styles.stepNum}>{String(i + 1).padStart(2, '0')}</span>
+                        <span className={styles.stepNode} />
                       </div>
-                      <div className={styles.stepBar}>
-                        <div
-                          className={styles.stepBarFill}
-                          style={{
-                            height: `${20 + s.emotion * 16}%`,
-                            background: emoColor(s.emotion),
-                          }}
-                        />
+                      <div className={styles.stepPanel}>
+                        <div className={styles.stepMeta}>
+                          <p className={styles.stepStage}>{s.stage}</p>
+                          <span className={styles.stepEmotion}>
+                            {['', 'frustrated', 'wary', 'neutral', 'confident', 'delighted'][s.emotion] || ''}
+                          </span>
+                          <div className={styles.stepBar}>
+                            <div
+                              className={styles.stepBarFill}
+                              style={{
+                                height: `${20 + s.emotion * 16}%`,
+                                background: emoColor(s.emotion),
+                              }}
+                            />
+                          </div>
+                        </div>
+                        <div className={styles.stepContent}>
+                          <p className={styles.stepAction}>{s.action}</p>
+                          <p className={styles.stepThought}>"{s.thought}"</p>
+                          <div className={styles.stepSplit}>
+                            <div className={styles.stepPainBlock}>
+                              <p className={styles.stepPainLabel}>Pain</p>
+                              <p className={styles.stepPain}>{s.pain}</p>
+                            </div>
+                            <div className={styles.stepOppBlock}>
+                              <p className={styles.stepOppLabel}>Design response</p>
+                              <p className={styles.stepOpp}>{s.opp}</p>
+                            </div>
+                          </div>
+                        </div>
                       </div>
-                      <p className={styles.stepStage}>{s.stage}</p>
-                      <p className={styles.stepAction}>{s.action}</p>
-                      <p className={styles.stepThought}>"{s.thought}"</p>
-                      <div>
-                        <p className={styles.stepPainLabel}>Pain</p>
-                        <p className={styles.stepPain}>{s.pain}</p>
-                      </div>
-                      <div>
-                        <p className={styles.stepOppLabel}>Design response</p>
-                        <p className={styles.stepOpp}>{s.opp}</p>
-                      </div>
-                    </div>
+                    </li>
                   ))}
-                </div>
+                </ol>
               </div>
             ))}
           </section>
@@ -367,10 +476,12 @@ export function CaseStudyPage() {
 
         {/* ── 4. IA ────────────────────────────────── */}
         {study.sitemap?.length ? (
-          <section id="ia" className={`${styles.sectionDark}`}>
+          <section id="ia" className={`${styles.sectionDark}`} data-header-theme="light" data-fade-up>
             <div className={styles.sectionInner}>
-              <h2 className={styles.sectionTitle}>Information architecture</h2>
-              <p className={styles.sectionSub}>The site map as shipped. Top level is navigation; children are the sections beneath it.</p>
+              <div className={styles.sectionIntro}>
+                <h2 className={styles.sectionTitle}>Information architecture</h2>
+                <p className={styles.sectionSub}>The site map as shipped. Top level is navigation; children are the sections beneath it.</p>
+              </div>
               <div className={styles.sitemapGrid}>
                 {study.sitemap.map((n) => (
                   <div key={n.label} className={styles.sitemapCard}>
@@ -387,9 +498,11 @@ export function CaseStudyPage() {
 
         {/* ── 5. Wireframes ────────────────────────── */}
         {study.wireframes?.length ? (
-          <section id="wireframes" className={styles.section}>
-            <h2 className={styles.sectionTitle}>Wireframe to final</h2>
-            <p className={styles.sectionSub}>What was specified, and what changed once it met real content, real devices, and real testing.</p>
+          <section id="wireframes" className={styles.section} data-header-theme="light" data-fade-up>
+            <div className={styles.sectionIntro}>
+              <h2 className={styles.sectionTitle}>Wireframe to final</h2>
+              <p className={styles.sectionSub}>What was specified, and what changed once it met real content, real devices, and real testing.</p>
+            </div>
             <div className={styles.wireframeList}>
               {study.wireframes.map((w, i) => (
                 <div key={w.screen} className={styles.wireframeCard}>
@@ -424,9 +537,9 @@ export function CaseStudyPage() {
 
         {/* ── 6. Responsive ────────────────────────── */}
         {study.responsive && (
-          <section id="responsive" className={styles.section}>
+          <section id="responsive" className={`${styles.section} ${styles.sectionAlt}`} data-header-theme="light" data-fade-up>
             <div className={styles.responsiveHead}>
-              <div>
+              <div className={styles.sectionIntro}>
                 <h2 className={styles.sectionTitle}>Responsive review</h2>
                 <p className={styles.sectionSub}>Device frames, a breakpoint pass/fail table, and the annotated findings from testing.</p>
               </div>
@@ -457,9 +570,13 @@ export function CaseStudyPage() {
 
             {/* Live site in device frame (proxy strips X-Frame-Options) */}
             <div className={styles.iframeStage}>
-              {iframeErr ? (
+              {iframeErr === null ? (
+                <div className={styles.iframeFallback} aria-busy="true">
+                  <p>Loading live preview…</p>
+                </div>
+              ) : iframeErr ? (
                 <div className={styles.iframeFallback}>
-                  <p>This site couldn't load in-page.</p>
+                  <p>This site couldn&apos;t load in-page. Open it live, or ensure the /site-preview proxy is deployed.</p>
                   <a href={study.liveUrl} target="_blank" rel="noreferrer noopener" className={styles.liveSiteBtn}>
                     <Monitor size={13} /> Open live site <ExternalLink size={11} />
                   </a>
@@ -474,7 +591,7 @@ export function CaseStudyPage() {
                       title={`${study.title} mobile`}
                       sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
                       className={styles.phoneIframe}
-                      onError={() => setIframeErr(true)}
+                      referrerPolicy="no-referrer"
                     />
                   </div>
                   <div className={styles.phoneBottom}><span className={styles.phoneHomeBar} /></div>
@@ -489,7 +606,7 @@ export function CaseStudyPage() {
                       title={`${study.title} tablet`}
                       sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
                       className={styles.tabletIframe}
-                      onError={() => setIframeErr(true)}
+                      referrerPolicy="no-referrer"
                     />
                   </div>
                 </div>
@@ -506,7 +623,7 @@ export function CaseStudyPage() {
                       title={`${study.title} desktop`}
                       sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
                       className={styles.desktopIframe}
-                      onError={() => setIframeErr(true)}
+                      referrerPolicy="no-referrer"
                     />
                   </div>
                 </div>
@@ -549,12 +666,43 @@ export function CaseStudyPage() {
           </section>
         )}
 
+        {/* ── Gallery / visuals ─────────────────────── */}
+        {study.gallery?.length ? (
+          <section id="gallery" className={styles.section} data-header-theme="light" data-fade-up>
+            <div className={styles.sectionIntro}>
+              <h2 className={styles.sectionTitle}>Screenshots &amp; visuals</h2>
+              <p className={styles.sectionSub}>
+                Product surfaces from the live experience — layout, hierarchy, and brand presence across key breakpoints.
+              </p>
+            </div>
+            <div className={styles.galleryGrid}>
+              {study.gallery.map((item) => (
+                <figure key={item.src} className={styles.galleryItem} data-fade-up>
+                  <div className={styles.galleryFrame}>
+                    <img
+                      src={item.src}
+                      alt={item.alt}
+                      loading="lazy"
+                      decoding="async"
+                      width={960}
+                      height={540}
+                    />
+                  </div>
+                  {item.caption ? <figcaption>{item.caption}</figcaption> : null}
+                </figure>
+              ))}
+            </div>
+          </section>
+        ) : null}
+
         {/* ── 7. Audit ─────────────────────────────── */}
         {study.audit && (
-          <section id="audit" className={`${styles.sectionDark}`}>
+          <section id="audit" className={`${styles.sectionDark}`} data-header-theme="light" data-fade-up>
             <div className={styles.sectionInner}>
-              <h2 className={styles.sectionTitle}>Performance &amp; SEO audit</h2>
-              <p className={styles.sectionSub}>Mobile, 4G throttled. Before and after optimisation.</p>
+              <div className={styles.sectionIntro}>
+                <h2 className={styles.sectionTitle}>Performance &amp; SEO audit</h2>
+                <p className={styles.sectionSub}>Mobile, 4G throttled. Before and after optimisation.</p>
+              </div>
               {study.audit.rows?.length ? (
                 <div className={styles.auditGrid}>
                   {study.audit.rows.map((r) => (
@@ -580,9 +728,11 @@ export function CaseStudyPage() {
 
         {/* ── 8. Before / After ────────────────────── */}
         {study.beforeAfter?.length ? (
-          <section id="beforeafter" className={styles.section}>
-            <h2 className={styles.sectionTitle}>Before and after</h2>
-            <p className={styles.sectionSub}>The five decisions that carried the project.</p>
+          <section id="beforeafter" className={styles.section} data-header-theme="light" data-fade-up>
+            <div className={styles.sectionIntro}>
+              <h2 className={styles.sectionTitle}>Before and after</h2>
+              <p className={styles.sectionSub}>The five decisions that carried the project.</p>
+            </div>
             <div className={styles.baList}>
               {study.beforeAfter.map((b) => (
                 <div key={b.aspect} className={styles.baCard}>
@@ -598,10 +748,12 @@ export function CaseStudyPage() {
 
         {/* ── 9. Results ───────────────────────────── */}
         {(study.metrics?.length || study.techNotes?.length) ? (
-          <section id="results" className={`${styles.sectionDark}`}>
+          <section id="results" className={`${styles.sectionDark} ${styles.resultsSection}`} data-header-theme="light" data-fade-up>
             <div className={styles.sectionInner}>
-              <h2 className={styles.sectionTitle}>Results</h2>
-              <p className={styles.sectionSub}>Outcomes attributed to the live site and public client statements.</p>
+              <div className={styles.sectionIntro}>
+                <h2 className={styles.sectionTitle}>Results</h2>
+                <p className={styles.sectionSub}>Outcomes attributed to the live site and public client statements.</p>
+              </div>
               {study.metrics?.length ? (
                 <div className={styles.resultsMetrics}>
                   {study.metrics.map((m) => (
@@ -620,20 +772,6 @@ export function CaseStudyPage() {
               ) : null}
             </div>
           </section>
-        ) : null}
-
-        {/* ── Gallery fallback (no detailed sections) ─ */}
-        {!study.brief && study.gallery?.length ? (
-          <div className={styles.heroImage} style={{ marginTop: '2.5rem' }}>
-            <div className={styles.galleryGrid}>
-              {study.gallery.map((item) => (
-                <figure key={item.src}>
-                  <img src={item.src} alt={item.alt} loading="lazy" decoding="async" width={960} height={540} />
-                  {item.caption && <figcaption>{item.caption}</figcaption>}
-                </figure>
-              ))}
-            </div>
-          </div>
         ) : null}
 
         {/* ── Prev / Next ──────────────────────────── */}

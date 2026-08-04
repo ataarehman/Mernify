@@ -17,7 +17,7 @@ This document is the single source of truth for going live. For a shorter checkl
 | `VITE_WEB3FORMS_ACCESS_KEY` | Build-time | Yes (by design) | Alternate form delivery |
 | `VITE_CALENDLY_URL` | Build-time | Yes | Discovery-call booking |
 | `VITE_GA_MEASUREMENT_ID` | Build-time | Yes | GA4 (`G-…`) |
-| `VITE_PROXY_URL` | Build-time | Yes | Case-study iframe proxy |
+| `VITE_PROXY_URL` | Build-time | Yes | Optional override for case-study iframe proxy (defaults to same-origin `/site-preview`) |
 | `RESEND_API_KEY` | Cloudflare Worker **secret** | **No** | Email delivery |
 | `CONTACT_TO` / `CONTACT_FROM` | Worker vars | No | Inbox + from address |
 | `ALLOWED_ORIGIN` | Worker vars | No | CORS allowlist |
@@ -44,6 +44,15 @@ On hosts that inject env vars (Cloudflare Pages, Netlify, Vercel), set the same 
 | No GA ID | Analytics component no-ops |
 | Invalid GA ID format | Ignored (must match `G-…`) |
 | Invalid Calendly URL | Ignored; contact fallback used |
+| Preview proxy | Same-origin `/site-preview` (Pages Function or Vite middleware). Optional `VITE_PROXY_URL` Worker override |
+
+### 1.4 Case-study live preview (`/site-preview`)
+
+Device-frame previews cannot load third-party sites directly (they send `X-Frame-Options` / CSP `frame-ancestors`). Locally Vite serves `/site-preview`; in production **Cloudflare Pages** serves the same path via [`functions/site-preview.js`](../functions/site-preview.js).
+
+- **Cloudflare Pages:** commit includes `functions/` — no `VITE_PROXY_URL` needed.
+- **Other static hosts:** deploy [`cf-worker/site-preview.js`](../cf-worker/site-preview.js) and set `VITE_PROXY_URL` to the Worker URL, then rebuild.
+- Only allowlisted case-study hostnames are proxied (open-proxy protection).
 
 ---
 

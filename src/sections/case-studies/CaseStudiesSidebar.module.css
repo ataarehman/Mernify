@@ -1,0 +1,297 @@
+.sidebar {
+  min-width: 0;
+}
+
+.panel {
+  display: grid;
+  gap: 0.65rem;
+  padding: 0.75rem;
+  border-radius: var(--mf-radius-xl);
+  background: color-mix(in srgb, #fff 90%, transparent);
+  border: 1px solid var(--mf-border-default);
+  box-shadow: var(--mf-shadow-sm);
+  backdrop-filter: blur(14px) saturate(1.1);
+  height: fit-content;
+}
+
+.head {
+  display: grid;
+  gap: 0.15rem;
+  padding: 0.1rem 0.2rem 0.45rem;
+  border-bottom: 1px solid var(--mf-border-default);
+}
+
+.headRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  min-height: 1.1rem;
+}
+
+.kicker {
+  margin: 0;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-weight: var(--mf-weight-semibold);
+  color: var(--mf-text-secondary);
+  line-height: 1.2;
+}
+
+.count {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  color: var(--mf-text-secondary);
+  font-size: 0.8125rem;
+  line-height: 1.3;
+}
+
+.count strong {
+  font-family: var(--mf-font-display);
+  font-size: 1.15rem;
+  letter-spacing: -0.02em;
+  color: var(--mf-text-primary);
+  font-variant-numeric: tabular-nums;
+}
+
+.reset {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--mf-color-indigo);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: var(--mf-weight-semibold);
+  cursor: pointer;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.reset:focus-visible {
+  outline: 2px solid var(--mf-focus-ring);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.nav {
+  display: grid;
+  gap: 0;
+}
+
+.selectLabel {
+  margin: 0;
+  padding: 0 0.2rem;
+  font-size: 0.62rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  font-weight: var(--mf-weight-semibold);
+  color: var(--mf-text-secondary);
+}
+
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0.12rem;
+}
+
+.item {
+  position: relative;
+  appearance: none;
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  border: 1px solid transparent;
+  border-radius: var(--mf-radius-md);
+  background: transparent;
+  color: var(--mf-text-secondary);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: var(--mf-weight-medium);
+  text-align: left;
+  padding: 0.48rem 0.65rem 0.48rem 0.5rem;
+  cursor: pointer;
+  transition:
+    background 240ms var(--mf-ease-out),
+    color 240ms var(--mf-ease-out),
+    border-color 240ms var(--mf-ease-out),
+    transform 240ms var(--mf-ease-out);
+}
+
+.indicator {
+  width: 2px;
+  height: 1rem;
+  border-radius: 999px;
+  background: transparent;
+  transition:
+    background 240ms var(--mf-ease-out),
+    transform 240ms var(--mf-ease-out),
+    opacity 240ms var(--mf-ease-out);
+  opacity: 0;
+  transform: scaleY(0.55);
+}
+
+.icon {
+  flex-shrink: 0;
+  color: currentColor;
+  opacity: 0.78;
+  transition: opacity 240ms var(--mf-ease-out), color 240ms var(--mf-ease-out);
+}
+
+.label {
+  min-width: 0;
+  line-height: 1.25;
+}
+
+.item:hover,
+.item:focus-visible {
+  background: color-mix(in srgb, var(--mf-color-indigo) 6%, #fff);
+  color: var(--mf-text-primary);
+  border-color: color-mix(in srgb, var(--mf-color-indigo) 12%, transparent);
+  outline: none;
+}
+
+.item:focus-visible {
+  box-shadow: 0 0 0 3px var(--mf-focus-ring);
+}
+
+.item:hover .indicator,
+.item:focus-visible .indicator {
+  opacity: 0.45;
+  transform: scaleY(0.85);
+  background: color-mix(in srgb, var(--mf-color-indigo) 55%, transparent);
+}
+
+.item:hover .icon,
+.item:focus-visible .icon {
+  opacity: 1;
+}
+
+.itemActive,
+.itemActive:hover,
+.itemActive:focus-visible {
+  background: color-mix(in srgb, var(--mf-color-navy) 94%, #fff);
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 8px 20px -14px rgba(15, 23, 42, 0.55);
+}
+
+.itemActive .indicator,
+.itemActive:hover .indicator,
+.itemActive:focus-visible .indicator {
+  opacity: 1;
+  transform: scaleY(1);
+  background: var(--mf-color-cyan);
+}
+
+.itemActive .icon,
+.itemActive:hover .icon,
+.itemActive:focus-visible .icon {
+  opacity: 1;
+  color: var(--mf-color-cyan);
+}
+
+.footer {
+  display: grid;
+  gap: 0.3rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--mf-border-default);
+}
+
+.select {
+  width: 100%;
+  appearance: none;
+  border: 1px solid var(--mf-border-default);
+  border-radius: var(--mf-radius-md);
+  background:
+    #fff
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none'%3E%3Cpath d='M1 1.5 6 6.5 11 1.5' stroke='%2364748B' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat right 0.75rem center / 12px;
+  color: var(--mf-text-primary);
+  font: inherit;
+  font-size: 0.8125rem;
+  font-weight: var(--mf-weight-medium);
+  padding: 0.55rem 2rem 0.55rem 0.75rem;
+  cursor: pointer;
+  transition: border-color 240ms var(--mf-ease-out);
+}
+
+.select:hover {
+  border-color: rgba(79, 70, 229, 0.35);
+}
+
+.select:focus-visible {
+  outline: none;
+  border-color: var(--mf-color-indigo);
+  box-shadow: 0 0 0 3px var(--mf-focus-ring);
+}
+
+@media (min-width: 980px) {
+  .sidebar {
+    position: sticky;
+    top: calc(var(--mf-header-offset) + 1rem);
+    align-self: start;
+    height: fit-content;
+  }
+
+  .panel {
+    gap: 0.6rem;
+    padding: 0.7rem;
+  }
+}
+
+@media (max-width: 979px) {
+  .panel {
+    gap: 0.75rem;
+  }
+
+  .list {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 0.4rem;
+    overflow-x: auto;
+    padding-bottom: 0.15rem;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .list > li {
+    flex: 0 0 auto;
+  }
+
+  .item {
+    width: auto;
+    grid-template-columns: auto auto;
+    padding: 0.5rem 0.8rem 0.5rem 0.65rem;
+    border: 1px solid var(--mf-border-default);
+    background: #fff;
+    border-radius: var(--mf-radius-pill);
+  }
+
+  .indicator {
+    display: none;
+  }
+
+  .itemActive,
+  .itemActive:hover,
+  .itemActive:focus-visible {
+    background: var(--mf-color-navy);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .item,
+  .indicator,
+  .icon,
+  .select {
+    transition: none;
+  }
+}

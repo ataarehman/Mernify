@@ -92,7 +92,7 @@ export function useRevealOnScroll(
             overwrite: 'auto',
           })
 
-          ScrollTrigger.create({
+          const st = ScrollTrigger.create({
             trigger: el,
             start: triggerStart,
             once,
@@ -113,6 +113,11 @@ export function useRevealOnScroll(
               tween.delay(0).reverse()
             },
           })
+
+          // If already past start (e.g. after filter remount), play immediately.
+          if (st.isActive || st.progress > 0 || el.getBoundingClientRect().top < window.innerHeight * 0.92) {
+            tween.delay(enterDelay).restart(true)
+          }
         })
 
         ScrollTrigger.refresh()

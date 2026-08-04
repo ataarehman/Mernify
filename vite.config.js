@@ -3,66 +3,50 @@ import react from '@vitejs/plugin-react'
 import { Buffer } from 'node:buffer'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { handleSitePreview } from './functions/_lib/preview.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
-/** Vite plugin: transparent site proxy that strips X-Frame-Options.
- *  Route: GET /site-preview?url=<encoded_full_url>
- *  Only active in dev. In production, point to a serverless function. */
+/**
+ * Same-origin proxy used by case-study device frames.
+ * Active for `vite` (dev) and `vite preview` so local builds match prod Pages Function.
+ * Route: GET/HEAD /site-preview?url=<encoded_full_url>
+ */
 function sitePreviewProxy() {
-  return {
-    name: 'site-preview-proxy',
-    configureServer(server) {
-      server.middlewares.use(async (req, res, next) => {
-        if (!req.url?.startsWith('/site-preview')) return next()
+  const attach = (server) => {
+    server.middlewares.use(async (req, res, next) => {
+      if (!req.url?.startsWith('/site-preview')) return next()
 
-        let targetUrl
-        try {
-          targetUrl = new URL(req.url, 'http://localhost').searchParams.get('url')
-          if (!targetUrl) throw new Error('missing url param')
-          new URL(targetUrl) // validate it's a full URL
-        } catch {
-          res.statusCode = 400
-          res.end('Missing or invalid ?url= parameter')
+      try {
+        const requestUrl = new URL(req.url, 'http://localhost').toString()
+        const upstream = await handleSitePreview(requestUrl, { method: req.method || 'GET' })
+
+        res.statusCode = upstream.status
+        upstream.headers.forEach((value, key) => {
+          // Node http will set content-length from body; skip hop-by-hop noise
+          if (key.toLowerCase() === 'content-encoding') return
+          res.setHeader(key, value)
+        })
+
+        if (req.method === 'HEAD' || req.method === 'OPTIONS') {
+          res.end()
           return
         }
 
-        try {
-          const origin = new URL(targetUrl).origin
-          const upstream = await fetch(targetUrl, {
-            headers: {
-              'User-Agent':
-                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36',
-              Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-              'Accept-Language': 'en-US,en;q=0.9',
-            },
-            redirect: 'follow',
-          })
+        const buf = Buffer.from(await upstream.arrayBuffer())
+        res.end(buf)
+      } catch (err) {
+        res.statusCode = 502
+        res.setHeader('Content-Type', 'text/plain; charset=utf-8')
+        res.end(`Proxy error: ${err.message}`)
+      }
+    })
+  }
 
-          res.statusCode = upstream.status
-          const ct = upstream.headers.get('content-type') || 'text/html'
-          res.setHeader('Content-Type', ct)
-          // Explicitly omit X-Frame-Options and CSP frame-ancestors
-
-          if (ct.includes('text/html')) {
-            let html = await upstream.text()
-            // Inject base tag so all relative URLs resolve to the origin
-            html = html.replace(/(<head[^>]*>)/i, `$1<base href="${origin}/">`)
-            // Remove js-based frame-busting patterns (best-effort)
-            html = html.replace(/top\s*!==?\s*(?:self|window)/g, 'false')
-            html = html.replace(/self\s*!==?\s*top/g, 'false')
-            res.end(html)
-          } else {
-            const buf = await upstream.arrayBuffer()
-            res.end(Buffer.from(buf))
-          }
-        } catch (err) {
-          res.statusCode = 502
-          res.setHeader('Content-Type', 'text/plain')
-          res.end(`Proxy error: ${err.message}`)
-        }
-      })
-    },
+  return {
+    name: 'site-preview-proxy',
+    configureServer: attach,
+    configurePreviewServer: attach,
   }
 }
 

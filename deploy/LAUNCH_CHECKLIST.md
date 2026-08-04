@@ -66,7 +66,7 @@ location / {
 
 | Item | Env / action |
 |------|----------------|
-| Case-study live iframes | Deploy `cf-worker/site-preview.js` → `VITE_PROXY_URL` |
+| Case-study live iframes | Cloudflare Pages auto-deploys `functions/site-preview.js`. Else deploy `cf-worker/site-preview.js` → `VITE_PROXY_URL` |
 | Team bios | `src/content/team.js` → `published: true` only with approved names/photos |
 | Testimonials | `src/content/testimonials.js` → client-approved quotes only |
 | Case-study “Delivered by Mernify” | `authorship.mode: 'delivered'` only after client confirmation |
