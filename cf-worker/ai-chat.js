@@ -497,8 +497,8 @@ async function generateAIResponse(env, systemPrompt, messages) {
 // ─── Lead delivery ────────────────────────────────────────────────────────────
 
 async function deliverLead(env, lead) {
-  const endpoint = env.EMAIL_SERVICE_URL || 'https://mernify.co/api/email'
-  const secret = env.EMAIL_SECRET
+  const endpoint = (env.EMAIL_SERVICE_URL || 'https://mernify.co/api/email').replace(/^\uFEFF/, '').trim()
+  const secret = (env.EMAIL_SECRET || '').replace(/^\uFEFF/, '').trim()
 
   const message = [
     `New AI Chat Lead — ${lead.name || 'Anonymous'}`,
@@ -520,19 +520,22 @@ async function deliverLead(env, lead) {
   const headers = { 'Content-Type': 'application/json' }
   if (secret) headers['x-email-secret'] = secret
 
-  const res = await fetch(endpoint, {
-    method: 'POST',
-    headers,
-    body: JSON.stringify({
-      name: lead.name || 'Anonymous',
-      email: lead.email || '',
-      company: lead.company || '',
-      service: lead.recommendedService || '',
-      message,
-    }),
-  })
-
-  return res.ok ? { ok: true } : { ok: false, error: `Email service ${res.status}` }
+  try {
+    const res = await fetch(endpoint, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        name: lead.name || 'Anonymous',
+        email: lead.email || '',
+        company: lead.company || '',
+        service: lead.recommendedService || '',
+        message,
+      }),
+    })
+    return res.ok ? { ok: true } : { ok: false, error: `Email service ${res.status}` }
+  } catch (err) {
+    return { ok: false, error: `Email service unreachable: ${err.message}` }
+  }
 }
 
 // ─── Main handler ─────────────────────────────────────────────────────────────
