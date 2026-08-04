@@ -33,13 +33,13 @@ export function resolveGaId(raw = import.meta.env.VITE_GA_MEASUREMENT_ID) {
 
 export function resolveContactEndpoint(raw = import.meta.env.VITE_CONTACT_ENDPOINT) {
   const value = trimEnv(raw)
-  if (!value) return ''
+  if (!value) return '/api/contact'
   try {
     const url = new URL(value)
-    if (url.protocol !== 'https:' && url.protocol !== 'http:') return ''
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return '/api/contact'
     return url.toString()
   } catch {
-    return ''
+    return '/api/contact'
   }
 }
 
