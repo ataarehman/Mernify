@@ -51,7 +51,7 @@ const SOCIAL_ICONS = {
   linkedin: LinkedinIcon,
 }
 
-const NEWSLETTER_ENDPOINT = String(import.meta.env.VITE_CONTACT_ENDPOINT || '')
+const NEWSLETTER_ENDPOINT = String(import.meta.env.VITE_CONTACT_ENDPOINT || 'https://www.mernify.co/api/contact')
   .replace('/api/contact', '/api/newsletter')
 
 function NewsletterForm() {
