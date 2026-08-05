@@ -2,9 +2,28 @@
 
 ## Step 1 — Deploy the Cloudflare Worker
 
+### Preferred (Wrangler + DeepSeek)
+
+```bash
+# Create a real D1 database once, then paste database_id into cf-worker/wrangler.toml
+npx wrangler d1 create mernify-ai
+npx wrangler d1 execute mernify-ai --remote --file=cf-worker/schema.sql
+
+npx wrangler secret put AI_API_KEY --config cf-worker/wrangler.toml
+npx wrangler secret put ADMIN_SECRET --config cf-worker/wrangler.toml
+
+npx wrangler deploy --config cf-worker/wrangler.toml
+```
+
+Defaults in `cf-worker/wrangler.toml`: `AI_PROVIDER=deepseek`, `AI_PRIMARY_MODEL=deepseek-chat`.
+
+Local DeepSeek setup: [10-deepseek-local-setup.md](./10-deepseek-local-setup.md).
+
+### Alternate — Dashboard paste
+
 1. Go to [Cloudflare Dashboard](https://dash.cloudflare.com/) → **Workers & Pages** → **Create**
 2. Choose **Create Worker**, name it `mernify-ai` (or similar)
-3. Paste the contents of `cf-worker/ai-chat.js` into the editor
+3. Paste the contents of `cf-worker/ai-chat.js` (and ensure `db.js` is included via Wrangler deploy — prefer Wrangler)
 4. Click **Deploy**
 
 ### Set Worker Secrets
@@ -13,16 +32,18 @@ In the Worker's **Settings → Variables and Secrets**:
 
 | Name | Type | Value |
 |------|------|-------|
-| `AI_PROVIDER` | Variable | `anthropic` |
-| `AI_API_KEY` | **Secret** | Your Anthropic API key (`sk-ant-...`) |
-| `AI_PRIMARY_MODEL` | Variable | `claude-haiku-4-5-20251001` |
-| `AI_FALLBACK_MODEL` | Variable | `claude-haiku-4-5-20251001` |
-| `RESEND_API_KEY` | **Secret** | Your Resend key (`re_...`) |
+| `AI_PROVIDER` | Variable | `deepseek` |
+| `AI_API_KEY` | **Secret** | Your DeepSeek API key |
+| `AI_PRIMARY_MODEL` | Variable | `deepseek-chat` |
+| `AI_FALLBACK_MODEL` | Variable | `deepseek-chat` |
+| `ADMIN_SECRET` | **Secret** | Random string for knowledge review API |
+| `EMAIL_SERVICE_URL` | Variable | Lead email endpoint (optional) |
+| `EMAIL_SECRET` | **Secret** | Shared secret for email API (optional) |
 | `CONTACT_TO` | Variable | `info@mernify.co` |
 | `CONTACT_FROM` | Variable | `Mernify <info@mernify.co>` |
 | `ALLOWED_ORIGIN` | Variable | `https://mernify.co,https://www.mernify.co` |
 
-> For staging, also add your preview domain to `ALLOWED_ORIGIN`.
+> For staging, also add your preview domain (and localhost for local Worker tests) to `ALLOWED_ORIGIN`.
 
 5. Copy the Worker URL (e.g. `https://mernify-ai.YOUR_SUBDOMAIN.workers.dev`)
 

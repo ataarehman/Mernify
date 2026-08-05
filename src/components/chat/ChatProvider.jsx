@@ -1,7 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { sendChatMessage, submitChatLead } from '@/lib/chat/chatApi'
+import { sendChatMessage, submitChatLead, finalizeChatSession } from '@/lib/chat/chatApi'
 import { chatAnalytics } from '@/lib/chat/chatAnalytics'
+import { whenPageEntranceReady } from '@/components/motion/pageEntrance'
 
 // ─── Context ──────────────────────────────────────────────────────────────────
 
@@ -15,7 +16,8 @@ export function useChat() {
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const WELCOME = "Hi! I'm Mernify AI — here to help you find the right solution. What are you looking to build?"
+const WELCOME =
+  "Hi — I'm Mernify AI, your product sales assistant. Tell me what you're looking to build or improve, and I'll help map the right approach."
 
 const QUICK_ACTIONS = [
   { id: 'saas', label: 'Build a SaaS product', intent: 'saas-development' },
@@ -26,6 +28,30 @@ const QUICK_ACTIONS = [
   { id: 'team', label: 'Hire developers', intent: 'dedicated-product-teams' },
   { id: 'portfolio', label: "Explore Mernify's work", intent: 'portfolio' },
 ]
+
+// Auto-open: "true" = every device, "desktop" = pointer-precise screens only,
+// "false" = never. Fires once per browser session.
+const AUTO_OPEN_MODE = String(import.meta.env.VITE_CHAT_AUTO_OPEN ?? 'true').toLowerCase()
+const AUTO_OPEN_DELAY_MS = Number(import.meta.env.VITE_CHAT_AUTO_OPEN_DELAY ?? 1500)
+const AUTO_OPEN_SESSION_KEY = 'mernify-chat-auto-opened'
+
+function autoOpenAllowed() {
+  if (AUTO_OPEN_MODE === 'false') return false
+  if (AUTO_OPEN_MODE === 'desktop' && window.matchMedia('(max-width: 640px)').matches) return false
+  try {
+    return sessionStorage.getItem(AUTO_OPEN_SESSION_KEY) !== '1'
+  } catch {
+    return true
+  }
+}
+
+function rememberAutoOpen() {
+  try {
+    sessionStorage.setItem(AUTO_OPEN_SESSION_KEY, '1')
+  } catch {
+    /* private mode — greeting may repeat next navigation */
+  }
+}
 
 function makeId() {
   return Math.random().toString(36).slice(2, 10)
@@ -39,16 +65,8 @@ function makeUserMessage(content) {
   return { id: makeId(), role: 'user', content, ts: Date.now() }
 }
 
-// ─── Provider ─────────────────────────────────────────────────────────────────
-
-export function ChatProvider({ children }) {
-  const location = useLocation()
-  const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState([makeAssistantMessage(WELCOME)])
-  const [isLoading, setIsLoading] = useState(false)
-  const [error, setError] = useState(null)
-  const [showQuickActions, setShowQuickActions] = useState(true)
-  const [conversationState, setConversationState] = useState({
+function initialConversationState() {
+  return {
     id: makeId(),
     intent: null,
     projectType: null,
@@ -58,10 +76,33 @@ export function ChatProvider({ children }) {
     bookingStarted: false,
     humanHandoffRequested: false,
     turnCount: 0,
-  })
+    buyingIntent: 'low',
+    showCta: false,
+    memory: {},
+  }
+}
+
+// ─── Provider ─────────────────────────────────────────────────────────────────
+
+export function ChatProvider({ children }) {
+  const location = useLocation()
+  const [isOpen, setIsOpen] = useState(false)
+  const [autoOpened, setAutoOpened] = useState(false)
+  const [messages, setMessages] = useState([makeAssistantMessage(WELCOME)])
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState(null)
+  const [showQuickActions, setShowQuickActions] = useState(true)
+  const [conversationState, setConversationState] = useState(initialConversationState)
 
   const abortRef = useRef(null)
+  const isOpenRef = useRef(isOpen)
   const sessionStarted = useRef(false)
+  const conversationStateRef = useRef(conversationState)
+  const pageContextRef = useRef(null)
+  const finalizedRef = useRef(new Set())
+
+  conversationStateRef.current = conversationState
+  isOpenRef.current = isOpen
 
   // Page context for the AI
   const pageContext = {
@@ -71,25 +112,60 @@ export function ChatProvider({ children }) {
       type: inferPageType(location.pathname),
     },
   }
+  pageContextRef.current = pageContext
 
-  function open() {
+  const finalizeCurrentSession = useCallback((stateOverride) => {
+    const state = stateOverride || conversationStateRef.current
+    if (!state?.id || state.turnCount < 1) return
+    if (finalizedRef.current.has(state.id)) return
+    finalizedRef.current.add(state.id)
+    void finalizeChatSession({
+      conversationId: state.id,
+      context: pageContextRef.current || {},
+      intent: state.intent || undefined,
+      leadSubmitted: Boolean(state.leadSubmitted),
+    })
+  }, [])
+
+  const open = useCallback((source = 'user') => {
+    setAutoOpened(source === 'auto')
     setIsOpen(true)
+    rememberAutoOpen()
     chatAnalytics.opened()
     if (!sessionStarted.current) {
       sessionStarted.current = true
       chatAnalytics.conversationStarted()
     }
-  }
+  }, [])
 
-  function close() {
+  const close = useCallback(() => {
     setIsOpen(false)
+    setAutoOpened(false)
+    rememberAutoOpen()
     chatAnalytics.closed()
-  }
+    finalizeCurrentSession()
+  }, [finalizeCurrentSession])
 
-  function toggle() {
-    if (isOpen) close()
-    else open()
-  }
+  const toggle = useCallback(() => {
+    if (isOpenRef.current) close()
+    else open('user')
+  }, [close, open])
+
+  // Greet visitors on landing — once per browser session, after the entrance
+  // curtain clears, and never on top of a panel they already opened or dismissed.
+  useEffect(() => {
+    if (!autoOpenAllowed()) return
+    let timer
+    const cancelEntranceWait = whenPageEntranceReady(() => {
+      timer = window.setTimeout(() => {
+        if (!isOpenRef.current) open('auto')
+      }, AUTO_OPEN_DELAY_MS)
+    })
+    return () => {
+      cancelEntranceWait()
+      window.clearTimeout(timer)
+    }
+  }, [open])
 
   const addMessage = useCallback((msg) => {
     setMessages((prev) => [...prev, msg])
@@ -117,13 +193,27 @@ export function ChatProvider({ children }) {
           content: m.content,
         }))
 
-        const reply = await sendChatMessage(history, pageContext)
+        const result = await sendChatMessage(history, pageContext, {
+          conversationId: conversationStateRef.current.id,
+          intent: conversationStateRef.current.intent || undefined,
+        })
         if (cancelled) return
 
-        addMessage(makeAssistantMessage(reply))
+        addMessage(makeAssistantMessage(result.reply))
         setConversationState((prev) => ({
           ...prev,
           turnCount: prev.turnCount + 1,
+          buyingIntent: result.buyingIntent || 'low',
+          showCta: Boolean(result.showCta) || result.buyingIntent === 'high',
+          recommendedService: result.recommendedService || prev.recommendedService,
+          projectType: result.memory?.projectType || prev.projectType,
+          memory: result.memory || prev.memory,
+          qualification:
+            result.buyingIntent === 'high'
+              ? 'high'
+              : result.buyingIntent === 'medium'
+                ? 'medium'
+                : prev.qualification,
         }))
 
         // Detect human handoff requests
@@ -135,7 +225,7 @@ export function ChatProvider({ children }) {
           lowerText.includes('contact team')
         ) {
           chatAnalytics.humanHandoffRequested()
-          setConversationState((prev) => ({ ...prev, humanHandoffRequested: true }))
+          setConversationState((prev) => ({ ...prev, humanHandoffRequested: true, showCta: true }))
         }
       } catch (err) {
         if (cancelled) return
@@ -162,23 +252,14 @@ export function ChatProvider({ children }) {
 
   const startNewConversation = useCallback(() => {
     if (abortRef.current) abortRef.current()
+    finalizeCurrentSession()
     chatAnalytics.newConversationStarted()
     setMessages([makeAssistantMessage(WELCOME)])
     setIsLoading(false)
     setError(null)
     setShowQuickActions(true)
-    setConversationState({
-      id: makeId(),
-      intent: null,
-      projectType: null,
-      qualification: 'unknown',
-      recommendedService: null,
-      leadSubmitted: false,
-      bookingStarted: false,
-      humanHandoffRequested: false,
-      turnCount: 0,
-    })
-  }, [])
+    setConversationState(initialConversationState())
+  }, [finalizeCurrentSession])
 
   const submitLead = useCallback(
     async (leadData) => {
@@ -191,16 +272,19 @@ export function ChatProvider({ children }) {
 
         await submitChatLead({
           ...leadData,
+          conversationId: conversationState.id,
           intent: conversationState.intent,
           recommendedService: conversationState.recommendedService,
           qualification: conversationState.qualification,
           page: location.pathname,
           referrer: document.referrer || '',
           summary,
+          brief: formatMemoryBrief(conversationState.memory),
           consent: true,
         })
         chatAnalytics.leadSubmitted()
         setConversationState((prev) => ({ ...prev, leadSubmitted: true }))
+        finalizedRef.current.add(conversationState.id)
         return { ok: true }
       } catch (err) {
         chatAnalytics.leadFailed(err.message?.slice(0, 50) || 'unknown')
@@ -223,18 +307,29 @@ export function ChatProvider({ children }) {
 
   const clearError = useCallback(() => setError(null), [])
 
-  // Abandon tracking on unmount
+  // Finalize + abandon tracking on unmount
   useEffect(() => {
     return () => {
-      if (sessionStarted.current && conversationState.turnCount > 0) {
-        chatAnalytics.conversationAbandoned(conversationState.turnCount)
+      const state = conversationStateRef.current
+      if (sessionStarted.current && state.turnCount > 0) {
+        chatAnalytics.conversationAbandoned(state.turnCount)
+        finalizeCurrentSession(state)
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [finalizeCurrentSession])
+
+  // Best-effort finalize when the tab closes
+  useEffect(() => {
+    function onPageHide() {
+      finalizeCurrentSession()
+    }
+    window.addEventListener('pagehide', onPageHide)
+    return () => window.removeEventListener('pagehide', onPageHide)
+  }, [finalizeCurrentSession])
 
   const value = {
     isOpen,
+    autoOpened,
     open,
     close,
     toggle,
@@ -268,4 +363,12 @@ function inferPageType(pathname) {
   if (pathname === '/process') return 'process'
   if (pathname === '/industries') return 'industries'
   return 'general'
+}
+
+function formatMemoryBrief(memory) {
+  if (!memory || typeof memory !== 'object') return ''
+  return Object.entries(memory)
+    .filter(([, v]) => v)
+    .map(([k, v]) => `${k}: ${v}`)
+    .join('\n')
 }

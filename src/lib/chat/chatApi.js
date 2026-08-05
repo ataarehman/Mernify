@@ -1,8 +1,9 @@
 /**
  * Chat API client — sends messages to the Mernify AI Cloudflare Worker.
  *
- * VITE_AI_CHAT_ENDPOINT must be set to the deployed Worker URL.
- * Without it, a mock response is returned in development.
+ * VITE_AI_CHAT_ENDPOINT must be set to the deployed Worker URL
+ * (local: http://127.0.0.1:8787 via `npm run chat:worker`).
+ * Without it, a mock keyword response is returned in development only.
  */
 
 const ENDPOINT = String(import.meta.env.VITE_AI_CHAT_ENDPOINT || '').trim()
@@ -25,18 +26,35 @@ async function postJson(url, body) {
 }
 
 /**
+ * @typedef {{
+ *   reply: string,
+ *   buyingIntent?: 'low'|'medium'|'high',
+ *   showCta?: boolean,
+ *   recommendedService?: string|null,
+ *   memory?: object,
+ * }} ChatResult
+ */
+
+/**
  * @param {{ role: 'user'|'assistant', content: string }[]} messages
  * @param {{ page?: { url: string, title: string, type: string } }} context
- * @returns {Promise<string>} assistant reply text
+ * @param {{ conversationId?: string, intent?: string }} meta
+ * @returns {Promise<ChatResult>}
  */
-export async function sendChatMessage(messages, context = {}) {
+export async function sendChatMessage(messages, context = {}, meta = {}) {
   if (!ENDPOINT) {
-    // Development fallback when no worker is deployed yet
     await new Promise((r) => setTimeout(r, 800))
-    return devFallbackReply(messages)
+    const reply = devFallbackReply(messages)
+    return { reply, buyingIntent: 'low', showCta: false, recommendedService: null, memory: {} }
   }
 
-  const res = await postJson(ENDPOINT, { action: 'chat', messages, context })
+  const res = await postJson(ENDPOINT, {
+    action: 'chat',
+    messages,
+    context,
+    conversationId: meta.conversationId || undefined,
+    intent: meta.intent || undefined,
+  })
   if (!res.ok) {
     let errMsg = `Request failed (${res.status})`
     try {
@@ -50,7 +68,13 @@ export async function sendChatMessage(messages, context = {}) {
 
   const data = await res.json()
   if (!data?.reply) throw new Error('Empty response from AI service.')
-  return data.reply
+  return {
+    reply: data.reply,
+    buyingIntent: data.buyingIntent || 'low',
+    showCta: Boolean(data.showCta),
+    recommendedService: data.recommendedService || null,
+    memory: data.memory || {},
+  }
 }
 
 /**
@@ -75,12 +99,30 @@ export async function submitChatLead(lead) {
   }
 }
 
+/**
+ * Notify the Worker that a session ended so it can distill FAQ candidates.
+ * @param {{ conversationId: string, context?: object, intent?: string, leadSubmitted?: boolean }} payload
+ */
+export async function finalizeChatSession(payload) {
+  if (!ENDPOINT || !payload?.conversationId) return
+  try {
+    await postJson(ENDPOINT, {
+      action: 'finalize',
+      conversationId: payload.conversationId,
+      context: payload.context || {},
+      intent: payload.intent || undefined,
+      leadSubmitted: Boolean(payload.leadSubmitted),
+    })
+  } catch {
+    /* ignore — learning must not break UX */
+  }
+}
+
 // ─── Development fallback ─────────────────────────────────────────────────────
 
 function devFallbackReply(messages) {
   const last = messages.filter((m) => m.role === 'user').pop()?.content?.toLowerCase() || ''
 
-  // Out-of-scope guard — mirror the Worker behaviour
   const mernifyTopics = [
     'saas', 'platform', 'website', 'web app', 'mobile', 'app', 'ios', 'android',
     'ai', 'automation', 'devops', 'cloud', 'api', 'design', 'ux', 'team', 'developer',

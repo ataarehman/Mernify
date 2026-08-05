@@ -73,15 +73,26 @@
   50% { transform: scale(1.4); opacity: 0.6; }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 640px) {
   .launcher {
-    bottom: 1rem;
+    bottom: max(1rem, env(safe-area-inset-bottom));
     right: 1rem;
     padding: 0.75rem 1rem;
     font-size: 0.8125rem;
   }
+  /* The panel goes full-screen here and has its own close button */
   .launcher.open {
+    display: none;
+  }
+}
+
+@media (max-width: 380px) {
+  .label {
+    display: none;
+  }
+  .launcher {
     padding: 0.75rem;
+    border-radius: 50%;
   }
 }
 

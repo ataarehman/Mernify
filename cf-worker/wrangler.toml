@@ -1,3 +1,23 @@
 ﻿name = "mernify-ai"
 main = "ai-chat.js"
 compatibility_date = "2024-01-01"
+
+# Local / default vars (override in Cloudflare Dashboard for production).
+# Secrets (AI_API_KEY, ADMIN_SECRET, EMAIL_SECRET) go in .dev.vars locally
+# or Wrangler secrets / Dashboard secrets in production — never in VITE_*.
+[vars]
+AI_PROVIDER = "deepseek"
+AI_PRIMARY_MODEL = "deepseek-chat"
+AI_FALLBACK_MODEL = "deepseek-chat"
+ALLOWED_ORIGIN = "http://localhost:5173,http://127.0.0.1:5173,https://mernify.co,https://www.mernify.co"
+CONTACT_TO = "info@mernify.co"
+CONTACT_FROM = "Mernify <info@mernify.co>"
+
+# D1 — conversation logging + learned knowledge.
+# Local: wrangler creates a local SQLite DB automatically.
+# Production: run `npx wrangler d1 create mernify-ai` and replace database_id.
+[[d1_databases]]
+binding = "DB"
+database_name = "mernify-ai"
+database_id = "00000000-0000-0000-0000-000000000001"
+preview_database_id = "00000000-0000-0000-0000-000000000001"

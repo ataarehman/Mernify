@@ -26,7 +26,8 @@
 }
 
 .bubble {
-  max-width: min(80%, 320px);
+  max-width: min(85%, 320px);
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
@@ -41,6 +42,8 @@
   border-radius: 16px 16px 16px 4px;
   padding: 0.625rem 0.875rem;
   box-shadow: var(--mf-shadow-xs);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .user .content {
