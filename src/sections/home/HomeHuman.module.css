@@ -1,4 +1,4 @@
-.section {
+﻿.section {
   background: #f8fafc;
   padding: var(--mf-section-pad-y) 0 clamp(4rem, 8vw, 5.5rem);
   overflow-x: clip;
@@ -310,6 +310,15 @@
   background: var(--mf-text-primary);
 }
 
+/* On touch the pills sit horizontally, so they need a real tap height. */
+@media (pointer: coarse) {
+  .social a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+}
+
 @media (max-width: 1399px) {
   .subtitle {
     left: clamp(1rem, 2.5vw, 1.25rem);
@@ -362,114 +371,8 @@
   margin-top: 1.75rem;
 }
 
-.cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+.ctaWrap > * {
   width: min(100%, 28rem);
-  padding: 0.46875rem;
-  border-radius: 0.5rem;
-  background: #ffffff;
-  color: var(--mf-text-primary);
-  text-decoration: none;
-  font-weight: var(--mf-weight-bold);
-  font-size: 1.125rem;
-  line-height: 1;
-  border: 1px solid rgba(15, 23, 42, 0.08);
-  position: relative;
-  z-index: 1;
-}
-
-.ctaInner {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  width: 100%;
-  min-height: 3.5rem;
-  padding: 1.125rem 4.0625rem 1.125rem 1.375rem;
-}
-
-.ctaInner::before {
-  content: '';
-  position: absolute;
-  z-index: 0;
-  top: 0;
-  right: 0;
-  width: 3.5rem;
-  height: 100%;
-  background-color: var(--mf-color-indigo);
-  border-radius: 0.5rem;
-  transition: all 0.3s ease-in-out;
-}
-
-.ctaIcon {
-  position: absolute;
-  top: 0;
-  right: 0;
-  z-index: 2;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 3.5rem;
-  height: 100%;
-  color: #ffffff;
-  transform: rotate(-45deg);
-  line-height: 1;
-}
-
-.ctaIconTrack {
-  position: relative;
-  display: inline-flex;
-  overflow: hidden;
-}
-
-.ctaIconTrack svg {
-  transition: all 0.4s ease-in-out;
-}
-
-.ctaIconTrack svg:last-child {
-  position: absolute;
-  inset: 0;
-  transform: translateX(-150%);
-}
-
-.ctaText {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  overflow: hidden;
-  text-shadow: 0 23px 0 currentColor;
-  transition: color 0.3s ease-in-out;
-}
-
-.ctaText > span {
-  display: inline-flex;
-  align-items: center;
-  text-transform: capitalize;
-  backface-visibility: hidden;
-  transform: translateY(0);
-  transition: transform 0.4s ease-in-out;
-}
-
-.cta:hover .ctaInner::before {
-  width: 100%;
-}
-
-.cta:hover .ctaIconTrack svg:first-child {
-  transform: translateX(150%);
-}
-
-.cta:hover .ctaIconTrack svg:last-child {
-  transform: translateX(0);
-}
-
-.cta:hover .ctaText {
-  color: #ffffff;
-}
-
-.cta:hover .ctaText > span {
-  transform: translateY(-24px);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -477,10 +380,7 @@
   .card:hover .thumb img,
   .card:hover .subtitle,
   .card:hover .cardTitle,
-  .card:hover .social,
-  .cta:hover .ctaText > span,
-  .cta:hover .ctaIconTrack svg:first-child,
-  .cta:hover .ctaIconTrack svg:last-child {
+  .card:hover .social {
     transform: none;
   }
 
@@ -505,12 +405,5 @@
   .card:hover .thumb img {
     filter: none;
   }
-
-  .cta:hover .ctaInner::before {
-    width: 3.5rem;
-  }
-
-  .cta:hover .ctaText {
-    color: inherit;
-  }
 }
+

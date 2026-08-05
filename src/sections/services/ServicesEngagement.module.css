@@ -194,33 +194,6 @@
   background: var(--mf-color-cyan);
 }
 
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  margin-top: 0.5rem;
-  width: fit-content;
-  padding: 0.7rem 1rem;
-  border-radius: 999px;
-  text-decoration: none;
-  font-size: 0.88rem;
-  font-weight: var(--mf-weight-semibold);
-  color: #0f172a;
-  background: var(--mf-color-cyan);
-  transition:
-    background-color 0.3s var(--mf-ease-out),
-    transform 0.3s var(--mf-ease-out);
-}
-
-.cta:hover {
-  background: #7ee7f5;
-  transform: translateX(2px);
-}
-
-.cta:focus-visible {
-  outline: 2px solid #fff;
-  outline-offset: 3px;
-}
 
 @media (max-width: 991px) {
   .grid {
@@ -249,14 +222,12 @@
 
 @media (prefers-reduced-motion: reduce) {
   .card,
-  .cta,
   .icon {
     transition: none;
   }
 
   .card:hover,
-  .cardActive,
-  .cta:hover {
+  .cardActive {
     transform: none;
   }
 }

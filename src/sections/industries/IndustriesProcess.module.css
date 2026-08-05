@@ -1,0 +1,442 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: linear-gradient(180deg, #010406 0%, var(--mf-color-navy) 100%);
+  color: var(--mf-text-on-dark);
+  padding-block: clamp(4.25rem, 8.5vw, 7rem);
+}
+
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orb {
+  position: absolute;
+  width: min(50vw, 32rem);
+  height: min(50vw, 32rem);
+  top: -15%;
+  right: -8%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(21, 198, 226, 0.16), transparent 68%);
+}
+
+.horizon {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(248, 250, 252, 0.14), transparent);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(2.25rem, 4vw, 3.25rem);
+}
+
+.head {
+  display: grid;
+  gap: 1rem;
+  align-items: end;
+}
+
+.headCopy {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.eyebrow {
+  color: var(--mf-color-cyan);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--mf-font-display);
+  font-size: clamp(1.9rem, 3.6vw, 2.85rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.support {
+  margin: 0;
+  max-width: 32rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--mf-text-on-dark-muted);
+}
+
+/* Timeline shell -------------------------------------------------------- */
+
+.track {
+  --node: 2.75rem;
+  --rail-gap: 1rem;
+  position: relative;
+}
+
+.spine {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--node) / 2);
+  width: 2px;
+  transform: translateX(-1px);
+  border-radius: 2px;
+  background: rgba(248, 250, 252, 0.1);
+  /* Soft ends so the rail reads as a continuum, not a hard bar. */
+  mask-image: linear-gradient(180deg, transparent, #000 5%, #000 95%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 5%, #000 95%, transparent);
+  pointer-events: none;
+}
+
+.spineFill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  transform-origin: top center;
+  background: linear-gradient(
+    180deg,
+    var(--mf-color-cyan) 0%,
+    rgba(79, 70, 229, 0.95) 60%,
+    rgba(79, 70, 229, 0.35) 100%
+  );
+  box-shadow: 0 0 14px rgba(21, 198, 226, 0.35);
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: clamp(1.1rem, 2.4vw, 1.75rem);
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: var(--node) minmax(0, 1fr);
+  column-gap: var(--rail-gap);
+  align-items: start;
+}
+
+/* Node ------------------------------------------------------------------ */
+
+.node {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: var(--node);
+  height: var(--node);
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.13);
+  background: radial-gradient(circle at 50% 25%, #101a2c, #050a14);
+  color: rgba(248, 250, 252, 0.55);
+  transition:
+    color 420ms var(--mf-ease-out),
+    border-color 420ms var(--mf-ease-out),
+    box-shadow 420ms var(--mf-ease-out),
+    transform 300ms var(--mf-ease-out);
+}
+
+.nodeRing {
+  position: absolute;
+  inset: -0.35rem;
+  border-radius: 50%;
+  border: 1px solid rgba(21, 198, 226, 0.28);
+  opacity: 0;
+  transform: scale(0.82);
+  transition:
+    opacity 560ms var(--mf-ease-out),
+    transform 560ms var(--mf-ease-out);
+}
+
+.step[data-reached] .node {
+  color: #fff;
+  border-color: rgba(21, 198, 226, 0.5);
+  box-shadow:
+    inset 0 0 12px rgba(21, 198, 226, 0.14),
+    0 0 24px rgba(21, 198, 226, 0.22);
+}
+
+.step[data-reached] .nodeRing {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* Card ------------------------------------------------------------------ */
+
+.card {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+  padding: clamp(1.1rem, 2vw, 1.5rem) clamp(1.1rem, 2vw, 1.6rem);
+  border-radius: var(--mf-radius-lg);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  background: linear-gradient(158deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.017));
+  transition:
+    transform 320ms var(--mf-ease-out),
+    border-color 320ms var(--mf-ease-out),
+    box-shadow 320ms var(--mf-ease-out);
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(90% 120% at 50% 0%, rgba(79, 70, 229, 0.22), transparent 70%);
+  opacity: 0;
+  transition: opacity 320ms var(--mf-ease-out);
+  pointer-events: none;
+}
+
+/* Accent rule on the spine-facing edge, drawn in as the stage is reached. */
+.edge {
+  position: absolute;
+  top: 1rem;
+  bottom: 1rem;
+  left: 0;
+  width: 2px;
+  border-radius: 0 2px 2px 0;
+  background: linear-gradient(180deg, var(--mf-color-cyan), rgba(79, 70, 229, 0.6));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 620ms var(--mf-ease-out);
+}
+
+.step[data-reached] .edge {
+  transform: scaleY(1);
+}
+
+.cardHead {
+  display: grid;
+  gap: 0.3rem;
+}
+
+.index {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-family: var(--mf-font-display);
+  font-weight: var(--mf-weight-semibold);
+  letter-spacing: 0.14em;
+}
+
+.indexNumber {
+  font-size: 0.82rem;
+  color: rgba(21, 198, 226, 0.9);
+}
+
+.indexTotal {
+  font-size: 0.68rem;
+  color: rgba(248, 250, 252, 0.35);
+}
+
+.stepTitle {
+  margin: 0;
+  font-family: var(--mf-font-display);
+  font-size: clamp(1.15rem, 1.6vw, 1.32rem);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: #fff;
+}
+
+.stepText {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.62;
+  color: var(--mf-text-on-dark-muted);
+}
+
+.outputs {
+  list-style: none;
+  margin: 0.15rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.outputs li {
+  padding: 0.26rem 0.6rem;
+  border-radius: var(--mf-radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.025);
+  font-size: 0.7rem;
+  line-height: 1.3;
+  color: rgba(248, 250, 252, 0.72);
+  transition:
+    border-color 320ms var(--mf-ease-out),
+    color 320ms var(--mf-ease-out);
+}
+
+.step[data-reached] .outputs li {
+  border-color: rgba(21, 198, 226, 0.24);
+  color: rgba(248, 250, 252, 0.86);
+}
+
+/* Tablet ---------------------------------------------------------------- */
+
+@media (min-width: 640px) {
+  .track {
+    --node: 3rem;
+    --rail-gap: 1.25rem;
+  }
+
+  .card {
+    gap: 0.65rem;
+  }
+}
+
+/* Desktop: cards alternate either side of a centred spine ---------------- */
+
+@media (min-width: 1024px) {
+  .track {
+    --node: 3.25rem;
+    --rail-gap: clamp(1.75rem, 3.4vw, 3.25rem);
+  }
+
+  .spine {
+    left: 50%;
+  }
+
+  .timeline {
+    gap: clamp(1.25rem, 2vw, 2rem);
+  }
+
+  .step {
+    grid-template-columns: minmax(0, 1fr) var(--node) minmax(0, 1fr);
+    align-items: center;
+  }
+
+  .node {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .card {
+    grid-row: 1;
+    /* Uniform width so the zig-zag reads as one rhythm, not ragged blocks. */
+    width: 100%;
+    max-width: 32rem;
+  }
+
+  .step:nth-child(odd) .card {
+    grid-column: 1;
+    justify-self: end;
+    text-align: right;
+  }
+
+  .step:nth-child(even) .card {
+    grid-column: 3;
+    justify-self: start;
+  }
+
+  .step:nth-child(odd) .outputs,
+  .step:nth-child(odd) .cardHead {
+    justify-content: flex-end;
+    justify-items: end;
+  }
+
+  .step:nth-child(odd) .edge {
+    left: auto;
+    right: 0;
+    border-radius: 2px 0 0 2px;
+  }
+
+  /* Connector from the node across the rail gap to its card. */
+  .node::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: var(--rail-gap);
+    height: 1px;
+    transform: scaleX(0);
+    transition: transform 520ms var(--mf-ease-out);
+  }
+
+  .step:nth-child(odd) .node::after {
+    right: 100%;
+    transform-origin: right;
+    background: linear-gradient(270deg, rgba(21, 198, 226, 0.55), rgba(21, 198, 226, 0.05));
+  }
+
+  .step:nth-child(even) .node::after {
+    left: 100%;
+    transform-origin: left;
+    background: linear-gradient(90deg, rgba(21, 198, 226, 0.55), rgba(21, 198, 226, 0.05));
+  }
+
+  .step[data-reached] .node::after {
+    transform: scaleX(1);
+  }
+
+  .head {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Micro-interactions ---------------------------------------------------- */
+
+@media (hover: hover) and (pointer: fine) {
+  .step:hover .card {
+    transform: translateY(-4px);
+    border-color: rgba(79, 70, 229, 0.42);
+    box-shadow: 0 18px 40px -26px rgba(2, 6, 23, 0.9);
+  }
+
+  .step:hover .card::before {
+    opacity: 1;
+  }
+
+  .step:hover .node {
+    transform: scale(1.07);
+    color: #fff;
+    border-color: rgba(21, 198, 226, 0.6);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card,
+  .card::before,
+  .node,
+  .nodeRing,
+  .edge,
+  .outputs li,
+  .node::after {
+    transition: none;
+  }
+
+  .step:hover .card,
+  .step:hover .node {
+    transform: none;
+  }
+
+  /* No scroll animation runs, so present every stage in its resolved state. */
+  .node {
+    color: #fff;
+    border-color: rgba(21, 198, 226, 0.45);
+  }
+
+  .nodeRing {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .edge {
+    transform: scaleY(1);
+  }
+
+  .node::after {
+    transform: scaleX(1);
+  }
+}

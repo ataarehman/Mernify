@@ -613,6 +613,12 @@
   color: var(--accent);
 }
 
+@media (pointer: coarse) {
+  .detailCta {
+    min-height: 2.75rem;
+  }
+}
+
 @keyframes driftA {
   0%,
   100% {

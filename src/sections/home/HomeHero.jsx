@@ -145,6 +145,8 @@ export function HomeHero() {
               immediate
               loading="eager"
               fetchPriority="high"
+              width={582}
+              height={390}
             />
           </div>
         </div>

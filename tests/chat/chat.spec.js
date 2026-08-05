@@ -257,7 +257,6 @@ test.describe('Keyboard Accessibility', () => {
     await expect(panel).toBeVisible()
     // Tab should cycle focus inside the panel
     await page.keyboard.press('Tab')
-    const focused = page.locator(':focus')
     const inPanel = await panel.locator(':focus').count()
     expect(inPanel).toBeGreaterThanOrEqual(0) // focus management active
   })

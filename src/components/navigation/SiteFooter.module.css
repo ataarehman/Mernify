@@ -77,7 +77,9 @@
 }
 
 .email {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: var(--mf-color-cyan);
   font-size: clamp(1.25rem, 2vw, 1.5rem);
   font-weight: var(--mf-weight-medium);
@@ -206,20 +208,71 @@
   color: var(--mf-color-cyan);
 }
 
-.serviceLinks {
-  margin: 1.25rem 0 0 !important;
-  display: flex !important;
-  flex-wrap: wrap;
-  gap: 0.55rem 1rem !important;
+.subGroups {
+  display: grid;
+  gap: 1.5rem;
+  margin-top: 1.75rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-.serviceLinks a {
+@media (min-width: 480px) {
+  .subGroups {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+    gap: 1.5rem 2rem;
+  }
+
+  /* Two columns keeps the longer services list level with Company. */
+  .subGroup:first-child .subLinks {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.subHeading {
+  margin: 0 0 0.75rem;
+  font-family: var(--mf-font-display);
+  font-size: 0.75rem;
+  font-weight: var(--mf-weight-semibold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(248, 250, 252, 0.5);
+}
+
+.subLinks {
+  display: grid !important;
+  /* No row gap: the links carry their own 44px touch padding on mobile. */
+  gap: 0 1.5rem !important;
+  align-content: start;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .subLinks {
+    gap: 0.5rem 1.5rem !important;
+  }
+}
+
+.subLinks a {
+  display: inline-flex;
+  align-items: center;
+  /* Padded to a 44px hit area on touch without changing the visual rhythm. */
+  min-height: 2.75rem;
+  padding-block: 0.25rem;
   color: rgba(248, 250, 252, 0.72);
   text-decoration: none;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  transition: color 0.3s ease;
 }
 
-.serviceLinks a:hover {
+@media (hover: hover) and (pointer: fine) {
+  .subLinks a {
+    min-height: 0;
+    padding-block: 0;
+  }
+}
+
+.subLinks a:hover,
+.subLinks a:focus-visible {
   color: var(--mf-color-cyan);
 }
 
@@ -260,6 +313,17 @@
   max-width: 26rem;
 }
 
+.ctaAction {
+  margin-top: 1.5rem;
+}
+
+@media (min-width: 1200px) {
+  .ctaAction {
+    display: flex;
+    justify-content: flex-end;
+  }
+}
+
 .copyrightBlock {
   display: grid;
   gap: 0.75rem;
@@ -284,10 +348,19 @@
 }
 
 .legal a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.75rem;
   color: rgba(255, 255, 255, 0.72);
   text-decoration: none;
   font-size: 0.875rem;
   transition: color 0.35s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .legal a {
+    min-height: 0;
+  }
 }
 
 .legal a:hover {

@@ -1,8 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  ArrowLeft,
-  ArrowRight,
   Briefcase,
   Building2,
   CalendarClock,
@@ -12,6 +10,7 @@ import {
   Wallet,
 } from 'lucide-react'
 import { Field, TextInput, TextArea, SelectInput } from '@/components/forms/Field'
+import { Button } from '@/components/ui'
 import { budgetRanges, serviceInterests } from '@/content/pages'
 import { homeInquiry } from '@/content/home'
 import { SITE } from '@/constants/site'
@@ -366,24 +365,21 @@ export function InquiryStepperForm() {
 
       <div className={styles.actions}>
         {step > 0 ? (
-          <button type="button" className={styles.secondaryBtn} onClick={goBack}>
-            <ArrowLeft size={18} aria-hidden="true" />
+          <Button type="button" variant="secondary" size="md" onClick={goBack}>
             Back
-          </button>
+          </Button>
         ) : (
           <span />
         )}
 
         {step < STEPS.length - 1 ? (
-          <button type="submit" className={styles.primaryBtn}>
+          <Button type="submit" variant="inverse" size="md">
             Continue
-            <ArrowRight size={18} aria-hidden="true" />
-          </button>
+          </Button>
         ) : (
-          <button type="submit" className={styles.primaryBtn} disabled={!canSubmit}>
+          <Button type="submit" variant="inverse" size="md" disabled={!canSubmit}>
             {status === 'loading' ? 'Sending...' : 'Send inquiry'}
-            {status === 'loading' ? null : <ArrowRight size={18} aria-hidden="true" />}
-          </button>
+          </Button>
         )}
       </div>
 

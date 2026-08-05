@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight } from 'lucide-react'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { TeamGrid } from '@/components/about/TeamGrid'
 import { getPublishedTeam } from '@/content/team'
 import { aboutContent } from '@/content/pages'
@@ -50,10 +49,9 @@ export function AboutTeam() {
               </div>
             </div>
 
-            <Link to="/contact" className={styles.cta}>
+            <Button as={Link} to="/contact" variant="ghost" size="md">
               Meet the pod
-              <ArrowUpRight size={17} aria-hidden="true" />
-            </Link>
+            </Button>
           </div>
 
           <div className={styles.rail} data-fade-up data-delay="100">

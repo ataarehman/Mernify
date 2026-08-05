@@ -62,29 +62,6 @@
   color: var(--mf-text-secondary);
 }
 
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 3.15rem;
-  padding: 0.75rem 1.35rem;
-  border-radius: 999px;
-  background: var(--mf-color-indigo);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 700;
-  transition:
-    background-color 0.35s ease,
-    transform 0.35s ease,
-    gap 0.35s ease;
-}
-
-.cta:hover {
-  background: var(--mf-color-navy);
-  transform: translateY(-2px);
-  gap: 0.7rem;
-}
-
 .marquee {
   position: relative;
   display: grid;
@@ -340,8 +317,7 @@
     display: none;
   }
 
-  .card:hover,
-  .cta:hover {
+  .card:hover {
     transform: none;
   }
 

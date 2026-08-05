@@ -1,9 +1,8 @@
 import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { ClipReveal } from '@/components/motion/ClipReveal'
 import { homeAbout } from '@/content/home'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
@@ -60,6 +59,8 @@ export function HomeAbout() {
                 src="/assets/images/thumbs/about-thumb-one.jpg"
                 alt=""
                 className={styles.thumbClip}
+                width={500}
+                height={370}
               />
             </div>
 
@@ -78,23 +79,15 @@ export function HomeAbout() {
                     src="/assets/images/thumbs/about-thumb-two.jpg"
                     alt=""
                     className={styles.thumbClip}
+                    width={500}
+                    height={370}
                   />
                 </div>
                 <div className={styles.copy} data-fade-up>
                   <p className={styles.paragraph}>{homeAbout.body}</p>
-                  <Link to={homeAbout.cta.to} className={styles.cta}>
-                    <span className={styles.ctaInner}>
-                      <span className={styles.ctaIcon} aria-hidden="true">
-                        <span className={styles.ctaIconTrack}>
-                          <ArrowRight size={18} strokeWidth={2.5} />
-                          <ArrowRight size={18} strokeWidth={2.5} />
-                        </span>
-                      </span>
-                      <span className={styles.ctaText}>
-                        <span>{homeAbout.cta.label}</span>
-                      </span>
-                    </span>
-                  </Link>
+                  <Button as={Link} to={homeAbout.cta.to} size="lg" block>
+                    {homeAbout.cta.label}
+                  </Button>
                 </div>
               </div>
             </div>

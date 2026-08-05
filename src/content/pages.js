@@ -22,7 +22,7 @@ export const aboutContent = {
       'From early discovery through production release, we combine modern engineering, product judgment, and structured delivery so what ships is maintainable, measurable, and ready to grow.',
       'You work with a focused pod—not a revolving cast—so architecture decisions, quality standards, and business context stay with the people building your product.',
     ],
-    image: '/assets/images/thumbs/about-who-hero.jpg',
+    image: '/assets/images/thumbs/about-who-hero.webp',
     imageAlt: 'Mernify team collaborating on product delivery',
     highlights: [
       { label: 'End-to-end', text: 'Discovery to launch' },
@@ -117,11 +117,11 @@ export const aboutContent = {
     audiencesBadge: 'Focused engineering partnerships • Built to last •',
     audiencesImages: [
       {
-        src: '/assets/images/thumbs/about-audiences-1.jpg',
+        src: '/assets/images/thumbs/about-audiences-1.webp',
         alt: 'Product leaders collaborating in a modern workspace',
       },
       {
-        src: '/assets/images/thumbs/about-audiences-2.jpg',
+        src: '/assets/images/thumbs/about-audiences-2.webp',
         alt: 'Engineering partners reviewing a digital product roadmap',
       },
     ],
@@ -131,37 +131,37 @@ export const aboutContent = {
       title: 'Ownership',
       side: 'Quality and outcomes',
       text: 'We take responsibility for quality and outcomes.',
-      image: '/assets/images/thumbs/team-ip-thumb1.png',
+      image: '/assets/images/thumbs/value-ownership.webp',
     },
     {
       title: 'Transparency',
       side: 'Scope, progress, risks',
       text: 'We communicate clearly about scope, progress, risks, and limits.',
-      image: '/assets/images/thumbs/team-ip-thumb2.png',
+      image: '/assets/images/thumbs/value-communication.webp',
     },
     {
       title: 'Quality',
       side: 'Review and deployment',
       text: 'Structured development, testing, review, and deployment.',
-      image: '/assets/images/thumbs/team-ip-thumb3.png',
+      image: '/assets/images/thumbs/value-craft.webp',
     },
     {
       title: 'Business understanding',
       side: 'Objectives before tech',
       text: 'We study objectives before proposing technology.',
-      image: '/assets/images/thumbs/team-ip-thumb4.png',
+      image: '/assets/images/thumbs/team-ip-thumb4.webp',
     },
     {
       title: 'Scalability',
       side: 'Built for what’s next',
       text: 'Systems prepared for users, features, and integrations ahead.',
-      image: '/assets/images/thumbs/team-ip-thumb5.png',
+      image: '/assets/images/thumbs/team-ip-thumb5.webp',
     },
     {
       title: 'Partnership',
       side: 'Long-term delivery',
       text: 'Long-term technical partnership over one-off task delivery.',
-      image: '/assets/images/thumbs/team-ip-thumb6.png',
+      image: '/assets/images/thumbs/team-ip-thumb6.webp',
     },
   ],
   audiences: [
@@ -228,7 +228,7 @@ export const contactContent = {
   emailLabel: 'Email',
   email: 'info@mernify.co',
   media: {
-    src: '/assets/images/services/contact-collaboration.png',
+    src: '/assets/images/services/contact-collaboration.webp',
     alt: 'Mernify team in a focused product consultation with a client',
   },
   trust: [

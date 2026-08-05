@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { homePartners } from '@/content/partners'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
 import { useInView } from '@/hooks/useInView'
@@ -175,10 +175,9 @@ export function HomeTrust() {
             </h2>
             <p className={styles.support}>{homePartners.support}</p>
           </div>
-          <Link to={homePartners.cta.to} className={styles.cta} data-fade-up>
+          <Button as={Link} to={homePartners.cta.to} size="md" data-fade-up>
             {homePartners.cta.label}
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
+          </Button>
         </div>
 
         <div className={styles.marquee} data-fade-up>

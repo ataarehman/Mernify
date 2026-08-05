@@ -119,10 +119,10 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
         <p className={styles.successTitle}>Message sent</p>
         <p className={styles.successText}>{statusMessage}</p>
         <div className={styles.successActions}>
-          <Button type="button" size="lg" onClick={() => setStatus('idle')}>
+          <Button type="button" variant="inverse" size="md" onClick={() => setStatus('idle')}>
             Send another message
           </Button>
-          <BookCallCta variant="ghost" size="lg" label="Prefer to book a call?" />
+          <BookCallCta variant="secondary" size="md" label="Schedule Meeting" />
         </div>
       </div>
     )
@@ -240,10 +240,10 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
       ) : null}
 
       <div className={styles.actions}>
-        <Button type="submit" size="lg" disabled={!canSubmit} aria-busy={status === 'loading'}>
+        <Button type="submit" variant="inverse" size="md" disabled={!canSubmit} aria-busy={status === 'loading'}>
           {status === 'loading' ? 'Sending...' : 'Send message'}
         </Button>
-        <BookCallCta variant="ghost" size="lg" label="Book a call instead" />
+        <BookCallCta variant="secondary" size="md" label="Schedule Meeting" />
       </div>
 
       <div className={styles.status} role="status" aria-live="polite" data-state={status}>

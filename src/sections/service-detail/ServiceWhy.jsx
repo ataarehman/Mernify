@@ -1,9 +1,8 @@
 import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { ClipReveal } from '@/components/motion/ClipReveal'
 import { SERVICE_ICONS } from '@/lib/serviceIcons'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
@@ -199,9 +198,9 @@ export function ServiceWhy({ content }) {
                 <span>Ownership</span>
                 <span>Delivery</span>
               </div>
-              <Link to="/contact" className={styles.cta}>
-                Talk to us <ArrowUpRight size={17} />
-              </Link>
+              <Button as={Link} to="/contact" size="md">
+                Talk to us
+              </Button>
             </div>
           </div>
 

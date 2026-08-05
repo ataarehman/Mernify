@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import {
-  ArrowUpRight,
   ClipboardList,
   Code2,
   Compass,
@@ -11,7 +10,7 @@ import {
 } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { aboutContent } from '@/content/pages'
 import { processSteps } from '@/content/process'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
@@ -201,10 +200,9 @@ export function AboutProcess() {
 
         {process.cta ? (
           <div className={styles.footer} data-fade-up>
-            <Link to={process.cta.to} className={styles.cta}>
+            <Button as={Link} to={process.cta.to} variant="ghost" size="md">
               {process.cta.label}
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </Link>
+            </Button>
           </div>
         ) : null}
       </Container>

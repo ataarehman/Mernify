@@ -72,11 +72,13 @@ export function AboutWho() {
                 src={who.image}
                 alt={who.imageAlt || ''}
                 className={styles.clip}
+                width={1920}
+                height={1280}
               />
               <div className={styles.mediaShade} aria-hidden="true" />
             </div>
             <div className={styles.mark} aria-hidden="true">
-              <img src="/assets/images/logo/favicon.svg" alt="" />
+              <img src="/favicon.svg" alt="" width="48" height="48" loading="lazy" decoding="async" />
             </div>
             <div className={styles.mediaCaption} aria-hidden="true">
               <span>Partnership</span>

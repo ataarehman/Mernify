@@ -86,6 +86,8 @@ export function ClipReveal({
   immediate = false,
   loading = 'lazy',
   fetchPriority,
+  width,
+  height,
 }) {
   const rootRef = useRef(null)
   const { prefersReducedMotion } = useReducedMotion()
@@ -201,6 +203,8 @@ export function ClipReveal({
         alt={alt}
         loading={loading}
         decoding="async"
+        {...(width ? { width } : {})}
+        {...(height ? { height } : {})}
         {...(fetchPriority ? { fetchPriority } : {})}
       />
       {!simple &&

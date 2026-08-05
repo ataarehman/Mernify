@@ -4,7 +4,7 @@ import { whenPageEntranceReady } from '@/components/motion/pageEntrance'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
 import styles from './HeroRipple.module.css'
 
-const IMAGE_URL = '/assets/images/shapes/banner-shape.png'
+const IMAGE_URL = '/assets/images/shapes/banner-shape.webp'
 
 /**
  * Hero background with the same mouse-following WebGL liquid ripples
@@ -125,6 +125,8 @@ export function HeroRipple({ interactiveRef }) {
         src={IMAGE_URL}
         alt=""
         className={webglReady ? styles.fallbackHidden : styles.fallback}
+        width={1920}
+        height={934}
         decoding="async"
         fetchPriority="high"
       />

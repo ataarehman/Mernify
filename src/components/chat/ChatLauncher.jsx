@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { MessageCircle, X } from 'lucide-react'
-import { useChat } from './ChatProvider'
+import { useChat } from './useChat'
 import { chatAnalytics } from '@/lib/chat/chatAnalytics'
 import styles from './ChatLauncher.module.css'
 

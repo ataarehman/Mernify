@@ -772,34 +772,6 @@
   margin-top: clamp(2.75rem, 5vw, 3.75rem);
 }
 
-.processLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 3.45rem;
-  padding: 0.9rem 1.7rem;
-  border-radius: 999px;
-  background: linear-gradient(110deg, var(--mf-color-indigo), #6366f1 45%, var(--mf-color-cyan));
-  background-size: 160% 100%;
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 700;
-  box-shadow: 0 14px 32px rgba(79, 70, 229, 0.28);
-  transition:
-    background-position 0.45s ease,
-    transform 0.35s ease,
-    gap 0.35s ease,
-    box-shadow 0.35s ease;
-}
-
-.processLink:hover {
-  background-position: 100% 0;
-  color: #010406;
-  transform: translateY(-2px);
-  gap: 0.75rem;
-  box-shadow: 0 16px 34px rgba(21, 198, 226, 0.28);
-}
-
 @keyframes pathGlow {
   from {
     background-position: 0% 50%;
@@ -834,7 +806,6 @@
   .nodeBtn:hover .nodeCopy,
   .processCard:hover .glass,
   .processCardCurrent .glass,
-  .processLink:hover,
   .nodeActive .nodeMarker,
   .nodeBtn:hover .nodeMarker,
   .processCard:hover .processIcon,

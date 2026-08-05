@@ -78,7 +78,14 @@ export function ServiceMethodology({ content, serviceTitle }) {
               <div className={styles.stepTop}>
                 <span className={styles.badge}>Step {String(index + 1).padStart(2, '0')}</span>
                 <span className={styles.stepIcon} aria-hidden="true">
-                  <img src={PROCESS_ICONS[index % PROCESS_ICONS.length]} alt="" />
+                  <img
+                    src={PROCESS_ICONS[index % PROCESS_ICONS.length]}
+                    alt=""
+                    width={56}
+                    height={56}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </span>
               </div>
               <h3>{step.title}</h3>

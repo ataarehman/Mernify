@@ -17,7 +17,7 @@ export const teamContent = {
       name: '',
       role: 'Founder',
       bio: '',
-      photo: '/assets/images/thumbs/team-ip-thumb1.png',
+      photo: '/assets/images/thumbs/team-ip-thumb1.webp',
       linkedin: '',
     },
     {
@@ -26,7 +26,7 @@ export const teamContent = {
       name: '',
       role: 'Engineering Lead',
       bio: '',
-      photo: '/assets/images/thumbs/team-ip-thumb2.png',
+      photo: '/assets/images/thumbs/team-ip-thumb2.webp',
       linkedin: '',
     },
     {
@@ -35,7 +35,7 @@ export const teamContent = {
       name: '',
       role: 'Design Lead',
       bio: '',
-      photo: '/assets/images/thumbs/team-ip-thumb3.png',
+      photo: '/assets/images/thumbs/team-ip-thumb3.webp',
       linkedin: '',
     },
   ],

@@ -1,7 +1,5 @@
-import { Video } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { resolveCalendlyUrl } from '@/lib/env'
-import styles from './BookCallCta.module.css'
 
 /**
  * Demo-call CTA. Uses Calendly when VITE_CALENDLY_URL is set;
@@ -9,10 +7,10 @@ import styles from './BookCallCta.module.css'
  */
 export function BookCallCta({
   variant = 'primary',
-  size = 'lg',
+  size = 'md',
   className = '',
-  label = 'Book a Demo Call',
-  showIcon = true,
+  label = 'Schedule Meeting',
+  block = false,
   magnetic = false,
 }) {
   const calendly = resolveCalendlyUrl()
@@ -27,18 +25,12 @@ export function BookCallCta({
       rel={external ? 'noopener noreferrer' : undefined}
       variant={variant}
       size={size}
+      block={block}
       magnetic={magnetic}
-      className={[styles.cta, className].filter(Boolean).join(' ')}
+      className={className}
       data-booking={external ? 'calendly' : 'contact'}
     >
-      <span className={styles.content}>
-        {showIcon ? (
-          <span className={styles.icon} aria-hidden="true">
-            <Video size={18} strokeWidth={2.25} />
-          </span>
-        ) : null}
-        <span className={styles.text}>{label}</span>
-      </span>
+      {label}
     </Button>
   )
 }

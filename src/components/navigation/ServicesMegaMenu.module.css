@@ -266,6 +266,11 @@
   animation: panelIn 0.38s var(--mega-ease) both;
 }
 
+.panelBody > :last-child {
+  justify-self: start;
+  margin-top: 0.15rem;
+}
+
 @keyframes panelIn {
   from {
     opacity: 0;
@@ -376,50 +381,6 @@
   }
 }
 
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  justify-self: start;
-  margin-top: 0.85rem;
-  padding: 0.7rem 1.05rem;
-  border-radius: 999px;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 0.9rem;
-  text-decoration: none;
-  background: linear-gradient(120deg, var(--mf-color-indigo), #6366f1 55%, #0ea5b8);
-  box-shadow:
-    0 12px 28px rgba(79, 70, 229, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.22);
-  transition:
-    transform 0.28s var(--mega-ease),
-    box-shadow 0.28s ease,
-    filter 0.28s ease;
-}
-
-.cta svg {
-  transition: transform 0.28s var(--mega-ease);
-}
-
-.cta:hover {
-  transform: translateY(-2px);
-  box-shadow:
-    0 16px 34px rgba(79, 70, 229, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
-  filter: brightness(1.03);
-  text-decoration: none;
-}
-
-.cta:hover svg {
-  transform: translate(2px, -2px);
-}
-
-.cta:focus-visible {
-  outline: 2px solid var(--mf-color-cyan);
-  outline-offset: 3px;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .mega,
   .navItem,
@@ -427,8 +388,6 @@
   .catIconWrap,
   .catArrow,
   .catTitle::after,
-  .cta,
-  .cta svg,
   .caps li {
     transition: none !important;
     animation: none !important;

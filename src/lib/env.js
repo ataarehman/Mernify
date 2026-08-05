@@ -7,10 +7,12 @@ function trimEnv(value) {
   return String(value ?? '').trim()
 }
 
+/** Booking link used when VITE_CALENDLY_URL is not configured by the host. */
+const DEFAULT_CALENDLY_URL = 'https://calendly.com/contact-mernify/30min'
+
 /** Accept https Calendly (or calendly-style) booking URLs only. */
 export function resolveCalendlyUrl(raw = import.meta.env.VITE_CALENDLY_URL) {
-  const value = trimEnv(raw)
-  if (!value) return ''
+  const value = trimEnv(raw) || DEFAULT_CALENDLY_URL
   try {
     const url = new URL(value)
     if (url.protocol !== 'https:') return ''

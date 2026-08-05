@@ -1,0 +1,692 @@
+/*
+ * Stacking sector panels. Note: no ancestor of .panel may set transform,
+ * filter, or contain — ScrollTrigger pins the panel with position: fixed.
+ */
+.section {
+  position: relative;
+  isolation: isolate;
+  background: var(--mf-color-navy-deep);
+  color: var(--mf-text-on-dark);
+  padding-block: clamp(4.25rem, 8.5vw, 7rem) clamp(4.5rem, 9vw, 8rem);
+}
+
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.orbOne,
+.orbTwo {
+  position: absolute;
+  border-radius: 50%;
+}
+
+.orbOne {
+  width: min(56vw, 36rem);
+  height: min(56vw, 36rem);
+  top: -18%;
+  left: -12%;
+  background: radial-gradient(circle, rgba(79, 70, 229, 0.28), transparent 68%);
+}
+
+.orbTwo {
+  width: min(44vw, 30rem);
+  height: min(44vw, 30rem);
+  right: -10%;
+  bottom: -18%;
+  background: radial-gradient(circle, rgba(21, 198, 226, 0.15), transparent 68%);
+}
+
+.mesh {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--mf-grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--mf-grid-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 30%, #000 20%, transparent 75%);
+}
+
+.inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(2rem, 4vw, 3.25rem);
+}
+
+.head {
+  display: grid;
+  gap: 1rem;
+  align-items: end;
+}
+
+.headCopy {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.eyebrow {
+  color: var(--mf-color-cyan);
+}
+
+.title {
+  margin: 0;
+  font-family: var(--mf-font-display);
+  font-size: clamp(1.9rem, 3.6vw, 2.85rem);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.support {
+  margin: 0;
+  max-width: 34rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--mf-text-on-dark-muted);
+}
+
+/* ---------------------------------------------------------------- stack */
+
+.stack {
+  position: relative;
+  display: grid;
+  gap: clamp(1.25rem, 3vw, 2rem);
+}
+
+.panel {
+  position: relative;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: clamp(1.1rem, 2.2vw, 1.75rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: color-mix(in srgb, var(--industry-accent) 12%, #0b1120);
+  box-shadow:
+    0 40px 90px -55px rgba(2, 6, 23, 0.95),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+  transition: border-color 320ms var(--mf-ease-out);
+}
+
+.frame:hover {
+  border-color: color-mix(in srgb, var(--industry-accent) 45%, rgba(255, 255, 255, 0.14));
+}
+
+/*
+ * The hover zoom lives here, not on .image: ScrollTrigger writes an inline
+ * transform to .image every frame, and a CSS transition on that property makes
+ * the scrubbed parallax lag behind the scroll.
+ */
+.media {
+  position: relative;
+  overflow: hidden;
+  transition: transform 700ms var(--mf-ease-out);
+}
+
+.frame:hover .media {
+  transform: scale(1.03);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+}
+
+.scrim,
+.dim {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Accent-tinted vignette keeps the deck cohesive across ten different photos. */
+.scrim {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(4, 8, 20, 0.55) 0%,
+      rgba(4, 8, 20, 0.12) 38%,
+      rgba(4, 8, 20, 0.82) 100%
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--industry-accent) 26%, rgba(4, 8, 20, 0.7)) 0%,
+      transparent 62%
+    );
+}
+
+/* Sits above the corner overlays so a receding panel dims as a single plane. */
+.dim {
+  z-index: 4;
+  background: rgba(4, 8, 20, 0.92);
+  opacity: 0;
+}
+
+/* ------------------------------------------------------------ overlays */
+
+.tags {
+  position: absolute;
+  top: clamp(1rem, 2vw, 1.75rem);
+  left: clamp(1rem, 2vw, 1.75rem);
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.34rem 0.85rem;
+  border-radius: var(--mf-radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  background: rgba(8, 12, 24, 0.42);
+  backdrop-filter: blur(10px);
+  font-size: 0.7rem;
+  font-weight: var(--mf-weight-semibold);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.tag svg {
+  color: var(--industry-accent);
+}
+
+.index {
+  position: absolute;
+  top: clamp(1rem, 2vw, 1.75rem);
+  right: clamp(1rem, 2vw, 1.75rem);
+  z-index: 2;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3rem;
+  font-family: var(--mf-font-display);
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.indexNumber {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.indexTotal {
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+
+/* ------------------------------------------------------------- content */
+
+.content {
+  position: relative;
+  z-index: 3;
+  display: grid;
+  gap: 0.8rem;
+  padding: clamp(1.35rem, 3vw, 2.5rem);
+}
+
+.panelTitle {
+  margin: 0;
+  font-family: var(--mf-font-display);
+  font-size: clamp(1.75rem, 4vw, 3.1rem);
+  line-height: 1.04;
+  letter-spacing: -0.04em;
+  color: #fff;
+  text-wrap: balance;
+}
+
+.panelText {
+  margin: 0;
+  max-width: 34rem;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.6;
+  color: rgba(241, 245, 249, 0.86);
+}
+
+.chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.chip {
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--mf-radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.74rem;
+  line-height: 1.35;
+  color: rgba(248, 250, 252, 0.86);
+}
+
+.outcome {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  font-size: 0.86rem;
+  line-height: 1.5;
+  font-weight: var(--mf-weight-medium);
+  color: #fff;
+}
+
+.outcome::before {
+  content: '';
+  flex-shrink: 0;
+  width: 1.5rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--industry-accent);
+  transform: translateY(-0.28em);
+}
+
+.action {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  min-height: 2.875rem;
+  margin-top: 0.2rem;
+  padding: 0.45rem 0.45rem 0.45rem 1.15rem;
+  border-radius: var(--mf-radius-pill);
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(8, 12, 24, 0.45);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: var(--mf-weight-semibold);
+  line-height: 1.25;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    background 280ms var(--mf-ease-out),
+    border-color 280ms var(--mf-ease-out),
+    transform 280ms var(--mf-ease-out);
+}
+
+.actionLabel {
+  display: inline-block;
+}
+
+/* Swapped in below 600px so all ten CTAs stay one line and the same height. */
+.actionLabelShort {
+  display: none;
+}
+
+.action:hover,
+.action:focus-visible {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--industry-accent) 60%, transparent);
+  background: color-mix(in srgb, var(--industry-accent) 24%, rgba(8, 12, 24, 0.6));
+  outline: none;
+}
+
+.action:focus-visible {
+  box-shadow: 0 0 0 3px var(--mf-focus-ring);
+}
+
+.actionIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 1.975rem;
+  height: 1.975rem;
+  border-radius: 50%;
+  background: var(--industry-accent);
+  color: #04070f;
+  transition: transform 280ms var(--mf-ease-out);
+}
+
+.action:hover .actionIcon,
+.action:focus-visible .actionIcon {
+  transform: translate(2px, -2px);
+}
+
+/* -------------------------------------------- desktop layout variants */
+
+@media (min-width: 1024px) {
+  /* The calc ceiling keeps the whole panel inside short laptop viewports,
+     where the pin line plus a fixed min-height would clip the CTA. */
+  .frame {
+    height: min(clamp(26rem, 74vh, 44rem), calc(100vh - 8rem));
+  }
+
+  .panel,
+  .image {
+    will-change: transform;
+  }
+
+  .media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .content {
+    position: absolute;
+    align-content: end;
+    max-width: min(38rem, 62%);
+    padding: clamp(2rem, 3.4vw, 3rem);
+  }
+
+  /* 1 — corner: classic bottom-left editorial anchor */
+  .panel[data-layout='corner'] .content {
+    inset: auto auto 0 0;
+  }
+
+  /* 2 — aside: frosted glass column holding the copy against the photo */
+  .panel[data-layout='aside'] .content {
+    inset: 0 auto 0 0;
+    align-content: center;
+    width: min(31rem, 48%);
+    max-width: none;
+    background: linear-gradient(
+      180deg,
+      rgba(6, 10, 22, 0.66),
+      color-mix(in srgb, var(--industry-accent) 20%, rgba(6, 10, 22, 0.72))
+    );
+    backdrop-filter: blur(22px) saturate(135%);
+    border-right: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .panel[data-layout='aside'] .scrim {
+    background: linear-gradient(90deg, rgba(4, 8, 20, 0.5) 0%, rgba(4, 8, 20, 0.15) 55%, rgba(4, 8, 20, 0.6) 100%);
+  }
+
+  .panel[data-layout='aside'] .tags {
+    left: auto;
+    right: clamp(1rem, 2vw, 1.75rem);
+    justify-content: flex-end;
+  }
+
+  .panel[data-layout='aside'] .index {
+    top: auto;
+    bottom: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  /* 3 — band: full-width frosted deck across the bottom edge */
+  .panel[data-layout='band'] .content {
+    inset: auto 0 0 0;
+    max-width: none;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    column-gap: clamp(1.75rem, 3.5vw, 3.5rem);
+    row-gap: 0.85rem;
+    align-items: start;
+    background: linear-gradient(
+      180deg,
+      rgba(5, 9, 20, 0.72),
+      color-mix(in srgb, var(--industry-accent) 14%, rgba(5, 9, 20, 0.94))
+    );
+    backdrop-filter: blur(24px) saturate(120%);
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+  }
+
+  .panel[data-layout='band'] .panelTitle {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .panel[data-layout='band'] .outcome {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .panel[data-layout='band'] .panelText {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .panel[data-layout='band'] .chips {
+    grid-column: 2;
+    grid-row: 2;
+  }
+
+  .panel[data-layout='band'] .action {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .panel[data-layout='band'] .scrim {
+    background: linear-gradient(180deg, rgba(4, 8, 20, 0.55) 0%, rgba(4, 8, 20, 0.05) 45%, rgba(4, 8, 20, 0.5) 100%);
+  }
+
+  /* 4 — editorial: right-aligned column with an oversized side numeral */
+  .panel[data-layout='editorial'] .content {
+    inset: auto 0 0 auto;
+    justify-items: end;
+    text-align: right;
+  }
+
+  .panel[data-layout='editorial'] .panelText {
+    margin-left: auto;
+  }
+
+  .panel[data-layout='editorial'] .chips {
+    justify-content: flex-end;
+  }
+
+  .panel[data-layout='editorial'] .outcome {
+    flex-direction: row-reverse;
+  }
+
+  .panel[data-layout='editorial'] .action {
+    justify-self: end;
+  }
+
+  .panel[data-layout='editorial'] .scrim {
+    background:
+      linear-gradient(270deg, rgba(4, 8, 20, 0.82) 0%, rgba(4, 8, 20, 0.1) 58%, transparent 100%),
+      linear-gradient(180deg, rgba(4, 8, 20, 0.4), rgba(4, 8, 20, 0.55));
+  }
+
+  .panel[data-layout='editorial'] .tags {
+    top: auto;
+    bottom: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .panel[data-layout='editorial'] .index {
+    top: 50%;
+    right: auto;
+    left: clamp(1.25rem, 2.5vw, 2.5rem);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+    translate: 0 -50%;
+  }
+
+  .panel[data-layout='editorial'] .indexNumber {
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  /* 5 — center: symmetrical, rule-framed statement */
+  .panel[data-layout='center'] .content {
+    inset: 0;
+    width: 100%;
+    max-width: none;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+    padding-inline: clamp(2rem, 8vw, 8rem);
+  }
+
+  .panel[data-layout='center'] .panelTitle {
+    justify-self: stretch;
+    padding-block: clamp(0.9rem, 1.6vw, 1.5rem);
+    border-top: 1px solid rgba(255, 255, 255, 0.32);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.32);
+  }
+
+  .panel[data-layout='center'] .chips,
+  .panel[data-layout='center'] .outcome {
+    justify-content: center;
+  }
+
+  .panel[data-layout='center'] .action {
+    justify-self: center;
+  }
+
+  .panel[data-layout='center'] .scrim {
+    background:
+      radial-gradient(ellipse 70% 70% at 50% 50%, rgba(4, 8, 20, 0.72), rgba(4, 8, 20, 0.88)),
+      linear-gradient(180deg, color-mix(in srgb, var(--industry-accent) 18%, transparent), transparent 60%);
+  }
+
+  .panel[data-layout='center'] .tags {
+    left: 50%;
+    translate: -50% 0;
+    justify-content: center;
+  }
+
+  /* Kept in the corner so it never collides with the centred copy column. */
+  .panel[data-layout='center'] .index {
+    top: auto;
+    bottom: clamp(1rem, 2vw, 1.75rem);
+  }
+
+  .head {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* ------------------------------------------------- tablet and smaller */
+
+@media (max-width: 1023.98px) {
+  .media {
+    aspect-ratio: 16 / 10;
+  }
+
+  .content {
+    background: rgba(255, 255, 255, 0.035);
+    border-top: 1px solid rgba(255, 255, 255, 0.09);
+  }
+
+  .dim {
+    display: none;
+  }
+
+  .index {
+    top: auto;
+    bottom: clamp(0.85rem, 3vw, 1.25rem);
+  }
+
+  /* Cap the display sizes that are tuned for full-bleed desktop panels. */
+  .panelTitle {
+    font-size: clamp(1.65rem, 5.2vw, 2.4rem);
+  }
+
+  .panelText {
+    max-width: 46rem;
+  }
+}
+
+/* Tablet: the extra width earns a two-column footer inside the card. */
+@media (min-width: 700px) and (max-width: 1023.98px) {
+  .content {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    column-gap: 1.5rem;
+  }
+
+  .panelTitle,
+  .panelText,
+  .chips {
+    grid-column: 1 / -1;
+  }
+
+  /* Row 4 is the footer row: outcome and CTA share it instead of stacking. */
+  .outcome {
+    grid-column: 1;
+    grid-row: 4;
+  }
+
+  .action {
+    grid-column: 2;
+    grid-row: 4;
+    align-self: center;
+    margin-top: 0;
+  }
+}
+
+@media (max-width: 600px) {
+  .media {
+    aspect-ratio: 4 / 3;
+  }
+
+  .tag:last-child {
+    display: none;
+  }
+
+  .index {
+    right: clamp(0.85rem, 3vw, 1.25rem);
+  }
+
+  .indexNumber {
+    font-size: 1.5rem;
+  }
+
+  .action {
+    justify-self: stretch;
+    justify-content: space-between;
+    padding-left: 1.25rem;
+  }
+
+  .actionLabelFull {
+    display: none;
+  }
+
+  .actionLabelShort {
+    display: inline;
+  }
+}
+
+/* Narrow phones: keep the tag rail and chips from crowding the copy. */
+@media (max-width: 380px) {
+  .content {
+    gap: 0.7rem;
+  }
+
+  .chip {
+    font-size: 0.7rem;
+  }
+
+  .action {
+    font-size: 0.8125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .frame,
+  .image,
+  .action,
+  .actionIcon {
+    transition: none;
+  }
+
+  .frame:hover .image {
+    transform: none;
+  }
+
+  .action:hover,
+  .action:focus-visible {
+    transform: none;
+  }
+}

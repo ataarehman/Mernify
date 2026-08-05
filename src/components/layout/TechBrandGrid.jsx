@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
+import { Button } from '@/components/ui'
 import { homePartners } from '@/content/partners'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
@@ -60,10 +61,9 @@ export function TechBrandGrid({
           </div>
 
           {cta ? (
-            <Link to={cta.to} className={styles.cta} data-fade-up data-delay="80">
+            <Button as={Link} to={cta.to} size="md" data-fade-up data-delay="80">
               {cta.label}
-              <ArrowUpRight size={17} aria-hidden="true" />
-            </Link>
+            </Button>
           ) : null}
         </header>
 

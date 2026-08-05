@@ -120,30 +120,6 @@
   color: var(--mf-text-secondary);
 }
 
-.midCta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  min-height: 3.15rem;
-  padding: 0.85rem 1.4rem;
-  border-radius: 999px;
-  background: var(--mf-color-indigo);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: var(--mf-weight-bold);
-  white-space: nowrap;
-  transition:
-    background-color 0.35s ease,
-    transform 0.35s ease,
-    gap 0.35s ease;
-}
-
-.midCta:hover {
-  background: var(--mf-color-navy);
-  transform: translateY(-2px);
-  gap: 0.7rem;
-}
-
 .masonry {
   display: grid;
   gap: clamp(1rem, 2vw, 1.35rem);
@@ -492,7 +468,6 @@
   transform: translate(1px, -1px);
 }
 
-.midCta:focus-visible,
 .cardLink:focus-visible {
   outline: 2px solid var(--mf-color-indigo);
   outline-offset: 3px;
@@ -520,7 +495,6 @@
   .card,
   .card:hover,
   .card:focus-within,
-  .midCta:hover,
   .thumb img,
   .card:hover .thumb img,
   .card:focus-within .thumb img,

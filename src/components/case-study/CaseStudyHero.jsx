@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom'
-import { ExternalLink } from 'lucide-react'
 import { Button, Container } from '@/components/ui'
 import styles from './CaseStudyHero.module.css'
 
@@ -25,7 +24,7 @@ export function CaseStudyHero({ study }) {
           <div className={styles.actions}>
             {study.liveUrl ? (
               <Button as="a" href={study.liveUrl} target="_blank" rel="noreferrer noopener" size="lg">
-                Visit live site <ExternalLink size={16} aria-hidden="true" />
+                Visit live site
               </Button>
             ) : null}
             <Button as={Link} to="/contact" variant="secondary" size="lg">

@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight } from 'lucide-react'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { servicesPage } from '@/content/services'
 import { SERVICE_ICONS } from '@/lib/serviceIcons'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
@@ -33,8 +32,10 @@ export function ServicesEngagement() {
       <div className={styles.atmosphere} aria-hidden="true">
         <img
           className={styles.bg}
-          src="/assets/images/services/engagement-bg.jpg"
+          src="/assets/images/services/engagement-bg.webp"
           alt=""
+          width={1920}
+          height={1282}
           loading="lazy"
           decoding="async"
         />
@@ -88,10 +89,9 @@ export function ServicesEngagement() {
                   ))}
                 </ul>
 
-                <Link to={model.cta.to} className={styles.cta}>
+                <Button as={Link} to={model.cta.to} variant="ghost" size="sm">
                   {model.cta.label}
-                  <ArrowUpRight size={16} aria-hidden="true" />
-                </Link>
+                </Button>
               </li>
             )
           })}

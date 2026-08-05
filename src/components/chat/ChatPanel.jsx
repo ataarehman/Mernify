@@ -10,7 +10,7 @@ import {
   User,
   X,
 } from 'lucide-react'
-import { useChat } from './ChatProvider'
+import { useChat } from './useChat'
 import { ChatMessage } from './ChatMessage'
 import { QuickActions } from './QuickActions'
 import { TypingIndicator } from './TypingIndicator'

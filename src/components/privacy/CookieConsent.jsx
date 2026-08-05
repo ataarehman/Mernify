@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Button } from '@/components/ui'
 import { readConsent, writeConsent } from '@/lib/consent'
 import styles from './CookieConsent.module.css'
 
@@ -38,12 +39,12 @@ export function CookieConsent() {
           </p>
         </div>
         <div className={styles.actions}>
-          <button type="button" className={styles.secondary} onClick={essentialOnly}>
+          <Button type="button" variant="ghost" size="sm" onClick={essentialOnly}>
             Essential only
-          </button>
-          <button type="button" className={styles.primary} onClick={acceptAll}>
+          </Button>
+          <Button type="button" size="sm" onClick={acceptAll}>
             Accept all
-          </button>
+          </Button>
         </div>
       </div>
     </div>

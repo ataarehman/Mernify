@@ -9,12 +9,12 @@ export const webDevelopmentDetail = {
     'Business-critical web apps and portals engineered for speed, accessibility, and long-term maintainability—not fragile demos.',
   overviewBadge: 'Web platforms',
   overviewMedia: {
-    src: '/assets/images/services/web-overview.png',
+    src: '/assets/images/services/web-overview.webp',
     alt: 'Modern web application dashboard on a high-resolution display',
   },
-  strip: '/assets/images/services/web-strip.png',
+  strip: '/assets/images/services/web-strip.webp',
   ctaMedia: {
-    src: '/assets/images/services/web-hero.png',
+    src: '/assets/images/services/web-cta.webp',
     alt: 'Engineering team building a performance-focused web product',
   },
   ctaTitle:
@@ -142,8 +142,8 @@ export const webDevelopmentDetail = {
       { title: 'Launch & tune', body: 'Release with monitoring, then iterate on real Core Web Vitals and usage.' },
     ],
     media: {
-      src: '/assets/images/services/web-hero.png',
-      alt: 'Web engineering workspace with performance-focused product UI',
+      src: '/assets/images/services/web-method.webp',
+      alt: 'Engineering team pairing on a web application build',
     },
   },
   why: {
@@ -157,8 +157,8 @@ export const webDevelopmentDetail = {
       { icon: 'sparkles', title: 'Craft you can feel', text: 'Interfaces that feel intentional on the devices your users actually use.' },
     ],
     media: {
-      src: '/assets/images/services/web-overview.png',
-      alt: 'Polished web product interface representing modern delivery craft',
+      src: '/assets/images/services/web-why.webp',
+      alt: 'Product analytics dashboard showing web performance gains',
     },
   },
   faq: {
@@ -187,12 +187,12 @@ export const mobileAppDevelopmentDetail = {
     'Store-ready iOS and Android experiences with thoughtful UX, solid APIs, and release pipelines built for real device diversity.',
   overviewBadge: 'Mobile products',
   overviewMedia: {
-    src: '/assets/images/services/mobile-overview.png',
+    src: '/assets/images/services/mobile-overview.webp',
     alt: 'Polished mobile application screens on modern devices',
   },
-  strip: '/assets/images/services/mobile-strip.png',
+  strip: '/assets/images/services/mobile-strip.webp',
   ctaMedia: {
-    src: '/assets/images/services/mobile-hero.png',
+    src: '/assets/images/services/mobile-cta.webp',
     alt: 'Mobile product team reviewing native app experiences',
   },
   ctaTitle:
@@ -300,8 +300,8 @@ export const mobileAppDevelopmentDetail = {
       { title: 'Release', body: 'Store submission, staged rollouts, and a plan for the next iteration.' },
     ],
     media: {
-      src: '/assets/images/services/mobile-hero.png',
-      alt: 'Mobile product review session with app interfaces on device and display',
+      src: '/assets/images/services/mobile-method.webp',
+      alt: 'Mobile application source code running on a handset',
     },
   },
   why: {
@@ -315,8 +315,8 @@ export const mobileAppDevelopmentDetail = {
       { icon: 'target', title: 'Outcome-led MVP', text: 'We ship the thinnest lovable path to retention learning.' },
     ],
     media: {
-      src: '/assets/images/services/mobile-overview.png',
-      alt: 'Mobile interfaces representing retention-focused product craft',
+      src: '/assets/images/services/mobile-why.webp',
+      alt: 'Set of smartphones displaying a released mobile product',
     },
   },
   faq: {
@@ -345,12 +345,12 @@ export const aiIntegrationDetail = {
     'Practical AI features embedded in products your teams already run—with evaluation, guardrails, and maintainable architecture.',
   overviewBadge: 'AI in product',
   overviewMedia: {
-    src: '/assets/images/services/ai-overview.png',
+    src: '/assets/images/services/ai-overview.webp',
     alt: 'AI-assisted product interface with insight panels',
   },
-  strip: '/assets/images/services/ai-strip.png',
+  strip: '/assets/images/services/ai-strip.webp',
   ctaMedia: {
-    src: '/assets/images/services/ai-hero.png',
+    src: '/assets/images/services/ai-cta.webp',
     alt: 'Team reviewing production AI features inside a digital product',
   },
   ctaTitle:
@@ -458,8 +458,8 @@ export const aiIntegrationDetail = {
       { title: 'Operate', body: 'Monitor drift, failures, and usage—then iterate deliberately.' },
     ],
     media: {
-      src: '/assets/images/services/ai-hero.png',
-      alt: 'Product team validating AI features against real workflow outcomes',
+      src: '/assets/images/services/ai-method.webp',
+      alt: 'Engineers reviewing model output during an AI build',
     },
   },
   why: {
@@ -473,8 +473,8 @@ export const aiIntegrationDetail = {
       { icon: 'sparkles', title: 'Product craft', text: 'AI UX that sets expectations and earns trust.' },
     ],
     media: {
-      src: '/assets/images/services/ai-overview.png',
-      alt: 'AI product interface representing governed in-product intelligence',
+      src: '/assets/images/services/ai-why.webp',
+      alt: 'Analytics chart tracking results from an automated workflow',
     },
   },
   faq: {
@@ -503,12 +503,12 @@ export const uiUxDesignDetail = {
     'Product design and UX that clarifies journeys, prototypes decisions early, and hands engineering a buildable system.',
   overviewBadge: 'Product design',
   overviewMedia: {
-    src: '/assets/images/services/uiux-overview.png',
+    src: '/assets/images/services/uiux-overview.webp',
     alt: 'UI design system components and interface craft on a designer desk',
   },
-  strip: '/assets/images/services/uiux-strip.png',
+  strip: '/assets/images/services/uiux-strip.webp',
   ctaMedia: {
-    src: '/assets/images/services/uiux-hero.png',
+    src: '/assets/images/services/uiux-cta.webp',
     alt: 'Designer refining product interfaces and design systems',
   },
   ctaTitle:
@@ -616,8 +616,8 @@ export const uiUxDesignDetail = {
       { title: 'Validate & hand off', body: 'Prototype, refine, and deliver engineering-ready artifacts.' },
     ],
     media: {
-      src: '/assets/images/services/uiux-hero.png',
-      alt: 'UI UX design session with interface systems and prototypes',
+      src: '/assets/images/services/uiux-method.webp',
+      alt: 'Design and engineering desk set up for interface work',
     },
   },
   why: {
@@ -631,8 +631,8 @@ export const uiUxDesignDetail = {
       { icon: 'checkCircle', title: 'Handoff quality', text: 'States, edge cases, and accessibility included.' },
     ],
     media: {
-      src: '/assets/images/services/uiux-overview.png',
-      alt: 'Design system artifacts representing buildable interface craft',
+      src: '/assets/images/services/uiux-why.webp',
+      alt: 'Interface design system open in a design tool',
     },
   },
   faq: {

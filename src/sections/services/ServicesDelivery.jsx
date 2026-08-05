@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight } from 'lucide-react'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { BookCallCta } from '@/components/cta/BookCallCta'
 import { servicesPage } from '@/content/services'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
@@ -79,13 +78,12 @@ export function ServicesDelivery() {
             </ul>
 
             <div className={styles.actions} data-fade-up data-delay="120">
-              <Link to={delivery.actions.primary.to} className={styles.primary}>
+              <Button as={Link} to={delivery.actions.primary.to} size="md">
                 {delivery.actions.primary.label}
-                <ArrowUpRight size={17} aria-hidden="true" />
-              </Link>
-              <Link to={delivery.actions.secondary.to} className={styles.secondary}>
+              </Button>
+              <Button as={Link} to={delivery.actions.secondary.to} variant="secondary" size="md">
                 {delivery.actions.secondary.label}
-              </Link>
+              </Button>
               <BookCallCta variant="secondary" size="md" />
             </div>
           </div>

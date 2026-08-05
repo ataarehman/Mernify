@@ -139,34 +139,6 @@
   color: #ffffff;
 }
 
-.cta {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  width: fit-content;
-  min-height: 3.15rem;
-  margin-top: 0.35rem;
-  padding: 0.8rem 1.4rem;
-  border-radius: 0.75rem;
-  background: var(--mf-color-indigo);
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 700;
-  font-size: 0.94rem;
-  box-shadow: 0 16px 36px rgba(79, 70, 229, 0.28);
-  transition:
-    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
-    background-color 0.3s ease,
-    gap 0.3s ease;
-}
-
-.cta:hover {
-  transform: translateY(-2px);
-  background: var(--mf-color-indigo-hover);
-  gap: 0.6rem;
-}
-
 .rail {
   position: relative;
   display: grid;
@@ -402,10 +374,6 @@
     grid-template-columns: 1fr;
   }
 
-  .cta {
-    width: 100%;
-  }
-
   .role {
     grid-template-columns: auto minmax(0, 1fr);
   }
@@ -431,7 +399,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .cta:hover,
   .role:hover,
   .roleActive,
   .role:focus-visible {

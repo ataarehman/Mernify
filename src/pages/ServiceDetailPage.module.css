@@ -64,6 +64,14 @@
   transition: color 0.25s var(--mf-ease-out);
 }
 
+@media (pointer: coarse) {
+  .breadcrumb a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+}
+
 .breadcrumb a:hover {
   color: var(--mf-color-indigo);
 }

@@ -106,6 +106,10 @@ function MoreServices() {
                         src="/assets/images/icons/service-three-arrow.svg"
                         alt=""
                         aria-hidden="true"
+                        width={45}
+                        height={9}
+                        loading="lazy"
+                        decoding="async"
                       />
                     </span>
                     <div className={styles.copy}>
@@ -147,13 +151,13 @@ export function ServicesPage() {
       <ServicesMarquee />
       <MoreServices />
       <ServicesEngagement />
-      <MediaStrip src="/assets/images/services/strip-wide.jpg" height="tall" speed={0.1} />
+      <MediaStrip src="/assets/images/services/strip-wide.webp" height="tall" speed={0.1} />
       <ServicesDelivery />
       <TechBrandGrid animated aos />
       <PageCta
         title="Ready to build your next digital product? Drop us a message, and let’s start engineering something reliable and scalable."
         accentWords={['message', 'scalable']}
-        mediaSrc="/assets/images/services/cta-media.jpg"
+        mediaSrc="/assets/images/services/cta-media.webp"
         mediaAlt="Designer reviewing a polished product interface on a tablet"
         animated
         scrub={{ scrub: 1, stagger: 0.2 }}

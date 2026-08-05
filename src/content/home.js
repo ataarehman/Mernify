@@ -1,3 +1,5 @@
+import { SITE } from '@/constants/site'
+
 export const homeHero = {
   title: 'WE DESIGN, ENGINEER & SCALE DIGITAL PRODUCTS FOR STARTUPS AND GROWING BUSINESSES.',
 }
@@ -94,7 +96,7 @@ export const homePortfolio = {
       tags: ['Analytics', 'SaaS'],
       year: '2024',
       accent: '#F97316',
-      image: '/portfolio/goodbooks-plus/analytics-desktop.png',
+      image: '/portfolio/goodbooks-plus/analytics-desktop.webp',
       to: '/case-studies/goodbooks-plus-analytics',
       size: 'large',
     },
@@ -106,7 +108,7 @@ export const homePortfolio = {
       tags: ['Healthcare', 'RCM'],
       year: '2024',
       accent: '#F59E0B',
-      image: '/portfolio/medbill-ultra/home-desktop.png',
+      image: '/portfolio/medbill-ultra/home-desktop.webp',
       to: '/case-studies/medbill-ultra',
       size: 'small',
     },
@@ -118,7 +120,7 @@ export const homePortfolio = {
       tags: ['Services', 'Perth'],
       year: '2025',
       accent: '#2563EB',
-      image: '/portfolio/metro-electric/home-desktop.png',
+      image: '/portfolio/metro-electric/home-desktop.webp',
       to: '/case-studies/metro-electric',
       size: 'small',
     },
@@ -130,7 +132,7 @@ export const homePortfolio = {
       tags: ['Product', 'Workspace'],
       year: '2025',
       accent: '#65A30D',
-      image: '/portfolio/spaceworx/home-desktop.png',
+      image: '/portfolio/spaceworx/home-desktop.webp',
       to: '/case-studies/spaceworx',
       size: 'small',
     },
@@ -142,7 +144,7 @@ export const homePortfolio = {
       tags: ['Commerce', 'Marketplace'],
       year: '2025',
       accent: '#4F46E5',
-      image: '/portfolio/mrzzm/home-desktop.png',
+      image: '/portfolio/mrzzm/home-desktop.webp',
       to: '/case-studies/mrzzm',
       size: 'small',
     },
@@ -154,7 +156,7 @@ export const homePortfolio = {
       tags: ['Fashion', 'Localized'],
       year: '2025',
       accent: '#7C3AED',
-      image: '/portfolio/tailorize/home-desktop.png',
+      image: '/portfolio/tailorize/home-desktop.webp',
       to: '/case-studies/tailorize',
       size: 'large',
     },
@@ -168,7 +170,7 @@ export const homeServicesCarousel = {
     {
       slug: 'product-engineering',
       title: 'Product Engineering',
-      image: '/assets/images/thumbs/portfolio-thumb1.jpg',
+      image: '/assets/images/thumbs/portfolio-thumb1.webp',
       tags: ['Discovery & Architecture', 'Full-Stack Delivery', 'Product Strategy', 'UI/UX Systems'],
       blurb:
         'End-to-end product engineering that connects strategy, UX, and full-stack delivery into one coherent path.',
@@ -184,7 +186,7 @@ export const homeServicesCarousel = {
     {
       slug: 'mobile-app-development',
       title: 'Mobile App Development',
-      image: '/assets/images/thumbs/portfolio-thumb3.jpg',
+      image: '/assets/images/thumbs/portfolio-thumb3.webp',
       tags: ['iOS & Android', 'API Integration', 'Offline-Ready UX', 'Store Release'],
       blurb:
         'Native-feel mobile products that stay reliable in the field — synced to the same backend your web team trusts.',
@@ -192,7 +194,7 @@ export const homeServicesCarousel = {
     {
       slug: 'ai-integration',
       title: 'AI Integration',
-      image: '/assets/images/thumbs/portfolio-thumb4.jpg',
+      image: '/assets/images/thumbs/portfolio-thumb4.webp',
       tags: ['Workflow Copilots', 'RAG Systems', 'Automation', 'Guardrails'],
       blurb:
         'Practical AI layered into real products — assistive workflows with controls, evaluation, and measurable value.',
@@ -208,7 +210,7 @@ export const homeServicesCarousel = {
     {
       slug: 'ui-ux-design',
       title: 'UI/UX Design',
-      image: '/assets/images/thumbs/portfolio-thumb1.jpg',
+      image: '/assets/images/thumbs/service-slide-uiux.webp',
       tags: ['User Research', 'Design Systems', 'Prototypes', 'Handoff Specs'],
       blurb:
         'Journeys and interfaces shaped before expensive build cycles — so engineering ships the right product.',
@@ -234,10 +236,9 @@ export const homeHuman = {
       image: '/assets/images/thumbs/team-thumb1.jpg',
       to: '/about',
       social: [
-        { label: 'Facebook', href: 'https://facebook.com' },
-        { label: 'LinkedIn', href: 'https://linkedin.com' },
-        { label: 'Instagram', href: 'https://instagram.com' },
-        { label: 'Dribbble', href: 'https://dribbble.com' },
+        { label: 'LinkedIn', href: SITE.social.linkedin },
+        { label: 'Facebook', href: SITE.social.facebook },
+        { label: 'Instagram', href: SITE.social.instagram },
       ],
     },
     {
@@ -246,22 +247,20 @@ export const homeHuman = {
       image: '/assets/images/thumbs/team-thumb2.jpg',
       to: '/about',
       social: [
-        { label: 'Facebook', href: 'https://facebook.com' },
-        { label: 'LinkedIn', href: 'https://linkedin.com' },
-        { label: 'Instagram', href: 'https://instagram.com' },
-        { label: 'Dribbble', href: 'https://dribbble.com' },
+        { label: 'LinkedIn', href: SITE.social.linkedin },
+        { label: 'Facebook', href: SITE.social.facebook },
+        { label: 'Instagram', href: SITE.social.instagram },
       ],
     },
     {
       title: 'Product Ownership',
       subtitle: 'Delivery principle',
-      image: '/assets/images/thumbs/team-thumb3.jpg',
+      image: '/assets/images/thumbs/team-thumb3.webp',
       to: '/about',
       social: [
-        { label: 'Facebook', href: 'https://facebook.com' },
-        { label: 'LinkedIn', href: 'https://linkedin.com' },
-        { label: 'Instagram', href: 'https://instagram.com' },
-        { label: 'Dribbble', href: 'https://dribbble.com' },
+        { label: 'LinkedIn', href: SITE.social.linkedin },
+        { label: 'Facebook', href: SITE.social.facebook },
+        { label: 'Instagram', href: SITE.social.instagram },
       ],
     },
   ],

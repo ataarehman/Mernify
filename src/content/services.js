@@ -203,12 +203,12 @@ export const servicesPage = {
       'Every engagement starts with the decision you need to make—ship, scale, stabilize, or explore—then maps the right capability mix.',
     media: {
       back: {
-        src: '/assets/images/thumbs/about-thumb-two.jpg',
-        alt: 'Abstract texture study in soft cream and beige tones',
+        src: '/assets/images/thumbs/services-intro-2.webp',
+        alt: 'Application source code on a developer’s screen',
       },
       front: {
-        src: '/assets/images/thumbs/about-thumb-one.jpg',
-        alt: 'Product designer reviewing a mobile experience',
+        src: '/assets/images/thumbs/services-intro-1.webp',
+        alt: 'Delivery team working through a product build together',
       },
     },
     tags: [
@@ -264,7 +264,7 @@ export const servicesPage = {
     support:
       'Predictable communication, senior-led decisions, and production discipline—so progress stays visible and shippable.',
     media: {
-      src: '/assets/images/services/delivery-mockup.jpg',
+      src: '/assets/images/services/delivery-mockup.webp',
       alt: 'Design and product workspace with interface mockups',
     },
     principles: [

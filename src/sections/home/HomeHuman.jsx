@@ -1,9 +1,8 @@
 import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowRight } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { homeHuman } from '@/content/home'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
 import { useFadeUp } from '@/hooks/useFadeUp'
@@ -46,7 +45,7 @@ export function HomeHuman() {
             <div className={styles.avatars}>
               {homeHuman.avatars.map((src) => (
                 <span key={src} className={styles.avatar}>
-                  <img src={src} alt="" />
+                  <img src={src} alt="" width={52} height={52} loading="lazy" decoding="async" />
                 </span>
               ))}
               <img
@@ -54,6 +53,10 @@ export function HomeHuman() {
                 src="/assets/images/shapes/team-gerden-shape.png"
                 alt=""
                 aria-hidden="true"
+                width={224}
+                height={77}
+                loading="lazy"
+                decoding="async"
               />
             </div>
             <div className={styles.badgeMeta}>
@@ -89,7 +92,7 @@ export function HomeHuman() {
             <article key={item.title} className={styles.card} data-fade-up>
               <div className={styles.thumb}>
                 <Link to={item.to} className={styles.thumbLink} aria-label={item.title}>
-                  <img src={item.image} alt="" />
+                  <img src={item.image} alt="" width={559} height={650} loading="lazy" decoding="async" />
                 </Link>
 
                 <span className={styles.subtitle}>{item.subtitle}</span>
@@ -121,19 +124,9 @@ export function HomeHuman() {
         </div>
 
         <div className={styles.ctaWrap} data-fade-up>
-          <Link to={homeHuman.cta.to} className={styles.cta}>
-            <span className={styles.ctaInner}>
-              <span className={styles.ctaIcon} aria-hidden="true">
-                <span className={styles.ctaIconTrack}>
-                  <ArrowRight size={18} strokeWidth={2.5} />
-                  <ArrowRight size={18} strokeWidth={2.5} />
-                </span>
-              </span>
-              <span className={styles.ctaText}>
-                <span>{homeHuman.cta.label}</span>
-              </span>
-            </span>
-          </Link>
+          <Button as={Link} to={homeHuman.cta.to} size="lg" block>
+            {homeHuman.cta.label}
+          </Button>
         </div>
       </Container>
     </section>

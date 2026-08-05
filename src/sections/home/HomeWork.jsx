@@ -1,7 +1,7 @@
 import { useLayoutEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { homePortfolio } from '@/content/home'
 import { useFadeUp } from '@/hooks/useFadeUp'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
@@ -93,10 +93,9 @@ export function HomeWork() {
             <h3 className={styles.status}>{homePortfolio.status}</h3>
             <p className={styles.support}>{homePortfolio.support}</p>
           </div>
-          <Link to={homePortfolio.cta.to} className={styles.midCta}>
+          <Button as={Link} to={homePortfolio.cta.to} size="md">
             {homePortfolio.cta.label}
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
+          </Button>
         </div>
 
         <div className={styles.masonry}>

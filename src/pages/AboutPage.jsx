@@ -16,13 +16,13 @@ export function AboutPage() {
       <PageMeta title="About" description={aboutContent.lead} canonicalPath="/about" />
 
       <AboutHero />
-      <MediaStrip src="/assets/images/thumbs/thumbnail-bg.jpg" height="tall" />
+      <MediaStrip src="/assets/images/thumbs/thumbnail-bg.webp" height="tall" />
       <AboutWho />
       <AboutMission />
       <AboutProcess />
       <AboutWhy />
       <AboutTeam />
-      <MediaStrip src="/assets/images/thumbs/thumbnail-ab-bg.jpg" />
+      <MediaStrip src="/assets/images/thumbs/thumbnail-ab-bg.webp" />
       <TechBrandGrid animated />
       <PageCta
         title={aboutContent.cta.title}

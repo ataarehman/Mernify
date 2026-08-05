@@ -130,7 +130,7 @@ export function CaseStudiesFeatured({ study }) {
             </ul>
 
             <div className={styles.actions}>
-              <Button as={Link} to={`/case-studies/${study.slug}`} variant="primary" size="md" arrow>
+              <Button as={Link} to={`/case-studies/${study.slug}`} variant="primary" size="md">
                 View full case study
               </Button>
               {study.liveUrl ? (

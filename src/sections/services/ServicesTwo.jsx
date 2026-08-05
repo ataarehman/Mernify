@@ -57,9 +57,11 @@ export function ServicesTwo() {
 
       <img
         className={styles.bg}
-        src="/assets/images/shapes/service-two-bg.png"
+        src="/assets/images/shapes/service-two-bg.webp"
         alt=""
         aria-hidden="true"
+        width={1920}
+        height={1003}
         loading="lazy"
         decoding="async"
       />
@@ -105,8 +107,8 @@ export function ServicesTwo() {
                 const isActive = activeIndex === index
                 const thumbSrc =
                   index % 2 === 0
-                    ? '/assets/images/thumbs/service-two-thumb1.jpg'
-                    : '/assets/images/thumbs/service-two-thumb2.jpg'
+                    ? '/assets/images/thumbs/service-two-thumb1.webp'
+                    : '/assets/images/thumbs/service-two-thumb2.webp'
 
                 return (
                   <article
@@ -115,7 +117,12 @@ export function ServicesTwo() {
                     aria-hidden={!isActive}
                   >
                     <div className={styles.panelInner}>
-                      <Link to={`/services/${item.slug}`} className={styles.panelMedia}>
+                      <Link
+                        to={`/services/${item.slug}`}
+                        className={styles.panelMedia}
+                        aria-label={`${item.title} — view service`}
+                        tabIndex={isActive ? undefined : -1}
+                      >
                         <img
                           src={getServiceImage(item.slug) || thumbSrc}
                           alt=""

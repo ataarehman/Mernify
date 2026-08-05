@@ -15,9 +15,12 @@ export function NotFoundPage() {
         <Container className={styles.inner}>
           <img
             className={styles.watermark}
-            src="/assets/images/shapes/error-404.png"
+            src="/assets/images/shapes/error-404.webp"
             alt=""
             aria-hidden="true"
+            width={1920}
+            height={1087}
+            decoding="async"
           />
           <p className={styles.code}>404</p>
           <h1 className={styles.title}>Page not found</h1>

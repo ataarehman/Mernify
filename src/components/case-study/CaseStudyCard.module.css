@@ -284,6 +284,14 @@
   text-decoration: none;
 }
 
+/* Comfortable tap area on touch devices without padding out the desktop card. */
+@media (pointer: coarse) {
+  .cta,
+  .live {
+    min-height: 2.75rem;
+  }
+}
+
 .cta {
   color: var(--study-accent);
 }

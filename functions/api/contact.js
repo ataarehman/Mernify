@@ -1,6 +1,6 @@
 export async function onRequestPost({ request, env }) {
   const upstream = (env.EMAIL_SERVICE_URL || 'https://mernify.co/api/contact')
-    .replace(/^﻿/, '').trim()
+    .replace(/^\uFEFF/, '').trim()
 
   const body = await request.text()
   const res = await fetch(upstream, {

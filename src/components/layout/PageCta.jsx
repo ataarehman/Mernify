@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight } from 'lucide-react'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
 import styles from './PageCta.module.css'
@@ -45,9 +44,10 @@ export function PageCta({
   cta = null,
   accentWords = ['product'],
   eyebrow = 'Next step',
-  mediaSrc = '/assets/images/thumbs/cta-premium-media.jpg',
+  mediaSrc = '/assets/images/thumbs/cta-premium-media.webp',
   mediaAlt = 'Product team collaborating on a digital product engagement',
   animated = false,
+  actions = null,
   scrub = {},
 }) {
   const rootRef = useRef(null)
@@ -79,9 +79,11 @@ export function PageCta({
     >
       <div className={styles.bg} aria-hidden="true">
         <img
-          src="/assets/images/thumbs/cta-premium-bg.jpg"
+          src="/assets/images/thumbs/cta-premium-bg.webp"
           alt=""
           className={styles.bgImage}
+          width={1920}
+          height={1281}
           loading="lazy"
           decoding="async"
         />
@@ -123,14 +125,23 @@ export function PageCta({
             </p>
           ) : null}
           {cta ? (
-            <Link
+            <Button
+              as={Link}
               to={cta.to}
-              className={styles.button}
+              variant="ghost"
+              size="lg"
               {...(animated ? { 'data-fade-up': '', 'data-delay': '180' } : {})}
             >
               {cta.label}
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </Link>
+            </Button>
+          ) : null}
+          {actions ? (
+            <div
+              className={styles.actions}
+              {...(animated ? { 'data-fade-up': '', 'data-delay': '220' } : {})}
+            >
+              {actions}
+            </div>
           ) : null}
         </div>
 

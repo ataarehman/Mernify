@@ -55,37 +55,6 @@
   gap: 0.65rem;
 }
 
-.primary,
-.secondary {
-  appearance: none;
-  border: 0;
-  cursor: pointer;
-  border-radius: 999px;
-  padding: 0.65rem 1.15rem;
-  font: inherit;
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.primary {
-  background: #06b6d4;
-  color: #0f172a;
-}
-
-.primary:hover {
-  background: #22d3ee;
-}
-
-.secondary {
-  background: transparent;
-  color: #f8fafc;
-  border: 1px solid rgba(248, 250, 252, 0.28);
-}
-
-.secondary:hover {
-  border-color: rgba(248, 250, 252, 0.55);
-}
-
 @media (max-width: 640px) {
   .inner {
     padding: 1rem;
@@ -95,9 +64,7 @@
     width: 100%;
   }
 
-  .primary,
-  .secondary {
+  .actions > * {
     flex: 1 1 auto;
-    text-align: center;
   }
 }

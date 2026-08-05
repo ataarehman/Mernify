@@ -1,5 +1,5 @@
 import { CaseStudyCard } from '@/components/case-study/CaseStudyCard'
-import { Container, Eyebrow } from '@/components/ui'
+import { Button, Container, Eyebrow } from '@/components/ui'
 import { CaseStudiesSidebar } from '@/sections/case-studies/CaseStudiesSidebar'
 import styles from './CaseStudiesBrowse.module.css'
 
@@ -46,9 +46,9 @@ export function CaseStudiesBrowse({
             <div className={styles.empty} role="status" data-fade-up>
               <h3>No projects match these filters</h3>
               <p>Try another combination, or reset to view the full portfolio.</p>
-              <button type="button" className={styles.emptyCta} onClick={onReset}>
+              <Button type="button" size="md" onClick={onReset}>
                 Show all projects
-              </button>
+              </Button>
             </div>
           ) : items.length ? (
             <ul className={styles.grid} role="list">

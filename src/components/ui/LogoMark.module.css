@@ -1,6 +1,8 @@
 .logo {
   display: inline-flex;
   align-items: center;
+  /* The wordmark is only 36px tall on mobile; this keeps the tap target at 44. */
+  min-height: 2.75rem;
   line-height: 0;
   text-decoration: none;
 }

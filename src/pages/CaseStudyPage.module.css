@@ -440,6 +440,16 @@
     background 220ms var(--cs-ease);
 }
 
+@media (pointer: coarse) {
+  .tocLink,
+  .deviceBtn,
+  .pipTrigger {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.75rem;
+  }
+}
+
 .tocLink:hover {
   color: var(--cs-text);
   background: rgba(15, 23, 42, 0.04);
@@ -1364,31 +1374,6 @@
   color: #fff !important;
 }
 
-.liveSiteBtn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.55rem 1.15rem;
-  border: 1px solid var(--cs-accent);
-  border-radius: var(--mf-radius-pill, 999px);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--cs-accent);
-  text-decoration: none;
-  white-space: nowrap;
-  transition:
-    background 240ms var(--cs-ease),
-    color 240ms var(--cs-ease),
-    transform 240ms var(--cs-ease);
-  flex-shrink: 0;
-  margin-top: 0.35rem;
-}
-
-.liveSiteBtn:hover {
-  background: var(--cs-accent);
-  color: #fff;
-  transform: translateY(-1px);
-}
 
 .devicePicker {
   display: flex;
@@ -2255,23 +2240,3 @@
   color: var(--cs-accent);
 }
 
-.allBtn {
-  display: inline-block;
-  padding: 0.55rem 1.25rem;
-  border: 1px solid var(--cs-divider);
-  border-radius: var(--mf-radius-pill, 999px);
-  font-size: 0.8125rem;
-  font-weight: 600;
-  color: var(--cs-text);
-  text-decoration: none;
-  transition:
-    border-color 240ms var(--cs-ease),
-    background 240ms var(--cs-ease),
-    color 240ms var(--cs-ease);
-}
-
-.allBtn:hover {
-  border-color: var(--cs-accent);
-  color: var(--cs-accent);
-  background: var(--cs-accent-dim);
-}

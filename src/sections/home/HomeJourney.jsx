@@ -1,34 +1,17 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  ArrowUpRight,
-  ClipboardList,
-  Code2,
-  Compass,
-  FlaskConical,
-  PenTool,
-  Rocket,
-} from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { homeJourney } from '@/content/home'
 import { processSteps } from '@/content/process'
+import { getProcessIcon } from '@/lib/processIcons'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
 import { useInView } from '@/hooks/useInView'
 import { splitScrubChars, useScrubTitle } from '@/hooks/useScrubTitle'
 import styles from './HomeJourney.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const STEP_ICONS = {
-  discover: Compass,
-  plan: ClipboardList,
-  design: PenTool,
-  develop: Code2,
-  test: FlaskConical,
-  launch: Rocket,
-}
 
 const homeProcessSteps = processSteps.filter((step) => step.id !== 'improve')
 
@@ -326,7 +309,7 @@ export function HomeJourney() {
 
             <ol className={styles.processRail} role="list">
               {homeProcessSteps.map((step, index) => {
-                const Icon = STEP_ICONS[step.id] || Compass
+                const Icon = getProcessIcon(step.id)
                 const isActive = index <= activeStep
                 const isCurrent = index === activeStep
                 return (
@@ -375,10 +358,9 @@ export function HomeJourney() {
           </div>
 
           <div className={styles.processCta} data-fade-up>
-            <Link to="/process" className={styles.processLink}>
+            <Button as={Link} to="/process" size="lg">
               See full delivery process
-              <ArrowUpRight size={18} aria-hidden="true" />
-            </Link>
+            </Button>
           </div>
         </Container>
       </div>

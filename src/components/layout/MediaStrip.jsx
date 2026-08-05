@@ -14,7 +14,7 @@ function isLightMotion() {
 }
 
 export function MediaStrip({
-  src = '/assets/images/thumbs/thumbnail-bg.jpg',
+  src = '/assets/images/thumbs/thumbnail-bg.webp',
   height = 'default',
   className = '',
   /** ScrollSmoother-like data-speed; 0.1 ≈ subtle (index-2 thumbnail band). */

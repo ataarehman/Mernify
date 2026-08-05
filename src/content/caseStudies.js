@@ -62,15 +62,15 @@ export const caseStudies = [
       '"A work of art — fits, looks incredible."',
       '"Get perfectly fitted clothes in minutes, not hours." (AI measurement flow)',
     ],
-    featuredImage: '/portfolio/tailorize/home-desktop.png',
+    featuredImage: '/portfolio/tailorize/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/tailorize/home-desktop.png',
+        src: '/portfolio/tailorize/home-desktop.webp',
         alt: 'Tailorize homepage desktop view',
         caption: 'Homepage — bespoke tailoring entry',
       },
       {
-        src: '/portfolio/tailorize/home-mobile.png',
+        src: '/portfolio/tailorize/home-mobile.webp',
         alt: 'Tailorize homepage mobile view',
         caption: 'Mobile experience',
       },
@@ -277,15 +277,15 @@ export const caseStudies = [
       '"Trusted by 10,000+ businesses."',
       '"No credit card required. 14-day free trial."',
     ],
-    featuredImage: '/portfolio/servloom/home-desktop.png',
+    featuredImage: '/portfolio/servloom/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/servloom/home-desktop.png',
+        src: '/portfolio/servloom/home-desktop.webp',
         alt: 'Servloom field service platform homepage — hero with technicians',
         caption: 'Homepage — "The Field Service Platform Built to Grow Your Business"',
       },
       {
-        src: '/portfolio/servloom/home-mobile.png',
+        src: '/portfolio/servloom/home-mobile.webp',
         alt: 'Servloom homepage mobile view',
         caption: 'Mobile experience',
       },
@@ -527,15 +527,15 @@ export const caseStudies = [
       '"Corporate Gifting — custom gifts for every occasion."',
       '"Shop online, pick up in boutique."',
     ],
-    featuredImage: '/portfolio/godiva/home-desktop.png',
+    featuredImage: '/portfolio/godiva/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/godiva/home-desktop.png',
+        src: '/portfolio/godiva/home-desktop.webp',
         alt: 'GODIVA premium Belgian chocolatier website — luxury e-commerce experience',
         caption: 'godiva.com — premium chocolate e-commerce with seasonal gifting and loyalty',
       },
       {
-        src: '/portfolio/godiva/home-mobile.png',
+        src: '/portfolio/godiva/home-mobile.webp',
         alt: 'GODIVA website on mobile',
         caption: 'Mobile — luxury commerce experience',
       },
@@ -739,25 +739,25 @@ export const caseStudies = [
       'Connect and blend data from 500+ sources (stated on the analytics page).',
       'Flexible deployment messaging includes cloud and on-premise options (stated on the analytics page).',
     ],
-    featuredImage: '/portfolio/goodbooks-plus/analytics-desktop.png',
+    featuredImage: '/portfolio/goodbooks-plus/analytics-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/goodbooks-plus/analytics-desktop.png',
+        src: '/portfolio/goodbooks-plus/analytics-desktop.webp',
         alt: 'GoodBooks Plus Analytics desktop hero with Intelligent BI messaging',
         caption: 'Desktop — analytics product hero',
       },
       {
-        src: '/portfolio/goodbooks-plus/analytics-mobile.png',
+        src: '/portfolio/goodbooks-plus/analytics-mobile.webp',
         alt: 'GoodBooks Plus Analytics mobile layout',
         caption: 'Mobile — analytics hero',
       },
       {
-        src: '/portfolio/goodbooks-plus/home-desktop.png',
+        src: '/portfolio/goodbooks-plus/home-desktop.webp',
         alt: 'GoodBooks Plus marketing homepage on desktop',
         caption: 'Desktop — parent marketing site',
       },
       {
-        src: '/portfolio/goodbooks-plus/home-mobile.png',
+        src: '/portfolio/goodbooks-plus/home-mobile.webp',
         alt: 'GoodBooks Plus marketing homepage on mobile',
         caption: 'Mobile — parent marketing site',
       },
@@ -961,35 +961,35 @@ export const caseStudies = [
       'Homepage presents marketed figures such as up to 25% revenue increase and up to 99% success rate as company claims—not independently verified here.',
       'Homepage references support for a large number of medical practices as company messaging.',
     ],
-    featuredImage: '/portfolio/medbill-ultra/home-desktop.png',
+    featuredImage: '/portfolio/medbill-ultra/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/medbill-ultra/home-desktop.png',
+        src: '/portfolio/medbill-ultra/home-desktop.webp',
         alt: 'MedBill Ultra homepage hero with inquiry form',
         caption: 'Desktop — homepage conversion hero',
       },
       {
-        src: '/portfolio/medbill-ultra/home-mobile.png',
+        src: '/portfolio/medbill-ultra/home-mobile.webp',
         alt: 'MedBill Ultra homepage on mobile',
         caption: 'Mobile — homepage',
       },
       {
-        src: '/portfolio/medbill-ultra/features-desktop.png',
+        src: '/portfolio/medbill-ultra/features-desktop.webp',
         alt: 'MedBill Ultra features overview',
         caption: 'Desktop — features',
       },
       {
-        src: '/portfolio/medbill-ultra/about-desktop.png',
+        src: '/portfolio/medbill-ultra/about-desktop.webp',
         alt: 'MedBill Ultra about page',
         caption: 'Desktop — about',
       },
       {
-        src: '/portfolio/medbill-ultra/contact-desktop.png',
+        src: '/portfolio/medbill-ultra/contact-desktop.webp',
         alt: 'MedBill Ultra contact page',
         caption: 'Desktop — contact',
       },
       {
-        src: '/portfolio/medbill-ultra/pricing-desktop.png',
+        src: '/portfolio/medbill-ultra/pricing-desktop.webp',
         alt: 'MedBill Ultra pricing page',
         caption: 'Desktop — pricing',
       },
@@ -1193,25 +1193,25 @@ export const caseStudies = [
       'Homepage states 40+ years of relationships and 2,500+ Perth CBD businesses as company messaging.',
       'Positions licensed electricians and registered electrical engineers as core credentials.',
     ],
-    featuredImage: '/portfolio/metro-electric/home-desktop.png',
+    featuredImage: '/portfolio/metro-electric/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/metro-electric/home-desktop.png',
+        src: '/portfolio/metro-electric/home-desktop.webp',
         alt: 'Metro Electric homepage hero with crew photography',
         caption: 'Desktop — homepage',
       },
       {
-        src: '/portfolio/metro-electric/home-mobile.png',
+        src: '/portfolio/metro-electric/home-mobile.webp',
         alt: 'Metro Electric homepage on mobile',
         caption: 'Mobile — homepage',
       },
       {
-        src: '/portfolio/metro-electric/about-desktop.png',
+        src: '/portfolio/metro-electric/about-desktop.webp',
         alt: 'Metro Electric about page',
         caption: 'Desktop — about',
       },
       {
-        src: '/portfolio/metro-electric/contact-desktop.png',
+        src: '/portfolio/metro-electric/contact-desktop.webp',
         alt: 'Metro Electric contact page',
         caption: 'Desktop — contact',
       },
@@ -1414,15 +1414,15 @@ export const caseStudies = [
       'Homepage states 40–45dB noise reduction and NoiseShield sound masking.',
       'Promotes US assembly, quick lead times, UL 962 listing, and a 10-year structural warranty as brand promises.',
     ],
-    featuredImage: '/portfolio/spaceworx/home-desktop.png',
+    featuredImage: '/portfolio/spaceworx/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/spaceworx/home-desktop.png',
+        src: '/portfolio/spaceworx/home-desktop.webp',
         alt: 'SpaceWorx homepage with privacy pods in an open office',
         caption: 'Desktop — homepage hero',
       },
       {
-        src: '/portfolio/spaceworx/home-mobile.png',
+        src: '/portfolio/spaceworx/home-mobile.webp',
         alt: 'SpaceWorx homepage on mobile',
         caption: 'Mobile — homepage',
       },
@@ -1632,25 +1632,25 @@ export const caseStudies = [
       '"Subscribe and get 20% discount."',
       '"Members get free shipping with no order minimum."',
     ],
-    featuredImage: '/portfolio/mrzzm/home-desktop.png',
+    featuredImage: '/portfolio/mrzzm/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/mrzzm/home-desktop.png',
+        src: '/portfolio/mrzzm/home-desktop.webp',
         alt: 'MRZZM multi-category marketplace homepage on desktop',
         caption: 'Homepage — hero banner + trust strip',
       },
       {
-        src: '/portfolio/mrzzm/home-hero.png',
+        src: '/portfolio/mrzzm/home-hero.webp',
         alt: 'MRZZM marketplace hero showcase',
         caption: 'Desktop — hero presentation',
       },
       {
-        src: '/portfolio/mrzzm/home-products.png',
+        src: '/portfolio/mrzzm/home-products.webp',
         alt: 'MRZZM product category browsing',
         caption: 'Desktop — product discovery',
       },
       {
-        src: '/portfolio/mrzzm/home-mobile.png',
+        src: '/portfolio/mrzzm/home-mobile.webp',
         alt: 'MRZZM marketplace homepage on mobile',
         caption: 'Mobile storefront',
       },
@@ -1856,20 +1856,20 @@ export const caseStudies = [
       '"Film programming and events in all Belgian Kinepolis cinemas."',
       '"Kinepolis has adapted its Privacy Policy — more clearly explaining which personal data we process."',
     ],
-    featuredImage: '/portfolio/kinepolis/home-desktop.png',
+    featuredImage: '/portfolio/kinepolis/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/kinepolis/home-desktop.png',
+        src: '/portfolio/kinepolis/home-desktop.webp',
         alt: 'Kinepolis six-country site selector with regional language entry points',
         caption: 'Site selector — one platform, multiple European markets',
       },
       {
-        src: '/portfolio/kinepolis/cinema-desktop.png',
+        src: '/portfolio/kinepolis/cinema-desktop.webp',
         alt: 'Kinepolis premium multiplex atmosphere',
         caption: 'Brand atmosphere — cinema-first experience',
       },
       {
-        src: '/portfolio/kinepolis/home-mobile.png',
+        src: '/portfolio/kinepolis/home-mobile.webp',
         alt: 'Kinepolis site selector on mobile',
         caption: 'Mobile — regional entry',
       },
@@ -2080,15 +2080,15 @@ export const caseStudies = [
       '"Cutting-edge tech meets next-gen performance." (Marmot Technology)',
       '"Protecting our wild, wonderful, and awe-inducing Earth." (Sustainability)',
     ],
-    featuredImage: '/portfolio/marmot/home-desktop.png',
+    featuredImage: '/portfolio/marmot/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/marmot/home-desktop.png',
+        src: '/portfolio/marmot/home-desktop.webp',
         alt: 'Marmot outdoor clothing e-commerce homepage on desktop',
         caption: 'Homepage — premium outdoor DTC storefront',
       },
       {
-        src: '/portfolio/marmot/home-mobile.png',
+        src: '/portfolio/marmot/home-mobile.webp',
         alt: 'Marmot homepage on mobile',
         caption: 'Mobile shopping experience',
       },
@@ -2296,15 +2296,15 @@ export const caseStudies = [
       '"The full programme for the cinema week is available for booking starting Monday evening."',
       '"Book easily with our free app."',
     ],
-    featuredImage: '/portfolio/pathe/home-desktop.png',
+    featuredImage: '/portfolio/pathe/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/pathe/home-desktop.png',
+        src: '/portfolio/pathe/home-desktop.webp',
         alt: 'Pathé Belgium cinema atmosphere — premium theatre interior',
         caption: 'Brand atmosphere — Pathé Belgium cinema network',
       },
       {
-        src: '/portfolio/pathe/home-mobile.png',
+        src: '/portfolio/pathe/home-mobile.webp',
         alt: 'Pathé Belgium cinematic brand visual',
         caption: 'Visual — cinema experience',
       },
@@ -2521,10 +2521,10 @@ export const caseStudies = [
       'Accepted payments: Mastercard, Visa, PayPal, Klarna, Google Pay, Apple Pay.',
       'Turkey flag prominent alongside UAE, Saudi Arabia, Germany, Azerbaijan, Romania, Ukraine, Greece, Qatar flags in the country selector.',
     ],
-    featuredImage: '/portfolio/trendyol/home-desktop.png',
+    featuredImage: '/portfolio/trendyol/home-desktop.webp',
     gallery: [
       {
-        src: '/portfolio/trendyol/home-desktop.png',
+        src: '/portfolio/trendyol/home-desktop.webp',
         alt: 'Trendyol international country selector showing 15+ country storefronts',
         caption: 'Country selector — 15+ international markets',
       },

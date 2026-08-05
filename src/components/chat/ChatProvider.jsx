@@ -1,18 +1,9 @@
-import { createContext, useCallback, useContext, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { sendChatMessage, submitChatLead, finalizeChatSession } from '@/lib/chat/chatApi'
 import { chatAnalytics } from '@/lib/chat/chatAnalytics'
 import { whenPageEntranceReady } from '@/components/motion/pageEntrance'
-
-// ─── Context ──────────────────────────────────────────────────────────────────
-
-const ChatContext = createContext(null)
-
-export function useChat() {
-  const ctx = useContext(ChatContext)
-  if (!ctx) throw new Error('useChat must be used inside ChatProvider')
-  return ctx
-}
+import { ChatContext } from './useChat'
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 

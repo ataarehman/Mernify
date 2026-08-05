@@ -276,60 +276,6 @@
   padding-top: 0.15rem;
 }
 
-.primaryBtn,
-.secondaryBtn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-  min-height: 2.7rem;
-  padding: 0.65rem 1.15rem;
-  border-radius: 999px;
-  border: 0;
-  font: inherit;
-  font-size: 0.9rem;
-  font-weight: 700;
-  cursor: pointer;
-  transition:
-    transform 0.3s ease,
-    background 0.3s ease,
-    color 0.3s ease,
-    box-shadow 0.3s ease,
-    gap 0.3s ease,
-    border-color 0.3s ease;
-}
-
-.primaryBtn {
-  background: linear-gradient(110deg, var(--mf-color-indigo), #6366f1 48%, var(--mf-color-cyan));
-  background-size: 170% 100%;
-  color: #ffffff;
-  box-shadow: 0 10px 22px rgba(79, 70, 229, 0.26);
-}
-
-.primaryBtn:hover:not(:disabled) {
-  background-position: 100% 0;
-  transform: translateY(-2px);
-  gap: 0.6rem;
-  box-shadow: 0 14px 26px rgba(21, 198, 226, 0.28);
-}
-
-.primaryBtn:disabled {
-  opacity: 0.7;
-  cursor: wait;
-}
-
-.secondaryBtn {
-  background: rgba(255, 255, 255, 0.55);
-  color: var(--mf-text-primary);
-  border: 1px solid rgba(15, 23, 42, 0.1);
-  backdrop-filter: blur(8px);
-}
-
-.secondaryBtn:hover {
-  border-color: rgba(79, 70, 229, 0.35);
-  color: var(--mf-color-indigo);
-  transform: translateY(-1px);
-}
 
 .status {
   min-height: 1.15rem;
@@ -383,8 +329,6 @@
     animation: none;
   }
 
-  .primaryBtn:hover:not(:disabled),
-  .secondaryBtn:hover,
   .controlWrap .control:focus-visible,
   .textarea:focus-visible {
     transform: none;

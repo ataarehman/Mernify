@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
-  ArrowUpRight,
   ChevronRight,
   Cuboid,
   LayoutDashboard,
@@ -10,6 +9,7 @@ import {
   Sparkles,
   PenTool,
 } from 'lucide-react'
+import { Button } from '@/components/ui'
 import { getServiceBySlug } from '@/content/services'
 import { megaServiceSlugs } from '@/content/navigation'
 import styles from './ServicesMegaMenu.module.css'
@@ -94,7 +94,9 @@ export function ServicesMegaMenu({ open, onClose }) {
               </span>
               <span className={styles.eyebrow}>Capabilities</span>
             </div>
-            <h3 className={styles.title}>{active.title}</h3>
+            {/* Not a heading: the menu is chrome, and a real <h3> here lands in
+                the document outline ahead of the page's own <h1>. */}
+            <p className={styles.title}>{active.title}</p>
             <p className={styles.desc}>{active.description}</p>
             <ul className={styles.caps} role="list">
               {active.capabilities.map((cap, index) => (
@@ -103,10 +105,9 @@ export function ServicesMegaMenu({ open, onClose }) {
                 </li>
               ))}
             </ul>
-            <NavLink to={`/services/${active.slug}`} className={styles.cta} onClick={onClose}>
-              <span>Explore service</span>
-              <ArrowUpRight size={16} aria-hidden="true" />
-            </NavLink>
+            <Button as={Link} to={`/services/${active.slug}`} size="sm" onClick={onClose}>
+              Explore service
+            </Button>
           </div>
         </div>
       </div>

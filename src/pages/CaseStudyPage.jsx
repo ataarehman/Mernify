@@ -544,14 +544,16 @@ export function CaseStudyPage() {
                 <p className={styles.sectionSub}>Device frames, a breakpoint pass/fail table, and the annotated findings from testing.</p>
               </div>
               {study.liveUrl && (
-                <a
+                <Button
+                  as="a"
                   href={study.liveUrl}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className={styles.liveSiteBtn}
+                  variant="secondary"
+                  size="sm"
                 >
-                  <Monitor size={13} /> Open live site <ExternalLink size={11} />
-                </a>
+                  Open live site
+                </Button>
               )}
             </div>
 
@@ -577,9 +579,16 @@ export function CaseStudyPage() {
               ) : iframeErr ? (
                 <div className={styles.iframeFallback}>
                   <p>This site couldn&apos;t load in-page. Open it live, or ensure the /site-preview proxy is deployed.</p>
-                  <a href={study.liveUrl} target="_blank" rel="noreferrer noopener" className={styles.liveSiteBtn}>
-                    <Monitor size={13} /> Open live site <ExternalLink size={11} />
-                  </a>
+                  <Button
+                    as="a"
+                    href={study.liveUrl}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    variant="secondary"
+                    size="sm"
+                  >
+                    Open live site
+                  </Button>
                 </div>
               ) : previewDevice === 'mobile' ? (
                 <div className={styles.phoneFrame}>
@@ -782,7 +791,9 @@ export function CaseStudyPage() {
               <span className={styles.prevNextTitle}>{prev.title}</span>
             </Link>
           )}
-          <Link to="/case-studies" className={styles.allBtn}>All projects</Link>
+          <Button as={Link} to="/case-studies" variant="secondary" size="sm">
+            All projects
+          </Button>
           {next && (
             <Link to={`/case-studies/${next.slug}`} className={`${styles.prevNextLink}`} style={{ textAlign: 'right' }}>
               <span className={styles.prevNextHint}>Next →</span>

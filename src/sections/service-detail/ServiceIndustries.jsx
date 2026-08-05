@@ -1,39 +1,16 @@
 import { useLayoutEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import {
-  ArrowUpRight,
-  Building2,
-  Factory,
-  GraduationCap,
-  HeartPulse,
-  Landmark,
-  Plane,
-  ShoppingBag,
-  Truck,
-  Wrench,
-} from 'lucide-react'
+import { ArrowUpRight, Truck } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container } from '@/components/ui'
 import { industries } from '@/content/industries'
+import { getIndustryVisual } from '@/lib/industryVisuals'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
 import styles from './ServiceIndustries.module.css'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const INDUSTRY_VISUALS = {
-  healthcare: { Icon: HeartPulse, accent: '#22d3ee', label: 'Care systems', motif: 'pulse' },
-  'financial-services': { Icon: Landmark, accent: '#818cf8', label: 'Money flows', motif: 'ledger' },
-  logistics: { Icon: Truck, accent: '#34d399', label: 'Movement', motif: 'route' },
-  retail: { Icon: ShoppingBag, accent: '#f472b6', label: 'Commerce', motif: 'stack' },
-  education: { Icon: GraduationCap, accent: '#a78bfa', label: 'Learning', motif: 'beam' },
-  'field-service': { Icon: Wrench, accent: '#38bdf8', label: 'Field ops', motif: 'grid' },
-  construction: { Icon: Building2, accent: '#fbbf24', label: 'Build', motif: 'grid' },
-  'real-estate': { Icon: Building2, accent: '#fb7185', label: 'Property', motif: 'stack' },
-  manufacturing: { Icon: Factory, accent: '#2dd4bf', label: 'Production', motif: 'route' },
-  travel: { Icon: Plane, accent: '#67e8f9', label: 'Journeys', motif: 'beam' },
-}
 
 function isLightMotion() {
   return (
@@ -53,8 +30,7 @@ export function ServiceIndustries({ content }) {
     .map((slug) => {
       const base = industries.find((item) => item.slug === slug)
       if (!base) return null
-      const visual = INDUSTRY_VISUALS[slug] || INDUSTRY_VISUALS.logistics
-      return { ...base, ...visual }
+      return { ...base, ...getIndustryVisual(slug) }
     })
     .filter(Boolean)
 

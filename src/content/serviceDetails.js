@@ -136,12 +136,12 @@ export const serviceDetails = {
       'From validated scope to maintainable release—one team connecting strategy, UX, and full-stack delivery.',
     overviewBadge: 'Product systems',
     overviewMedia: {
-      src: '/assets/images/services/pe-overview.png',
+      src: '/assets/images/services/pe-overview.webp',
       alt: 'Product architecture, cloud systems, and interface design reviewed in a modern engineering workspace',
     },
-    strip: '/assets/images/services/pe-strip.png',
+    strip: '/assets/images/services/pe-strip.webp',
     ctaMedia: {
-      src: '/assets/images/services/pe-hero.png',
+      src: '/assets/images/services/pe-cta.webp',
       alt: 'Engineering partners collaborating on architecture diagrams and product dashboards',
     },
     ctaTitle:
@@ -385,7 +385,7 @@ export const serviceDetails = {
         },
       ],
       media: {
-        src: '/assets/images/services/pe-delivery.png',
+        src: '/assets/images/services/pe-delivery.webp',
         alt: 'Product engineering workspace with interface systems and delivery notes',
       },
     },
@@ -417,7 +417,7 @@ export const serviceDetails = {
         },
       ],
       media: {
-        src: '/assets/images/services/why-product-engineering.png',
+        src: '/assets/images/services/why-product-engineering.webp',
         alt: 'Product engineer and designer collaborating on scalable architecture and refined product interfaces',
       },
     },
@@ -510,12 +510,12 @@ export const serviceDetails = {
       'Multi-tenant SaaS products with secure tenancy, subscription-ready foundations, and admin systems your team can operate and grow.',
     overviewBadge: 'SaaS platforms',
     overviewMedia: {
-      src: '/assets/images/services/saas-overview.png',
+      src: '/assets/images/services/saas-overview.webp',
       alt: 'SaaS analytics dashboard and product workspace used to guide platform decisions',
     },
-    strip: '/assets/images/services/saas-strip.png',
+    strip: '/assets/images/services/saas-strip.webp',
     ctaMedia: {
-      src: '/assets/images/services/saas-hero.png',
+      src: '/assets/images/services/saas-cta.webp',
       alt: 'Product team reviewing a multi-tenant SaaS platform before release',
     },
     capabilityDetails: [
@@ -662,7 +662,7 @@ export const serviceDetails = {
         },
       ],
       media: {
-        src: '/assets/images/services/saas-delivery.png',
+        src: '/assets/images/services/saas-delivery.webp',
         alt: 'SaaS product workspace with admin portal designs and delivery planning',
       },
     },
@@ -908,7 +908,7 @@ export const serviceDetails = {
         },
       ],
       media: {
-        src: '/assets/images/services/saas-hero.png',
+        src: '/assets/images/services/saas-why.webp',
         alt: 'SaaS engineering team collaborating on cloud platform delivery',
       },
     },
@@ -1084,12 +1084,12 @@ export function getServiceDetail(slug) {
     designFlow: detail.designFlow || null,
     overviewBadge: detail.overviewBadge || 'Product systems',
     overviewMedia: detail.overviewMedia || {
-      src: '/assets/images/services/pe-overview.png',
+      src: '/assets/images/services/pe-overview.webp',
       alt: 'Product engineering collaboration and system design',
     },
-    strip: detail.strip || '/assets/images/services/pe-strip.png',
+    strip: detail.strip || '/assets/images/services/pe-strip.webp',
     ctaMedia: detail.ctaMedia || {
-      src: '/assets/images/services/pe-hero.png',
+      src: '/assets/images/services/pe-cta.webp',
       alt: 'Product engineering partners reviewing delivery systems',
     },
     ctaTitle: detail.ctaTitle || null,

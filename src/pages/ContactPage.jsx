@@ -161,6 +161,8 @@ export function ContactPage() {
                       src={contactContent.media.src}
                       alt={contactContent.media.alt}
                       className={styles.clip}
+                      width={1024}
+                      height={1536}
                     />
                     <span className={styles.mediaSheen} aria-hidden="true" />
                   </div>

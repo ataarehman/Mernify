@@ -1,7 +1,6 @@
 import { useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight } from 'lucide-react'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { BookCallCta } from '@/components/cta/BookCallCta'
 import { aboutContent } from '@/content/pages'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
@@ -45,13 +44,12 @@ export function AboutHero() {
         </p>
 
         <div className={styles.actions} data-fade-up data-delay="100">
-          <Link to={hero.primaryCta.to} className={styles.primary}>
+          <Button as={Link} to={hero.primaryCta.to} size="md">
             {hero.primaryCta.label}
-            <ArrowUpRight size={18} aria-hidden="true" />
-          </Link>
-          <Link to={hero.secondaryCta.to} className={styles.secondary}>
+          </Button>
+          <Button as={Link} to={hero.secondaryCta.to} variant="secondary" size="md">
             {hero.secondaryCta.label}
-          </Link>
+          </Button>
           <BookCallCta variant="secondary" size="md" />
         </div>
       </Container>

@@ -11,7 +11,7 @@ export const homePartners = {
       short: 'GBP',
       category: 'Analytics',
       logo: '/portfolio/logos/goodbooks-plus.svg',
-      image: '/portfolio/goodbooks-plus/analytics-desktop.png',
+      image: '/portfolio/goodbooks-plus/analytics-desktop.webp',
       to: '/case-studies/goodbooks-plus-analytics',
     },
     {
@@ -20,7 +20,7 @@ export const homePartners = {
       short: 'MBU',
       category: 'Healthcare',
       logo: '/portfolio/logos/medbill-ultra.svg',
-      image: '/portfolio/medbill-ultra/home-desktop.png',
+      image: '/portfolio/medbill-ultra/home-desktop.webp',
       to: '/case-studies/medbill-ultra',
     },
     {
@@ -29,7 +29,7 @@ export const homePartners = {
       short: 'ME',
       category: 'Services',
       logo: '/portfolio/logos/metro-electric.svg',
-      image: '/portfolio/metro-electric/home-desktop.png',
+      image: '/portfolio/metro-electric/home-desktop.webp',
       to: '/case-studies/metro-electric',
     },
     {
@@ -38,7 +38,7 @@ export const homePartners = {
       short: 'SW',
       category: 'Product',
       logo: '/portfolio/logos/spaceworx.svg',
-      image: '/portfolio/spaceworx/home-desktop.png',
+      image: '/portfolio/spaceworx/home-desktop.webp',
       to: '/case-studies/spaceworx',
     },
     {
@@ -47,7 +47,7 @@ export const homePartners = {
       short: 'MZ',
       category: 'Commerce',
       logo: '/portfolio/logos/mrzzm.svg',
-      image: '/portfolio/mrzzm/home-desktop.png',
+      image: '/portfolio/mrzzm/home-desktop.webp',
       to: '/case-studies/mrzzm',
     },
     {
@@ -56,7 +56,7 @@ export const homePartners = {
       short: 'TZ',
       category: 'Fashion',
       logo: '/portfolio/logos/tailorize.svg',
-      image: '/portfolio/tailorize/home-desktop.png',
+      image: '/portfolio/tailorize/home-desktop.webp',
       to: '/case-studies/tailorize',
     },
     {
@@ -65,7 +65,7 @@ export const homePartners = {
       short: 'SL',
       category: 'SaaS',
       logo: '/portfolio/logos/servloom.png',
-      image: '/portfolio/servloom/home-desktop.png',
+      image: '/portfolio/servloom/home-desktop.webp',
       to: '/case-studies/servloom',
     },
     {

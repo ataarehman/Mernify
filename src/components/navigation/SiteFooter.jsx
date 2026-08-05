@@ -3,8 +3,15 @@ import { Link } from 'react-router-dom'
 import { ArrowUpRight, ChevronRight } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { Container, LogoMark } from '@/components/ui'
-import { footerLegal, footerNav, footerServices, footerSocial } from '@/content/navigation'
+import { Button, Container, LogoMark } from '@/components/ui'
+import {
+  footerCompany,
+  footerLegal,
+  footerNav,
+  footerServices,
+  footerSocial,
+  primaryCta,
+} from '@/content/navigation'
 import { SITE } from '@/constants/site'
 import { useFadeUp } from '@/hooks/useFadeUp'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
@@ -138,9 +145,13 @@ export function SiteFooter() {
     >
       <img
         className={styles.bgShape}
-        src="/assets/images/shapes/footer-bg-shape.png"
+        src="/assets/images/shapes/footer-bg-shape.webp"
         alt=""
         aria-hidden="true"
+        width={1920}
+        height={720}
+        loading="lazy"
+        decoding="async"
       />
 
       <Container width="wide" className={styles.inner}>
@@ -195,13 +206,28 @@ export function SiteFooter() {
                 </li>
               ))}
             </ul>
-            <ul className={styles.serviceLinks} aria-label="Services">
-              {footerServices.map((item) => (
-                <li key={item.to}>
-                  <Link to={item.to}>{item.label}</Link>
-                </li>
-              ))}
-            </ul>
+            <div className={styles.subGroups}>
+              <div className={styles.subGroup}>
+                <h2 className={styles.subHeading}>Services</h2>
+                <ul className={styles.subLinks}>
+                  {footerServices.map((item) => (
+                    <li key={item.to}>
+                      <Link to={item.to}>{item.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className={styles.subGroup}>
+                <h2 className={styles.subHeading}>Company</h2>
+                <ul className={styles.subLinks}>
+                  {footerCompany.map((item) => (
+                    <li key={item.label}>
+                      <Link to={item.to}>{item.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </nav>
 
           <div className={styles.colRight}>
@@ -211,6 +237,11 @@ export function SiteFooter() {
                 Share the idea, operational challenge, or existing product. We’ll help turn it
                 into a scalable digital experience.
               </p>
+              <div className={styles.ctaAction}>
+                <Button as={Link} to={primaryCta.to} size="md">
+                  {primaryCta.label}
+                </Button>
+              </div>
             </div>
             <div className={styles.copyrightBlock} data-fade-up>
               <p className={styles.copyright}>

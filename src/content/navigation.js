@@ -15,25 +15,12 @@ export const primaryCta = {
   to: '/contact',
 }
 
-export const secondaryCta = {
-  label: 'View Our Work',
-  to: '/case-studies',
-}
-
-export const footerCompany = [
-  { label: 'About', to: '/about' },
-  { label: 'Process', to: '/process' },
-  { label: 'Industries', to: '/industries' },
-  { label: 'Case Studies', to: '/case-studies' },
-  { label: 'Contact', to: '/contact' },
-]
-
-/** Tall footer nav cards — mirrors mernify-web footer structure */
+/** Tall footer nav cards — the five primary destinations. */
 export const footerNav = [
   { label: 'Home', to: '/' },
-  { label: 'Service', to: '/services' },
-  { label: 'Project', to: '/case-studies' },
-  { label: 'Insight', to: '/process' },
+  { label: 'Services', to: '/services' },
+  { label: 'Case Studies', to: '/case-studies' },
+  { label: 'Process', to: '/process' },
   { label: 'Contact', to: '/contact' },
 ]
 
@@ -44,6 +31,14 @@ export const footerServices = [
   { label: 'Web Development', to: '/services/web-development' },
   { label: 'Mobile Apps', to: '/services/mobile-app-development' },
   { label: 'AI Integration', to: '/services/ai-integration' },
+  { label: 'UI/UX Design', to: '/services/ui-ux-design' },
+]
+
+/** Remaining pages, so every route is reachable from the footer. */
+export const footerCompany = [
+  { label: 'About', to: '/about' },
+  { label: 'Industries', to: '/industries' },
+  { label: 'All services', to: '/services' },
 ]
 
 export const footerSocial = [

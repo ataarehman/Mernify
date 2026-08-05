@@ -1,10 +1,18 @@
 import { Link } from 'react-router-dom'
 import styles from './LogoMark.module.css'
 
-const LOGO_DARK = '/assets/images/logo/logo-black.svg'
-const LOGO_LIGHT = '/assets/images/logo/logo-white.svg'
+/**
+ * Intrinsic sizes are the encoded asset dimensions divided by 4 (the assets are
+ * generated at 4x by scripts/build-logo-assets.mjs). Declaring them keeps the
+ * header from reflowing while the wordmark loads — the two variants have
+ * slightly different canvases, so each carries its own ratio.
+ */
+const LOGO_DARK = { src: '/assets/images/logo/logo-black.webp', width: 148, height: 52 }
+const LOGO_LIGHT = { src: '/assets/images/logo/logo-white.webp', width: 142, height: 52 }
 
 export function LogoMark({ inverted = false, compact = false, className = '' }) {
+  const logo = inverted ? LOGO_LIGHT : LOGO_DARK
+
   return (
     <Link
       to="/"
@@ -14,11 +22,13 @@ export function LogoMark({ inverted = false, compact = false, className = '' }) 
       aria-label="Mernify home"
     >
       <img
-        src={inverted ? LOGO_LIGHT : LOGO_DARK}
+        src={logo.src}
         alt=""
         className={styles.mark}
-        width={220}
-        height={52}
+        width={logo.width}
+        height={logo.height}
+        decoding="async"
+        fetchPriority="high"
       />
     </Link>
   )

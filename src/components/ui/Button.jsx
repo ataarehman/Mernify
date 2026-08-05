@@ -1,4 +1,5 @@
 import { forwardRef } from 'react'
+import { ArrowRight } from 'lucide-react'
 import styles from './Button.module.css'
 import { useMagnetic } from '@/hooks/useMagnetic'
 
@@ -15,27 +16,14 @@ const SIZE_CLASS = {
   lg: styles.lg,
 }
 
-function ArrowIcon() {
-  return (
-    <svg
-      className={styles.arrow}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="none"
-      aria-hidden="true"
-    >
-      <path
-        d="M3.5 8H12.5M12.5 8L8.5 4M12.5 8L8.5 12"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
-
+/**
+ * The single primary action across the site: a light surface with a coloured
+ * icon block that sweeps across on hover while the label rolls to a duplicate.
+ *
+ * - `variant` swaps the palette only; geometry and motion never change.
+ * - `block` stretches to the container width.
+ * - `icon` replaces the sliding arrow (e.g. a send glyph on a submit button).
+ */
 export const Button = forwardRef(function Button(
   {
     as = 'button',
@@ -44,7 +32,8 @@ export const Button = forwardRef(function Button(
     className = '',
     type,
     magnetic = false,
-    arrow = false,
+    block = false,
+    icon,
     children,
     ...props
   },
@@ -56,8 +45,8 @@ export const Button = forwardRef(function Button(
     styles.button,
     VARIANT_CLASS[variant] || VARIANT_CLASS.primary,
     SIZE_CLASS[size] || SIZE_CLASS.md,
+    block ? styles.block : '',
     magnetic ? styles.magnetic : '',
-    arrow ? styles.withArrow : '',
     className,
   ]
     .filter(Boolean)
@@ -68,9 +57,22 @@ export const Button = forwardRef(function Button(
 
   return (
     <Tag ref={ref} className={classes} type={resolvedType} data-cursor="interactive" {...props}>
-      <span className={styles.hoverDot} aria-hidden="true" />
-      <span className={styles.label}>{children}</span>
-      {arrow ? <ArrowIcon /> : null}
+      <span className={styles.inner}>
+        <span className={styles.label}>
+          <span className={styles.labelLine}>{children}</span>
+          <span className={styles.labelLine} aria-hidden="true">
+            {children}
+          </span>
+        </span>
+        <span className={styles.icon} aria-hidden="true">
+          {icon ?? (
+            <span className={styles.iconTrack}>
+              <ArrowRight strokeWidth={2.5} />
+              <ArrowRight strokeWidth={2.5} />
+            </span>
+          )}
+        </span>
+      </span>
     </Tag>
   )
 })

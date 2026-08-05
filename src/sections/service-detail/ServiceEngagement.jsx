@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ArrowUpRight } from 'lucide-react'
-import { Container } from '@/components/ui'
+import { Button, Container } from '@/components/ui'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
 import styles from './ServiceEngagement.module.css'
 
@@ -64,9 +63,9 @@ export function ServiceEngagement({ content }) {
         </ul>
 
         <div className={styles.ctaRow} data-fade-up>
-          <Link to="/contact" className={styles.cta}>
-            Discuss the right model <ArrowUpRight size={18} />
-          </Link>
+          <Button as={Link} to="/contact" size="md">
+            Discuss the right model
+          </Button>
         </div>
       </Container>
     </section>

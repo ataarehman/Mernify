@@ -1,4 +1,4 @@
-import { useChat } from './ChatProvider'
+import { useChat } from './useChat'
 import styles from './QuickActions.module.css'
 
 export function QuickActions() {

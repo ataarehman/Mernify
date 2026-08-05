@@ -128,23 +128,6 @@
   margin-top: 1.75rem;
 }
 
-.cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.45rem;
-  padding: 0.85rem 1.25rem;
-  border-radius: 999px;
-  background: var(--mf-color-indigo);
-  color: #fff;
-  text-decoration: none;
-  font-weight: var(--mf-weight-semibold);
-  transition: gap 0.3s var(--mf-ease-out), background-color 0.3s var(--mf-ease-out);
-}
-
-.cta:hover {
-  gap: 0.65rem;
-  background: #4338ca;
-}
 
 @media (max-width: 899px) {
   .card:hover,

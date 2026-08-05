@@ -1,8 +1,8 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
-import { ArrowUpRight, ChevronDown, MapPin, Mail, Phone, Send, X } from 'lucide-react'
+import { ArrowUpRight, ChevronDown, Clock, MapPin, Mail, Send, X } from 'lucide-react'
 import gsap from 'gsap'
-import { Container, LogoMark } from '@/components/ui'
+import { Container, LogoMark, Button } from '@/components/ui'
 import { ServicesMegaMenu } from '@/components/navigation/ServicesMegaMenu'
 import { footerSocial, megaServiceSlugs, navigation, primaryCta } from '@/content/navigation'
 import { getServiceBySlug } from '@/content/services'
@@ -220,6 +220,20 @@ export function SiteHeader() {
     setMobileServicesOpen(false)
   }, [pathname])
 
+  // The toggle is hidden from 1024px up, so an open panel would otherwise be
+  // stranded when the viewport grows past the desktop breakpoint.
+  useEffect(() => {
+    const desktop = window.matchMedia('(min-width: 1024px)')
+    const sync = () => {
+      if (desktop.matches) {
+        setMenuOpen(false)
+        setMobileServicesOpen(false)
+      }
+    }
+    desktop.addEventListener('change', sync)
+    return () => desktop.removeEventListener('change', sync)
+  }, [])
+
   useEffect(() => {
     const header = headerRef.current
     if (!header) return undefined
@@ -346,9 +360,9 @@ export function SiteHeader() {
           </button>
 
           <div data-nav-enter className={styles.ctaWrap}>
-            <NavLink to={primaryCta.to} className={styles.cta}>
+            <Button as={NavLink} to={primaryCta.to} size="sm">
               {primaryCta.label}
-            </NavLink>
+            </Button>
           </div>
         </div>
       </Container>
@@ -366,6 +380,9 @@ export function SiteHeader() {
         id={menuId}
         className={[styles.offcanvas, menuOpen ? styles.offcanvasOpen : ''].join(' ')}
         aria-hidden={!menuOpen}
+        // `inert` keeps the closed panel out of the tab order; `aria-hidden`
+        // alone hides it from screen readers but leaves the links focusable.
+        inert={!menuOpen}
       >
         <div className={styles.offcanvasTop}>
           <button
@@ -445,8 +462,10 @@ export function SiteHeader() {
         </div>
 
         <div className={styles.offcanvasBottom}>
+          {/* These labels are chrome, not document structure — using real
+              headings here puts them in the outline ahead of the page's h1. */}
           <div className={styles.offcanvasContact}>
-            <h5>Contact us</h5>
+            <p className={styles.offcanvasHeading}>Contact us</p>
             <ul>
               <li>
                 <MapPin size={16} aria-hidden="true" />
@@ -457,14 +476,14 @@ export function SiteHeader() {
                 <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
               </li>
               <li>
-                <Phone size={16} aria-hidden="true" />
-                <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+                <Clock size={16} aria-hidden="true" />
+                <span>{SITE.responseSla}</span>
               </li>
             </ul>
           </div>
 
           <div className={styles.offcanvasInput}>
-            <h4>Get Updates</h4>
+            <p className={styles.offcanvasHeading}>Get Updates</p>
             <NewsletterForm />
           </div>
 
@@ -485,9 +504,9 @@ export function SiteHeader() {
             })}
           </div>
 
-          <Link to={primaryCta.to} className={styles.offcanvasCta} onClick={closeMenu}>
+          <Button as={Link} to={primaryCta.to} size="md" block onClick={closeMenu}>
             {primaryCta.label}
-          </Link>
+          </Button>
         </div>
       </aside>
     </header>
