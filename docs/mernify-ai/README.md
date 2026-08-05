@@ -2,19 +2,29 @@
 
 A production-ready AI chat assistant embedded in the Mernify website. It helps visitors understand services, explore case studies, prepare project requirements, and start a consultation.
 
-## Quick Start (local)
+## Quick Start (local — DeepSeek LLM)
 
 ```bash
-# 1. Copy env template
+# 1. Env
 cp .env.example .env
+cp cf-worker/.dev.vars.example cf-worker/.dev.vars
+# Put DeepSeek AI_API_KEY in cf-worker/.dev.vars
 
-# 2. Set flag to test without a deployed Worker
-echo "VITE_MERNIFY_AI_ENABLED=true" >> .env
+# 2. Install + local D1 schema
+npm install
+npm run chat:db:local
 
-# 3. Start dev server
+# 3. Terminal A — Worker
+npm run chat:worker
+
+# 4. Terminal B — site
 npm run dev
-# Chat launcher appears bottom-right; uses dev-fallback responses without AI_CHAT_ENDPOINT
+# Chat launcher bottom-right → live DeepSeek replies + learn-from-chats
 ```
+
+Full guide: [10-deepseek-local-setup.md](./10-deepseek-local-setup.md)
+
+Without `VITE_AI_CHAT_ENDPOINT`, the UI uses keyword **dev-fallback** replies only.
 
 ## Production Setup
 
@@ -27,27 +37,44 @@ npm run dev
 
 ```
 Browser (React SPA)
-  └── ChatProvider (React Context) — manages conversation state
-       ├── ChatLauncher — floating button (bottom-right)
-       └── ChatPanel — chat UI (messages, input, lead form, booking CTA)
+  └── ChatProvider — conversation state + memory mirrors + CTA flags
+       ├── ChatLauncher — floating button
+       └── ChatPanel — messages, quick actions, Book a Call / Submit Inquiry CTAs
             └── chatApi.js — fetch() → Cloudflare Worker
 
 Cloudflare Worker (cf-worker/ai-chat.js)
   ├── CORS + rate limiting + input sanitisation
+  ├── RAG retrieval (knowledge-corpus.js + approved D1 FAQs via rag.js)
+  ├── Conversation memory (D1 memory_json)
+  ├── DeepSeek sales assistant (structured JSON: reply, buyingIntent, showCta, memory)
   ├── Prompt-injection guard
-  ├── AI provider adapter (Anthropic primary / OpenAI fallback)
-  ├── Static knowledge base (Mernify services, case studies, process)
-  └── Lead delivery via Resend
+  └── Lead delivery + learn-from-chats distill loop
 ```
+
+## Sales Assistant behaviour
+
+- Retrieves relevant website/services/FAQ/portfolio/approved knowledge **before** answering
+- Answers only from retrieved knowledge + conversation memory; asks clarifying questions when info is missing
+- Remembers project requirements across turns (D1 `memory_json`)
+- Detects high buying intent → UI shows **Book a Call** and **Submit Inquiry**
+- Continues learning via approved FAQ candidates (unchanged review flow)
+
+Local DeepSeek + learning setup: [10-deepseek-local-setup.md](./10-deepseek-local-setup.md)
 
 ## Files
 
 | Path | Purpose |
 |------|---------|
-| `cf-worker/ai-chat.js` | Cloudflare Worker — AI backend |
+| `cf-worker/ai-chat.js` | Cloudflare Worker — sales assistant + learning actions |
+| `cf-worker/rag.js` | Lightweight RAG retrieval over corpus + approved FAQs |
+| `cf-worker/knowledge-corpus.js` | Static chunks: services, FAQs, process, industries, portfolio |
+| `cf-worker/db.js` | D1 logging, memory, knowledge candidates / approved FAQ |
+| `cf-worker/schema.sql` | D1 schema |
+| `cf-worker/wrangler.toml` | Worker config (DeepSeek default, D1 binding) |
+| `cf-worker/.dev.vars.example` | Local secrets template |
 | `src/components/chat/` | All chat UI components |
-| `src/components/chat/ChatProvider.jsx` | React Context + state |
-| `src/components/chat/ChatPanel.jsx` | Main panel UI |
+| `src/components/chat/ChatProvider.jsx` | React Context + session finalize + CTA state |
+| `src/components/chat/ChatPanel.jsx` | Main panel UI + Book a Call / Submit Inquiry |
 | `src/components/chat/ChatLauncher.jsx` | Floating launcher button |
 | `src/lib/chat/chatApi.js` | Worker API client |
 | `src/lib/chat/chatAnalytics.js` | GA4 event tracking |
@@ -60,3 +87,4 @@ Cloudflare Worker (cf-worker/ai-chat.js)
 - [03 — Conversation Flows](./03-conversation-flows.md)
 - [06 — Deployment Guide](./06-deployment-guide.md)
 - [09 — Production Readiness Checklist](./09-production-readiness-checklist.md)
+- [10 — DeepSeek Local Setup + Learn-from-Chats](./10-deepseek-local-setup.md)

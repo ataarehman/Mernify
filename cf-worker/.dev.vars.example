@@ -1,0 +1,9 @@
+# Copy to cf-worker/.dev.vars (gitignored) and fill in secrets.
+# Never put these in VITE_* or commit them.
+
+AI_API_KEY=sk-your-deepseek-api-key
+ADMIN_SECRET=change-me-to-a-long-random-string
+
+# Optional — lead email delivery
+# EMAIL_SERVICE_URL=https://mernify.co/api/email
+# EMAIL_SECRET=

@@ -19,6 +19,7 @@ import styles from './ChatPanel.module.css'
 export function ChatPanel() {
   const {
     isOpen,
+    autoOpened,
     close,
     messages,
     isLoading,
@@ -37,20 +38,44 @@ export function ChatPanel() {
   const [leadStatus, setLeadStatus] = useState('idle')
   const [leadError, setLeadError] = useState('')
 
-  const messagesEndRef = useRef(null)
+  const messagesRef = useRef(null)
   const inputRef = useRef(null)
   const panelRef = useRef(null)
 
-  // Scroll to bottom when messages update
+  // Keep the newest message visible
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
+    const list = messagesRef.current
+    if (!list) return
+    list.scrollTop = list.scrollHeight
   }, [messages, isLoading])
 
-  // Focus input when panel opens
+  // Focus input when panel opens and whenever the assistant finishes replying,
+  // so the visitor can keep typing without clicking back into the field.
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100)
-    }
+    if (!isOpen || isLoading || showLeadForm) return
+    // Skip on touch devices: forcing focus there pops the keyboard over the thread
+    if (window.matchMedia('(pointer: coarse)').matches) return
+    // An auto-opened panel shouldn't grab focus away from the page the visitor is reading
+    if (autoOpened && messages.length <= 1) return
+    const timer = setTimeout(() => inputRef.current?.focus(), 60)
+    return () => clearTimeout(timer)
+  }, [isOpen, isLoading, showLeadForm, autoOpened, messages.length])
+
+  // Grow the textarea with its content instead of clipping the placeholder/text
+  useEffect(() => {
+    const el = inputRef.current
+    if (!el) return
+    el.style.height = 'auto'
+    el.style.height = `${Math.min(el.scrollHeight, 120)}px`
+  }, [input, isOpen])
+
+  // On mobile the panel is full-screen, so freeze the page behind it
+  useEffect(() => {
+    if (!isOpen) return
+    if (!window.matchMedia('(max-width: 640px)').matches) return
+    const previous = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => { document.body.style.overflow = previous }
   }, [isOpen])
 
   // Trap focus inside panel when open
@@ -84,6 +109,7 @@ export function ChatPanel() {
     if (!input.trim() || isLoading) return
     sendMessage(input.trim())
     setInput('')
+    inputRef.current?.focus()
   }, [input, isLoading, sendMessage])
 
   function handleKeyDown(e) {
@@ -123,9 +149,13 @@ export function ChatPanel() {
 
   if (!isOpen) return null
 
-  const showBookingAction = conversationState.turnCount >= 3 && !conversationState.bookingStarted
+  const showCta = Boolean(conversationState.showCta) || conversationState.buyingIntent === 'high'
+  const showBookingAction =
+    (showCta || conversationState.turnCount >= 3) && !conversationState.bookingStarted
   const showLeadAction =
-    conversationState.turnCount >= 2 && !conversationState.leadSubmitted && !showLeadForm
+    (showCta || conversationState.turnCount >= 2) &&
+    !conversationState.leadSubmitted &&
+    !showLeadForm
 
   return (
     <>
@@ -138,7 +168,8 @@ export function ChatPanel() {
         className={styles.panel}
         role="dialog"
         aria-modal="true"
-        aria-label="Mernify AI Sales Concierge"
+        aria-label="Mernify AI Sales Assistant"
+        data-lenis-prevent
       >
         {/* Header */}
         <div className={styles.header}>
@@ -150,7 +181,7 @@ export function ChatPanel() {
               <span className={styles.headerName}>Mernify AI</span>
               <span className={styles.headerStatus}>
                 <span className={styles.statusDot} aria-hidden="true" />
-                Online
+                Sales Assistant
               </span>
             </div>
           </div>
@@ -183,36 +214,50 @@ export function ChatPanel() {
         </div>
 
         {/* Messages */}
-        <div className={styles.messages} role="log" aria-live="polite" aria-label="Chat messages">
+        <div
+          ref={messagesRef}
+          className={styles.messages}
+          role="log"
+          aria-live="polite"
+          aria-label="Chat messages"
+          tabIndex={0}
+          data-lenis-prevent
+        >
           <div className={styles.messagesInner}>
             {messages.map((msg) => (
               <ChatMessage key={msg.id} message={msg} />
             ))}
             {isLoading && <TypingIndicator />}
-            <div ref={messagesEndRef} aria-hidden="true" />
           </div>
         </div>
 
         {/* Quick actions */}
         <QuickActions />
 
-        {/* Contextual action bar */}
+        {/* High-intent / contextual CTAs */}
         {(showBookingAction || showLeadAction) && (
-          <div className={styles.actionBar}>
+          <div className={`${styles.actionBar} ${showCta ? styles.actionBarHighlight : ''}`.trim()}>
+            {showCta && (
+              <p className={styles.ctaPrompt}>Ready to move forward? Choose a next step:</p>
+            )}
             {showLeadAction && (
               <button
                 type="button"
-                className={styles.actionChip}
+                className={showCta ? styles.actionChipPrimary : styles.actionChip}
                 onClick={() => setShowLeadForm(true)}
               >
                 <User size={13} aria-hidden="true" />
-                Submit inquiry
+                Submit Inquiry
               </button>
             )}
             {showBookingAction && (
-              <button type="button" className={styles.actionChip} onClick={startBooking}>
+              <button
+                type="button"
+                className={showCta ? styles.actionChipPrimary : styles.actionChip}
+                onClick={startBooking}
+              >
                 <Calendar size={13} aria-hidden="true" />
-                Book a call
+                Book a Call
               </button>
             )}
           </div>
@@ -311,10 +356,9 @@ export function ChatPanel() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about our services…"
+            placeholder="Ask about your project…"
             rows={1}
             maxLength={2000}
-            disabled={isLoading}
             aria-label="Type your message"
           />
           <button

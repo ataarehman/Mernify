@@ -27,7 +27,7 @@ export function ChatLauncher() {
       <span className={styles.iconWrap} aria-hidden="true">
         {isOpen ? <X size={22} strokeWidth={2} /> : <MessageCircle size={22} strokeWidth={2} />}
       </span>
-      {!isOpen && <span className={styles.label}>Mernify AI</span>}
+      {!isOpen && <span className={styles.label}>Sales Assistant</span>}
       {!isOpen && <span className={styles.pulse} aria-hidden="true" />}
     </button>
   )
