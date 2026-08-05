@@ -19,5 +19,4 @@ CONTACT_FROM = "Mernify <info@mernify.co>"
 [[d1_databases]]
 binding = "DB"
 database_name = "mernify-ai"
-database_id = "00000000-0000-0000-0000-000000000001"
-preview_database_id = "00000000-0000-0000-0000-000000000001"
+database_id = "c286849f-4557-433a-a291-1fcd47248275"
