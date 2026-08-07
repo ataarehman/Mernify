@@ -121,40 +121,67 @@ export function HomeHero() {
       aria-labelledby="hero-title"
     >
       <HeroRipple interactiveRef={wrapRef} />
+      <div className={styles.atmosphere} aria-hidden="true">
+        <span className={`${styles.orb} ${styles.orbOne}`} />
+        <span className={`${styles.orb} ${styles.orbTwo}`} />
+        <span className={styles.veil} />
+      </div>
 
       <Container width="wide" className={styles.inner}>
-        <div className={styles.top}>
-          <h1 id="hero-title" className={styles.title} data-hero-title>
-            {titleWords.map((word, index) => (
-              <span key={`${word}-${index}`} className={styles.word}>
-                {word.split('').map((char, charIndex) => (
-                  <span key={`${index}-${charIndex}`} data-char className={styles.char}>
-                    {char}
-                  </span>
-                ))}
-                {index < titleWords.length - 1 ? '\u00A0' : null}
-              </span>
-            ))}
-          </h1>
+        <div className={styles.stage}>
+          <div className={styles.top}>
+            <h1 id="hero-title" className={styles.title} data-hero-title>
+              {titleWords.map((word, index) => (
+                <span key={`${word}-${index}`} className={styles.word}>
+                  {word.split('').map((char, charIndex) => (
+                    <span key={`${index}-${charIndex}`} data-char className={styles.char}>
+                      {char}
+                    </span>
+                  ))}
+                  {index < titleWords.length - 1 ? '\u00A0' : null}
+                </span>
+              ))}
+            </h1>
 
-          <div className={styles.thumb} data-hero-thumb>
-            <ClipReveal
-              src="/assets/images/thumbs/banner-thumb.jpg"
-              alt="Product engineering work at Mernify"
-              className={styles.thumbClip}
-              immediate
-              loading="eager"
-              fetchPriority="high"
-              width={582}
-              height={390}
-            />
+            <div
+              className={styles.thumb}
+              data-hero-thumb
+              data-cursor="View"
+            >
+              <span className={styles.thumbGlow} aria-hidden="true" />
+              <div className={styles.mockup}>
+                <div className={styles.chrome} aria-hidden="true">
+                  <span className={styles.dot} />
+                  <span className={styles.dot} />
+                  <span className={styles.dot} />
+                  <span className={styles.chromeBar} />
+                </div>
+                <div className={styles.screen}>
+                  <ClipReveal
+                    src="/assets/images/thumbs/feature.webp"
+                    videoSrc="/assets/images/video/Index.mp4"
+                    srcSet="/assets/images/thumbs/feature-md.webp 800w, /assets/images/thumbs/feature.webp 1504w"
+                    sizes="(max-width: 768px) 90vw, min(36rem, 38vw)"
+                    alt="Product engineering work at Mernify"
+                    className={styles.thumbClip}
+                    rounded={false}
+                    immediate
+                    loading="eager"
+                    fetchPriority="high"
+                    width={1504}
+                    height={1128}
+                  />
+                  <span className={styles.screenSheen} aria-hidden="true" />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div className={styles.bigText} aria-hidden="true">
-          <span ref={brandRef} className={styles.brandWord} data-hero-brand>
-            Mernify
-          </span>
+          <div className={styles.bigText} aria-hidden="true">
+            <span ref={brandRef} className={styles.brandWord} data-hero-brand>
+              Mernify
+            </span>
+          </div>
         </div>
       </Container>
     </section>

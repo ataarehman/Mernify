@@ -3,13 +3,12 @@ import { Link } from 'react-router-dom'
 import {
   Briefcase,
   Building2,
-  CalendarClock,
   Check,
   Mail,
   User,
-  Wallet,
 } from 'lucide-react'
 import { Field, TextInput, TextArea, SelectInput } from '@/components/forms/Field'
+import { DatePicker, formatTimelineLabel } from '@/components/forms/DatePicker'
 import { Button } from '@/components/ui'
 import { budgetRanges, serviceInterests } from '@/content/pages'
 import { homeInquiry } from '@/content/home'
@@ -29,6 +28,14 @@ const initial = {
   message: '',
   consent: false,
   website: '',
+}
+
+function todayISO() {
+  const d = new Date()
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
 }
 
 function validateStep(step, values) {
@@ -63,27 +70,35 @@ export function InquiryStepperForm() {
 
   const progress = ((step + 1) / STEPS.length) * 100
   const canSubmit = useMemo(() => status !== 'loading', [status])
+  const minTimeline = todayISO()
 
   useEffect(() => {
     const panel = panelRef.current
     if (!panel) return undefined
     panel.classList.remove(styles.enterForward, styles.enterBack)
-    // Force reflow so the enter animation restarts on step change.
     void panel.offsetWidth
     panel.classList.add(direction >= 0 ? styles.enterForward : styles.enterBack)
     return undefined
   }, [step, direction])
 
+  function clearError(name) {
+    if (!errors[name]) return
+    setErrors((prev) => {
+      const next = { ...prev }
+      delete next[name]
+      return next
+    })
+  }
+
   function onChange(event) {
     const { name, type, checked, value } = event.target
     setValues((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }))
-    if (errors[name]) {
-      setErrors((prev) => {
-        const next = { ...prev }
-        delete next[name]
-        return next
-      })
-    }
+    clearError(name)
+  }
+
+  function setBudget(next) {
+    setValues((prev) => ({ ...prev, budget: next }))
+    clearError('budget')
   }
 
   function goNext() {
@@ -137,7 +152,7 @@ export function InquiryStepperForm() {
         company: values.company.trim(),
         service: values.service,
         budget: values.budget,
-        timeline: values.timeline.trim(),
+        timeline: formatTimelineLabel(values.timeline) || values.timeline.trim(),
         message: values.message.trim(),
         consent: true,
       })
@@ -170,6 +185,7 @@ export function InquiryStepperForm() {
           onChange={onChange}
         />
       </div>
+
       <div className={styles.progressBlock}>
         <div className={styles.progressMeta}>
           <p className={styles.stepLabel}>
@@ -234,6 +250,7 @@ export function InquiryStepperForm() {
                     name="email"
                     type="email"
                     autoComplete="email"
+                    inputMode="email"
                     value={values.email}
                     onChange={onChange}
                     invalid={Boolean(errors.email)}
@@ -252,7 +269,7 @@ export function InquiryStepperForm() {
                     value={values.company}
                     onChange={onChange}
                     className={styles.control}
-                    placeholder="Optional"
+                    placeholder="Acme Inc. (optional)"
                   />
                 </div>
               </Field>
@@ -276,7 +293,7 @@ export function InquiryStepperForm() {
                     value={values.service}
                     onChange={onChange}
                     invalid={Boolean(errors.service)}
-                    className={styles.control}
+                    className={`${styles.control} ${styles.select}`}
                   >
                     <option value="">Select a service...</option>
                     {serviceInterests.map((item) => (
@@ -287,41 +304,53 @@ export function InquiryStepperForm() {
                   </SelectInput>
                 </div>
               </Field>
-              <Field id="inq-budget" label="Budget range">
-                <div className={styles.controlWrap}>
-                  <Wallet className={styles.icon} size={18} aria-hidden="true" />
-                  <SelectInput
-                    id="inq-budget"
-                    name="budget"
-                    value={values.budget}
-                    onChange={onChange}
-                    className={styles.control}
-                  >
-                    <option value="">Select...</option>
-                    {budgetRanges.map((item) => (
-                      <option key={item} value={item}>
+
+              <Field
+                id="inq-budget"
+                label="Budget range"
+                hint="Approximate range helps us scope the conversation."
+                className={styles.span2}
+              >
+                <div
+                  id="inq-budget"
+                  className={styles.budgetGrid}
+                  role="radiogroup"
+                  aria-label="Budget range"
+                >
+                  {budgetRanges.map((item) => {
+                    const active = values.budget === item
+                    return (
+                      <button
+                        key={item}
+                        type="button"
+                        role="radio"
+                        aria-checked={active}
+                        className={[styles.budgetChip, active ? styles.budgetChipActive : '']
+                          .filter(Boolean)
+                          .join(' ')}
+                        onClick={() => setBudget(active ? '' : item)}
+                      >
                         {item}
-                      </option>
-                    ))}
-                  </SelectInput>
+                      </button>
+                    )
+                  })}
                 </div>
               </Field>
+
               <Field
                 id="inq-timeline"
-                label="Timeline"
+                label="Target start date"
                 hint="When do you hope to start or launch?"
+                className={styles.span2}
               >
-                <div className={styles.controlWrap}>
-                  <CalendarClock className={styles.icon} size={18} aria-hidden="true" />
-                  <TextInput
-                    id="inq-timeline"
-                    name="timeline"
-                    value={values.timeline}
-                    onChange={onChange}
-                    className={styles.control}
-                    placeholder="e.g. discovery this month"
-                  />
-                </div>
+                <DatePicker
+                  id="inq-timeline"
+                  name="timeline"
+                  value={values.timeline}
+                  onChange={onChange}
+                  min={minTimeline}
+                  placeholder="Pick a target date"
+                />
               </Field>
             </div>
           ) : null}

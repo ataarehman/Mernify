@@ -29,3 +29,6 @@ cf-worker/.wrangler/
 *.sw?
 
 docs/_brand-guidelines-extract.txt
+
+# Local visual QA screenshots (not for production)
+scripts/shots/

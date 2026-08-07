@@ -23,23 +23,24 @@
 .heading {
   position: relative;
   z-index: 2;
-}
-
-.loadText {
-  margin: 0;
   display: flex;
-  gap: 0.12em;
-  font-family: var(--mf-font-body);
-  font-size: clamp(1.05rem, 2.4vw, 1.75rem);
-  font-weight: 600;
-  letter-spacing: 0.28em;
-  text-transform: uppercase;
-  color: #ffffff;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
 }
 
-.loadText span {
-  display: inline-block;
+.logoMark {
+  display: block;
+  width: clamp(3.25rem, 7.5vw, 4.75rem);
+  height: auto;
+  aspect-ratio: 1;
+  overflow: visible;
+}
+
+.facet {
   animation: loadPulse 1s ease-in-out infinite alternate;
+  transform-origin: center;
+  transform-box: fill-box;
 }
 
 @keyframes loadPulse {
@@ -52,9 +53,8 @@
 }
 
 @media (max-width: 400px) {
-  .loadText {
-    letter-spacing: 0.16em;
-    font-size: 1rem;
+  .logoMark {
+    width: 3rem;
   }
 }
 
@@ -63,7 +63,7 @@
     display: none;
   }
 
-  .loadText span {
+  .facet {
     animation: none;
   }
 }

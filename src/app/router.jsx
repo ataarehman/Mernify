@@ -25,6 +25,10 @@ const AboutPage = lazy(() => import('@/pages/AboutPage').then((m) => ({ default:
 const ContactPage = lazy(() =>
   import('@/pages/ContactPage').then((m) => ({ default: m.ContactPage })),
 )
+const BlogPage = lazy(() => import('@/pages/BlogPage').then((m) => ({ default: m.BlogPage })))
+const BlogPostPage = lazy(() =>
+  import('@/pages/BlogPostPage').then((m) => ({ default: m.BlogPostPage })),
+)
 const PrivacyPage = lazy(() =>
   import('@/pages/PrivacyPage').then((m) => ({ default: m.PrivacyPage })),
 )
@@ -44,6 +48,8 @@ export function AppRouter() {
         <Route path="case-studies" element={<CaseStudiesPage />} />
         <Route path="case-studies/:slug" element={<CaseStudyPage />} />
         <Route path="process" element={<ProcessPage />} />
+        <Route path="blog" element={<BlogPage />} />
+        <Route path="blog/:slug" element={<BlogPostPage />} />
         <Route path="about" element={<AboutPage />} />
         <Route path="contact" element={<ContactPage />} />
         <Route path="privacy" element={<PrivacyPage />} />

@@ -29,7 +29,7 @@ export function HeroRipple({ interactiveRef }) {
     if (!finePointer || !canUseWebGLRipples()) return undefined
 
     const dpr = Math.min(window.devicePixelRatio || 1, 2)
-    const resolution = dpr > 1.5 ? 320 : 400
+    const resolution = dpr > 1.5 ? 280 : 340
 
     let engine = null
     let cancelled = false

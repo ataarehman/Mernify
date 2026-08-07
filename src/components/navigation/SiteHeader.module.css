@@ -76,6 +76,7 @@
   padding: 0.55rem 0.1rem;
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
   opacity: 0.78;
   font-size: 0.95rem;
   font-weight: var(--mf-weight-medium);
@@ -85,9 +86,30 @@
     color var(--mf-dur-sm) var(--mf-ease-out);
 }
 
+.navLink::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.28rem;
+  height: 1.5px;
+  border-radius: 999px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0.55;
+  transition: transform 0.28s var(--mf-ease-out);
+  pointer-events: none;
+}
+
 .navLink:hover,
 .active {
   opacity: 1;
+}
+
+.navLink:hover::after,
+.active::after {
+  transform: scaleX(1);
 }
 
 .light .navLink:hover,

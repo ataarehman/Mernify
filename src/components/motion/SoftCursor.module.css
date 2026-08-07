@@ -1,0 +1,114 @@
+.root {
+  position: fixed;
+  inset: 0;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  z-index: 99999;
+  opacity: 0;
+}
+
+.ball {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  pointer-events: none;
+  background: #ffffff;
+  mix-blend-mode: difference;
+  color: transparent;
+}
+
+.withBlur {
+  mix-blend-mode: normal;
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+  will-change: transform, width, height, opacity;
+}
+
+.ballView {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0 0.5rem;
+  font-family: var(--mf-font-body);
+  font-weight: var(--mf-weight-semibold);
+  font-size: 0.9375rem;
+  line-height: 1.1;
+  text-align: center;
+  text-transform: capitalize;
+  color: #ffffff;
+  pointer-events: none;
+}
+
+.ballView::before {
+  content: '';
+  width: 1rem;
+  height: 1rem;
+  background: currentColor;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7'/%3E%3Cpath d='M8 7h9v9'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7'/%3E%3Cpath d='M8 7h9v9'/%3E%3C/svg%3E")
+    center / contain no-repeat;
+}
+
+/* Hide the native cursor when the soft cursor is active (desktop only). */
+:global(html.mf-soft-cursor),
+:global(html.mf-soft-cursor *) {
+  cursor: none !important;
+}
+
+:global(html.mf-soft-cursor .mf-hide-cursor),
+:global(html.mf-soft-cursor .mf-hide-cursor *) {
+  cursor: none !important;
+}
+
+/*
+ * Soft cursor hides its ball on links/buttons/inputs. Restore the native
+ * hand/text cursor so interactive controls stay obviously usable.
+ */
+:global(html.mf-soft-cursor a),
+:global(html.mf-soft-cursor button),
+:global(html.mf-soft-cursor [role='button']),
+:global(html.mf-soft-cursor [role='radio']),
+:global(html.mf-soft-cursor [role='option']),
+:global(html.mf-soft-cursor summary),
+:global(html.mf-soft-cursor label),
+:global(html.mf-soft-cursor select),
+:global(html.mf-soft-cursor input[type='checkbox']),
+:global(html.mf-soft-cursor input[type='radio']),
+:global(html.mf-soft-cursor input[type='submit']),
+:global(html.mf-soft-cursor input[type='button']) {
+  cursor: pointer !important;
+}
+
+:global(html.mf-soft-cursor input:not([type='checkbox']):not([type='radio']):not([type='submit']):not([type='button'])),
+:global(html.mf-soft-cursor textarea) {
+  cursor: text !important;
+}
+
+:global(html.mf-soft-cursor header a),
+:global(html.mf-soft-cursor header button),
+:global(html.mf-soft-cursor header [role='button']),
+:global(html.mf-soft-cursor header summary),
+:global(html.mf-soft-cursor header label) {
+  cursor: pointer !important;
+}
+
+@media (pointer: coarse), (max-width: 991px) {
+  .root {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root {
+    display: none !important;
+  }
+}

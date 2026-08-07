@@ -32,14 +32,19 @@ export function scrollDocumentToTop(lenisRef) {
   document.body.scrollTop = 0
 }
 
+let refreshTimer = 0
+let refreshRaf = 0
+let refreshQueued = false
+
 /**
  * Recalculate ScrollTrigger after layout / entrance settles.
- * Double rAF + short timeout covers fonts, images, and Lenis attach.
+ * Coalesces bursty callers (hero + sections) into one refresh cycle.
  */
 export function refreshScrollTriggers(ScrollTrigger, { afterMs = 120 } = {}) {
   if (!ScrollTrigger || typeof window === 'undefined') return () => {}
 
   const run = () => {
+    refreshQueued = false
     try {
       ScrollTrigger.refresh()
     } catch {
@@ -47,14 +52,21 @@ export function refreshScrollTriggers(ScrollTrigger, { afterMs = 120 } = {}) {
     }
   }
 
-  run()
-  const raf = requestAnimationFrame(() => {
+  if (!refreshQueued) {
+    refreshQueued = true
+    run()
+  }
+
+  window.clearTimeout(refreshTimer)
+  cancelAnimationFrame(refreshRaf)
+
+  refreshRaf = requestAnimationFrame(() => {
     requestAnimationFrame(run)
   })
-  const timer = window.setTimeout(run, afterMs)
+  refreshTimer = window.setTimeout(run, afterMs)
 
   return () => {
-    cancelAnimationFrame(raf)
-    window.clearTimeout(timer)
+    cancelAnimationFrame(refreshRaf)
+    window.clearTimeout(refreshTimer)
   }
 }

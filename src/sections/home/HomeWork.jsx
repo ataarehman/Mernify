@@ -130,7 +130,15 @@ function ProjectCard({ project, large = false }) {
     >
       <Link to={project.to} className={styles.cardLink} data-cursor="View">
         <span className={styles.thumb}>
-          <img src={project.image} alt="" loading="lazy" decoding="async" />
+          <img
+            src={project.image}
+            alt=""
+            width={1440}
+            height={900}
+            loading="lazy"
+            decoding="async"
+            sizes={large ? '(max-width: 900px) 92vw, 58vw' : '(max-width: 900px) 92vw, 28vw'}
+          />
         </span>
 
         <span className={styles.body}>

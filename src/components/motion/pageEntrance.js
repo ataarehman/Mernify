@@ -13,10 +13,12 @@ export function shouldPlayPageEntrance(pathname) {
     '/case-studies',
     '/process',
     '/contact',
+    '/blog',
   ])
   if (exact.has(pathname)) return true
   if (pathname.startsWith('/services/')) return true
   if (pathname.startsWith('/case-studies/')) return true
+  if (pathname.startsWith('/blog/')) return true
   return false
 }
 

@@ -86,8 +86,8 @@ export function HomeJourney() {
           trigger: node,
           start: 'top 58%',
           end: 'bottom 42%',
-          onEnter: () => setActiveChapter(index),
-          onEnterBack: () => setActiveChapter(index),
+          onEnter: () => setActiveChapter((prev) => (prev === index ? prev : index)),
+          onEnterBack: () => setActiveChapter((prev) => (prev === index ? prev : index)),
         })
 
         gsap.fromTo(
@@ -133,7 +133,7 @@ export function HomeJourney() {
                 homeProcessSteps.length - 1,
                 Math.floor(self.progress * homeProcessSteps.length),
               )
-              setActiveStep(next)
+              setActiveStep((prev) => (prev === next ? prev : next))
             },
           },
         })

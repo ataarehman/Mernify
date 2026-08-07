@@ -13,18 +13,84 @@ const CURVE = 'M0 502S175 272 500 272s500 230 500 230V0H0Z'
 const FLAT = 'M0 2S175 1 500 1s500 1 500 1V0H0Z'
 
 /**
+ * Official Mernify mark (same geometry as /favicon.svg) with scoped gradient ids
+ * so the loader never collides with other instances on the page.
+ */
+function LoaderLogoMark({ className }) {
+  return (
+    <svg
+      className={className}
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="92 92 840 840"
+      width="72"
+      height="72"
+      role="img"
+      aria-label="Mernify"
+    >
+      <defs>
+        <linearGradient id="mfLoaderViolet" x1="0" y1="0" x2="0.35" y2="1">
+          <stop offset="0" stopColor="#7c5cf5" />
+          <stop offset="1" stopColor="#4f46e5" />
+        </linearGradient>
+        <linearGradient id="mfLoaderCyan" x1="0" y1="0" x2="0.2" y2="1">
+          <stop offset="0" stopColor="#22d3ee" />
+          <stop offset="1" stopColor="#15c6e2" />
+        </linearGradient>
+        <linearGradient id="mfLoaderIndigo" x1="0" y1="0" x2="0.4" y2="1">
+          <stop offset="0" stopColor="#6a50ed" />
+          <stop offset="1" stopColor="#4f46e5" />
+        </linearGradient>
+        <linearGradient id="mfLoaderBlue" x1="0.1" y1="0" x2="0" y2="1">
+          <stop offset="0" stopColor="#15c6e2" />
+          <stop offset="1" stopColor="#1f72ea" />
+        </linearGradient>
+      </defs>
+      <g strokeLinejoin="round" strokeWidth="24">
+        <path
+          className={styles.facet}
+          style={{ animationDelay: '0s' }}
+          d="M176 119 512 314 512 657 176 461Z"
+          fill="url(#mfLoaderViolet)"
+          stroke="url(#mfLoaderViolet)"
+        />
+        <path
+          className={styles.facet}
+          style={{ animationDelay: '0.08s' }}
+          d="M848 119 512 314 512 657 848 461Z"
+          fill="url(#mfLoaderCyan)"
+          stroke="url(#mfLoaderCyan)"
+        />
+        <path
+          className={styles.facet}
+          style={{ animationDelay: '0.16s' }}
+          d="M176 509 412 646 412 904 176 767Z"
+          fill="url(#mfLoaderIndigo)"
+          stroke="url(#mfLoaderIndigo)"
+        />
+        <path
+          className={styles.facet}
+          style={{ animationDelay: '0.24s' }}
+          d="M612 599 848 461 848 768 612 905Z"
+          fill="url(#mfLoaderBlue)"
+          stroke="url(#mfLoaderBlue)"
+        />
+      </g>
+    </svg>
+  )
+}
+
+/**
  * Static-site style black SVG curtain that morphs, then slides upward.
  * One-shot on mount; removed from the tree when finished so it never
  * impacts scroll performance.
  */
 export function PageEntranceCurtain({
-  label = 'Mernify',
   hold = 0.4,
   onComplete,
 }) {
   const rootRef = useRef(null)
   const pathRef = useRef(null)
-  const textRef = useRef(null)
+  const markRef = useRef(null)
   const [done, setDone] = useState(false)
   const completedRef = useRef(false)
   const { prefersReducedMotion } = useReducedMotion()
@@ -50,7 +116,7 @@ export function PageEntranceCurtain({
 
     const root = rootRef.current
     const path = pathRef.current
-    const text = textRef.current
+    const mark = markRef.current
     if (!root || !path) return undefined
 
     const lenisInstance = lenis?.current
@@ -64,8 +130,8 @@ export function PageEntranceCurtain({
       onComplete: finish,
     })
 
-    if (text) {
-      tl.to(text, {
+    if (mark) {
+      tl.to(mark, {
         y: -72,
         opacity: 0,
         duration: 0.4,
@@ -76,7 +142,7 @@ export function PageEntranceCurtain({
       tl.to({}, { duration: hold })
     }
 
-    tl.to(path, { attr: { d: CURVE }, duration: 0.5 }, text ? '-=0.05' : undefined)
+    tl.to(path, { attr: { d: CURVE }, duration: 0.5 }, mark ? '-=0.05' : undefined)
       .to(path, { attr: { d: FLAT }, duration: 0.45 })
       .to(root, {
         yPercent: -130,
@@ -93,8 +159,6 @@ export function PageEntranceCurtain({
 
   if (done) return null
 
-  const letters = Array.from(label)
-
   return (
     <div
       ref={rootRef}
@@ -110,17 +174,8 @@ export function PageEntranceCurtain({
       >
         <path ref={pathRef} d={INITIAL} />
       </svg>
-      <div ref={textRef} className={styles.heading}>
-        <p className={styles.loadText}>
-          {letters.map((char, index) => (
-            <span
-              key={`${char}-${index}`}
-              style={{ animationDelay: `${index * 0.08}s` }}
-            >
-              {char === ' ' ? '\u00A0' : char}
-            </span>
-          ))}
-        </p>
+      <div ref={markRef} className={styles.heading}>
+        <LoaderLogoMark className={styles.logoMark} />
       </div>
     </div>
   )

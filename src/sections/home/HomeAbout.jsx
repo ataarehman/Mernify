@@ -56,11 +56,13 @@ export function HomeAbout() {
           <div className={styles.grid}>
             <div className={styles.thumbOne} data-fade-up>
               <ClipReveal
-                src="/assets/images/thumbs/about-thumb-one.jpg"
+                src="/assets/images/thumbs/about-thumb-one.webp"
+                srcSet="/assets/images/thumbs/about-thumb-one-md.webp 700w, /assets/images/thumbs/about-thumb-one.webp 1400w"
+                sizes="(max-width: 900px) 92vw, 42vw"
                 alt=""
                 className={styles.thumbClip}
-                width={500}
-                height={370}
+                width={1400}
+                height={1040}
               />
             </div>
 
@@ -76,11 +78,13 @@ export function HomeAbout() {
               <div className={styles.lower}>
                 <div className={styles.thumbTwo} data-fade-up>
                   <ClipReveal
-                    src="/assets/images/thumbs/about-thumb-two.jpg"
+                    src="/assets/images/thumbs/about-thumb-two.webp"
+                    srcSet="/assets/images/thumbs/about-thumb-two-md.webp 700w, /assets/images/thumbs/about-thumb-two.webp 1400w"
+                    sizes="(max-width: 900px) 92vw, 28vw"
                     alt=""
                     className={styles.thumbClip}
-                    width={500}
-                    height={370}
+                    width={1400}
+                    height={1040}
                   />
                 </div>
                 <div className={styles.copy} data-fade-up>

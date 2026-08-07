@@ -1,15 +1,20 @@
-import { useLayoutEffect, useRef } from 'react'
-import { Link } from 'react-router-dom'
-import { ArrowUpRight, ChevronRight } from 'lucide-react'
+import { useLayoutEffect, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { ArrowUpRight, Lock, Mail, ShieldCheck, Sparkles } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Button, Container, LogoMark } from '@/components/ui'
+import { FooterRipple } from '@/components/motion/FooterRipple'
+import { FooterGlobe } from '@/components/motion/FooterGlobe'
+import { FooterGalaxyBg } from '@/components/motion/FooterGalaxyBg'
 import {
   footerCompany,
   footerLegal,
-  footerNav,
+  footerResources,
   footerServices,
   footerSocial,
+  footerSolutions,
+  footerTrust,
   primaryCta,
 } from '@/content/navigation'
 import { SITE } from '@/constants/site'
@@ -51,17 +56,26 @@ const SOCIAL_ICONS = {
   linkedin: LinkedinIcon,
 }
 
+const NAV_COLUMNS = [
+  { title: 'Services', items: footerServices },
+  { title: 'Solutions', items: footerSolutions },
+  { title: 'Company', items: footerCompany },
+  { title: 'Resources', items: footerResources },
+]
+
 export function SiteFooter() {
   const year = new Date().getFullYear()
+  const navigate = useNavigate()
   const footerRef = useRef(null)
   const markRef = useRef(null)
+  const [email, setEmail] = useState('')
   const { prefersReducedMotion } = useReducedMotion()
 
   useFadeUp(footerRef, {
     selector: '[data-fade-up]',
-    start: 'top 88%',
-    stagger: 0.12,
-    duration: 0.9,
+    start: 'top 90%',
+    stagger: 0.08,
+    duration: 0.85,
   })
 
   useLayoutEffect(() => {
@@ -71,15 +85,18 @@ export function SiteFooter() {
     const chars = mark.querySelectorAll('[data-footer-char]')
     if (!chars.length) return undefined
 
+    // Reachable start: original `bottom 100%-=50px` sat past max scroll on this tall mark.
+    const start = 'top 95%'
+
     const ctx = gsap.context(() => {
-      gsap.set(mark, { autoAlpha: 0 })
+      gsap.set(mark, { opacity: 0 })
       gsap.to(mark, {
-        autoAlpha: 1,
+        opacity: 1,
         duration: 1,
         ease: 'power1.out',
         scrollTrigger: {
           trigger: mark,
-          start: 'bottom 100%-=50px',
+          start,
           once: true,
         },
       })
@@ -89,7 +106,7 @@ export function SiteFooter() {
         delay: 0.5,
         scrollTrigger: {
           trigger: mark,
-          start: 'bottom 100%-=50px',
+          start,
         },
       })
 
@@ -125,140 +142,173 @@ export function SiteFooter() {
           chars,
           {
             yPercent: 0,
-            ease: 'power1.inOut',
-            stagger: 0.02,
-            duration: 0.6,
+            ease: 'back',
+            stagger: 0.03,
+            duration: 0.8,
           },
-          1.2,
+          0.7,
         )
-        .to({}, { duration: 1.2 })
+        .to(
+          chars,
+          {
+            color: '#ffffff',
+            duration: 1.4,
+            stagger: 0.05,
+          },
+        )
     }, mark)
+
+    // Lenis / late footer layout — re-measure so the trigger can arm.
+    ScrollTrigger.refresh()
 
     return () => ctx.revert()
   }, [prefersReducedMotion])
 
+  function onNewsletter(event) {
+    event.preventDefault()
+    const trimmed = email.trim()
+    if (!trimmed) {
+      navigate('/contact')
+      return
+    }
+    navigate(`/contact?email=${encodeURIComponent(trimmed)}`)
+  }
+
   return (
-    <footer
-      ref={footerRef}
-      className={styles.footer}
-      data-header-theme="dark"
-    >
-      <img
-        className={styles.bgShape}
-        src="/assets/images/shapes/footer-bg-shape.webp"
-        alt=""
-        aria-hidden="true"
-        width={1920}
-        height={720}
-        loading="lazy"
-        decoding="async"
-      />
+    <footer ref={footerRef} className={styles.footer} data-header-theme="dark">
+      <div className={styles.atmosphere} aria-hidden="true">
+        <FooterGalaxyBg hostRef={footerRef} />
+        <span className={styles.orbA} />
+        <span className={styles.orbB} />
+        <span className={styles.grid} />
+        <FooterGlobe />
+      </div>
 
+      <FooterRipple interactiveRef={footerRef} />
+
+      <div className={styles.readability} aria-hidden="true" />
       <Container width="wide" className={styles.inner}>
-        <div className={styles.top}>
-          <div className={styles.colLeft}>
-            <div data-fade-up>
-              <div className={styles.logoWrap}>
-                <LogoMark inverted />
-              </div>
-              <p className={styles.paragraph}>{SITE.promise}</p>
-              <a className={styles.email} href={`mailto:${SITE.email}`}>
-                {SITE.email}
-              </a>
-            </div>
-
-            <div className={styles.social} data-fade-up>
-              <ul>
-                {footerSocial.map((item) => {
-                  const Icon = SOCIAL_ICONS[item.id]
-                  return (
-                    <li key={item.id}>
-                      <a
-                        href={item.href}
-                        className={styles.socialLink}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={item.label}
-                      >
-                        <span className={styles.activeMedia}>
-                          {item.label}
-                          <ArrowUpRight size={14} strokeWidth={2.25} aria-hidden="true" />
-                        </span>
-                        <span className={styles.hoverMedia} aria-hidden="true">
-                          {Icon ? <Icon /> : null}
-                        </span>
-                      </a>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
+        <div className={styles.ctaBand} data-fade-up>
+          <div className={styles.ctaCopy}>
+            <p className={styles.ctaEyebrow}>
+              <Sparkles size={14} aria-hidden="true" />
+              Let&apos;s build
+            </p>
+            <h2 className={styles.ctaTitle}>Ready to discuss your next product?</h2>
+            <p className={styles.ctaSupport}>
+              Share the idea, operational challenge, or existing product. We&apos;ll help turn it
+              into a scalable digital experience.
+            </p>
           </div>
 
-          <nav className={styles.nav} aria-label="Footer" data-fade-up>
-            <ul>
-              {footerNav.map((item) => (
-                <li key={item.to}>
-                  <Link to={item.to} className={styles.navLink}>
-                    <span>{item.label}</span>
-                    <ChevronRight size={18} strokeWidth={2.25} aria-hidden="true" />
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <div className={styles.subGroups}>
-              <div className={styles.subGroup}>
-                <h2 className={styles.subHeading}>Services</h2>
-                <ul className={styles.subLinks}>
-                  {footerServices.map((item) => (
-                    <li key={item.to}>
-                      <Link to={item.to}>{item.label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className={styles.subGroup}>
-                <h2 className={styles.subHeading}>Company</h2>
-                <ul className={styles.subLinks}>
-                  {footerCompany.map((item) => (
-                    <li key={item.label}>
-                      <Link to={item.to}>{item.label}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+          <form className={styles.newsletter} onSubmit={onNewsletter} noValidate>
+            <label className={styles.srOnly} htmlFor="footer-email">
+              Work email
+            </label>
+            <div className={styles.newsletterField}>
+              <Mail className={styles.newsletterIcon} size={18} aria-hidden="true" />
+              <input
+                id="footer-email"
+                type="email"
+                name="email"
+                autoComplete="email"
+                inputMode="email"
+                placeholder="karen.d@example.net"
+                value={email}
+                onChange={(event) => setEmail(event.target.value)}
+              />
             </div>
-          </nav>
+            <div className={styles.newsletterActions}>
+              <button type="submit" className={styles.newsletterBtn}>
+                Get in touch
+                <ArrowUpRight size={16} aria-hidden="true" />
+              </button>
+              <Button as={Link} to={primaryCta.to} size="md">
+                {primaryCta.label}
+              </Button>
+            </div>
+          </form>
+        </div>
 
-          <div className={styles.colRight}>
-            <div data-fade-up>
-              <h2 className={styles.ctaTitle}>Ready to discuss your next product?</h2>
-              <p className={styles.ctaCopy}>
-                Share the idea, operational challenge, or existing product. We’ll help turn it
-                into a scalable digital experience.
-              </p>
-              <div className={styles.ctaAction}>
-                <Button as={Link} to={primaryCta.to} size="md">
-                  {primaryCta.label}
-                </Button>
-              </div>
+        <div className={styles.main}>
+          <div className={styles.brand} data-fade-up>
+            <div className={styles.logoWrap}>
+              <LogoMark inverted />
             </div>
-            <div className={styles.copyrightBlock} data-fade-up>
-              <p className={styles.copyright}>
-                © {year} {SITE.name}. All rights reserved
-              </p>
-              <div className={styles.legal}>
-                {footerLegal.map((item) => (
-                  <Link key={item.to} to={item.to}>
-                    {item.label}
-                  </Link>
-                ))}
+            <p className={styles.promise}>{SITE.promise}</p>
+            <a className={styles.email} href={`mailto:${SITE.email}`}>
+              {SITE.email}
+            </a>
+
+            <ul className={styles.social} role="list">
+              {footerSocial.map((item) => {
+                const Icon = SOCIAL_ICONS[item.id]
+                return (
+                  <li key={item.id}>
+                    <a
+                      href={item.href}
+                      className={styles.socialLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={item.label}
+                    >
+                      <span className={styles.socialLabel}>
+                        {item.label}
+                        <ArrowUpRight size={14} strokeWidth={2.25} aria-hidden="true" />
+                      </span>
+                      <span className={styles.socialIcon} aria-hidden="true">
+                        {Icon ? <Icon /> : null}
+                      </span>
+                    </a>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+
+          <nav className={styles.columns} aria-label="Footer" data-fade-up>
+            {NAV_COLUMNS.map((column) => (
+              <div key={column.title} className={styles.column}>
+                <h3 className={styles.columnTitle}>{column.title}</h3>
+                <ul className={styles.columnLinks} role="list">
+                  {column.items.map((item) => (
+                    <li key={item.to + item.label}>
+                      <Link to={item.to}>{item.label}</Link>
+                    </li>
+                  ))}
+                </ul>
               </div>
-            </div>
+            ))}
+          </nav>
+        </div>
+
+        <ul className={styles.trust} role="list" data-fade-up>
+          {footerTrust.map((item, index) => (
+            <li key={item} className={styles.trustItem}>
+              {index === 0 ? (
+                <Lock size={14} aria-hidden="true" />
+              ) : (
+                <ShieldCheck size={14} aria-hidden="true" />
+              )}
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className={styles.bottom} data-fade-up>
+          <p className={styles.copyright}>
+            © {year} {SITE.name}. All rights reserved.
+          </p>
+          <div className={styles.legal}>
+            {footerLegal.map((item) => (
+              <Link key={item.to} to={item.to}>
+                {item.label}
+              </Link>
+            ))}
           </div>
         </div>
 
-        <div className={styles.bottom}>
+        <div className={styles.markWrap}>
           <h3 ref={markRef} className={styles.displayMark} aria-hidden="true">
             {SITE.name.split('').map((char, index) => (
               <span key={`${char}-${index}`} data-footer-char className={styles.footerChar}>

@@ -6,6 +6,7 @@ import { SiteFooter } from '@/components/navigation/SiteFooter'
 import { CookieConsent } from '@/components/privacy/CookieConsent'
 import { Analytics } from '@/components/privacy/Analytics'
 import { PageEntranceCurtain } from '@/components/motion/PageEntranceCurtain'
+import { SoftCursor } from '@/components/motion/SoftCursor'
 import {
   beginPageEntrance,
   notifyPageEntranceComplete,
@@ -71,7 +72,6 @@ export function RootLayout() {
       {playEntrance ? (
         <PageEntranceCurtain
           key={location.key}
-          label="Mernify"
           onComplete={handleEntranceComplete}
         />
       ) : null}
@@ -88,6 +88,7 @@ export function RootLayout() {
       <SiteFooter />
       <CookieConsent />
       <Analytics />
+      <SoftCursor />
       {MernifyChat ? (
         <Suspense fallback={null}>
           <MernifyChat />

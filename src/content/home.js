@@ -170,7 +170,9 @@ export const homeServicesCarousel = {
     {
       slug: 'product-engineering',
       title: 'Product Engineering',
-      image: '/assets/images/thumbs/portfolio-thumb1.webp',
+      image: '/assets/images/thumbs/home-svc-pe.webp',
+      imageSrcSet:
+        '/assets/images/thumbs/home-svc-pe-md.webp 800w, /assets/images/thumbs/home-svc-pe.webp 1600w',
       tags: ['Discovery & Architecture', 'Full-Stack Delivery', 'Product Strategy', 'UI/UX Systems'],
       blurb:
         'End-to-end product engineering that connects strategy, UX, and full-stack delivery into one coherent path.',
@@ -178,7 +180,9 @@ export const homeServicesCarousel = {
     {
       slug: 'saas-development',
       title: 'SaaS Development',
-      image: '/assets/images/thumbs/portfolio-thumb2.jpg',
+      image: '/assets/images/thumbs/home-svc-saas.webp',
+      imageSrcSet:
+        '/assets/images/thumbs/home-svc-saas-md.webp 800w, /assets/images/thumbs/home-svc-saas.webp 1600w',
       tags: ['Multi-Tenant Architecture', 'Admin Portals', 'Subscription Foundations', 'Release Process'],
       blurb:
         'SaaS platforms with secure tenancy, role-based access, and admin systems prepared for customer growth.',
@@ -186,7 +190,9 @@ export const homeServicesCarousel = {
     {
       slug: 'mobile-app-development',
       title: 'Mobile App Development',
-      image: '/assets/images/thumbs/portfolio-thumb3.webp',
+      image: '/assets/images/thumbs/home-svc-mobile.webp',
+      imageSrcSet:
+        '/assets/images/thumbs/home-svc-mobile-md.webp 800w, /assets/images/thumbs/home-svc-mobile.webp 1600w',
       tags: ['iOS & Android', 'API Integration', 'Offline-Ready UX', 'Store Release'],
       blurb:
         'Native-feel mobile products that stay reliable in the field — synced to the same backend your web team trusts.',
@@ -194,7 +200,9 @@ export const homeServicesCarousel = {
     {
       slug: 'ai-integration',
       title: 'AI Integration',
-      image: '/assets/images/thumbs/portfolio-thumb4.webp',
+      image: '/assets/images/thumbs/home-svc-ai.webp',
+      imageSrcSet:
+        '/assets/images/thumbs/home-svc-ai-md.webp 800w, /assets/images/thumbs/home-svc-ai.webp 1600w',
       tags: ['Workflow Copilots', 'RAG Systems', 'Automation', 'Guardrails'],
       blurb:
         'Practical AI layered into real products — assistive workflows with controls, evaluation, and measurable value.',
@@ -202,7 +210,9 @@ export const homeServicesCarousel = {
     {
       slug: 'web-development',
       title: 'Web Development',
-      image: '/assets/images/thumbs/portfolio-thumb5.jpg',
+      image: '/assets/images/thumbs/home-svc-web.webp',
+      imageSrcSet:
+        '/assets/images/thumbs/home-svc-web-md.webp 800w, /assets/images/thumbs/home-svc-web.webp 1600w',
       tags: ['Performance', 'Accessibility', 'Modern Frontends', 'Secure APIs'],
       blurb:
         'Fast, accessible web applications operators and customers actually use — built to extend without fragility.',
@@ -210,7 +220,9 @@ export const homeServicesCarousel = {
     {
       slug: 'ui-ux-design',
       title: 'UI/UX Design',
-      image: '/assets/images/thumbs/service-slide-uiux.webp',
+      image: '/assets/images/thumbs/home-svc-uiux.webp',
+      imageSrcSet:
+        '/assets/images/thumbs/home-svc-uiux-md.webp 800w, /assets/images/thumbs/home-svc-uiux.webp 1600w',
       tags: ['User Research', 'Design Systems', 'Prototypes', 'Handoff Specs'],
       blurb:
         'Journeys and interfaces shaped before expensive build cycles — so engineering ships the right product.',
@@ -224,16 +236,18 @@ export const homeHuman = {
   titleAccent: 'reliably.',
   cta: { label: 'About Mernify', to: '/about' },
   avatars: [
-    '/assets/images/thumbs/team-img1.png',
-    '/assets/images/thumbs/team-img2.png',
-    '/assets/images/thumbs/team-img3.png',
-    '/assets/images/thumbs/team-img4.png',
+    '/assets/images/thumbs/team-img1.webp',
+    '/assets/images/thumbs/team-img2.webp',
+    '/assets/images/thumbs/team-img3.webp',
+    '/assets/images/thumbs/team-img4.webp',
   ],
   principles: [
     {
       title: 'Direct Communication',
       subtitle: 'Delivery principle',
-      image: '/assets/images/thumbs/team-thumb1.jpg',
+      image: '/assets/images/thumbs/team-thumb1.webp',
+      imageSrcSet:
+        '/assets/images/thumbs/team-thumb1-md.webp 560w, /assets/images/thumbs/team-thumb1.webp 1120w',
       to: '/about',
       social: [
         { label: 'LinkedIn', href: SITE.social.linkedin },
@@ -244,7 +258,9 @@ export const homeHuman = {
     {
       title: 'Transparent Delivery',
       subtitle: 'Delivery principle',
-      image: '/assets/images/thumbs/team-thumb2.jpg',
+      image: '/assets/images/thumbs/team-thumb2.webp',
+      imageSrcSet:
+        '/assets/images/thumbs/team-thumb2-md.webp 560w, /assets/images/thumbs/team-thumb2.webp 1120w',
       to: '/about',
       social: [
         { label: 'LinkedIn', href: SITE.social.linkedin },
@@ -256,6 +272,8 @@ export const homeHuman = {
       title: 'Product Ownership',
       subtitle: 'Delivery principle',
       image: '/assets/images/thumbs/team-thumb3.webp',
+      imageSrcSet:
+        '/assets/images/thumbs/team-thumb3-md.webp 560w, /assets/images/thumbs/team-thumb3.webp 1120w',
       to: '/about',
       social: [
         { label: 'LinkedIn', href: SITE.social.linkedin },

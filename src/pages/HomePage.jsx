@@ -9,6 +9,7 @@ import { HomeTrust } from '@/sections/home/HomeTrust'
 import { HomeWork } from '@/sections/home/HomeWork'
 import { HomeJourney } from '@/sections/home/HomeJourney'
 import { HomeHuman } from '@/sections/home/HomeHuman'
+import { HomeLatestBlogs } from '@/sections/home/HomeLatestBlogs'
 import { HomeInquiry } from '@/sections/home/HomeInquiry'
 import { Testimonials } from '@/components/trust/Testimonials'
 import { SITE } from '@/constants/site'
@@ -35,6 +36,7 @@ export function HomePage() {
           <Testimonials />
         </Container>
       ) : null}
+      <HomeLatestBlogs />
       <HomeInquiry />
     </>
   )

@@ -1,0 +1,78 @@
+.wrap {
+  pointer-events: none;
+  position: absolute;
+  z-index: 0;
+  right: -6%;
+  top: 8%;
+  width: min(34rem, 58vw);
+  aspect-ratio: 1;
+  opacity: 0.4;
+}
+
+.glow {
+  position: absolute;
+  inset: 12%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(21, 198, 226, 0.16), transparent 68%);
+  filter: blur(18px);
+}
+
+.globe {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 28px rgba(79, 70, 229, 0.18));
+}
+
+.spin {
+  transform-origin: 160px 160px;
+  animation: footerGlobeSpin 48s linear infinite;
+}
+
+.pulse {
+  transform-origin: 160px 160px;
+  animation: footerGlobePulse 4.5s ease-in-out infinite;
+}
+
+@keyframes footerGlobeSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes footerGlobePulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.55);
+  }
+}
+
+@media (max-width: 991px) {
+  .wrap {
+    width: min(22rem, 70vw);
+    top: auto;
+    bottom: 18%;
+    right: -18%;
+    opacity: 0.32;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spin,
+  .pulse {
+    animation: none;
+  }
+
+  .wrap {
+    opacity: 0.28;
+  }
+}

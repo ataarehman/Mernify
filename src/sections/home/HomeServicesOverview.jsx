@@ -226,9 +226,18 @@ export function HomeServicesOverview() {
                     ({String(index + 1).padStart(2, '0')}. SERVICE)
                   </span>
                   <h2 id="home-services-overview-title" ref={titleRef} className={styles.title}>
-                    {active.title.split('').map((char, charIndex) => (
-                      <span key={`${active.slug}-${charIndex}`} data-svc-char className={styles.char}>
-                        {char === ' ' ? '\u00A0' : char}
+                    {active.title.split(' ').map((word, wordIndex, words) => (
+                      <span key={`${active.slug}-w-${wordIndex}`} className={styles.word}>
+                        {word.split('').map((char, charIndex) => (
+                          <span
+                            key={`${active.slug}-${wordIndex}-${charIndex}`}
+                            data-svc-char
+                            className={styles.char}
+                          >
+                            {char}
+                          </span>
+                        ))}
+                        {wordIndex < words.length - 1 ? '\u00A0' : null}
                       </span>
                     ))}
                   </h2>
@@ -243,9 +252,13 @@ export function HomeServicesOverview() {
                   <ClipReveal
                     key={active.image}
                     src={active.image}
-                    alt=""
+                    srcSet={active.imageSrcSet}
+                    sizes="(max-width: 900px) 92vw, min(28rem, 36vw)"
+                    alt={`${active.title} — capability overview`}
                     className={styles.thumbClip}
                     start="top 90%"
+                    width={1600}
+                    height={1140}
                   />
                   <span className={styles.thumbFrame} aria-hidden="true" />
                 </Link>

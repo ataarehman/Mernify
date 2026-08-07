@@ -21,7 +21,14 @@ function PartnerCard({ client }) {
         </span>
         <span className={styles.hover} aria-hidden="true">
           <span className={styles.preview}>
-            <img src={client.image} alt="" loading="lazy" decoding="async" />
+            <img
+              src={client.image}
+              alt=""
+              width={1440}
+              height={900}
+              loading="lazy"
+              decoding="async"
+            />
           </span>
           <span className={styles.hoverMeta}>
             <span className={styles.hoverName}>{client.name}</span>

@@ -1,12 +1,13 @@
 .field {
   display: grid;
-  gap: var(--mf-space-2);
+  gap: 0.4rem;
 }
 
 .label {
   font-family: var(--mf-font-body);
-  font-size: var(--mf-font-size-body-sm);
+  font-size: 0.86rem;
   font-weight: var(--mf-weight-semibold);
+  letter-spacing: -0.01em;
   color: var(--mf-text-primary);
 }
 
@@ -16,54 +17,73 @@
 
 .hint {
   margin: 0;
-  font-size: var(--mf-font-size-label);
+  font-size: 0.78rem;
+  line-height: 1.4;
   color: var(--mf-text-secondary);
 }
 
 .control {
   width: 100%;
-  min-height: 2.875rem;
-  padding: 0.7rem 0.9rem;
-  border-radius: var(--mf-radius-sm);
-  border: 1px solid transparent;
-  background: #f4f2ee;
+  min-height: 3rem;
+  padding: 0.7rem 0.95rem;
+  border-radius: 0.85rem;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  background: #ffffff;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.03);
   color: var(--mf-text-primary);
   font: inherit;
+  font-size: 0.94rem;
+  cursor: text;
   transition:
-    border-color var(--mf-dur-sm) var(--mf-ease-out),
-    box-shadow var(--mf-dur-sm) var(--mf-ease-out),
-    background-color var(--mf-dur-sm) var(--mf-ease-out);
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    background-color 0.25s ease;
+}
+
+.control::placeholder {
+  color: rgba(15, 23, 42, 0.4);
+}
+
+.control:hover {
+  border-color: rgba(79, 70, 229, 0.28);
 }
 
 .control:focus-visible {
   outline: none;
   border-color: var(--mf-color-indigo);
-  box-shadow: 0 0 0 4px var(--mf-focus-ring);
+  box-shadow:
+    0 0 0 4px rgba(79, 70, 229, 0.14),
+    0 8px 18px rgba(79, 70, 229, 0.08);
 }
 
 .control[aria-invalid='true'] {
   border-color: var(--mf-color-error);
+  box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
 }
 
 .textarea {
   min-height: 8.5rem;
   resize: vertical;
+  line-height: 1.55;
 }
 
 .select {
   appearance: none;
-  background-image: linear-gradient(45deg, transparent 50%, var(--mf-color-slate-gray) 50%),
-    linear-gradient(135deg, var(--mf-color-slate-gray) 50%, transparent 50%);
+  cursor: pointer;
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(45deg, transparent 50%, rgba(15, 23, 42, 0.45) 50%),
+    linear-gradient(135deg, rgba(15, 23, 42, 0.45) 50%, transparent 50%);
   background-position:
-    calc(100% - 18px) calc(50% - 3px),
-    calc(100% - 12px) calc(50% - 3px);
-  background-size: 6px 6px;
+    calc(100% - 1.15rem) calc(50% - 0.18rem),
+    calc(100% - 0.75rem) calc(50% - 0.18rem);
+  background-size: 0.35rem 0.35rem;
   background-repeat: no-repeat;
   padding-right: 2.4rem;
 }
 
 .error {
   margin: 0;
-  font-size: var(--mf-font-size-label);
+  font-size: 0.78rem;
   color: var(--mf-color-error);
 }

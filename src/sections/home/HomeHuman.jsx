@@ -45,7 +45,14 @@ export function HomeHuman() {
             <div className={styles.avatars}>
               {homeHuman.avatars.map((src) => (
                 <span key={src} className={styles.avatar}>
-                  <img src={src} alt="" width={52} height={52} loading="lazy" decoding="async" />
+                  <img
+                    src={src}
+                    alt=""
+                    width={256}
+                    height={256}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </span>
               ))}
               <img
@@ -92,7 +99,16 @@ export function HomeHuman() {
             <article key={item.title} className={styles.card} data-fade-up>
               <div className={styles.thumb}>
                 <Link to={item.to} className={styles.thumbLink} aria-label={item.title}>
-                  <img src={item.image} alt="" width={559} height={650} loading="lazy" decoding="async" />
+                  <img
+                    src={item.image}
+                    srcSet={item.imageSrcSet}
+                    sizes="(max-width: 768px) 92vw, 30vw"
+                    alt=""
+                    width={1120}
+                    height={1300}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </Link>
 
                 <span className={styles.subtitle}>{item.subtitle}</span>

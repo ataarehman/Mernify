@@ -7,6 +7,7 @@ export const navigation = [
   { label: 'Case Studies', to: '/case-studies' },
   { label: 'Industries', to: '/industries' },
   { label: 'Process', to: '/process' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },
 ]
 
@@ -15,7 +16,7 @@ export const primaryCta = {
   to: '/contact',
 }
 
-/** Tall footer nav cards — the five primary destinations. */
+/** Primary destinations (legacy / compact nav). */
 export const footerNav = [
   { label: 'Home', to: '/' },
   { label: 'Services', to: '/services' },
@@ -24,7 +25,6 @@ export const footerNav = [
   { label: 'Contact', to: '/contact' },
 ]
 
-/** Individual service links for SEO / footer depth */
 export const footerServices = [
   { label: 'Product Engineering', to: '/services/product-engineering' },
   { label: 'SaaS Development', to: '/services/saas-development' },
@@ -34,11 +34,23 @@ export const footerServices = [
   { label: 'UI/UX Design', to: '/services/ui-ux-design' },
 ]
 
-/** Remaining pages, so every route is reachable from the footer. */
+export const footerSolutions = [
+  { label: 'Case Studies', to: '/case-studies' },
+  { label: 'Industries', to: '/industries' },
+  { label: 'Delivery Process', to: '/process' },
+  { label: 'Dedicated Teams', to: '/services/dedicated-product-teams' },
+]
+
 export const footerCompany = [
   { label: 'About', to: '/about' },
-  { label: 'Industries', to: '/industries' },
+  { label: 'Contact', to: '/contact' },
   { label: 'All services', to: '/services' },
+]
+
+export const footerResources = [
+  { label: 'Blog', to: '/blog' },
+  { label: 'Privacy Policy', to: '/privacy' },
+  { label: 'Terms of Service', to: '/terms' },
 ]
 
 export const footerSocial = [
@@ -50,6 +62,13 @@ export const footerSocial = [
 export const footerLegal = [
   { label: 'Privacy Policy', to: '/privacy' },
   { label: 'Terms of Service', to: '/terms' },
+]
+
+export const footerTrust = [
+  'Secure by design',
+  'MERN specialists',
+  'Enterprise delivery',
+  'Clear ownership',
 ]
 
 /** Services shown in the header mega menu (matches mernify-web) */

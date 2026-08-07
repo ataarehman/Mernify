@@ -74,7 +74,7 @@ export const homePartners = {
       short: 'GD',
       category: 'Retail',
       logo: '/portfolio/logos/godiva.svg',
-      image: '/portfolio/godiva/cover.svg',
+      image: '/portfolio/godiva/home-desktop.webp',
       to: '/case-studies/godiva',
     },
   ],
