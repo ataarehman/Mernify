@@ -58,47 +58,17 @@
     center / contain no-repeat;
 }
 
-/* Hide the native cursor when the soft cursor is active (desktop only). */
-:global(html.mf-soft-cursor),
-:global(html.mf-soft-cursor *) {
-  cursor: none !important;
-}
-
+/*
+ * Match mernify-web `tw-cursor.js` + `.cursor-hide`:
+ * - Do NOT force cursor:none on the whole page.
+ * - Keep the native pointer on links/buttons while the soft ball hides.
+ * - Only hide the native cursor on expand/"View" hosts (and .mf-hide-cursor).
+ */
+:global(html.mf-soft-cursor [data-cursor]:not([data-cursor='interactive']):not([data-cursor='hide']):not([data-cursor='none'])),
+:global(html.mf-soft-cursor [data-cursor]:not([data-cursor='interactive']):not([data-cursor='hide']):not([data-cursor='none']) *),
 :global(html.mf-soft-cursor .mf-hide-cursor),
 :global(html.mf-soft-cursor .mf-hide-cursor *) {
   cursor: none !important;
-}
-
-/*
- * Soft cursor hides its ball on links/buttons/inputs. Restore the native
- * hand/text cursor so interactive controls stay obviously usable.
- */
-:global(html.mf-soft-cursor a),
-:global(html.mf-soft-cursor button),
-:global(html.mf-soft-cursor [role='button']),
-:global(html.mf-soft-cursor [role='radio']),
-:global(html.mf-soft-cursor [role='option']),
-:global(html.mf-soft-cursor summary),
-:global(html.mf-soft-cursor label),
-:global(html.mf-soft-cursor select),
-:global(html.mf-soft-cursor input[type='checkbox']),
-:global(html.mf-soft-cursor input[type='radio']),
-:global(html.mf-soft-cursor input[type='submit']),
-:global(html.mf-soft-cursor input[type='button']) {
-  cursor: pointer !important;
-}
-
-:global(html.mf-soft-cursor input:not([type='checkbox']):not([type='radio']):not([type='submit']):not([type='button'])),
-:global(html.mf-soft-cursor textarea) {
-  cursor: text !important;
-}
-
-:global(html.mf-soft-cursor header a),
-:global(html.mf-soft-cursor header button),
-:global(html.mf-soft-cursor header [role='button']),
-:global(html.mf-soft-cursor header summary),
-:global(html.mf-soft-cursor header label) {
-  cursor: pointer !important;
 }
 
 @media (pointer: coarse), (max-width: 991px) {

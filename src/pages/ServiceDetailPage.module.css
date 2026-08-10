@@ -141,6 +141,17 @@
   color: var(--mf-color-cyan);
 }
 
+.bannerTitle {
+  margin: 0 0 0.85rem;
+  font-family: var(--mf-font-display);
+  font-size: clamp(1.75rem, 3.2vw, 2.45rem);
+  font-weight: var(--mf-weight-semibold);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  color: var(--mf-text-primary);
+  max-width: 18ch;
+}
+
 .srOnly {
   position: absolute;
   width: 1px;

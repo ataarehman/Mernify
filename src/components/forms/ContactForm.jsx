@@ -1,10 +1,12 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { Check } from 'lucide-react'
 import { Button } from '@/components/ui'
-import { Field, TextInput, TextArea, SelectInput } from '@/components/forms/Field'
+import { Field, TextInput, TextArea, SelectInput, CharCount } from '@/components/forms/Field'
 import { BookCallCta } from '@/components/cta/BookCallCta'
 import { serviceInterests } from '@/content/pages'
 import { SITE } from '@/constants/site'
+import { MESSAGE_MAX, MESSAGE_MIN, validateContactFields } from '@/lib/contactValidation'
 import { submitContactForm } from '@/lib/submitContactForm'
 import styles from './ContactForm.module.css'
 
@@ -15,35 +17,26 @@ const initial = {
   service: '',
   message: '',
   consent: false,
-  website: '',
+  // Obscure honeypot name — do NOT use "website" (browsers autofill it and
+  // previously caused a fake success with no /api/contact call).
+  mfTrap: '',
 }
 
-function validate(values) {
-  const errors = {}
-  if (!values.name.trim()) errors.name = 'Enter your name.'
-  if (!values.email.trim()) errors.email = 'Enter your business email.'
-  else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
-    errors.email = 'Enter a valid email address.'
-  }
-  if (!values.message.trim() || values.message.trim().length < 20) {
-    errors.message = 'Share a bit more detail — at least a few sentences.'
-  }
-  if (!values.consent) errors.consent = 'Consent is required to contact you.'
-  return errors
-}
-
-export function ContactForm({ defaultService = '', defaultIntent = '' }) {
+export function ContactForm({ defaultService = '', defaultIntent = '', defaultEmail = '' }) {
   const [values, setValues] = useState(() => ({
     ...initial,
     service: defaultService,
+    email: defaultEmail,
     message:
       defaultIntent === 'discovery' ? 'I would like to schedule a discovery call about: ' : '',
   }))
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle')
   const [statusMessage, setStatusMessage] = useState('')
+  const submittingRef = useRef(false)
 
-  const canSubmit = useMemo(() => status !== 'loading', [status])
+  const loading = status === 'loading'
+  const canSubmit = useMemo(() => !loading, [loading])
 
   function onChange(event) {
     const { name, type, checked, value } = event.target
@@ -55,32 +48,46 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
         return next
       })
     }
+    if (status === 'error') {
+      setStatus('idle')
+      setStatusMessage('')
+    }
+  }
+
+  function focusFirstError(nextErrors) {
+    const order = ['name', 'email', 'message', 'consent']
+    const key = order.find((k) => nextErrors[k])
+    if (!key) return
+    document.getElementById(key)?.focus?.()
   }
 
   async function onSubmit(event) {
     event.preventDefault()
+    if (submittingRef.current || loading) return
 
-    // Honeypot — bots only
-    if (values.website?.trim()) {
-      setStatus('success')
-      setStatusMessage(`Thanks — your message was sent. ${SITE.responseSla}`)
-      setValues(initial)
-      setErrors({})
-      return
-    }
-
-    const nextErrors = validate(values)
+    // Same order as Home InquiryStepperForm: validate → honeypot → API
+    const nextErrors = validateContactFields(values)
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length) {
       setStatus('error')
       setStatusMessage('Please fix the highlighted fields.')
+      focusFirstError(nextErrors)
       return
     }
 
+    // Honeypot — bots only (silent success, no API call)
+    if (values.mfTrap?.trim()) {
+      setStatus('success')
+      setStatusMessage(`Thanks — your message was sent. ${SITE.responseSla}`)
+      return
+    }
+
+    submittingRef.current = true
     setStatus('loading')
-    setStatusMessage('Sending your message...')
+    setStatusMessage('Sending your message…')
     try {
-      const result = await submitContactForm({
+      // Same delivery helper + payload shape as the working Home form
+      await submitContactForm({
         name: values.name.trim(),
         email: values.email.trim(),
         company: values.company.trim(),
@@ -91,30 +98,34 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
         consent: true,
       })
       setStatus('success')
-      if (result.mode === 'mailto') {
-        setStatusMessage(
-          `Opening your email client with a draft. If nothing opens, email ${SITE.email} directly. ${SITE.responseSla}`,
-        )
-      } else {
-        setStatusMessage(
-          `Thanks — your message was sent. ${SITE.responseSla} Next: we review context and reply with clarifying questions or a discovery-call invite.`,
-        )
-      }
-      setValues(initial)
+      setStatusMessage(
+        `Thank you! Your request was submitted successfully. ${SITE.responseSla} We’ll reply with clarifying questions or a discovery-call invite.`,
+      )
+      setValues({
+        ...initial,
+        service: defaultService,
+        message:
+          defaultIntent === 'discovery' ? 'I would like to schedule a discovery call about: ' : '',
+      })
       setErrors({})
     } catch (err) {
       setStatus('error')
       setStatusMessage(
         err?.name === 'AbortError'
           ? `The request timed out. Please try again or email ${SITE.email}.`
-          : err?.message || `Something went wrong. Please email ${SITE.email}.`,
+          : err?.message || `Something went wrong. Please try again or email ${SITE.email}.`,
       )
+    } finally {
+      submittingRef.current = false
     }
   }
 
   if (status === 'success') {
     return (
       <div className={styles.successPanel} role="status" aria-live="polite">
+        <div className={styles.successBadge} aria-hidden="true">
+          <Check size={22} strokeWidth={2.5} />
+        </div>
         <p className={styles.successEyebrow}>Received</p>
         <p className={styles.successTitle}>Message sent</p>
         <p className={styles.successText}>{statusMessage}</p>
@@ -129,16 +140,22 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
   }
 
   return (
-    <form className={styles.form} onSubmit={onSubmit} noValidate>
+    <form className={styles.form} onSubmit={onSubmit} noValidate aria-busy={loading}>
       <div className={styles.honeypot} aria-hidden="true">
         <label htmlFor="mf-hp">Leave blank</label>
         <input
           id="mf-hp"
-          name="website"
+          name="mfTrap"
           type="text"
           tabIndex={-1}
           autoComplete="off"
-          value={values.website}
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
+          data-lpignore="true"
+          data-1p-ignore="true"
+          data-form-type="other"
+          value={values.mfTrap}
           onChange={onChange}
         />
       </div>
@@ -153,7 +170,7 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             onChange={onChange}
             invalid={Boolean(errors.name)}
             maxLength={120}
-            disabled={status === 'loading'}
+            disabled={loading}
             placeholder="Your name"
           />
         </Field>
@@ -167,7 +184,7 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             onChange={onChange}
             invalid={Boolean(errors.email)}
             maxLength={160}
-            disabled={status === 'loading'}
+            disabled={loading}
             placeholder="you@company.com"
           />
         </Field>
@@ -182,7 +199,7 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             value={values.company}
             onChange={onChange}
             maxLength={160}
-            disabled={status === 'loading'}
+            disabled={loading}
             placeholder="Company or product name"
           />
         </Field>
@@ -193,7 +210,7 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
             value={values.service}
             onChange={onChange}
             invalid={Boolean(errors.service)}
-            disabled={status === 'loading'}
+            disabled={loading}
           >
             <option value="">Select (optional)</option>
             {serviceInterests.map((item) => (
@@ -213,9 +230,10 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
           onChange={onChange}
           invalid={Boolean(errors.message)}
           placeholder="Goals, current state, users, and what a useful next step looks like."
-          maxLength={5000}
-          disabled={status === 'loading'}
+          maxLength={MESSAGE_MAX}
+          disabled={loading}
         />
+        <CharCount value={values.message} min={MESSAGE_MIN} max={MESSAGE_MAX} />
       </Field>
 
       <label className={styles.consent} htmlFor="consent">
@@ -226,7 +244,7 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
           checked={values.consent}
           onChange={onChange}
           aria-invalid={errors.consent ? 'true' : undefined}
-          disabled={status === 'loading'}
+          disabled={loading}
         />
         <span>
           I agree to be contacted about this inquiry. See the <Link to="/privacy">Privacy Policy</Link>
@@ -240,8 +258,14 @@ export function ContactForm({ defaultService = '', defaultIntent = '' }) {
       ) : null}
 
       <div className={styles.actions}>
-        <Button type="submit" variant="inverse" size="md" disabled={!canSubmit} aria-busy={status === 'loading'}>
-          {status === 'loading' ? 'Sending...' : 'Send message'}
+        <Button
+          type="submit"
+          variant="inverse"
+          size="md"
+          disabled={!canSubmit}
+          aria-busy={loading}
+        >
+          {loading ? 'Sending…' : 'Send message'}
         </Button>
         <BookCallCta variant="secondary" size="md" label="Schedule Meeting" />
       </div>

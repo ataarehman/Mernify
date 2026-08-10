@@ -2,6 +2,9 @@
  * Published portfolio case studies — evidence-based from public research.
  * Metrics appear only when visible on the live site (quoted as site messaging).
  * Unverified stack claims are omitted.
+ *
+ * Temporarily hidden from all UI listings (restore by setting status: 'published'):
+ * godiva, kinepolis, marmot (Morment), trendyol
  */
 
 export const caseStudies = [
@@ -469,7 +472,7 @@ export const caseStudies = [
   },
   {
     slug: 'godiva',
-    status: 'published',
+    status: 'hidden',
     title: 'GODIVA',
     tagline: 'Premium Belgian chocolatier — luxury e-commerce experience with gifting, seasonal collections, subscriptions, and a global rewards programme.',
     industry: 'Luxury retail / Confectionery e-commerce',
@@ -1807,7 +1810,7 @@ export const caseStudies = [
   },
   {
     slug: 'kinepolis',
-    status: 'published',
+    status: 'hidden',
     title: 'Kinepolis',
     tagline: 'Europe\'s premier cinema group — multilingual digital platform for film discovery, ticketing, and loyalty across six countries.',
     industry: 'Entertainment / Cinema',
@@ -2028,7 +2031,7 @@ export const caseStudies = [
   },
   {
     slug: 'marmot',
-    status: 'published',
+    status: 'hidden',
     title: 'Marmot',
     tagline: 'Over 50 years of technical outdoor gear — a premium e-commerce experience for performance-driven adventurers.',
     industry: 'Outdoor apparel / E-commerce',
@@ -2463,7 +2466,7 @@ export const caseStudies = [
   },
   {
     slug: 'trendyol',
-    status: 'published',
+    status: 'hidden',
     title: 'Trendyol',
     tagline: 'Turkey\'s dominant e-commerce marketplace — $10B+ GMV, 30M+ shoppers, 250K+ sellers, and a full logistics and fintech ecosystem.',
     industry: 'E-commerce / Multi-category marketplace',
@@ -2739,12 +2742,12 @@ export const homeWork = {
 }
 
 export function getCaseStudyBySlug(slug) {
-  return caseStudies.find((item) => item.slug === slug)
+  return publishedCaseStudies.find((item) => item.slug === slug)
 }
 
 export function getRelatedCaseStudies(study) {
   if (!study?.related?.length) return []
-  return study.related.map((slug) => getCaseStudyBySlug(slug)).filter(Boolean)
+  return study.related.map((relatedSlug) => getCaseStudyBySlug(relatedSlug)).filter(Boolean)
 }
 
 export function getNextCaseStudy(slug) {

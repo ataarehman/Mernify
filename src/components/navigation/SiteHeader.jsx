@@ -51,49 +51,80 @@ const SOCIAL_ICONS = {
   linkedin: LinkedinIcon,
 }
 
-const NEWSLETTER_ENDPOINT = String(import.meta.env.VITE_CONTACT_ENDPOINT || 'https://www.mernify.co/api/contact')
-  .replace('/api/contact', '/api/newsletter')
+const NEWSLETTER_ENDPOINT = '/api/newsletter'
 
 function NewsletterForm() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle')
+  const [errorMessage, setErrorMessage] = useState('')
 
   async function handleSubmit(event) {
     event.preventDefault()
     const val = email.trim()
-    if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) return
+    if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+      setStatus('error')
+      setErrorMessage('Enter a valid email.')
+      return
+    }
     setStatus('loading')
+    setErrorMessage('')
     try {
-      const endpoint = NEWSLETTER_ENDPOINT || 'https://mernify.co/api/newsletter'
-      const res = await fetch(endpoint, {
+      const res = await fetch(NEWSLETTER_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: val }),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          email: val,
+          page: typeof window !== 'undefined' ? window.location.pathname : '',
+        }),
       })
-      setStatus(res.ok ? 'done' : 'error')
+      if (!res.ok) {
+        let message = 'Failed. Try again.'
+        try {
+          const data = await res.json()
+          if (data?.error) message = String(data.error).slice(0, 120)
+        } catch {
+          /* ignore */
+        }
+        setStatus('error')
+        setErrorMessage(message)
+        return
+      }
+      setStatus('done')
+      setEmail('')
     } catch {
       setStatus('error')
+      setErrorMessage('Failed. Try again.')
     }
   }
 
-  if (status === 'done') return <p style={{ fontSize: '0.85rem', color: 'inherit' }}>Thanks! We&apos;ll be in touch.</p>
+  if (status === 'done') {
+    return <p style={{ fontSize: '0.85rem', color: 'inherit' }}>Thanks! We&apos;ll be in touch.</p>
+  }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} noValidate>
       <input
         type="email"
         name="email"
         placeholder="Enter mail"
         aria-label="Email"
         value={email}
-        onChange={(e) => setEmail(e.target.value)}
+        onChange={(e) => {
+          setEmail(e.target.value)
+          if (status === 'error') setStatus('idle')
+        }}
         disabled={status === 'loading'}
         required
+        autoComplete="email"
       />
-      <button type="submit" aria-label="Subscribe" disabled={status === 'loading'}>
+      <button type="submit" aria-label="Subscribe" disabled={status === 'loading'} aria-busy={status === 'loading'}>
         <Send size={16} aria-hidden="true" />
       </button>
-      {status === 'error' && <p style={{ fontSize: '0.75rem', marginTop: '0.25rem', color: 'inherit' }}>Failed. Try again.</p>}
+      {status === 'error' ? (
+        <p style={{ fontSize: '0.75rem', marginTop: '0.25rem', color: 'inherit' }} role="alert">
+          {errorMessage || 'Failed. Try again.'}
+        </p>
+      ) : null}
     </form>
   )
 }

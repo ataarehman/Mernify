@@ -73,8 +73,62 @@ a {
   text-underline-offset: 0.2em;
 }
 
-button {
+/*
+ * Interactive cursor defaults (design system).
+ * SoftCursor must not override these except on expand/"View" hosts.
+ */
+a[href],
+button:not(:disabled),
+[role='button']:not([aria-disabled='true']),
+[role='link']:not([aria-disabled='true']),
+[role='tab']:not([aria-disabled='true']),
+[role='menuitem']:not([aria-disabled='true']),
+[role='menuitemcheckbox']:not([aria-disabled='true']),
+[role='menuitemradio']:not([aria-disabled='true']),
+[role='option']:not([aria-disabled='true']),
+[role='radio']:not([aria-disabled='true']),
+[role='checkbox']:not([aria-disabled='true']),
+[role='switch']:not([aria-disabled='true']),
+[role='combobox']:not([aria-disabled='true']),
+summary,
+label[for],
+select:not(:disabled),
+input[type='checkbox']:not(:disabled),
+input[type='radio']:not(:disabled),
+input[type='submit']:not(:disabled),
+input[type='button']:not(:disabled),
+input[type='reset']:not(:disabled),
+input[type='file']:not(:disabled),
+input[type='image']:not(:disabled),
+[data-cursor='interactive'] {
   cursor: pointer;
+}
+
+button:disabled,
+[aria-disabled='true'],
+input:disabled,
+select:disabled,
+textarea:disabled {
+  cursor: not-allowed;
+}
+
+input:not(
+  [type='checkbox'],
+  [type='radio'],
+  [type='submit'],
+  [type='button'],
+  [type='reset'],
+  [type='file'],
+  [type='image'],
+  [type='range'],
+  [type='color']
+),
+textarea {
+  cursor: text;
+}
+
+input[type='range'] {
+  cursor: ew-resize;
 }
 
 :focus {

@@ -10,6 +10,8 @@
     "lint": "eslint .",
     "check:ready": "vite build && node scripts/check-ready.mjs",
     "chat:worker": "wrangler dev --config cf-worker/wrangler.toml --port 8787",
+    "contact:worker": "wrangler dev --config cf-worker/wrangler.contact.toml --port 8788",
+    "check:contact": "node scripts/check-contact-ready.mjs",
     "chat:db:local": "wrangler d1 execute mernify-ai --local --config cf-worker/wrangler.toml --file=cf-worker/schema.sql"
   },
   "dependencies": {

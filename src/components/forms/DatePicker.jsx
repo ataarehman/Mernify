@@ -1,8 +1,10 @@
-import { useEffect, useId, useMemo, useRef, useState } from 'react'
+import { useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { CalendarDays, ChevronLeft, ChevronRight } from 'lucide-react'
 import styles from './DatePicker.module.css'
 
 const WEEKDAYS = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa']
+const POP_WIDTH = 312
 
 function parseISO(value) {
   if (!value || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return null
@@ -48,6 +50,7 @@ function buildCells(viewDate) {
 /**
  * Lightweight calendar date picker — no external dependency.
  * Value is ISO `YYYY-MM-DD` (or empty string).
+ * Popover is portaled to document.body so parent overflow cannot clip it.
  */
 export function DatePicker({
   id,
@@ -57,12 +60,18 @@ export function DatePicker({
   invalid = false,
   placeholder = 'Select a date',
   min,
+  disabled = false,
   className = '',
+  'aria-describedby': ariaDescribedBy,
 }) {
   const autoId = useId()
   const fieldId = id || autoId
+  const dialogId = `${fieldId}-dialog`
   const rootRef = useRef(null)
+  const triggerRef = useRef(null)
+  const popRef = useRef(null)
   const [open, setOpen] = useState(false)
+  const [coords, setCoords] = useState({ top: 0, left: 0, width: POP_WIDTH, placement: 'bottom' })
   const selected = parseISO(value)
   const [viewDate, setViewDate] = useState(() => selected || new Date())
 
@@ -79,14 +88,64 @@ export function DatePicker({
     setViewDate(selected)
   }, [selected])
 
+  useLayoutEffect(() => {
+    if (!open) return undefined
+
+    function place() {
+      const trigger = triggerRef.current
+      const pop = popRef.current
+      if (!trigger) return
+
+      const rect = trigger.getBoundingClientRect()
+      const popHeight = pop?.offsetHeight || 340
+      const width = Math.min(POP_WIDTH, Math.max(rect.width, 260))
+      const gap = 8
+      const spaceBelow = window.innerHeight - rect.bottom - gap
+      const spaceAbove = rect.top - gap
+      const placement =
+        spaceBelow >= popHeight
+          ? 'bottom'
+          : spaceAbove >= popHeight
+            ? 'top'
+            : spaceAbove > spaceBelow
+              ? 'top'
+              : 'bottom'
+
+      let left = rect.left
+      left = Math.max(8, Math.min(left, window.innerWidth - width - 8))
+
+      let top =
+        placement === 'top' ? rect.top - popHeight - gap : rect.bottom + gap
+      top = Math.max(8, Math.min(top, window.innerHeight - popHeight - 8))
+
+      setCoords({ top, left, width, placement })
+    }
+
+    place()
+    const frame = requestAnimationFrame(place)
+    window.addEventListener('resize', place)
+    window.addEventListener('scroll', place, true)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('resize', place)
+      window.removeEventListener('scroll', place, true)
+    }
+  }, [open, viewDate])
+
   useEffect(() => {
     if (!open) return undefined
 
     function onPointerDown(event) {
-      if (!rootRef.current?.contains(event.target)) setOpen(false)
+      const t = event.target
+      if (rootRef.current?.contains(t) || popRef.current?.contains(t)) return
+      setOpen(false)
     }
     function onKey(event) {
-      if (event.key === 'Escape') setOpen(false)
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        setOpen(false)
+        triggerRef.current?.focus()
+      }
     }
 
     document.addEventListener('pointerdown', onPointerDown)
@@ -114,10 +173,128 @@ export function DatePicker({
     if (isDisabled(date)) return
     emit(toISO(date))
     setOpen(false)
+    triggerRef.current?.focus()
   }
 
   const todayISO = toISO(new Date())
   const display = formatDisplay(value)
+
+  const popover =
+    open && typeof document !== 'undefined'
+      ? createPortal(
+          <div
+            ref={popRef}
+            id={dialogId}
+            className={styles.pop}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Choose a date"
+            data-placement={coords.placement}
+            style={{
+              position: 'fixed',
+              top: coords.top,
+              left: coords.left,
+              width: coords.width,
+              zIndex: 10000,
+            }}
+          >
+            <div className={styles.popHead}>
+              <button
+                type="button"
+                className={styles.navBtn}
+                aria-label="Previous month"
+                onClick={() =>
+                  setViewDate((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1))
+                }
+              >
+                <ChevronLeft size={18} aria-hidden="true" />
+              </button>
+              <p className={styles.monthLabel} aria-live="polite">
+                {monthLabel}
+              </p>
+              <button
+                type="button"
+                className={styles.navBtn}
+                aria-label="Next month"
+                onClick={() =>
+                  setViewDate((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1))
+                }
+              >
+                <ChevronRight size={18} aria-hidden="true" />
+              </button>
+            </div>
+
+            <div className={styles.weekdays} aria-hidden="true">
+              {WEEKDAYS.map((day) => (
+                <span key={day}>{day}</span>
+              ))}
+            </div>
+
+            <div className={styles.grid} role="grid" aria-label={monthLabel}>
+              {cells.map((date, index) => {
+                if (!date) {
+                  return <span key={`e-${index}`} className={styles.empty} role="presentation" />
+                }
+                const iso = toISO(date)
+                const isSelected = value === iso
+                const isToday = iso === todayISO
+                const dayDisabled = isDisabled(date)
+                return (
+                  <button
+                    key={iso}
+                    type="button"
+                    role="gridcell"
+                    className={[
+                      styles.day,
+                      isSelected ? styles.daySelected : '',
+                      isToday ? styles.dayToday : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                    disabled={dayDisabled}
+                    aria-label={formatDisplay(iso)}
+                    aria-pressed={isSelected}
+                    aria-current={isToday ? 'date' : undefined}
+                    onClick={() => selectDay(date)}
+                  >
+                    {date.getDate()}
+                  </button>
+                )
+              })}
+            </div>
+
+            <div className={styles.popFoot}>
+              <button
+                type="button"
+                className={styles.footBtn}
+                onClick={() => {
+                  emit('')
+                  setOpen(false)
+                  triggerRef.current?.focus()
+                }}
+              >
+                Clear
+              </button>
+              <button
+                type="button"
+                className={styles.footBtnAccent}
+                onClick={() => {
+                  const now = new Date()
+                  if (!isDisabled(now)) {
+                    emit(toISO(now))
+                    setViewDate(now)
+                  }
+                  setOpen(false)
+                  triggerRef.current?.focus()
+                }}
+              >
+                Today
+              </button>
+            </div>
+          </div>,
+          document.body,
+        )
+      : null
 
   return (
     <div
@@ -125,13 +302,17 @@ export function DatePicker({
       className={[styles.root, className].filter(Boolean).join(' ')}
     >
       <button
+        ref={triggerRef}
         type="button"
         id={fieldId}
         className={styles.trigger}
         aria-haspopup="dialog"
         aria-expanded={open}
+        aria-controls={open ? dialogId : undefined}
         aria-invalid={invalid ? 'true' : undefined}
-        onClick={() => setOpen((v) => !v)}
+        aria-describedby={ariaDescribedBy}
+        disabled={disabled}
+        onClick={() => !disabled && setOpen((v) => !v)}
       >
         <CalendarDays className={styles.triggerIcon} size={18} aria-hidden="true" />
         <span className={display ? styles.value : styles.placeholder}>
@@ -139,100 +320,9 @@ export function DatePicker({
         </span>
       </button>
 
-      {/* Keep name in the DOM for progressive enhancement / autofill tooling */}
       <input type="hidden" name={name} value={value} readOnly />
 
-      {open ? (
-        <div className={styles.pop} role="dialog" aria-label="Choose a date">
-          <div className={styles.popHead}>
-            <button
-              type="button"
-              className={styles.navBtn}
-              aria-label="Previous month"
-              onClick={() =>
-                setViewDate((d) => new Date(d.getFullYear(), d.getMonth() - 1, 1))
-              }
-            >
-              <ChevronLeft size={18} aria-hidden="true" />
-            </button>
-            <p className={styles.monthLabel}>{monthLabel}</p>
-            <button
-              type="button"
-              className={styles.navBtn}
-              aria-label="Next month"
-              onClick={() =>
-                setViewDate((d) => new Date(d.getFullYear(), d.getMonth() + 1, 1))
-              }
-            >
-              <ChevronRight size={18} aria-hidden="true" />
-            </button>
-          </div>
-
-          <div className={styles.weekdays} aria-hidden="true">
-            {WEEKDAYS.map((day) => (
-              <span key={day}>{day}</span>
-            ))}
-          </div>
-
-          <div className={styles.grid}>
-            {cells.map((date, index) => {
-              if (!date) {
-                return <span key={`e-${index}`} className={styles.empty} />
-              }
-              const iso = toISO(date)
-              const isSelected = value === iso
-              const isToday = iso === todayISO
-              const disabled = isDisabled(date)
-              return (
-                <button
-                  key={iso}
-                  type="button"
-                  className={[
-                    styles.day,
-                    isSelected ? styles.daySelected : '',
-                    isToday ? styles.dayToday : '',
-                  ]
-                    .filter(Boolean)
-                    .join(' ')}
-                  disabled={disabled}
-                  aria-label={formatDisplay(iso)}
-                  aria-pressed={isSelected}
-                  onClick={() => selectDay(date)}
-                >
-                  {date.getDate()}
-                </button>
-              )
-            })}
-          </div>
-
-          <div className={styles.popFoot}>
-            <button
-              type="button"
-              className={styles.footBtn}
-              onClick={() => {
-                emit('')
-                setOpen(false)
-              }}
-            >
-              Clear
-            </button>
-            <button
-              type="button"
-              className={styles.footBtnAccent}
-              onClick={() => {
-                const now = new Date()
-                if (!isDisabled(now)) {
-                  emit(toISO(now))
-                  setViewDate(now)
-                }
-                setOpen(false)
-              }}
-            >
-              Today
-            </button>
-          </div>
-        </div>
-      ) : null}
+      {popover}
     </div>
   )
 }

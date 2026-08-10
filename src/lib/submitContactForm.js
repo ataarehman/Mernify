@@ -1,18 +1,14 @@
 /**
- * Contact form submission.
+ * Contact form submission — shared by Home inquiry + Contact page forms.
  *
- * Priority:
- * 1. VITE_CONTACT_ENDPOINT — Cloudflare Worker / custom API (JSON POST)
- * 2. VITE_WEB3FORMS_ACCESS_KEY — https://web3forms.com
- * 3. mailto fallback — development / misconfigured production only
+ * Browser always posts same-origin `/api/contact`.
+ * Server path: /api/contact → EMAIL_SERVICE_URL (mail microservice) → info@mernify.co
  *
- * Note: All VITE_* values are public in the client bundle.
- * Never put RESEND_API_KEY or other private secrets in VITE_* variables.
+ * Success only after the API accepts delivery. No mailto-as-success.
+ * Never put EMAIL_SECRET / RESEND_API_KEY in VITE_* variables.
  */
 
-import { resolveContactEndpoint } from '@/lib/env'
-
-const EMAIL = 'info@mernify.co'
+import { MESSAGE_MAX } from '@/lib/contactValidation'
 
 function sanitizeField(value, max = 500) {
   return String(value ?? '')
@@ -26,23 +22,6 @@ function sanitizeField(value, max = 500) {
     .slice(0, max)
 }
 
-function buildMailto(payload) {
-  const subject = encodeURIComponent(`Mernify inquiry — ${payload.company || payload.name}`)
-  const body = encodeURIComponent(
-    [
-      `Name: ${payload.name}`,
-      `Email: ${payload.email}`,
-      `Company: ${payload.company || '—'}`,
-      `Service interest: ${payload.service || '—'}`,
-      `Budget: ${payload.budget || '—'}`,
-      `Timeline: ${payload.timeline || '—'}`,
-      '',
-      payload.message,
-    ].join('\n'),
-  )
-  return `mailto:${EMAIL}?subject=${subject}&body=${body}`
-}
-
 function toSafePayload(payload) {
   return {
     name: sanitizeField(payload.name, 120),
@@ -51,7 +30,7 @@ function toSafePayload(payload) {
     service: sanitizeField(payload.service, 120),
     budget: sanitizeField(payload.budget, 80),
     timeline: sanitizeField(payload.timeline, 120),
-    message: sanitizeField(payload.message, 5000),
+    message: sanitizeField(payload.message, MESSAGE_MAX),
     consent: Boolean(payload.consent),
   }
 }
@@ -75,7 +54,9 @@ async function postJson(url, body) {
       } catch {
         /* ignore */
       }
-      throw new Error(message)
+      const err = new Error(message)
+      err.status = response.status
+      throw err
     }
     return response
   } finally {
@@ -85,43 +66,17 @@ async function postJson(url, body) {
 
 export async function submitContactForm(payload) {
   const safe = toSafePayload(payload)
-  const endpoint = resolveContactEndpoint()
-  const web3Key = String(import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '').trim()
-
-  if (endpoint) {
-    await postJson(endpoint, {
-      ...safe,
-      source: 'mernify-website',
-      page: typeof window !== 'undefined' ? window.location.pathname : '',
-    })
-    return { mode: 'endpoint' }
+  const body = {
+    ...safe,
+    source: 'mernify-website',
+    page: typeof window !== 'undefined' ? window.location.pathname : '',
   }
 
-  if (web3Key) {
-    await postJson('https://api.web3forms.com/submit', {
-      access_key: web3Key,
-      subject: `Mernify inquiry — ${safe.company || safe.name}`,
-      from_name: safe.name,
-      email: safe.email,
-      name: safe.name,
-      company: safe.company,
-      service: safe.service,
-      budget: safe.budget,
-      timeline: safe.timeline,
-      message: safe.message,
-      consent: safe.consent,
-      replyto: safe.email,
-    })
-    return { mode: 'web3forms' }
-  }
-
-  window.location.href = buildMailto(safe)
-  return { mode: 'mailto' }
+  await postJson('/api/contact', body)
+  return { mode: 'api-contact' }
 }
 
-/** True when a real delivery path is configured (not mailto-only). */
+/** Same-origin /api/contact is always the delivery path. */
 export function hasContactEndpoint() {
-  return Boolean(
-    resolveContactEndpoint() || String(import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '').trim(),
-  )
+  return true
 }

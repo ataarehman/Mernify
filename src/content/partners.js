@@ -68,14 +68,15 @@ export const homePartners = {
       image: '/portfolio/servloom/home-desktop.webp',
       to: '/case-studies/servloom',
     },
-    {
-      id: 'godiva',
-      name: 'GODIVA',
-      short: 'GD',
-      category: 'Retail',
-      logo: '/portfolio/logos/godiva.svg',
-      image: '/portfolio/godiva/home-desktop.webp',
-      to: '/case-studies/godiva',
-    },
+    // Temporarily removed with GODIVA case study — restore with status: 'published' in caseStudies.js
+    // {
+    //   id: 'godiva',
+    //   name: 'GODIVA',
+    //   short: 'GD',
+    //   category: 'Retail',
+    //   logo: '/portfolio/logos/godiva.svg',
+    //   image: '/portfolio/godiva/home-desktop.webp',
+    //   to: '/case-studies/godiva',
+    // },
   ],
 }

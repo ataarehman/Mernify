@@ -139,10 +139,33 @@ export function SoftCursor() {
       )
     }
 
+    // Ball hides here so the native pointer (or text caret) remains visible —
+    // same idea as mernify-web hiding the ball on `a, button`.
     const isInteractive = (el) =>
       Boolean(
         el?.closest(
-          'a, button, [role="button"], input, textarea, select, summary, .mf-hide-cursor',
+          [
+            'a',
+            'button',
+            'label',
+            'summary',
+            'input',
+            'textarea',
+            'select',
+            '[role="button"]',
+            '[role="link"]',
+            '[role="tab"]',
+            '[role="menuitem"]',
+            '[role="menuitemcheckbox"]',
+            '[role="menuitemradio"]',
+            '[role="option"]',
+            '[role="radio"]',
+            '[role="checkbox"]',
+            '[role="switch"]',
+            '[role="combobox"]',
+            '[data-cursor="interactive"]',
+            '.mf-hide-cursor',
+          ].join(', '),
         ),
       )
 

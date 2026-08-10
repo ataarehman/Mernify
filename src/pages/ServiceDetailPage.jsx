@@ -320,8 +320,7 @@ export function ServiceDetailPage() {
 
           <div className={styles.bannerTop}>
             <div className={styles.bannerLeft} data-fade-up data-delay="120">
-              <p className={styles.eyebrow}>( {service.title} )</p>
-              <h1 id="service-title" className={styles.srOnly}>
+              <h1 id="service-title" className={styles.bannerTitle}>
                 {service.title}
               </h1>
               <p className={styles.lead}>{bannerLead}</p>

@@ -58,17 +58,19 @@ Device-frame previews cannot load third-party sites directly (they send `X-Frame
 
 ## 2. Contact form production setup
 
-### Recommended path (Cloudflare Worker + Resend)
+### Recommended path (same-origin `/api/contact` → mail microservice)
 
-1. Create a Worker and paste [`../cf-worker/contact.js`](../cf-worker/contact.js).
-2. Add secrets/vars:
-   - `RESEND_API_KEY` (secret)
+1. Deploy site with `functions/api/contact.js` (honest handler — no fake success).
+2. Cloudflare Pages secrets/vars:
+   - `EMAIL_SERVICE_URL=https://mernify.co/api/email`
+   - `EMAIL_SECRET=<microservice secret>` (encrypted)
    - `CONTACT_TO=info@mernify.co`
-   - `CONTACT_FROM=Mernify <info@mernify.co>`
-   - `ALLOWED_ORIGIN=https://mernify.co,https://www.mernify.co`
-3. Set `VITE_CONTACT_ENDPOINT` to the Worker URL.
-4. Rebuild and deploy the static site.
-5. Submit a test inquiry and confirm inbox delivery.
+3. Submit a test inquiry; success JSON includes `"provider":"email-microservice"`.
+
+Full steps: [`CONTACT_CLOUDFLARE.md`](./CONTACT_CLOUDFLARE.md).
+
+Never put `EMAIL_SECRET` in a `VITE_*` variable.
+
 
 ### Fast path (Web3Forms)
 

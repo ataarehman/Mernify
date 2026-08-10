@@ -7,12 +7,19 @@ import {
   Mail,
   User,
 } from 'lucide-react'
-import { Field, TextInput, TextArea, SelectInput } from '@/components/forms/Field'
+import { Field, TextInput, TextArea, SelectInput, CharCount } from '@/components/forms/Field'
 import { DatePicker, formatTimelineLabel } from '@/components/forms/DatePicker'
 import { Button } from '@/components/ui'
+import { BookCallCta } from '@/components/cta/BookCallCta'
 import { budgetRanges, serviceInterests } from '@/content/pages'
 import { homeInquiry } from '@/content/home'
 import { SITE } from '@/constants/site'
+import {
+  MESSAGE_MAX,
+  MESSAGE_MIN,
+  todayISO,
+  validateContactFields,
+} from '@/lib/contactValidation'
 import { submitContactForm } from '@/lib/submitContactForm'
 import styles from './InquiryStepperForm.module.css'
 
@@ -27,36 +34,32 @@ const initial = {
   timeline: '',
   message: '',
   consent: false,
-  website: '',
+  // Obscure honeypot — avoid name="website" (autofill can fake success).
+  mfTrap: '',
 }
 
-function todayISO() {
-  const d = new Date()
-  const y = d.getFullYear()
-  const m = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${y}-${m}-${day}`
-}
-
-function validateStep(step, values) {
-  const errors = {}
+function validateStep(step, values, minTimeline) {
   if (step === 0) {
-    if (!values.name.trim()) errors.name = 'Enter your name.'
-    if (!values.email.trim()) errors.email = 'Enter your business email.'
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
-      errors.email = 'Enter a valid email address.'
-    }
+    const all = validateContactFields(
+      { ...values, message: 'x'.repeat(MESSAGE_MIN), consent: true },
+      { minTimeline },
+    )
+    const errors = {}
+    if (all.name) errors.name = all.name
+    if (all.email) errors.email = all.email
+    return errors
   }
   if (step === 1) {
-    if (!values.service) errors.service = 'Select a service interest.'
+    const all = validateContactFields(
+      { ...values, message: 'x'.repeat(MESSAGE_MIN), consent: true },
+      { requireService: true, minTimeline },
+    )
+    const errors = {}
+    if (all.service) errors.service = all.service
+    if (all.timeline) errors.timeline = all.timeline
+    return errors
   }
-  if (step === 2) {
-    if (!values.message.trim() || values.message.trim().length < 20) {
-      errors.message = 'Add a bit more detail — a few sentences help us prepare.'
-    }
-    if (!values.consent) errors.consent = 'Consent is required to contact you.'
-  }
-  return errors
+  return validateContactFields(values, { requireService: true, minTimeline })
 }
 
 export function InquiryStepperForm() {
@@ -67,9 +70,10 @@ export function InquiryStepperForm() {
   const [status, setStatus] = useState('idle')
   const [statusMessage, setStatusMessage] = useState('')
   const panelRef = useRef(null)
+  const submittingRef = useRef(false)
 
   const progress = ((step + 1) / STEPS.length) * 100
-  const canSubmit = useMemo(() => status !== 'loading', [status])
+  const loading = status === 'loading'
   const minTimeline = todayISO()
 
   useEffect(() => {
@@ -94,6 +98,10 @@ export function InquiryStepperForm() {
     const { name, type, checked, value } = event.target
     setValues((prev) => ({ ...prev, [name]: type === 'checkbox' ? checked : value }))
     clearError(name)
+    if (status === 'error') {
+      setStatus('idle')
+      setStatusMessage('')
+    }
   }
 
   function setBudget(next) {
@@ -101,10 +109,23 @@ export function InquiryStepperForm() {
     clearError('budget')
   }
 
+  function focusFirstError(nextErrors) {
+    const order = ['name', 'email', 'service', 'timeline', 'message', 'consent']
+    const key = order.find((k) => nextErrors[k])
+    if (!key) return
+    const el = document.getElementById(
+      key === 'consent' ? 'inq-consent' : key === 'message' ? 'inq-message' : `inq-${key}`,
+    )
+    el?.focus?.()
+  }
+
   function goNext() {
-    const nextErrors = validateStep(step, values)
+    const nextErrors = validateStep(step, values, minTimeline)
     setErrors(nextErrors)
-    if (Object.keys(nextErrors).length) return
+    if (Object.keys(nextErrors).length) {
+      focusFirstError(nextErrors)
+      return
+    }
     setDirection(1)
     setStep((current) => Math.min(current + 1, STEPS.length - 1))
     setStatus('idle')
@@ -112,6 +133,7 @@ export function InquiryStepperForm() {
   }
 
   function goBack() {
+    if (loading) return
     setDirection(-1)
     setStep((current) => Math.max(current - 1, 0))
     setErrors({})
@@ -126,27 +148,29 @@ export function InquiryStepperForm() {
       return
     }
 
-    const nextErrors = validateStep(step, values)
+    if (submittingRef.current || loading) return
+
+    const nextErrors = validateStep(step, values, minTimeline)
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length) {
       setStatus('error')
-      setStatusMessage('Please fix the highlighted fields.')
+      setStatusMessage('Please fix the highlighted fields before sending.')
+      focusFirstError(nextErrors)
       return
     }
 
-    if (values.website?.trim()) {
+    // Honeypot — bots only (silent success, no API call)
+    if (values.mfTrap?.trim()) {
       setStatus('success')
-      setStatusMessage(`Thanks — your message was sent. ${SITE.responseSla}`)
-      setValues(initial)
-      setErrors({})
-      setStep(0)
+      setStatusMessage(`Thanks — your inquiry was received. ${SITE.responseSla}`)
       return
     }
 
+    submittingRef.current = true
     setStatus('loading')
-    setStatusMessage('Sending...')
+    setStatusMessage('Sending your inquiry…')
     try {
-      const result = await submitContactForm({
+      await submitContactForm({
         name: values.name.trim(),
         email: values.email.trim(),
         company: values.company.trim(),
@@ -158,30 +182,66 @@ export function InquiryStepperForm() {
       })
       setStatus('success')
       setStatusMessage(
-        result.mode === 'mailto'
-          ? `Opening your email client with a draft message. If nothing opens, email ${SITE.email} directly. ${SITE.responseSla}`
-          : `Thanks — your message was sent. ${SITE.responseSla}`,
+        `Thank you! Your inquiry was submitted successfully. ${SITE.responseSla}`,
       )
       setValues(initial)
       setErrors({})
-      setStep(0)
     } catch (err) {
       setStatus('error')
-      setStatusMessage(err?.message || `Something went wrong. Please email ${SITE.email}.`)
+      setStatusMessage(
+        err?.name === 'AbortError'
+          ? `The request timed out. Please try again or email ${SITE.email}.`
+          : err?.message || `Something went wrong. Please try again or email ${SITE.email}.`,
+      )
+    } finally {
+      submittingRef.current = false
     }
   }
 
+  function resetForm() {
+    setStatus('idle')
+    setStatusMessage('')
+    setStep(0)
+    setDirection(1)
+    setErrors({})
+  }
+
+  if (status === 'success') {
+    return (
+      <div className={styles.successPanel} role="status" aria-live="polite">
+        <div className={styles.successBadge} aria-hidden="true">
+          <Check size={22} strokeWidth={2.5} />
+        </div>
+        <p className={styles.successEyebrow}>Inquiry received</p>
+        <p className={styles.successTitle}>Thanks — we’ll be in touch</p>
+        <p className={styles.successText}>{statusMessage}</p>
+        <div className={styles.successActions}>
+          <Button type="button" variant="inverse" size="md" onClick={resetForm}>
+            Send another inquiry
+          </Button>
+          <BookCallCta variant="secondary" size="md" label="Book a Demo Call" />
+        </div>
+      </div>
+    )
+  }
+
   return (
-    <form className={styles.form} onSubmit={onSubmit} noValidate>
+    <form className={styles.form} onSubmit={onSubmit} noValidate aria-busy={loading}>
       <div className={styles.honeypot} aria-hidden="true">
-        <label htmlFor="inquiry-website">Website</label>
+        <label htmlFor="inquiry-mf-trap">Website</label>
         <input
-          id="inquiry-website"
-          name="website"
+          id="inquiry-mf-trap"
+          name="mfTrap"
           type="text"
           tabIndex={-1}
           autoComplete="off"
-          value={values.website}
+          autoCorrect="off"
+          autoCapitalize="off"
+          spellCheck={false}
+          data-lpignore="true"
+          data-1p-ignore="true"
+          data-form-type="other"
+          value={values.mfTrap}
           onChange={onChange}
         />
       </div>
@@ -194,7 +254,14 @@ export function InquiryStepperForm() {
           </p>
           <p className={styles.stepHint}>{STEPS[step].hint}</p>
         </div>
-        <div className={styles.progressTrack} aria-hidden="true">
+        <div
+          className={styles.progressTrack}
+          role="progressbar"
+          aria-valuemin={1}
+          aria-valuemax={STEPS.length}
+          aria-valuenow={step + 1}
+          aria-label={`Step ${step + 1} of ${STEPS.length}`}
+        >
           <span className={styles.progressFill} style={{ width: `${progress}%` }} />
         </div>
         <ol className={styles.stepper} role="list">
@@ -239,6 +306,8 @@ export function InquiryStepperForm() {
                     invalid={Boolean(errors.name)}
                     className={styles.control}
                     placeholder="Alex Rivera"
+                    maxLength={120}
+                    disabled={loading}
                   />
                 </div>
               </Field>
@@ -256,6 +325,8 @@ export function InquiryStepperForm() {
                     invalid={Boolean(errors.email)}
                     className={styles.control}
                     placeholder="alex@company.com"
+                    maxLength={160}
+                    disabled={loading}
                   />
                 </div>
               </Field>
@@ -270,6 +341,8 @@ export function InquiryStepperForm() {
                     onChange={onChange}
                     className={styles.control}
                     placeholder="Acme Inc. (optional)"
+                    maxLength={160}
+                    disabled={loading}
                   />
                 </div>
               </Field>
@@ -294,6 +367,7 @@ export function InquiryStepperForm() {
                     onChange={onChange}
                     invalid={Boolean(errors.service)}
                     className={`${styles.control} ${styles.select}`}
+                    disabled={loading}
                   >
                     <option value="">Select a service...</option>
                     {serviceInterests.map((item) => (
@@ -312,7 +386,6 @@ export function InquiryStepperForm() {
                 className={styles.span2}
               >
                 <div
-                  id="inq-budget"
                   className={styles.budgetGrid}
                   role="radiogroup"
                   aria-label="Budget range"
@@ -329,6 +402,7 @@ export function InquiryStepperForm() {
                           .filter(Boolean)
                           .join(' ')}
                         onClick={() => setBudget(active ? '' : item)}
+                        disabled={loading}
                       >
                         {item}
                       </button>
@@ -340,7 +414,8 @@ export function InquiryStepperForm() {
               <Field
                 id="inq-timeline"
                 label="Target start date"
-                hint="When do you hope to start or launch?"
+                hint="Optional — when do you hope to start or launch?"
+                error={errors.timeline}
                 className={styles.span2}
               >
                 <DatePicker
@@ -349,7 +424,9 @@ export function InquiryStepperForm() {
                   value={values.timeline}
                   onChange={onChange}
                   min={minTimeline}
+                  invalid={Boolean(errors.timeline)}
                   placeholder="Pick a target date"
+                  disabled={loading}
                 />
               </Field>
             </div>
@@ -366,16 +443,21 @@ export function InquiryStepperForm() {
                   invalid={Boolean(errors.message)}
                   className={styles.textarea}
                   placeholder="Goals, users, current state, and what success looks like."
+                  maxLength={MESSAGE_MAX}
+                  disabled={loading}
                 />
+                <CharCount value={values.message} min={MESSAGE_MIN} max={MESSAGE_MAX} />
               </Field>
 
-              <label className={styles.consent}>
+              <label className={styles.consent} htmlFor="inq-consent">
                 <input
+                  id="inq-consent"
                   type="checkbox"
                   name="consent"
                   checked={values.consent}
                   onChange={onChange}
                   aria-invalid={errors.consent ? 'true' : undefined}
+                  disabled={loading}
                 />
                 <span>
                   I agree to be contacted about this inquiry. See the{' '}
@@ -394,7 +476,7 @@ export function InquiryStepperForm() {
 
       <div className={styles.actions}>
         {step > 0 ? (
-          <Button type="button" variant="secondary" size="md" onClick={goBack}>
+          <Button type="button" variant="secondary" size="md" onClick={goBack} disabled={loading}>
             Back
           </Button>
         ) : (
@@ -402,18 +484,24 @@ export function InquiryStepperForm() {
         )}
 
         {step < STEPS.length - 1 ? (
-          <Button type="submit" variant="inverse" size="md">
+          <Button type="submit" variant="inverse" size="md" disabled={loading}>
             Continue
           </Button>
         ) : (
-          <Button type="submit" variant="inverse" size="md" disabled={!canSubmit}>
-            {status === 'loading' ? 'Sending...' : 'Send inquiry'}
+          <Button
+            type="submit"
+            variant="inverse"
+            size="md"
+            disabled={loading}
+            aria-busy={loading}
+          >
+            {loading ? 'Sending…' : 'Send inquiry'}
           </Button>
         )}
       </div>
 
       <div className={styles.status} role="status" aria-live="polite" data-state={status}>
-        {statusMessage}
+        {status !== 'success' ? statusMessage : null}
       </div>
     </form>
   )

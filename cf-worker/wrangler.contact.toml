@@ -1,0 +1,11 @@
+name = "mernify-contact"
+main = "contact.js"
+compatibility_date = "2024-01-01"
+
+# Deploy: npx wrangler deploy --config cf-worker/wrangler.contact.toml
+# Secrets: npx wrangler secret put RESEND_API_KEY --config cf-worker/wrangler.contact.toml
+
+[vars]
+CONTACT_TO = "info@mernify.co"
+CONTACT_FROM = "Mernify <hello@mernify.co>"
+ALLOWED_ORIGIN = "http://localhost:5173,http://127.0.0.1:5173,https://mernify.co,https://www.mernify.co"

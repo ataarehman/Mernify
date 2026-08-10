@@ -1,0 +1,15 @@
+name = "mernify-site"
+compatibility_date = "2024-09-23"
+pages_build_output_dir = "dist"
+
+# Production: Form → Pages Function /api/contact → Contact Worker (service binding)
+# Dashboard alternative: Pages → Settings → Functions → Service bindings
+#   Binding name: CONTACT_WORKER
+#   Service:      mernify-contact
+#
+# Also set Pages env var CONTACT_ORIGIN=https://www.mernify.co (optional; defaults in code).
+# If you cannot use a service binding, set Pages env CONTACT_ENDPOINT to the Worker URL instead.
+
+[[services]]
+binding = "CONTACT_WORKER"
+service = "mernify-contact"

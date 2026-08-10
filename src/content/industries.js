@@ -173,7 +173,8 @@ export const industries = withMedia([
       'Customer account and loyalty experiences',
     ],
     outcome: 'Consistent product and stock truth across every channel.',
-    proof: 'godiva',
+    // Temporarily pointed away from hidden GODIVA case study — restore to 'godiva' when republished
+    proof: 'mrzzm',
   },
   {
     slug: 'manufacturing',

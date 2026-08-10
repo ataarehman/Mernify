@@ -32,6 +32,9 @@ export function PageMeta({
   noIndex = false,
   image = SITE.ogImage,
   type = 'website',
+  publishedTime,
+  modifiedTime,
+  authorName,
 }) {
   const fullTitle = title
     ? title.includes('Mernify')
@@ -77,6 +80,20 @@ export function PageMeta({
     const ogImageH = ensureMeta('meta[property="og:image:height"]', { property: 'og:image:height' })
     ogImageH.setAttribute('content', '630')
 
+    const setOrClear = (property, value) => {
+      const selector = `meta[property="${property}"]`
+      if (!value) {
+        document.head.querySelector(selector)?.remove()
+        return
+      }
+      const el = ensureMeta(selector, { property })
+      el.setAttribute('content', value)
+    }
+
+    setOrClear('article:published_time', publishedTime || '')
+    setOrClear('article:modified_time', modifiedTime || publishedTime || '')
+    setOrClear('article:author', authorName || '')
+
     const twitterCard = ensureMeta('meta[name="twitter:card"]', { name: 'twitter:card' })
     twitterCard.setAttribute('content', 'summary_large_image')
 
@@ -96,7 +113,17 @@ export function PageMeta({
 
     const robots = ensureMeta('meta[name="robots"]', { name: 'robots' })
     robots.setAttribute('content', noIndex ? 'noindex,nofollow' : 'index,follow')
-  }, [fullTitle, description, canonicalPath, noIndex, image, type])
+  }, [
+    fullTitle,
+    description,
+    canonicalPath,
+    noIndex,
+    image,
+    type,
+    publishedTime,
+    modifiedTime,
+    authorName,
+  ])
 
   return null
 }

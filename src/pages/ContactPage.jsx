@@ -28,6 +28,7 @@ export function ContactPage() {
   const [params] = useSearchParams()
   const intent = params.get('intent') || ''
   const service = params.get('service') || ''
+  const emailParam = params.get('email') || ''
   const hasCalendly = Boolean(resolveCalendlyUrl())
   const rootRef = useRef(null)
   const mediaRef = useRef(null)
@@ -144,7 +145,11 @@ export function ContactPage() {
                     suggested next step.
                   </p>
                 </div>
-                <ContactForm defaultIntent={intent} defaultService={service} />
+                <ContactForm
+                  defaultIntent={intent}
+                  defaultService={service}
+                  defaultEmail={emailParam}
+                />
               </div>
               <p className={styles.privacyNote}>
                 By submitting, you agree to our <Link to="/privacy">Privacy Policy</Link>.

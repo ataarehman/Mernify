@@ -6,23 +6,17 @@ Do **not** commit secrets to git. Put `VITE_*` values in `.env.production` or yo
 
 ---
 
-## 1. Contact delivery (pick ONE)
+## 1. Contact delivery (required)
 
-### Option A — Cloudflare Worker + Resend (recommended)
+1. Cloudflare Pages env (Production + Preview):
+   - `EMAIL_SERVICE_URL=https://mernify.co/api/email`
+   - `EMAIL_SECRET=<mail microservice secret>` (encrypt)
+   - `CONTACT_TO=info@mernify.co`
+2. Deploy from repo root so `functions/api/contact.js` ships (kills fake `{ok:true}`)
+3. Test form — success JSON should include `"provider":"email-microservice"`
+4. Confirm `info@mernify.co` receives the email
 
-Provide / configure:
-
-1. **Resend API key** → Worker secret `RESEND_API_KEY`
-2. **From address** (verified domain) → Worker `CONTACT_FROM` (e.g. `Mernify <info@mernify.co>`)
-3. **Inbox** → Worker `CONTACT_TO` (e.g. `info@mernify.co`)
-4. **CORS origins** → Worker `ALLOWED_ORIGIN` = `https://mernify.co,https://www.mernify.co` (exact origins; include both www and apex if used). Redeploy the Worker after updating `cf-worker/contact.js` so ACAO matches `originAllowed()`.
-5. Deploy Worker from `cf-worker/contact.js`
-6. Put Worker URL in build env → `VITE_CONTACT_ENDPOINT`
-
-### Option B — Web3Forms
-
-1. Create a key at https://web3forms.com for your inbox  
-2. Put it in build env → `VITE_WEB3FORMS_ACCESS_KEY`
+Details: [`CONTACT_CLOUDFLARE.md`](./CONTACT_CLOUDFLARE.md)
 
 ---
 

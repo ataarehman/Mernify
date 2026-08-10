@@ -10,6 +10,12 @@
  *   Set VITE_AI_CHAT_ENDPOINT=http://127.0.0.1:8787
  *   Put AI_API_KEY in cf-worker/.dev.vars (DeepSeek by default)
  *
+ * Lead email (single system — same Contact Worker as the website form):
+ *   CONTACT_ENDPOINT  = https://mernify-contact.YOUR_SUBDOMAIN.workers.dev
+ *   CONTACT_TO        = info@mernify.co
+ *   CONTACT_FROM      = Mernify <info@mernify.co>
+ *   RESEND_API_KEY    = re_…   (fallback only if CONTACT_ENDPOINT unset)
+ *
  * Deploy: see docs/mernify-ai/06-deployment-guide.md and 10-deepseek-local-setup.md
  *
  * Security: CORS allowlist, rate limiting, prompt-injection guards,
@@ -338,7 +344,7 @@ async function generateAIResponse(env, systemPrompt, messages) {
   }
 }
 
-// ─── Lead delivery ────────────────────────────────────────────────────────────
+// ─── Lead delivery (mail microservice — same as website contact form) ─────────
 
 async function deliverLead(env, lead) {
   const endpoint = (env.EMAIL_SERVICE_URL || 'https://mernify.co/api/email').replace(/^\uFEFF/, '').trim()

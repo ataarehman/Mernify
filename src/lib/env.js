@@ -33,15 +33,20 @@ export function resolveGaId(raw = import.meta.env.VITE_GA_MEASUREMENT_ID) {
   return value
 }
 
+/**
+ * Explicit public contact Worker / API URL (optional).
+ * The website form always posts to same-origin `/api/contact`; this helper is for
+ * non-form callers (e.g. newsletter path derivation) only.
+ */
 export function resolveContactEndpoint(raw = import.meta.env.VITE_CONTACT_ENDPOINT) {
   const value = trimEnv(raw)
-  if (!value) return '/api/contact'
+  if (!value) return ''
   try {
     const url = new URL(value)
-    if (url.protocol !== 'https:' && url.protocol !== 'http:') return '/api/contact'
+    if (url.protocol !== 'https:' && url.protocol !== 'http:') return ''
     return url.toString()
   } catch {
-    return '/api/contact'
+    return ''
   }
 }
 

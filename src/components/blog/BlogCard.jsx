@@ -9,11 +9,13 @@ export function BlogCard({ post, featured = false }) {
       <Link to={`/blog/${post.slug}`} className={styles.media} data-cursor="View">
         <img
           src={post.image}
+          srcSet={post.imageSrcSet}
+          sizes={featured ? '(max-width: 900px) 100vw, 60vw' : '(max-width: 900px) 100vw, 33vw'}
           alt={post.imageAlt}
           loading="lazy"
           decoding="async"
-          width={1200}
-          height={750}
+          width={2400}
+          height={1500}
         />
         <span className={styles.mediaSheen} aria-hidden="true" />
       </Link>
