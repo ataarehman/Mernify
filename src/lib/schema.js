@@ -58,15 +58,16 @@ export function breadcrumbSchema(items) {
 
 export function blogPostingSchema(post) {
   const url = `${SITE.url}/blog/${post.slug}`
-  const image = post.image?.startsWith('http')
-    ? post.image
-    : `${SITE.url}${post.image?.startsWith('/') ? post.image : `/${post.image || SITE.ogImage}`}`
+  const rawImage = post.seoOgImage || post.image
+  const image = rawImage?.startsWith('http')
+    ? rawImage
+    : `${SITE.url}${rawImage?.startsWith('/') ? rawImage : `/${rawImage || SITE.ogImage}`}`
 
   return {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
-    headline: post.title,
-    description: post.excerpt,
+    headline: post.seoTitle || post.title,
+    description: post.seoDescription || post.excerpt,
     image: [image],
     datePublished: post.publishedAt,
     dateModified: post.updatedAt || post.publishedAt,

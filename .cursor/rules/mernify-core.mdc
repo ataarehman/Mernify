@@ -1,0 +1,41 @@
+---
+description: Core Mernify project conventions — stack, brand, secrets, delivery, deploy
+alwaysApply: true
+---
+
+# Mernify core
+
+## Stack
+
+- React 19 + Vite 7 SPA; Cloudflare Pages; Pages Functions under `functions/`
+- Optional AI chat Worker: `cf-worker/ai-chat.js`
+- Content-driven pages from `src/content/`
+
+## Brand
+
+- Indigo `#4f46e5`, cyan `#15c6e2`
+- Tagline: “Build Modern. Scale Confidently.”
+- Contact: `info@mernify.co`
+- Preserve existing layout/motion; do not redesign working UI unless asked
+
+## Secrets
+
+- Never use `VITE_*` for secrets (`EMAIL_SECRET`, Resend, etc.)
+- Never commit `.env`, `.env.local`, `cf-worker/.dev.vars`
+- Prefer `.env.example` / `.dev.vars.example` with placeholders only
+
+## Email
+
+- Contact + newsletter → same-origin APIs → mail microservice (`EMAIL_SERVICE_URL` + `EMAIL_SECRET`)
+- Do not return fake success without a real provider
+- Prefer microservice path over Resend/Contact Worker unless the user explicitly changes direction
+
+## Deploy
+
+- Deploy from **repo root** so `functions/` is included
+- Production docs: `deploy/PAGES_GO_LIVE.md`, `deploy/DEPLOY.md`
+
+## Git
+
+- Commit only when the user asks
+- Do not force-push or rewrite shared history

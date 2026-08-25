@@ -1,0 +1,5 @@
+# Admin SPA client routes → admin entry (do not use a site-wide /* rule;
+# Cloudflare evaluates _redirects before Pages Functions).
+/admin /admin/index.html 200
+/admin/ /admin/index.html 200
+/admin/* /admin/index.html 200

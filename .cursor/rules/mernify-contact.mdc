@@ -1,0 +1,34 @@
+---
+description: Contact, newsletter, and email delivery — Pages Functions + Vite middleware
+globs: functions/**/*,src/lib/submitContactForm.js,src/lib/contactValidation.js,src/components/forms/**/*,vite.config.js,deploy/**
+alwaysApply: false
+---
+
+# Contact & email APIs
+
+## Path
+
+```
+POST /api/contact | /api/newsletter
+  → EMAIL_SERVICE_URL (default https://mernify.co/api/email)
+  → x-email-secret: EMAIL_SECRET
+  → CONTACT_TO (default info@mernify.co)
+```
+
+- Shared: `functions/_lib/contactMail.js`
+- Handlers: `functions/api/contact.js`, `functions/api/newsletter.js`
+- Local mirror: `vite.config.js` (reload `.env` per request)
+
+## Success contract
+
+- Real delivery only; include `"provider":"email-microservice"` on success
+- Honeypot bots may get silent fake OK; humans must not
+
+## Client
+
+- Contact forms use `submitContactForm` → `/api/contact` (same origin)
+- Do not call the mail microservice from the browser with secrets
+
+## Env (server only)
+
+`EMAIL_SERVICE_URL`, `EMAIL_SECRET`, `CONTACT_TO`

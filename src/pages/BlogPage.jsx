@@ -10,6 +10,7 @@ import {
   filterBlogPosts,
   getFeaturedPosts,
 } from '@/content/blog'
+import { useBlogPosts } from '@/hooks/useBlog'
 import { useCharEntrance, splitChars } from '@/hooks/useCharEntrance'
 import { useRevealOnScroll } from '@/hooks/useRevealOnScroll'
 import styles from './BlogPage.module.css'
@@ -52,11 +53,12 @@ export function BlogPage() {
   const [category, setCategory] = useState('All')
   const [query, setQuery] = useState('')
   const [visible, setVisible] = useState(PAGE_SIZE)
+  const { posts } = useBlogPosts()
 
-  const featured = useMemo(() => getFeaturedPosts(1)[0], [])
+  const featured = useMemo(() => getFeaturedPosts(1, posts)[0], [posts])
   const filtered = useMemo(
-    () => filterBlogPosts({ category, query }),
-    [category, query],
+    () => filterBlogPosts({ category, query, posts }),
+    [category, query, posts],
   )
 
   const list = useMemo(() => {
@@ -85,8 +87,8 @@ export function BlogPage() {
   return (
     <div ref={rootRef} className={styles.page}>
       <PageMeta
-        title="Blog"
-        description="Insights on AI, MERN, cloud, DevOps, UI/UX, and product engineering from the Mernify team."
+        title="Blog | Product Engineering Insights"
+        description="Practical insights on AI integration, MERN architecture, cloud multi-tenancy, DevOps, design systems, and SaaS product engineering from the Mernify team."
         canonicalPath="/blog"
         image={featured?.image}
       />

@@ -1,10 +1,10 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ArrowUpRight } from 'lucide-react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { Container, Eyebrow } from '@/components/ui'
-import { formatBlogDate, getLatestPosts } from '@/content/blog'
+import { formatBlogDate, getLatestPosts, loadBlogPosts } from '@/content/blog'
 import { useReducedMotion } from '@/app/providers/useReducedMotion'
 import styles from './HomeLatestBlogs.module.css'
 
@@ -43,9 +43,19 @@ function PostMeta({ post }) {
 }
 
 export function HomeLatestBlogs() {
-  const posts = getLatestPosts(3)
+  const [posts, setPosts] = useState(() => getLatestPosts(3))
   const rootRef = useRef(null)
   const { prefersReducedMotion } = useReducedMotion()
+
+  useEffect(() => {
+    let cancelled = false
+    loadBlogPosts().then((all) => {
+      if (!cancelled) setPosts(getLatestPosts(3, all))
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [])
 
   useEffect(() => {
     if (prefersReducedMotion || !rootRef.current || !posts.length) return undefined

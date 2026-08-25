@@ -1,0 +1,24 @@
+---
+description: Content, SEO, and publishing conventions for Mernify
+globs: src/content/**/*,src/components/seo/**/*,src/constants/site.js,public/sitemap.xml
+alwaysApply: false
+---
+
+# Content & SEO
+
+## Sources of truth
+
+- Services, case studies, blog, nav, team, testimonials under `src/content/`
+- Site URL / brand constants: `src/constants/site.js`
+- Meta + JSON-LD: `src/components/seo/`
+
+## Publishing
+
+- Case studies: `status: 'published' | 'hidden'` — hidden must not appear in grids, partners, industries proof, or sitemap
+- Keep claims verifiable; do not invent logos or metrics
+
+## SEO checklist per page
+
+- `PageMeta` with title, description, `canonicalPath`
+- One clear visible `h1`
+- Update `public/sitemap.xml` when adding public routes/posts

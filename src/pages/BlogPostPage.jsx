@@ -12,10 +12,10 @@ import { Button, Container } from '@/components/ui'
 import {
   formatBlogDate,
   getAdjacentPosts,
-  getBlogPostBySlug,
   getPostToc,
   getRelatedPosts,
 } from '@/content/blog'
+import { useBlogPost, useBlogPosts } from '@/hooks/useBlog'
 import { blogPostingSchema, breadcrumbSchema, faqPageSchema } from '@/lib/schema'
 import styles from './BlogPostPage.module.css'
 
@@ -30,13 +30,20 @@ function authorInitials(name = '') {
 
 export function BlogPostPage() {
   const { slug } = useParams()
-  const post = getBlogPostBySlug(slug)
+  const { post, ready, isPreview } = useBlogPost(slug)
+  const { posts: catalog } = useBlogPosts()
   const [activeId, setActiveId] = useState('')
   const [progress, setProgress] = useState(0)
 
   const toc = useMemo(() => (post ? getPostToc(post) : []), [post])
-  const related = useMemo(() => (post ? getRelatedPosts(post, 3) : []), [post])
-  const adjacent = useMemo(() => (post ? getAdjacentPosts(post.slug) : { previous: null, next: null }), [post])
+  const related = useMemo(
+    () => (post ? getRelatedPosts(post, 3, catalog) : []),
+    [post, catalog],
+  )
+  const adjacent = useMemo(
+    () => (post ? getAdjacentPosts(post.slug, catalog) : { previous: null, next: null }),
+    [post, catalog],
+  )
 
   const crumbs = useMemo(() => {
     if (!post) return []
@@ -80,6 +87,16 @@ export function BlogPostPage() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [post, toc])
 
+  if (!ready) {
+    return (
+      <div className={styles.page} aria-busy="true">
+        <Container width="wide">
+          <p className={styles.excerpt}>Loading article…</p>
+        </Container>
+      </div>
+    )
+  }
+
   if (!post) {
     return <Navigate to="/blog" replace />
   }
@@ -87,14 +104,15 @@ export function BlogPostPage() {
   return (
     <article className={styles.page}>
       <PageMeta
-        title={post.title}
-        description={post.excerpt}
+        title={post.seoTitle || post.title}
+        description={post.seoDescription || post.excerpt}
         canonicalPath={`/blog/${post.slug}`}
-        image={post.image}
+        image={post.seoOgImage || post.image}
         type="article"
         publishedTime={post.publishedAt}
         modifiedTime={post.updatedAt || post.publishedAt}
         authorName={post.author.name}
+        noIndex={isPreview}
       />
       {schemas.map((data, index) => (
         <JsonLd key={`blog-schema-${index}`} id={`mf-blog-jsonld-${index}`} data={data} />

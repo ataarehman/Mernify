@@ -1,6 +1,7 @@
 /**
  * Blog catalog API — posts live in blogPostsData.js (structured long-form sections).
  * Listing/card consumers keep using the same field names (title, excerpt, image, …).
+ * Async loaders prefer `/api/blog` when VITE_BLOG_API !== '0', with static fallback.
  */
 
 import { blogPostsData } from '@/content/blogPostsData'
@@ -48,6 +49,11 @@ export const blogCategories = [
  *   faq?: { question: string, answer: string }[],
  *   body?: string[],
  *   wordCount?: number,
+ *   seoTitle?: string,
+ *   seoDescription?: string,
+ *   seoOgImage?: string,
+ *   id?: string,
+ *   status?: string,
  * }} BlogPost
  */
 
@@ -81,7 +87,7 @@ export function getPostToc(post) {
     .map((section) => ({ id: section.id, label: section.text }))
 }
 
-function normalizePost(post) {
+export function normalizePost(post) {
   const wordCount = getPostWordCount(post)
   const readingMinutes = post.readingMinutes || estimateReadingMinutes(post)
   const body =
@@ -107,47 +113,59 @@ function normalizePost(post) {
   }
 }
 
+function sortByPublishedDesc(posts) {
+  return [...posts].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1))
+}
+
+function isBlogApiEnabled() {
+  return import.meta.env.VITE_BLOG_API !== '0'
+}
+
 /** @type {BlogPost[]} */
 export const blogPosts = blogPostsData.map(normalizePost)
 
 export function getBlogPosts() {
-  return [...blogPosts].sort((a, b) => (a.publishedAt < b.publishedAt ? 1 : -1))
+  return sortByPublishedDesc(blogPosts)
 }
 
-export function getFeaturedPosts(limit = 3) {
-  const featured = getBlogPosts().filter((post) => post.featured)
+export function getFeaturedPosts(limit = 3, posts) {
+  const source = posts ? sortByPublishedDesc(posts) : getBlogPosts()
+  const featured = source.filter((post) => post.featured)
   if (featured.length >= limit) return featured.slice(0, limit)
-  return getBlogPosts().slice(0, limit)
+  return source.slice(0, limit)
 }
 
-export function getLatestPosts(limit = 3) {
-  return getBlogPosts().slice(0, limit)
+export function getLatestPosts(limit = 3, posts) {
+  const source = posts ? sortByPublishedDesc(posts) : getBlogPosts()
+  return source.slice(0, limit)
 }
 
 export function getBlogPostBySlug(slug) {
   return blogPosts.find((post) => post.slug === slug) || null
 }
 
-export function filterBlogPosts({ category = 'All', query = '' } = {}) {
+export function filterBlogPosts({ category = 'All', query = '', posts } = {}) {
   const q = query.trim().toLowerCase()
-  return getBlogPosts().filter((post) => {
+  const source = posts ? sortByPublishedDesc(posts) : getBlogPosts()
+  return source.filter((post) => {
     if (category !== 'All' && post.category !== category) return false
     if (!q) return true
-    const haystack = [post.title, post.excerpt, post.category, ...post.tags, post.author.name]
+    const haystack = [post.title, post.excerpt, post.category, ...(post.tags || []), post.author?.name]
       .join(' ')
       .toLowerCase()
     return haystack.includes(q)
   })
 }
 
-export function getRelatedPosts(post, limit = 3) {
+export function getRelatedPosts(post, limit = 3, posts) {
   if (!post) return []
-  const others = getBlogPosts().filter((item) => item.slug !== post.slug)
+  const source = posts ? sortByPublishedDesc(posts) : getBlogPosts()
+  const others = source.filter((item) => item.slug !== post.slug)
 
   const scored = others.map((item) => {
     let score = 0
     if (item.category === post.category) score += 5
-    const sharedTags = item.tags.filter((tag) => post.tags.includes(tag)).length
+    const sharedTags = (item.tags || []).filter((tag) => (post.tags || []).includes(tag)).length
     score += sharedTags * 2
     return { item, score }
   })
@@ -163,13 +181,13 @@ export function getRelatedPosts(post, limit = 3) {
   return [...related, ...fill].slice(0, limit)
 }
 
-export function getAdjacentPosts(slug) {
-  const posts = getBlogPosts()
-  const index = posts.findIndex((post) => post.slug === slug)
+export function getAdjacentPosts(slug, posts) {
+  const list = posts ? sortByPublishedDesc(posts) : getBlogPosts()
+  const index = list.findIndex((post) => post.slug === slug)
   if (index < 0) return { previous: null, next: null }
   return {
-    previous: posts[index + 1] || null,
-    next: posts[index - 1] || null,
+    previous: list[index + 1] || null,
+    next: list[index - 1] || null,
   }
 }
 
@@ -183,4 +201,71 @@ export function formatBlogDate(iso) {
   } catch {
     return iso
   }
+}
+
+/**
+ * Prefer API posts; on empty/failure fall back to static catalog (zero visual change).
+ * @param {{ category?: string, q?: string }} [opts]
+ * @returns {Promise<BlogPost[]>}
+ */
+export async function loadBlogPosts(opts = {}) {
+  const fallback = () => {
+    if (opts.category || opts.q) {
+      return filterBlogPosts({ category: opts.category || 'All', query: opts.q || '' })
+    }
+    return getBlogPosts()
+  }
+
+  if (!isBlogApiEnabled()) return fallback()
+
+  try {
+    const { fetchPublishedPosts } = await import('@/lib/blogApi')
+    const apiPosts = await fetchPublishedPosts({
+      category: opts.category,
+      q: opts.q,
+    })
+    if (!apiPosts?.length) return fallback()
+    return sortByPublishedDesc(apiPosts.map(normalizePost))
+  } catch {
+    return fallback()
+  }
+}
+
+/**
+ * Prefer API by slug; merge/fallback to static.
+ * @param {string} slug
+ * @returns {Promise<BlogPost|null>}
+ */
+export async function loadBlogPostBySlug(slug) {
+  if (!slug) return null
+  const staticPost = getBlogPostBySlug(slug)
+
+  if (!isBlogApiEnabled()) return staticPost
+
+  try {
+    const { fetchPostBySlug } = await import('@/lib/blogApi')
+    const apiPost = await fetchPostBySlug(slug)
+    if (apiPost) return normalizePost(apiPost)
+  } catch {
+    /* static fallback */
+  }
+  return staticPost
+}
+
+/**
+ * Preview draft/unpublished via token. No static fallback.
+ * @param {string} slug
+ * @param {string} token
+ * @returns {Promise<BlogPost|null>}
+ */
+export async function loadBlogPostPreview(slug, token) {
+  if (!slug || !token) return null
+  try {
+    const { fetchPostPreview } = await import('@/lib/blogApi')
+    const apiPost = await fetchPostPreview(slug, token)
+    if (apiPost) return normalizePost(apiPost)
+  } catch {
+    return null
+  }
+  return null
 }

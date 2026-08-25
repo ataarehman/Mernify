@@ -1,7 +1,9 @@
 import { defineConfig, loadEnv } from 'vite'
 import react from '@vitejs/plugin-react'
 import { Buffer } from 'node:buffer'
+import fs from 'node:fs/promises'
 import path from 'node:path'
+import process from 'node:process'
 import { fileURLToPath } from 'node:url'
 import { handleSitePreview } from './functions/_lib/preview.js'
 import {
@@ -9,6 +11,8 @@ import {
   sendContactEmail,
   validateContactPayload,
 } from './functions/_lib/contactMail.js'
+import { handleBlogRequest } from './functions/_lib/blogHttp.js'
+import { createLocalStore, resolveRepoRoot } from './functions/_lib/blogLocalStore.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
@@ -255,9 +259,151 @@ function newsletterApi(mode) {
   }
 }
 
+/** Local /api/blog + /api/admin/blog + /api/admin/auth + /sitemap.xml — mirrors Pages Functions via blogHttp. */
+function blogApi(mode) {
+  const store = createLocalStore(resolveRepoRoot())
+
+  const readRawBody = (req) =>
+    new Promise((resolve, reject) => {
+      const chunks = []
+      req.on('data', (chunk) => chunks.push(chunk))
+      req.on('end', () => resolve(Buffer.concat(chunks)))
+      req.on('error', reject)
+    })
+
+  const localWriter = async ({ buffer, id, ext }) => {
+    const d = new Date()
+    const yyyyMm = `${d.getUTCFullYear()}/${String(d.getUTCMonth() + 1).padStart(2, '0')}`
+    const absDir = path.join(resolveRepoRoot(), 'public', 'uploads', 'blog', yyyyMm)
+    await fs.mkdir(absDir, { recursive: true })
+    const filename = `${id}.${ext}`
+    await fs.writeFile(path.join(absDir, filename), buffer)
+    return `/uploads/blog/${yyyyMm}/${filename}`
+  }
+
+  const attach = (server) => {
+    server.middlewares.use(async (req, res, next) => {
+      const pathname = req.url?.split('?')[0] || ''
+      const isBlog =
+        pathname.startsWith('/api/blog') ||
+        pathname.startsWith('/api/admin/blog') ||
+        pathname.startsWith('/api/admin/auth') ||
+        pathname === '/sitemap.xml'
+      if (!isBlog) return next()
+
+      try {
+        await store.ensureSeeded()
+        const loaded = loadEnv(mode, process.cwd(), '')
+        // Local Vite defaults for session login when unset (never baked into client JS).
+        const env = {
+          ...loaded,
+          BLOG_ADMIN_USERNAME:
+            loaded.BLOG_ADMIN_USERNAME || 'admin',
+          BLOG_ADMIN_PASSWORD:
+            loaded.BLOG_ADMIN_PASSWORD || 'local-dev-blog-admin',
+          BLOG_ADMIN_SESSION_SECRET:
+            loaded.BLOG_ADMIN_SESSION_SECRET ||
+            'local-dev-mernify-admin-session-secret',
+          // Optional script bypass — do NOT auto-enable; session login is the local UI path.
+          BLOG_ADMIN_BYPASS: loaded.BLOG_ADMIN_BYPASS || '',
+          BLOG_ADMIN_SECRET: loaded.BLOG_ADMIN_SECRET || '',
+        }
+        const host = req.headers.host || 'localhost:5173'
+        const requestUrl = `http://${host}${req.url}`
+        const headers = new Headers()
+        for (const [key, value] of Object.entries(req.headers)) {
+          if (value == null) continue
+          if (Array.isArray(value)) headers.set(key, value.join(', '))
+          else headers.set(key, String(value))
+        }
+
+        const method = req.method || 'GET'
+        let body
+        if (method !== 'GET' && method !== 'HEAD') {
+          body = await readRawBody(req)
+        }
+
+        const request = new Request(requestUrl, { method, headers, body })
+        const upstream = await handleBlogRequest(request, env, {
+          store,
+          localWriter,
+          siteOrigin: env.SITE_ORIGIN || 'http://localhost:5173',
+        })
+
+        res.statusCode = upstream.status
+        upstream.headers.forEach((value, key) => {
+          if (key.toLowerCase() === 'content-encoding') return
+          res.setHeader(key, value)
+        })
+
+        if (method === 'HEAD' || method === 'OPTIONS') {
+          res.end()
+          return
+        }
+
+        const buf = Buffer.from(await upstream.arrayBuffer())
+        res.end(buf)
+      } catch (err) {
+        res.statusCode = 500
+        res.setHeader('Content-Type', 'application/json')
+        res.end(JSON.stringify({ error: err?.message || 'Blog API error' }))
+        console.error('[blog api]', err)
+      }
+    })
+  }
+
+  return {
+    name: 'blog-api',
+    configureServer: attach,
+    configurePreviewServer: attach,
+  }
+}
+
+/**
+ * Serve admin SPA for client routes (/admin/new, /admin/edit/:id, …).
+ * Mirrors public/_redirects for Cloudflare Pages.
+ */
+function adminSpaFallback() {
+  const rewrite = (req, _res, next) => {
+    const raw = req.url || ''
+    const pathname = raw.split('?')[0] || ''
+    if (pathname === '/admin' || pathname === '/admin/') {
+      req.url = '/admin/index.html' + (raw.includes('?') ? `?${raw.split('?')[1]}` : '')
+      return next()
+    }
+    // Client routes only — leave real assets alone (e.g. /admin/index.html)
+    if (
+      pathname.startsWith('/admin/') &&
+      !pathname.startsWith('/admin/index.html') &&
+      !/\.[a-zA-Z0-9]+$/.test(pathname)
+    ) {
+      req.url = '/admin/index.html' + (raw.includes('?') ? `?${raw.split('?')[1]}` : '')
+    }
+    return next()
+  }
+
+  return {
+    name: 'admin-spa-fallback',
+    configureServer(server) {
+      // Run before Vite's HTML/fallback middleware
+      server.middlewares.use(rewrite)
+    },
+    configurePreviewServer(server) {
+      server.middlewares.use(rewrite)
+    },
+  }
+}
+
 export default defineConfig(({ mode }) => {
   return {
-    plugins: [react(), sitePreviewProxy(), contactApi(mode), newsletterApi(mode)],
+    plugins: [
+      react(),
+      sitePreviewProxy(),
+      contactApi(mode),
+      newsletterApi(mode),
+      blogApi(mode),
+      adminSpaFallback(),
+    ],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
@@ -273,6 +419,10 @@ export default defineConfig(({ mode }) => {
       sourcemap: false,
       modulePreload: { polyfill: false },
       rollupOptions: {
+        input: {
+          main: path.resolve(__dirname, 'index.html'),
+          admin: path.resolve(__dirname, 'admin/index.html'),
+        },
         output: {
           manualChunks(id) {
             if (id.includes('node_modules/gsap')) return 'gsap'

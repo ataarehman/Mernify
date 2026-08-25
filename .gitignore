@@ -36,3 +36,12 @@ scripts/shots/
 # Generated QA output
 scripts/qa-report.json
 
+# Local blog admin store (Vite) + uploaded media
+.data/
+public/uploads/blog/
+!public/uploads/blog/.gitkeep
+
+
+# Local Playwright MCP screenshots
+.playwright-mcp/
+

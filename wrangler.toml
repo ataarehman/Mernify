@@ -13,3 +13,19 @@ pages_build_output_dir = "dist"
 [[services]]
 binding = "CONTACT_WORKER"
 service = "mernify-contact"
+
+# ── Blog content (separate from mernify-ai) ───────────────────────────────────
+# Create once:
+#   npx wrangler d1 create mernify-content
+#   npx wrangler r2 bucket create mernify-blog-media
+# Then replace database_id below and bind the same names on the Pages project.
+# Docs: deploy/BLOG_ADMIN.md
+#
+# [[d1_databases]]
+# binding = "CONTENT_DB"
+# database_name = "mernify-content"
+# database_id = "00000000-0000-0000-0000-000000000000"
+#
+# [[r2_buckets]]
+# binding = "BLOG_MEDIA"
+# bucket_name = "mernify-blog-media"
