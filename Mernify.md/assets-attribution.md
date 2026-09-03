@@ -24,3 +24,11 @@ Record third-party assets that require credit or license notes.
 | 2026-08-25 | `saas-subscriptions-hero/body.webp` (+ `-md`) | Unsplash photo-1563986768609-322da13575f3 / Pexels 6804079 | Unsplash / Pexels | Blog | Cross-device SaaS workflow; subscription UI mockup |
 | 2026-08-25 | `ux-research-hero/body.webp` (+ `-md`) | Unsplash photo-1586717791821-3f44a563fa4c / photo-1559028012-481c04fa702d | Unsplash License | Blog | Wireframe research board; prototype craft |
 | 2026-08-25 | `ai-evaluation-hero/body.webp` (+ `-md`) | Unsplash photo-1516321318423-f06f85e504b3 / Pexels 3861969 | Unsplash / Pexels | Blog | Evaluation workstation; AI systems visualization |
+| 2026-09-03 | `scalable-saas-hero.webp` (+ `-md`) | Unsplash photo-1771923082503-0a3381c46cef | Unsplash License | Blog (published pillar) | MacBook SaaS admin dashboard hero (replaces generic analytics laptop) |
+| 2026-09-03 | `scalable-saas-body.webp` (+ `-md`) | Pexels 1714208 | Pexels License | Blog (published pillar) | Dual-monitor cyan workstation figure for architecture section |
+| 2026-09-03 | `scalable-saas-ops.webp` (+ `-md`) | Unsplash photo-1558494949-ef010cbdcc31 | Unsplash License | Blog (published pillar) | Data-center racks figure after security section |
+| 2026-09-03 | `scalable-saas-roadmap.webp` (+ `-md`) | Unsplash photo-1454165804606-c3d57bc86b40 | Unsplash License | Blog (published pillar) | Planning/roadmap sketch figure after development roadmap |
+| 2026-09-03 | `mvp-development-hero.webp` (+ `-md`) | Unsplash photo-1519389950473-47ba0277781c | Unsplash License | Blog (CMS draft) | Multi-device product workstation hero for MVP cluster article |
+| 2026-09-03 | `mvp-development-body.webp` (+ `-md`) | Unsplash photo-1498050108023-c5249f4df085 | Unsplash License | Blog (CMS draft) | Brand-safe coding desk (replaces Google Docs stock UI) for MVP process section |
+| 2026-09-03 | `mvp-development-iterate.webp` (+ `-md`) | Unsplash photo-1611224923853-80b023f02d71 | Unsplash License | Blog (CMS draft) | Kanban/planning board figure for mistakes/iteration section |
+| 2026-09-03 | `mvp-development-compare.webp` (+ `-md`) | Unsplash photo-1581291518857-4e27b48ff24e | Unsplash License | Blog (CMS draft) | Hand-drawn wireframe craft (replaces Certification Camp / Microsoft Partner UI) for MVP vs prototype comparison |

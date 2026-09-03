@@ -45,3 +45,7 @@ public/uploads/blog/
 # Local Playwright MCP screenshots
 .playwright-mcp/
 
+
+# Local blog image QA previews
+public/assets/images/blog/_preview-*.jpg
+
