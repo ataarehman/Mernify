@@ -7,6 +7,7 @@ import { HomeAbout } from '@/sections/home/HomeAbout'
 import { HomeServicesOverview } from '@/sections/home/HomeServicesOverview'
 import { HomeTrust } from '@/sections/home/HomeTrust'
 import { HomeWork } from '@/sections/home/HomeWork'
+import { HomeMobileApps } from '@/sections/home/HomeMobileApps'
 import { HomeJourney } from '@/sections/home/HomeJourney'
 import { HomeHuman } from '@/sections/home/HomeHuman'
 import { HomeLatestBlogs } from '@/sections/home/HomeLatestBlogs'
@@ -29,6 +30,7 @@ export function HomePage() {
       <HomeServicesOverview />
       <HomeTrust />
       <HomeWork />
+      <HomeMobileApps />
       <HomeJourney />
       <HomeHuman />
       {hasTestimonials ? (

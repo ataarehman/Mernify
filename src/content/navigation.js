@@ -5,6 +5,7 @@ export const navigation = [
   { label: 'About', to: '/about' },
   { label: 'Services', to: '/services', mega: 'services' },
   { label: 'Case Studies', to: '/case-studies' },
+  { label: 'Mobile Apps', to: '/mobile-applications' },
   { label: 'Industries', to: '/industries' },
   { label: 'Process', to: '/process' },
   { label: 'Blog', to: '/blog' },
@@ -21,6 +22,7 @@ export const footerNav = [
   { label: 'Home', to: '/' },
   { label: 'Services', to: '/services' },
   { label: 'Case Studies', to: '/case-studies' },
+  { label: 'Mobile Apps', to: '/mobile-applications' },
   { label: 'Process', to: '/process' },
   { label: 'Contact', to: '/contact' },
 ]
@@ -36,6 +38,7 @@ export const footerServices = [
 
 export const footerSolutions = [
   { label: 'Case Studies', to: '/case-studies' },
+  { label: 'Mobile Apps', to: '/mobile-applications' },
   { label: 'Industries', to: '/industries' },
   { label: 'Delivery Process', to: '/process' },
   { label: 'Dedicated Teams', to: '/services/dedicated-product-teams' },

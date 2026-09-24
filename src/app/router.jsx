@@ -18,6 +18,12 @@ const CaseStudiesPage = lazy(() =>
 const CaseStudyPage = lazy(() =>
   import('@/pages/CaseStudyPage').then((m) => ({ default: m.CaseStudyPage })),
 )
+const MobileAppsPage = lazy(() =>
+  import('@/pages/MobileAppsPage').then((m) => ({ default: m.MobileAppsPage })),
+)
+const MobileAppPage = lazy(() =>
+  import('@/pages/MobileAppPage').then((m) => ({ default: m.MobileAppPage })),
+)
 const ProcessPage = lazy(() =>
   import('@/pages/ProcessPage').then((m) => ({ default: m.ProcessPage })),
 )
@@ -47,6 +53,8 @@ export function AppRouter() {
         <Route path="industries" element={<IndustriesPage />} />
         <Route path="case-studies" element={<CaseStudiesPage />} />
         <Route path="case-studies/:slug" element={<CaseStudyPage />} />
+        <Route path="mobile-applications" element={<MobileAppsPage />} />
+        <Route path="mobile-applications/:slug" element={<MobileAppPage />} />
         <Route path="process" element={<ProcessPage />} />
         <Route path="blog" element={<BlogPage />} />
         <Route path="blog/:slug" element={<BlogPostPage />} />

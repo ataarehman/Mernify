@@ -36,6 +36,7 @@ const STATIC_PATHS = [
   '/services/dedicated-product-teams',
   '/industries',
   '/case-studies',
+  '/mobile-applications',
   '/case-studies/tailorize',
   '/case-studies/servloom',
   '/case-studies/goodbooks-plus-analytics',
